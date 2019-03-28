@@ -2,11 +2,12 @@
 
 namespace App\Services\Authentication;
 
+use App\Data\Models\User;
 use App\Data\Repositories\Users;
-use App\Services\Request\RemoteRequest;
-use App\Data\Repositories\Users as UsersRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Services\Request\RemoteRequest;
+use App\Data\Repositories\Users as UsersRepository;
 
 class Service
 {
@@ -40,33 +41,8 @@ class Service
     {
         $response = $this->loginRequest($request);
 
-        if ($response['success']) {
-            $user = $this->usersRepository->updateLoginUser(
-                $request,
-                $remember,
-                $response
-            );
-
-            if (!is_null($user)) {
-                //Profiles
-                $profiles = app(Authorization::class)->getUserProfiles(
-                    $this->extractCredencialsForUsername($request)
-                );
-
-                $this->usersRepository->updateProfiles($user, $profiles);
-
-                //Permissions
-                $permissions = app(Authorization::class)->getUserPermissions(
-                    $this->extractCredencialsForUsername($request)
-                );
-
-                $this->usersRepository->updatePermissions($user, $permissions);
-
-                Auth::login($user, $remember);
-                return true;
-            }
-        }
-        return false;
+        return $response['success'] &&
+            $this->updateLoginUser($request, $remember, $response);
     }
 
     /**
@@ -233,5 +209,26 @@ class Service
             'message' => 'Attempt failed.',
             'data' => [],
         ];
+    }
+
+    /**
+     * @param $request
+     * @param $remember
+     * @param $response
+     * @return boolean
+     */
+    private function updateLoginUser($request, $remember, $response): bool
+    {
+        $user = $this->usersRepository->updateLoginUser(
+            $request,
+            $remember,
+            $response
+        );
+
+        if (filled($user)) {
+            Auth::login($user, $remember);
+        }
+
+        return filled($user);
     }
 }
