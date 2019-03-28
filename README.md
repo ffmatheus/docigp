@@ -1,24 +1,3 @@
-Systems
-	id
-	name
-
-Departments (Diretoria Geral / CI / Deputado Fulano / Deputado Cicrano)
-	id
-	client_id
-	name
-
-Users
-	id
-	email
-	name
-	department_id
-
-User Departments
-	user_id
-	department_id
-
-
-
 SU - Bouncer::allow('root')->everything();
 
 CI - Bouncer::allow('diretor')->to('criar_lancamento');
