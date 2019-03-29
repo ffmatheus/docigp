@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Services\Request\RemoteRequest;
 use App\Data\Repositories\Users as UsersRepository;
+use Illuminate\Support\Facades\Log;
 
 class Service
 {
@@ -99,9 +100,12 @@ class Service
 
             if (is_null($user)) {
                 // Sistema de login fora do ar e usuário novo
-                dd(
-                    'Não é possível logar pois o sistema de login está fora do ar e o seu usuário é novo'
+                Log::error(
+                    'O usuário ' .
+                        extract_credentials($request)['username'] .
+                        ' tentou fazer login, mas não foi possível pois o sistema remoto autenticação está fora do ar e não há histórico do usuário no banco de dados'
                 );
+                abort(403);
             } else {
                 //Usuário já cadastrado
                 if (
