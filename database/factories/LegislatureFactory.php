@@ -1,6 +1,7 @@
 <?php
 
-use App\Data\Models\User as UserModel;
+use App\Data\Models\Legislature as LegislatureModel;
+use App\Data\Repositories\Users as UsersRepository;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -15,16 +16,15 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(UserModel::class, function (Faker $faker) {
-    preg_match('/(.*?)@(.*)/', $faker->unique()->safeEmail, $output_array);
+$factory->define(LegislatureModel::class, function (Faker $faker) {
+    $yearStart = rand(2015, 2030);
+    $duration = rand(1, 4);
+    $user_id = app(UsersRepository::class)->randomElement()->id;
 
     return [
-        'name' => $faker->name,
-        'username' => $output_array[1],
-        'email' => $output_array[0],
-        'email_verified_at' => now(),
-        'password' =>
-            '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'number' => rand(1, 10),
+        'year_start' => $yearStart,
+        'year_end' => $yearStart + $duration,
+        'created_by_id' => $user_id,
     ];
 });
