@@ -15,4 +15,6 @@ class Legislature extends Model
         'created_by_id',
         'updated_by_id',
     ];
+
+    protected $dates = ['started_at', 'ended_at'];
 }
