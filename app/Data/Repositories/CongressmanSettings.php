@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\CongressmanSetting;
+use App\Data\Models\CongressmanSettings as CongressmanSettingsModel;
 use Illuminate\Support\Facades\Hash;
 
 class CongressmanSettings extends Repository
@@ -10,5 +10,5 @@ class CongressmanSettings extends Repository
     /**
      * @var string
      */
-    protected $model = CongressmanSetting::class;
+    protected $model = CongressmanSettingsModel::class;
 }
