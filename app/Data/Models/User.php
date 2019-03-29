@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Data\Models\Traits\Selectable;
 use OwenIt\Auditing\Auditable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends Authenticatable implements AuditableContract
 {
-    use Notifiable, Auditable;
+    use Notifiable, Auditable, Selectable;
 
     /**
      * The attributes that are mass assignable.
@@ -33,4 +34,12 @@ class User extends Authenticatable implements AuditableContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return array
+     */
+    public function getJoins()
+    {
+        return coollect($this->joins);
+    }
 }
