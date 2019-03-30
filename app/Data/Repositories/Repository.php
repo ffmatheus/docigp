@@ -152,7 +152,7 @@ abstract class Repository
         $array['pagination']['per_page'] = $this->count();
         $array['pagination']['current_page'] = 1;
 
-        return coollect($array);
+        return collect($array);
     }
 
     protected function applyFilter($query)
@@ -254,7 +254,7 @@ abstract class Repository
     {
         $query = $this->newQuery();
 
-        coollect((array) $columns)->each(function ($column) use (
+        collect((array) $columns)->each(function ($column) use (
             $query,
             $arguments
         ) {
@@ -280,7 +280,7 @@ abstract class Repository
 
     protected function getQueryFilter()
     {
-        return coollect(json_decode(request()->get('query'), true));
+        return collect(json_decode(request()->get('query'), true));
     }
 
     protected function makeQueryByAnyColumnName(

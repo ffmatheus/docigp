@@ -40,6 +40,6 @@ class User extends Authenticatable implements AuditableContract
      */
     public function getJoins()
     {
-        return coollect($this->joins);
+        return collect($this->joins);
     }
 }

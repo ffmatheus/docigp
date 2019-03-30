@@ -12,16 +12,11 @@ class Congressmen extends Repository
      */
     protected $model = Congressman::class;
 
-    /**
-     * @param $party
-     * @return string
-     */
-    protected function firstOrCreateParty($party)
+    private function findParty($party)
     {
-        return app(Parties::class)->firstOrCreate([
-            'code' => $party,
-            'name' => $party,
-        ]);
+        return app(Parties::class)->findByCode(
+            $this->normalizePartyCode($party)
+        );
     }
 
     /**
@@ -34,11 +29,32 @@ class Congressmen extends Repository
     }
 
     /**
+     * @param $party
+     * @return string
+     */
+    private function normalizePartyCode($party)
+    {
+        switch ($party) {
+            case 'Novo':
+                return 'NOVO';
+            case 'PC do B':
+                return 'PCdoB';
+            case 'Patriota':
+                return 'PATRI';
+            case 'Avante':
+                return 'AVANTE';
+        }
+
+        return $party;
+    }
+
+    /**
      * @param $data
      */
     public function sync(Collection $data)
     {
         $data->each(function ($congressman) {
+            dump($congressman);
             $this->firstOrCreate(
                 [
                     'remote_id' => $congressman['ID'],
@@ -52,9 +68,8 @@ class Congressmen extends Repository
                         $this->normalizeName($congressman['NomePolitico']) ??
                         $name,
 
-                    'party_id' => $this->firstOrCreateParty(
-                        $congressman['SiglaPartido']
-                    )->id,
+                    'party_id' => $this->findParty($congressman['SiglaPartido'])
+                        ->id,
 
                     'photo_url' => $congressman['Foto'],
 
