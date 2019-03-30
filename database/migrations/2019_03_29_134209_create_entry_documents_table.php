@@ -16,7 +16,7 @@ class CreateEntryDocumentsTable extends Migration
         Schema::create('entry_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('entry_id')->unsigned();
+            $table->bigInteger('entry_id')->unsigned();
             $table->string('disk_name');
             $table->string('path');
             $table->string('name');

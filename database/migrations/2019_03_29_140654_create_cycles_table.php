@@ -16,7 +16,7 @@ class CreateCyclesTable extends Migration
         Schema::create('cycles', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('congressman_legislature_id')->unsigned();
+            $table->bigInteger('congressman_legislature_id')->unsigned();
 
             $table->year('year');
 
@@ -25,17 +25,17 @@ class CreateCyclesTable extends Migration
             $table->timestamp('published_at')->nullable();
 
             $table
-                ->integer('published_by_id')
+                ->bigInteger('published_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('created_by_id')
+                ->bigInteger('created_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('updated_by_id')
+                ->bigInteger('updated_by_id')
                 ->unsigned()
                 ->nullable();
 

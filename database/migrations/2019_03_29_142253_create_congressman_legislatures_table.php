@@ -16,20 +16,20 @@ class CreateCongressmanLegislaturesTable extends Migration
         Schema::create('congressman_legislatures', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('congressman_id')->unsigned();
+            $table->bigInteger('congressman_id')->unsigned();
 
-            $table->integer('legislature_id')->unsigned();
+            $table->bigInteger('legislature_id')->unsigned();
 
             $table->timestamp('started_at');
             $table->timestamp('ended_at')->nullable();
 
             $table
-                ->integer('created_by_id')
+                ->bigInteger('created_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('updated_by_id')
+                ->bigInteger('updated_by_id')
                 ->unsigned()
                 ->nullable();
 
