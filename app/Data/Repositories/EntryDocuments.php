@@ -2,13 +2,13 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\EntryDocument;
-use Illuminate\Support\Facades\Hash;
+use App\Data\Models\EntryDocument as EntryDocumentModel;
 
 class EntryDocuments extends Repository
 {
     /**
      * @var string
      */
-    protected $model = EntryDocument::class;
+    protected $model = EntryDocumentModel::class;
+
 }
