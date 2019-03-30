@@ -9,10 +9,6 @@ class Congressman extends Model
         'name',
         'nickname',
         'party_id',
-<<<<<<< HEAD
-=======
-        'nickname',
->>>>>>> refs/remotes/origin/master
         'photo_url',
         'thumbnail_url',
     ];
