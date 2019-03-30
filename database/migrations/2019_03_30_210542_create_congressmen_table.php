@@ -16,10 +16,18 @@ class CreateCongressmenTable extends Migration
         Schema::create('congressmen', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+<<<<<<< HEAD
             $table->bigInteger('remote_id')->unsigned();
             $table->string('name');
             $table->string('nickname');
             $table->bigInteger('party_id')->unsigned();
+=======
+            $table->bigIncrements('remote_id')->unsigned();
+            $table->string('name');
+            $table->string('nickname');
+            $table->bigIncrements('party_id')->unsigned();
+            $table->string('nickname');
+>>>>>>> refs/remotes/origin/master
             $table->string('photo_url');
             $table->string('thumbnail_url');
 
