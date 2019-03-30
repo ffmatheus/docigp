@@ -10,5 +10,4 @@ class EntryDocuments extends Repository
      * @var string
      */
     protected $model = EntryDocumentModel::class;
-
 }

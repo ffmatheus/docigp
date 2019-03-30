@@ -561,7 +561,6 @@ abstract class Repository
         });
     }
 
-
     public function createFromRequest($request)
     {
         if ($request instanceof Request) {
