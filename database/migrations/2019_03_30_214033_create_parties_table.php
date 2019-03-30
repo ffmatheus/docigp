@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCongressmenTable extends Migration
+class CreatePartiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateCongressmenTable extends Migration
      */
     public function up()
     {
-        Schema::create('congressmen', function (Blueprint $table) {
+        Schema::create('parties', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('remote_id')->unsigned();
+            $table->string('code');
             $table->string('name');
-            $table->string('nickname');
-            $table->bigInteger('party_id')->unsigned();
-            $table->string('photo_url');
-            $table->string('thumbnail_url');
 
             $table->timestamps();
         });
@@ -34,6 +30,6 @@ class CreateCongressmenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('congressmen');
+        Schema::dropIfExists('parties');
     }
 }

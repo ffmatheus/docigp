@@ -9,7 +9,6 @@ class Congressman extends Model
         'name',
         'nickname',
         'party_id',
-        'nickname',
         'photo_url',
         'thumbnail_url',
     ];

@@ -122,6 +122,14 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    /**
+     * Remote requests
+     */
+
+    'remote_request' => [
+        'timeout' => env('REMOTE_REQUEST_TIMEOUT', 20),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
