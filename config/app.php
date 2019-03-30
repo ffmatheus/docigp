@@ -12,7 +12,8 @@ return [
     |
     */
 
-    'name' => 'Verbas de Gabinetes - ALERJ',
+    'name' =>
+        'Descentralização Orçamentária de Custeio Individualizado para Gabinete Parlamentar - DOCIGP',
 
     /*
     |--------------------------------------------------------------------------
