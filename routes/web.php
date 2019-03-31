@@ -12,3 +12,4 @@ require __DIR__ . '/services/parties.php';
 require __DIR__ . '/services/congressmen.php';
 require __DIR__ . '/services/cycles.php';
 require __DIR__ . '/services/entries.php';
+require __DIR__ . '/services/users.php';
