@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        @include('partials.menu')
+        @include('layouts.partials.menu')
 
         <main class="py-4">
             @yield('content')
