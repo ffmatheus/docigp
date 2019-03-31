@@ -7,5 +7,6 @@ class Home extends Controller
 {
     public function index()
     {
+        return view('public.home.index');
     }
 }
