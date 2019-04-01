@@ -6,4 +6,8 @@ use App\Http\Controllers\Controller;
 
 class Legislatures extends Controller
 {
+    public function index()
+    {
+        return view('admin.legislatures.index');
+    }
 }
