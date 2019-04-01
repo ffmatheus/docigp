@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('vg:sync:parties')->daily();
-        $schedule->command('vg:sync:congressmen')->hourly();
+        $schedule->command('docigp:sync:parties')->daily();
+        $schedule->command('docigp:sync:congressmen')->hourly();
     }
 
     /**

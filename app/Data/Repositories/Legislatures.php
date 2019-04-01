@@ -3,7 +3,6 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Legislature as LegislatureModel;
-use App\Data\Models\Legislature;
 
 class Legislatures extends Repository
 {
@@ -22,7 +21,7 @@ class Legislatures extends Repository
 
         $columns = collect(['number' => 'string']);
 
-        $query = Legislature::query();
+        $query = LegislatureModel::query();
 
         $search->each(function ($item) use ($columns, $query) {
             $columns->each(function ($type, $column) use ($query, $item) {
@@ -43,4 +42,11 @@ class Legislatures extends Repository
         return $this->makeResultForSelect($query->orderBy('number')->get());
     }
 
+
+    public function getCurrent()
+    {
+        return $this->newQuery()
+            ->orderBy('year_end', 'desc')
+            ->first();
+    }
 }

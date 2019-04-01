@@ -16,7 +16,7 @@ class CreateCongressmanSettingsTable extends Migration
         Schema::create('congressman_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->float('budget_value', 20, 2);
+            $table->decimal('budget_value', 20, 2);
 
             $table->timestamps();
         });
