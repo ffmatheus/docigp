@@ -15,6 +15,16 @@ class CreateAttachedFilesTable extends Migration
     {
         Schema::create('attached_files', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table
+                ->integer('file_id')
+                ->unsigned()
+                ->index();
+            $table->string('file_type');
+
+            $table->text('original_name');
+            $table->text('mime_type');
+
             $table->timestamps();
         });
     }

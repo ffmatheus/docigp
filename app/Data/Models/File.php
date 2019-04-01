@@ -2,18 +2,18 @@
 
 namespace App\Data\Models;
 
+use \App\AttachedFile;
 use Illuminate\Database\Eloquent\Model;
 
-class AttachedFile extends Model
+class File extends Model
 {
 
     protected $fillable = [
-        'file_id',
-        'file_type',
+        '',
     ];
 
     public function file()
     {
-        return $this->morphTo();
+        return $this->morphOne(AttachedFile::class, 'file');
     }
 }
