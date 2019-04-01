@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class Legislature extends Request
+class User extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -11,6 +11,9 @@ class Legislature extends Request
      */
     public function rules()
     {
-        return ['number' => 'required'];
+        return [
+            'username' => 'required',
+            'email' => 'required',
+        ];
     }
 }
