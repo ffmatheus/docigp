@@ -8,7 +8,5 @@ class UploadFile extends Model
     protected $table = 'uploaded_files';
 
     //TODO a definir
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
 }

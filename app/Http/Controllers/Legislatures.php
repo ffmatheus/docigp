@@ -17,22 +17,25 @@ class Legislatures extends Controller
 
     public function create()
     {
-        return view('legislatures.form')->with(['legislature' => $this->repository->new()]);
+        return view('legislatures.form')->with([
+            'legislature' => $this->repository->new(),
+        ]);
     }
 
-    public function store(LegislatureRequest $request, LegislaturesRepository $repository)
-    {
+    public function store(
+        LegislatureRequest $request,
+        LegislaturesRepository $repository
+    ) {
         $repository->createFromRequest($request);
 
-        return redirect()
-            ->route('legislatures.index');
+        return redirect()->route('legislatures.index');
     }
 
     public function index(LegislaturesRepository $repository, Request $request)
     {
         return view('legislatures.index')
-                ->with('search', $request->get('search'))
-                ->with('legislatures', $repository->search($request));
+            ->with('search', $request->get('search'))
+            ->with('legislatures', $repository->search($request));
     }
 
     public function show($id)
@@ -41,5 +44,4 @@ class Legislatures extends Controller
             ->with('formDisabled', true)
             ->with(['legislatures' => $this->repository->findById($id)]);
     }
-
 }

@@ -42,7 +42,6 @@ class Legislatures extends Repository
         return $this->makeResultForSelect($query->orderBy('number')->get());
     }
 
-
     public function getCurrent()
     {
         return $this->newQuery()

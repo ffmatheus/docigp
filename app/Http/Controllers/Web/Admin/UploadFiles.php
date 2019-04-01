@@ -7,10 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Data\Repositories\UploadFiles as UploadFilesRepository;
 use App\Http\Requests\UploadFile as UploadFileRequest;
 
-
 class UploadFiles extends Controller
 {
-
     private $repository;
 
     public function __construct(UploadFilesRepository $repository)
@@ -23,13 +21,13 @@ class UploadFiles extends Controller
         return view('admin.upload_files.index')->with('uploadedFiles', ['']);
     }
 
-
     public function create()
     {
         dump('create');
-        return view('admin.upload_files.form')->with(['uploadedFiles' => $this->repository->new()]);
+        return view('admin.upload_files.form')->with([
+            'uploadedFiles' => $this->repository->new(),
+        ]);
     }
-
 
     /**
      * @param UploadFileRequest $request
@@ -39,19 +37,12 @@ class UploadFiles extends Controller
         UploadFileRequest $request,
         UploadFilesRepository $repository
     ) {
+        $isOkUploadFile = $repository->uploadFile($request);
 
-        
-            $isOkUploadFile = $repository->uploadFile($request);
+        dump($isOkUploadFile);
 
-            dump($isOkUploadFile);
-
-            return redirect()
-                ->route('uploadFiles.index')
-                ->with(
-                    $this->getSuccessMessage(
-                        'Arquivo está sendo processado.'
-                    )
-                );
-
+        return redirect()
+            ->route('uploadFiles.index')
+            ->with($this->getSuccessMessage('Arquivo está sendo processado.'));
     }
 }
