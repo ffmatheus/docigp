@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCyclesTable extends Migration
+class CreateCongressmanBudgetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,31 +13,28 @@ class CreateCyclesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cycles', function (Blueprint $table) {
+        Schema::create('congressman_budgets', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('congressman_legislature_id')->unsigned();
+            $table->bigInteger('congressman_id')->unsigned();
 
-            $table->year('year');
+            $table->bigInteger('budget_id')->unsigned();
 
-            $table->unsignedDecimal('month', 2, 0);
+            $table->decimal('percentage', 20, 2);
 
-            $table->timestamp('published_at')->nullable();
+            $table
+                ->bigInteger('approved_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table->timestamp('approved_at')->nullable();
 
             $table
                 ->bigInteger('published_by_id')
                 ->unsigned()
                 ->nullable();
 
-            $table
-                ->bigInteger('created_by_id')
-                ->unsigned()
-                ->nullable();
-
-            $table
-                ->bigInteger('updated_by_id')
-                ->unsigned()
-                ->nullable();
+            $table->timestamp('published_at')->nullable();
 
             $table->timestamps();
         });
@@ -50,6 +47,6 @@ class CreateCyclesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cycles');
+        Schema::dropIfExists('congressman_budgets');
     }
 }

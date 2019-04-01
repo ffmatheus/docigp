@@ -27,7 +27,7 @@ Assessor (visualizar)
 Lançador (lançar / editar)
 Verificador (verificar)
 
-Diretor (autorizar / publicar / publicar o que foi autorizado por ele / criar usuário)
+Diretor (associar perfil de deputado / autorizar / publicar / publicar o que foi autorizado por ele / criar usuário)
 Assistente (autorizar / publicar / publicar o que foi autorizado por ele / criar usuário)
 Gestor (autorizar / publicar / criar usuário)
 Funcionário (visualizar)

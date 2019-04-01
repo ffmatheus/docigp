@@ -3,9 +3,23 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     *
+     */
+    private function configureBouncer()
+    {
+        Bouncer::tables([
+            'permissions' => 'bouncer_permissions',
+            'assigned_roles' => 'bouncer_assigned_roles',
+            'roles' => 'bouncer_roles',
+            'abilities' => 'bouncer_abilities',
+        ]);
+    }
+
     /**
      * Register any application services.
      *
@@ -13,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->configureBouncer();
     }
 
     /**
@@ -23,6 +37,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 }
