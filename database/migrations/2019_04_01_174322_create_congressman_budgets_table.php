@@ -22,6 +22,8 @@ class CreateCongressmanBudgetsTable extends Migration
 
             $table->decimal('percentage', 20, 2);
 
+            $table->decimal('value', 20, 2);
+
             $table
                 ->bigInteger('approved_by_id')
                 ->unsigned()
