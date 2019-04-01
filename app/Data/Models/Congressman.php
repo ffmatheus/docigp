@@ -12,4 +12,12 @@ class Congressman extends Model
         'photo_url',
         'thumbnail_url',
     ];
+
+    public function legislatures()
+    {
+        return $this->belongsToMany(
+            Legislature::class,
+            'congressman_legislatures'
+        );
+    }
 }
