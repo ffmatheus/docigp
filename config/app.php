@@ -12,8 +12,7 @@ return [
     |
     */
 
-    'name' =>
-        'Descentralização Orçamentária de Custeio Individualizado para Gabinete Parlamentar - DOCIGP',
+    'name' => 'DOCIGP',
 
     /*
     |--------------------------------------------------------------------------
