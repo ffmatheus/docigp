@@ -19,7 +19,7 @@ class CongressmanBudget extends Model
         'published_at',
     ];
 
-    private function fillValue(): void
+    protected function fillValue(): void
     {
         if ($this->percentageChanged()) {
             $budget = app(Budgets::class)->findById($this->budget_id);
@@ -28,7 +28,7 @@ class CongressmanBudget extends Model
         }
     }
 
-    private function percentageChanged()
+    protected function percentageChanged()
     {
         return blank($this->value) ||
             ($this->isDirty('percentage') && !$this->isDirty('value'));

@@ -31,14 +31,14 @@ class Budget extends Model
         return parent::save();
     }
 
-    private function fillValue(): void
+    protected function fillValue(): void
     {
         if ($this->percentageChanged()) {
             $this->value = ($this->federal_value * $this->percentage) / 100;
         }
     }
 
-    private function percentageChanged()
+    protected function percentageChanged()
     {
         return blank($this->value) ||
             ($this->isDirty('percentage') && !$this->isDirty('value'));
