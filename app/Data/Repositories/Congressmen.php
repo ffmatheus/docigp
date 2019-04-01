@@ -12,6 +12,28 @@ class Congressmen extends Repository
      */
     protected $model = Congressman::class;
 
+    private function createCongressmanFromRemote($congressman)
+    {
+        return $this->firstOrCreate(
+            [
+                'remote_id' => $congressman['ID'],
+            ],
+            [
+                'name' => ($name = $this->normalizeName($congressman['Nome'])),
+
+                'nickname' =>
+                    $this->normalizeName($congressman['NomePolitico']) ?? $name,
+
+                'party_id' => $this->findParty($congressman['SiglaPartido'])
+                    ->id,
+
+                'photo_url' => $congressman['Foto'],
+
+                'thumbnail_url' => $congressman['FotoPequena'],
+            ]
+        );
+    }
+
     private function findParty($party)
     {
         return app(Parties::class)->findByCode(
@@ -54,28 +76,15 @@ class Congressmen extends Repository
     public function sync(Collection $data)
     {
         $data->each(function ($congressman) {
-            dump($congressman);
-            $this->firstOrCreate(
-                [
-                    'remote_id' => $congressman['ID'],
-                ],
-                [
-                    'name' => ($name = $this->normalizeName(
-                        $congressman['Nome']
-                    )),
+            $congressman = $this->createCongressmanFromRemote($congressman);
 
-                    'nickname' =>
-                        $this->normalizeName($congressman['NomePolitico']) ??
-                        $name,
-
-                    'party_id' => $this->findParty($congressman['SiglaPartido'])
-                        ->id,
-
-                    'photo_url' => $congressman['Foto'],
-
-                    'thumbnail_url' => $congressman['FotoPequena'],
-                ]
-            );
+            if ($congressman->wasRecentlyCreated) {
+                $congressman
+                    ->legislatures()
+                    ->save(app(Legislatures::class)->getCurrent(), [
+                        'started_at' => now(),
+                    ]);
+            }
         });
     }
 }
