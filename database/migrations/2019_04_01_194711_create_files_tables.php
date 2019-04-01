@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBouncerTables extends Migration
+class CreateFilesTables extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,14 @@ class CreateBouncerTables extends Migration
      */
     public function up()
     {
-        Schema::create(Models::table('attached_files'), function (
-            Blueprint $table
-        ) {
+        Schema::create(Models::table('files'), function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->string('hash');
+            $table->string('drive');
+            $table->string('path');
+            $table->string('public_url');
+
             $table->timestamps();
         });
     }
@@ -30,6 +34,6 @@ class CreateBouncerTables extends Migration
      */
     public function down()
     {
-        Schema::drop(Models::table('attached_files'));
+        Schema::drop(Models::table('files'));
     }
 }
