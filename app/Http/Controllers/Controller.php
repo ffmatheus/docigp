@@ -10,4 +10,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * @param string $message
+     *
+     * @return array
+     */
+    public function getSuccessMessage($message = 'Gravado com sucesso')
+    {
+        return ['status' => $message];
+    }
 }
