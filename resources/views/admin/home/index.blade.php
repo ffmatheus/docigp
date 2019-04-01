@@ -17,9 +17,6 @@
                     <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entries.index') }}">
                         Prestação de Contas
                     </a>
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('cycles.index') }}">
-                        Ciclos
-                    </a>
                     <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('parties.index') }}">
                         Partidos
                     </a>
