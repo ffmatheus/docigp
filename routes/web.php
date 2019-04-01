@@ -1,22 +1,17 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/// No Auth
+require __DIR__ . '/no-auth/api.php';
+require __DIR__ . '/no-auth/web.php';
 
-require __DIR__ . '/services/legislatures.php';
+/// Auth
+require __DIR__ . '/auth/api.php';
+require __DIR__ . '/auth/admin.php';
+
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//
+//Route::group(['prefix' => '/admin', 'middleware' => 'auth'], function () {
+//});

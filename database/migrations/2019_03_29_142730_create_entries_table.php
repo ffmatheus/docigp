@@ -23,7 +23,7 @@ class CreateEntriesTable extends Migration
             $table->string('to');
 
             $table
-                ->integer('cycle_id')
+                ->bigInteger('cycle_id')
                 ->unsigned()
                 ->nullable();
 
@@ -32,27 +32,27 @@ class CreateEntriesTable extends Migration
             $table->timestamp('published_at')->nullable();
 
             $table
-                ->integer('verified_by_id')
+                ->bigInteger('verified_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('authorised_by_id')
+                ->bigInteger('authorised_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('published_by_id')
+                ->bigInteger('published_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('created_by_id')
+                ->bigInteger('created_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('updated_by_id')
+                ->bigInteger('updated_by_id')
                 ->unsigned()
                 ->nullable();
 

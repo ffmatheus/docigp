@@ -1,18 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
+use App\Services\DataSync\Service as DataSyncService;
 
-/*
-|--------------------------------------------------------------------------
-| Console Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of your Closure based console
-| commands. Each Closure is bound to a command instance allowing a
-| simple approach to interacting with each command's IO methods.
-|
-*/
+Artisan::command('vg:sync:congressmen', function () {
+    app(DataSyncService::class)->congressmen();
+})->describe('Sync congressmen data');
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+Artisan::command('vg:sync:parties', function () {
+    app(DataSyncService::class)->parties();
+})->describe('Sync congressmen data');

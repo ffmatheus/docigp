@@ -2,7 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\User as UserModel;
+use App\Data\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class Users extends Repository
@@ -10,7 +10,7 @@ class Users extends Repository
     /**
      * @var string
      */
-    protected $model = UserModel::class;
+    protected $model = User::class;
 
     /**
      * @param $email

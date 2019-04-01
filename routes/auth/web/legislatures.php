@@ -1,5 +1,4 @@
 <?php
-
 Route::group(['prefix' => '/legislatures'], function () {
     Route::get('/create', 'Legislatures@create')->name('legislatures.create');
 

@@ -4,10 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -70,12 +80,12 @@
                     {{ config('app.name') }}
                 </div>
 
-                <div class="links">
+                <div>
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/home') }}">Principal</a>
+                            <a href="{{ url('/admin') }}" class="btn btn-primary">Administrador</a>
                         @else
-                            <a href="{{ route('login') }}">Entrar</a>
+                            <a href="{{ route('login') }}" class="btn btn-primary">Entrar</a>
                         @endauth
                     @endif
                 </div>

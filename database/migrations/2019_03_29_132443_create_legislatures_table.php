@@ -19,7 +19,7 @@ class CreateLegislaturesTable extends Migration
             $table->integer('number');
             $table->integer('year_start');
             $table->integer('year_end');
-            $table->integer('created_by_id')->unsigned();
+            $table->bigInteger('created_by_id')->unsigned();
 
             $table->timestamps();
         });

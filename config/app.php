@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'name' => 'Verbas de Gabinetes - ALERJ',
+    'name' => 'DOCIGP',
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +121,14 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    /**
+     * Remote requests
+     */
+
+    'remote_request' => [
+        'timeout' => env('REMOTE_REQUEST_TIMEOUT', 20),
+    ],
 
     /*
     |--------------------------------------------------------------------------

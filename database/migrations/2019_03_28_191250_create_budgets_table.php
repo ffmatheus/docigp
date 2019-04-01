@@ -22,12 +22,12 @@ class CreateBudgetsTable extends Migration
             $table->float('value', 20, 2);
 
             $table
-                ->integer('created_by_id')
+                ->bigInteger('created_by_id')
                 ->unsigned()
                 ->nullable();
 
             $table
-                ->integer('updated_by_id')
+                ->bigInteger('updated_by_id')
                 ->unsigned()
                 ->nullable();
 
