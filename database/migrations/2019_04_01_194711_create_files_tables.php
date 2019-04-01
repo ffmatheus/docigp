@@ -15,12 +15,12 @@ class CreateBouncerTables extends Migration
      */
     public function up()
     {
-        Schema::create(Models::table('attached_files'), function (Blueprint $table) {
+        Schema::create(Models::table('attached_files'), function (
+            Blueprint $table
+        ) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
-
-
     }
 
     /**
