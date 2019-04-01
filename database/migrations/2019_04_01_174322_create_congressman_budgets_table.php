@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBudgetsTable extends Migration
+class CreateCongressmanBudgetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,21 @@ class CreateBudgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('budgets', function (Blueprint $table) {
+        Schema::create('congressman_budgets', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->timestamp('date');
+            $table->bigInteger('congressman_id')->unsigned();
 
-            $table->decimal('federal_value', 20, 2);
+            $table->bigInteger('budget_id')->unsigned();
 
             $table->decimal('percentage', 20, 2);
 
-            $table->decimal('value', 20, 2);
-
             $table
-                ->bigInteger('created_by_id')
+                ->bigInteger('approved_by_id')
                 ->unsigned()
                 ->nullable();
 
-            $table
-                ->bigInteger('updated_by_id')
-                ->unsigned()
-                ->nullable();
+            $table->timestamp('approved_at')->nullable();
 
             $table->timestamps();
         });
@@ -45,6 +40,6 @@ class CreateBudgetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('budgets');
+        Schema::dropIfExists('congressman_budgets');
     }
 }

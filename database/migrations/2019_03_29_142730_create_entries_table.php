@@ -17,7 +17,7 @@ class CreateEntriesTable extends Migration
             $table->bigIncrements('id');
 
             $table->timestamp('date');
-            $table->float('value', 20, 2);
+            $table->decimal('value', 20, 2);
 
             $table->string('object');
             $table->string('to');

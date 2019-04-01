@@ -7,6 +7,9 @@ use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     *
+     */
     private function configureBouncer()
     {
         Bouncer::tables([
