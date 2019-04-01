@@ -1,3 +1,11 @@
+### Comandos
+
+docigp:sync:parties
+docigp:sync:congressmen
+docigp:budget:generate
+
+### Permissões
+
 SU - Bouncer::allow('root')->everything();
 
 CI - Bouncer::allow('diretor')->to('criar_lancamento');
