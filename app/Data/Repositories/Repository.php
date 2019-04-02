@@ -543,7 +543,7 @@ abstract class Repository
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Coollection|static[]
      */
     public function search(Request $request)
     {

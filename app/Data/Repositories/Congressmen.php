@@ -3,7 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Congressman;
-use Illuminate\Support\Collection;
+use PragmaRX\Coollection\Package\Coollection;
 
 class Congressmen extends Repository
 {
@@ -73,7 +73,7 @@ class Congressmen extends Repository
     /**
      * @param $data
      */
-    public function sync(Collection $data)
+    public function sync(Coollection $data)
     {
         $data->each(function ($congressman) {
             $congressman = $this->createCongressmanFromRemote($congressman);

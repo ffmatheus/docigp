@@ -3,9 +3,9 @@
 namespace App\Services\DataSync;
 
 use App\Data\Repositories\Parties;
-use Illuminate\Support\Collection;
 use App\Data\Repositories\Congressmen;
 use App\Services\HttpClient\Service as HttpClientService;
+use PragmaRX\Coollection\Package\Coollection;
 
 class Service
 {
@@ -19,7 +19,7 @@ class Service
             static::CONGRESSMEN_ENDPOINT
         );
 
-        if ($result instanceof Collection) {
+        if ($result instanceof Coollection) {
             app(Congressmen::class)->sync($result['data']);
         }
     }
@@ -34,7 +34,7 @@ class Service
             );
 
             if (
-                $result instanceof Collection &&
+                $result instanceof Coollection &&
                 count($result['data']['dados']) > 0
             ) {
                 app(Parties::class)->sync($result['data']['dados']);
