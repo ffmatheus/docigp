@@ -13,7 +13,7 @@ class Parties extends Repository
 
     public function sync($data)
     {
-        collect($data)->each(function ($party) {
+        coollect($data)->each(function ($party) {
             $this->firstOrCreate(
                 [
                     'code' => $party['sigla'],

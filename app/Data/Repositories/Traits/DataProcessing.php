@@ -44,11 +44,11 @@ trait DataProcessing
 
     public function processPlugins($data, $plugins, $convertToArray)
     {
-        collect($plugins)->each(function ($plugin) use (
+        coollect($plugins)->each(function ($plugin) use (
             &$data,
             $convertToArray
         ) {
-            $data = collect($data)->map(function ($item) use (
+            $data = coollect($data)->map(function ($item) use (
                 $plugin,
                 $convertToArray
             ) {
