@@ -29,8 +29,9 @@
             <main class="py-4">
                 @yield('content')
             </main>
-
-            @include('layouts.partials.livereload')
         </div>
+
+        @include('layouts.partials.livereload')
+        @include('layouts.partials.google-analytics')
     </body>
 </html>
