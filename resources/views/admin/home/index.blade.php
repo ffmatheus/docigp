@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" id="vue-admin">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
@@ -16,9 +16,6 @@
 
                     <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entries.index') }}">
                         Prestação de Contas
-                    </a>
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('cycles.index') }}">
-                        Ciclos
                     </a>
                     <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('parties.index') }}">
                         Partidos

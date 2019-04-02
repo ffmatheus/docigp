@@ -31,9 +31,6 @@
                             <a class="dropdown-item" href="{{ route('entries.index') }}">
                                 Prestação de Contas
                             </a>
-                            <a class="dropdown-item" href="{{ route('cycles.index') }}">
-                                Ciclos
-                            </a>
                             <a class="dropdown-item" href="{{ route('parties.index') }}">
                                 Partidos
                             </a>

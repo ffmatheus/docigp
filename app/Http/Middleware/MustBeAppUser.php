@@ -17,6 +17,8 @@ class MustBeAppUser
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // TODO: Bruno está desenvolvendo este módulo
+        //
         //        if (!Gate::allows('appUser')) {
         //            abort(403, 'Você não está autorizado a usar este sistema');
         //        }

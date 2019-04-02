@@ -2,15 +2,17 @@
 
 namespace App\Data\Models;
 
-use App\Data\Models\Traits\Selectable;
+use FontLib\Table\Type\name;
 use OwenIt\Auditing\Auditable;
+use App\Data\Models\Traits\Selectable;
 use Illuminate\Notifications\Notifiable;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends Authenticatable implements AuditableContract
 {
-    use Notifiable, Auditable, Selectable;
+    use Notifiable, Auditable, Selectable, HasRolesAndAbilities;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,8 @@ class User extends Authenticatable implements AuditableContract
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    protected $appends = ['roles', 'abilities', 'roles_string'];
 
     /**
      * The attributes that should be cast to native types.
@@ -41,5 +45,31 @@ class User extends Authenticatable implements AuditableContract
     public function getJoins()
     {
         return collect($this->joins);
+    }
+
+    public function getRolesAttribute()
+    {
+        return $this->roles();
+    }
+
+    public function getAbilitiesAttribute()
+    {
+        return $this->abilities();
+    }
+
+    public function getRolesStringAttribute()
+    {
+        $string = '';
+
+        $array = $this->getRoles();
+
+        foreach ($array as $role) {
+            if (!($role === end($array))) {
+                $string .= $role . ' ';
+            } else {
+                $string .= $role . ', ';
+            }
+        }
+        return $string;
     }
 }
