@@ -302,15 +302,16 @@ window.downloadPDF = fileUrl => {
 }
 
 window.publicChannel = channel => {
-    return window.Echo.channel(channel)
+    dd(window.Echo)
+    // return Echo.channel(channel)
 }
 
 window.privateChannel = channel => {
-    return window.Echo.private(channel)
+    // return Echo.private(channel)
 }
 
 window.subscribePublicChannel = (model, className, callable) => {
-    publicChannel(model).listen(className, callable)
+    // publicChannel(model).listen(className, callable)
 }
 
 window.basename = str => {

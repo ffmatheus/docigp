@@ -4,7 +4,9 @@
             <div class="card">
                 <div class="card-header">Prestação de Contas</div>
 
-                <div class="card-body"></div>
+                <div class="card-body">
+                    <app-congressmen></app-congressmen>
+                </div>
             </div>
         </div>
     </div>

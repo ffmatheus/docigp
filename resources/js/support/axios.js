@@ -27,9 +27,9 @@ if (token) {
 }
 
 axios.interceptors.response.use(undefined, error => {
-    let res = error.response
+    let response = error.response
 
-    if (res.status === 401) {
+    if (response && response.status === 401) {
         window.location = '/login'
     } else {
         return Promise.reject(error)
