@@ -12,3 +12,16 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+td:first-child, th:first-child {
+  padding-left: 15px !important;
+}
+
+td:last-child, th:last-child {
+  padding-right: 15px !important;
+}
+
+th {
+  background-color: #0a008a;
+  color: white;
+}

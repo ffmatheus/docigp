@@ -15,7 +15,7 @@ export function load(context) {
                 }).then(response => {
                     context.dispatch('setDataAfterLoad', response.data)
                 })
-            }, 1500)
+            }, 450)
         }
 
         dd('using debouncedByUrl: ', urlHash, url)

@@ -22,6 +22,7 @@ import * as mutations from './mutations'
 import admin from './modules/admin'
 import environment from './modules/environment'
 import congressmen from './modules/congressmen'
+import budgets from './modules/budgets'
 
 /**
  * State
@@ -42,6 +43,7 @@ let store = new Vuex.Store({
         admin,
         environment,
         congressmen,
+        budgets,
     },
 })
 

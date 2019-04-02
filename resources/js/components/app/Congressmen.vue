@@ -1,35 +1,31 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
-            <app-table-panel
-                :title="'Deputados (' + pagination.total + ')'"
-                :per-page="perPage"
-                :filter-text="filterText"
-                @input-filter-text="filterText = $event.target.value"
-                @set-per-page="perPage = $event"
+    <app-table-panel
+        :title="'Deputados (' + pagination.total + ')'"
+        :per-page="perPage"
+        :filter-text="filterText"
+        @input-filter-text="filterText = $event.target.value"
+        @set-per-page="perPage = $event"
+    >
+        <app-table
+            :pagination="pagination"
+            @goto-page="gotoPage($event)"
+            :columns="['Nome do Parlamentar']"
+        >
+            <tr
+                @click="select(congressman)"
+                v-for="congressman in congressmen.data.rows"
+                :class="{
+                    'cursor-pointer': true,
+                    'bg-primary-lighter text-white': isCurrent(
+                        congressman,
+                        selected,
+                    ),
+                }"
             >
-                <app-table
-                    :pagination="pagination"
-                    @goto-page="gotoPage($event)"
-                    :columns="['Nome do Parlamentar']"
-                >
-                    <tr
-                        @click="select(congressman)"
-                        v-for="congressman in congressmen.data.rows"
-                        :class="{
-                            'cursor-pointer': true,
-                            'bg-primary-lighter text-white': isCurrent(
-                                congressman,
-                                selected,
-                            ),
-                        }"
-                    >
-                        <td class="align-middle">{{ congressman.name }}</td>
-                    </tr>
-                </app-table>
-            </app-table-panel>
-        </div>
-    </div>
+                <td class="align-middle">{{ congressman.name }}</td>
+            </tr>
+        </app-table>
+    </app-table-panel>
 </template>
 
 <script>
