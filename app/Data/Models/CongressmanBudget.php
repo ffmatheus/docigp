@@ -10,7 +10,7 @@ class CongressmanBudget extends Model
      * @var array
      */
     protected $fillable = [
-        'congressman_id',
+        'congressman_legislature_id',
         'budget_id',
         'percentage',
         'approved_by_id',

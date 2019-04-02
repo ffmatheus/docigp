@@ -23,11 +23,6 @@ class CreateEntriesTable extends Migration
             $table->string('to');
 
             $table
-                ->bigInteger('congressman_legislature_id')
-                ->unsigned()
-                ->nullable();
-
-            $table
                 ->bigInteger('congressman_budget_id')
                 ->unsigned()
                 ->nullable();

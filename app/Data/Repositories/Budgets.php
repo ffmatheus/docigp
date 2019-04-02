@@ -30,7 +30,8 @@ class Budgets extends Repository
         $current = $congressman->currentBudget;
 
         CongressmanBudget::create([
-            'congressman_id' => $congressman->id,
+            'congressman_legislature_id' =>
+                $congressman->currentLegislature->id,
             'budget_id' => $currentGlobal->id,
             'percentage' => $current->percentage ?? 0,
         ]);

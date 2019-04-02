@@ -23,7 +23,10 @@ class Congressman extends Model
 
     public function budgets()
     {
-        return $this->hasMany(CongressmanBudget::class);
+        return $this->hasManyThrough(
+            CongressmanBudget::class,
+            CongressmanLegislature::class
+        );
     }
 
     public function scopeActive($query)
@@ -42,6 +45,13 @@ class Congressman extends Model
     {
         return $this->budgets()
             ->orderBy('created_at', 'desc')
+            ->first();
+    }
+
+    public function getCurrentLegislatureAttribute()
+    {
+        return $this->legislatures()
+            ->whereNull('ended_at')
             ->first();
     }
 }

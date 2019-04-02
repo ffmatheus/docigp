@@ -16,7 +16,10 @@ class CreateCongressmanBudgetsTable extends Migration
         Schema::create('congressman_budgets', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('congressman_id')->unsigned();
+            $table
+                ->bigInteger('congressman_legislature_id')
+                ->unsigned()
+                ->nullable();
 
             $table->bigInteger('budget_id')->unsigned();
 
