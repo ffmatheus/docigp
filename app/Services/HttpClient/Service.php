@@ -79,7 +79,7 @@ class Service
             );
         }
 
-        return collect($data);
+        return coollect($data);
     }
 
     /**
@@ -139,7 +139,7 @@ class Service
      */
     private function toCollection($body)
     {
-        return is_array($body) ? collect($body) : null;
+        return is_array($body) ? coollect($body) : null;
     }
 
     /**
