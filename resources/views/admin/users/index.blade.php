@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            @include('users.partials.table')
+            @include('admin.users.partials.table')
         </div>
     </div>
 @endsection

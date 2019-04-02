@@ -18,6 +18,21 @@ function endTimer()
     return Timer::$endtime - Timer::$starttime;
 }
 
+if (!function_exists('studly')) {
+    /**
+     * Convert a value to studly caps case.
+     *
+     * @param  string $value
+     * @return string
+     */
+    function studly($value)
+    {
+        $value = ucwords(str_replace(array('-', '_'), ' ', $value));
+
+        return str_replace(' ', '', $value);
+    }
+}
+
 function toBoolean($boolean)
 {
     return $boolean === 'true' ||

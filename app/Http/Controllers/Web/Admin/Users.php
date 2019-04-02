@@ -6,7 +6,6 @@ use App\Data\Repositories\Roles;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Users as UsersRepository;
 use App\Http\Requests\User as UserRequest;
-use Silber\Bouncer\Bouncer;
 use Silber\Bouncer\Database\Role as BouncerRole;
 
 class Users extends Controller
@@ -31,7 +30,7 @@ class Users extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('admin.users.create');
     }
 
     /**
@@ -44,7 +43,7 @@ class Users extends Controller
         $user = app(UsersRepository::class)->findById($id);
 
         //TODO selecionar só as roles possíveis em allRoles
-        return view('users.form')
+        return view('admin.users.form')
             ->with('allRoles', BouncerRole::all())
             ->with('user', $user)
             ->with('formDisabled', true);
@@ -58,14 +57,11 @@ class Users extends Controller
      */
     public function store(UserRequest $request, UsersRepository $repository)
     {
-        $repository->createFromRequest($request);
+        $user = app(UsersRepository::class)->storeFromArray($request->all());
 
-        dd($request->all());
-        dd($request->get('assigned-roles'));
+        $user->syncRoles($request->get('roles_array'));
 
-        return redirect()
-            ->route('users.index')
-            ->with('');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -73,9 +69,23 @@ class Users extends Controller
      */
     public function index()
     {
-        return view('users.index')->with(
+        return view('admin.users.index')->with(
             'users',
             $this->usersRepository->all()
         );
+    }
+
+    /**
+     * @param UserRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(UserRequest $request, $id)
+    {
+        $user = app(UsersRepository::class)->update($id, $request->all());
+
+        $user->syncRoles($request->get('roles_array'));
+
+        return redirect()->route('users.index');
     }
 }

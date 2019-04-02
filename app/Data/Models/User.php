@@ -2,13 +2,13 @@
 
 namespace App\Data\Models;
 
-use FontLib\Table\Type\name;
 use OwenIt\Auditing\Auditable;
 use App\Data\Traits\Selectable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class User extends Authenticatable implements AuditableContract
 {
@@ -19,6 +19,7 @@ class User extends Authenticatable implements AuditableContract
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $fillable = [
         'name',
         'email',
@@ -26,6 +27,9 @@ class User extends Authenticatable implements AuditableContract
         'username',
         'congressman_id',
     ];
+=======
+    protected $fillable = ['name', 'email', 'username'];
+>>>>>>> Users roles crud
 
     /**
      * The attributes that should be hidden for arrays.
@@ -67,15 +71,28 @@ class User extends Authenticatable implements AuditableContract
     {
         $string = '';
 
-        $array = $this->getRoles();
+        $array = $this->getRoles()->toArray();
+
+        sort($array);
 
         foreach ($array as $role) {
-            if (!($role === end($array))) {
-                $string .= $role . ' ';
+            if ($role == end($array)) {
+                $string .= $role;
             } else {
                 $string .= $role . ', ';
             }
         }
         return $string;
+    }
+
+    public function syncRoles($roles_array)
+    {
+        $rolesToSync = [];
+
+        foreach ($roles_array as $role) {
+            $rolesToSync[] = $role['name'];
+        }
+
+        Bouncer::sync($this)->roles($rolesToSync);
     }
 }
