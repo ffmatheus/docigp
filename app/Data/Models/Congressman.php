@@ -13,6 +13,8 @@ class Congressman extends Model
         'thumbnail_url',
     ];
 
+    protected $filterableColumns = ['name'];
+
     public function legislatures()
     {
         return $this->belongsToMany(
