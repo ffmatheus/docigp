@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @include('layouts.partials.environment')
 </head>
 <body>
     <div id="app">
