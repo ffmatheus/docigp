@@ -39,7 +39,7 @@ class Service
                 ],
             ],
 
-            'user' => dd(auth()->user()),
+            'user' => auth()->user(),
 
             'timestamp' => now()->toDateTimeString(),
 
