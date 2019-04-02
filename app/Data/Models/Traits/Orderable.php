@@ -2,17 +2,17 @@
 
 namespace App\Data\Models\Traits;
 
-trait Joinable
+trait Orderable
 {
     /**
      * Columns to be joined in usual queries
      *
      * @var array|null
      */
-    protected $joins;
+    protected $orderBy;
 
-    public function getJoins()
+    public function getOrderBy()
     {
-        return coollect($this->joins);
+        return coollect($this->orderBy);
     }
 }

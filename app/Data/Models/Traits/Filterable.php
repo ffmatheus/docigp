@@ -2,17 +2,17 @@
 
 namespace App\Data\Models\Traits;
 
-trait Joinable
+trait Filterable
 {
     /**
      * Columns to be joined in usual queries
      *
      * @var array|null
      */
-    protected $joins;
+    protected $filterableColumns;
 
-    public function getJoins()
+    public function getFilterableColumns()
     {
-        return coollect($this->joins);
+        return coollect($this->filterableColumns);
     }
 }
