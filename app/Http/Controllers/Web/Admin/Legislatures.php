@@ -18,7 +18,7 @@ class Legislatures extends Controller
 
     public function create()
     {
-        return view('legislatures.form')->with([
+        return view('legislatures.show')->with([
             'legislature' => $this->repository->new(),
         ]);
     }
