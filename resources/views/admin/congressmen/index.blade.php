@@ -27,7 +27,7 @@
                 </div>
             @endif
 
-            {{--@include('admin.congressmen.partials.table')--}}
+            @include('admin.congressmen.partials.table')
         </div>
     </div>
 @endsection

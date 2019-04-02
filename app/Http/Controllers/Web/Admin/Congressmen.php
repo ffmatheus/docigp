@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Data\Repositories\Congressmen as CongressmenRepository;
 
 class Congressmen extends Controller
@@ -13,12 +14,6 @@ class Congressmen extends Controller
     public function __construct(CongressmenRepository $repository)
     {
         $this->repository = $repository;
-    }
-
-
-    public function index()
-    {
-        return view('admin.congressmen.index');
     }
 
     public function create()
@@ -35,5 +30,12 @@ class Congressmen extends Controller
         $repository->createFromRequest($request);
 
         return redirect()->route('admin.congressmen.index');
+    }
+
+    public function index(CongressmenRepository $repository, Request $request)
+    {
+        return view('admin.congressmen.index')
+            ->with('search', $request->get('search'))
+            ->with('congressmen', $this->repository->search($request));
     }
 }

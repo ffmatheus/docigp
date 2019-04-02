@@ -10,20 +10,20 @@
     </div>
 @endif
 
-<table id="legislaturesTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="congressmenTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
     <tr>
         <th>Número</th>
     </tr>
     </thead>
 
-    @forelse ($legislatures as $legislature)
+    @forelse ($congressmen as $congressman)
         <tr>
             <td>
-                <a href="{{ route('legislatures.show', ['id' => $legislature->id]) }}">{{ $legislature->number }}</a>
+                <a href="{{ route('congressmen.show', ['id' => $congressman->id]) }}">{{ $congressman->number }}</a>
             </td>
         </tr>
     @empty
-        <p>Nenhuma Legislatura encontrada</p>
+        <p>Nenhum Deputado encontrado</p>
     @endforelse
 </table>
