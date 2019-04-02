@@ -4,6 +4,8 @@ docigp:sync:parties
 docigp:sync:congressmen
 docigp:budget:generate
 
+a migrate:fresh -vvv; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:budget:generate -vvv; a db:seed -vvv
+
 ### Permissões
 
 SU - Bouncer::allow('root')->everything();
