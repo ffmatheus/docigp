@@ -13,7 +13,8 @@
             :pagination="pagination"
             @goto-page="gotoPage($event)"
             :columns="[
-                'Mês/Ano',
+                'Ano / Mês',
+
                 {
                     type: 'label',
                     title: 'Referência',
@@ -97,7 +98,7 @@
                     <button
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"
-                        title="Editar percentual"
+                        title="Alterar percentual solicitado"
                     >
                         %
                     </button>

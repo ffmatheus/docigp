@@ -13,7 +13,7 @@
             :pagination="pagination"
             @goto-page="gotoPage($event)"
             :columns="[
-                'Mês/Ano',
+                'Ano / Mês',
                 {
                     type: 'label',
                     title: 'Referência',
