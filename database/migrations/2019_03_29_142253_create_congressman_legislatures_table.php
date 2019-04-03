@@ -20,8 +20,11 @@ class CreateCongressmanLegislaturesTable extends Migration
 
             $table->bigInteger('legislature_id')->unsigned();
 
-            $table->timestamp('started_at');
-            $table->timestamp('ended_at')->nullable();
+            $table->timestamp('started_at')->index();
+            $table
+                ->timestamp('ended_at')
+                ->nullable()
+                ->index();
 
             $table
                 ->bigInteger('created_by_id')
