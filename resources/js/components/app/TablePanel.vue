@@ -99,7 +99,11 @@
         </b-collapse>
 
         <b-collapse :id="makeRandomId()" v-model="collapsed" class="mt-2">
-            <div class="row">
+            <div
+                class="row cursor-pointer"
+                :v-b-toggle="unCollapsed"
+                @click="unCollapsed = !unCollapsed"
+            >
                 <div class="col-12 text-center">
                     <h4>
                         {{ makeCollapsedLabel() }}
