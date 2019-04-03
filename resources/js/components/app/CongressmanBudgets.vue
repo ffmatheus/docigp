@@ -26,34 +26,34 @@
                 },
                 {
                     type: 'label',
-                    title: 'Máximo',
+                    title: 'Recebido',
                     trClass: 'text-right',
                 },
             ]"
         >
             <tr
-                @click="select(budget)"
-                v-for="budget in congressmanBudgets.data.rows"
+                @click="select(congressmanBudget)"
+                v-for="congressmanBudget in congressmanBudgets.data.rows"
                 :class="{
                     'cursor-pointer': true,
                     'bg-primary-lighter text-white': isCurrent(
-                        budget,
+                        congressmanBudget,
                         selected,
                     ),
                 }"
             >
-                <td class="align-middle">{{ makeDate(budget) }}</td>
+                <td class="align-middle">{{ makeDate(congressmanBudget) }}</td>
 
                 <td class="align-middle text-right">
-                    {{ budget.state_value_formatted }}
+                    {{ congressmanBudget.state_value_formatted }}
                 </td>
 
                 <td class="align-middle text-right">
-                    {{ budget.percentage_formatted }}
+                    {{ congressmanBudget.percentage_formatted }}
                 </td>
 
                 <td class="align-middle text-right">
-                    {{ budget.value_formatted }}
+                    {{ congressmanBudget.value_formatted }}
                 </td>
             </tr>
         </app-table>
