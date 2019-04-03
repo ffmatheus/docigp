@@ -15,6 +15,8 @@ class Congressman extends Model
 
     protected $filterableColumns = ['name'];
 
+    protected $orderBy = ['name' => 'asc'];
+
     public function legislatures()
     {
         return $this->belongsToMany(

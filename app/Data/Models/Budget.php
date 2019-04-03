@@ -18,6 +18,10 @@ class Budget extends Model
 
     protected $dates = ['date', 'created_at', 'updated_at'];
 
+    protected $orderBy = ['date' => 'desc'];
+
+    protected $filterableColumns = ['date'];
+
     /**
      * Save the model to the database.
      *
