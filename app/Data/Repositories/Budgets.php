@@ -5,6 +5,7 @@ namespace App\Data\Repositories;
 use App\Data\Models\Budget;
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanBudget;
+use Carbon\Carbon;
 
 class Budgets extends Repository
 {
@@ -30,7 +31,8 @@ class Budgets extends Repository
         $current = $congressman->currentBudget;
 
         CongressmanBudget::create([
-            'congressman_id' => $congressman->id,
+            'congressman_legislature_id' =>
+                $congressman->currentLegislature->id,
             'budget_id' => $currentGlobal->id,
             'percentage' => $current->percentage ?? 0,
         ]);
@@ -84,5 +86,29 @@ class Budgets extends Repository
         $this->generateGlobalBudget();
 
         $this->generateCongressmanBudgets();
+    }
+
+    public function transform($data)
+    {
+        $this->addTransformationPlugin(function ($budget) {
+            $budget['year'] = Carbon::parse($budget['date'])->year;
+
+            $budget['month'] = sprintf(
+                '%02d',
+                Carbon::parse($budget['date'])->month
+            );
+
+            $budget['federal_value_formatted'] = to_reais(
+                $budget['federal_value']
+            );
+
+            $budget['value_formatted'] = to_reais($budget['value']);
+
+            $budget['percentage_formatted'] = $budget['percentage'] . '%';
+
+            return $budget;
+        });
+
+        return parent::transform($data);
     }
 }

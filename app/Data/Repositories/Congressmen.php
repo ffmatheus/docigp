@@ -3,7 +3,8 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Congressman;
-use Illuminate\Support\Collection;
+use App\Data\Models\CongressmanLegislature;
+use PragmaRX\Coollection\Package\Coollection;
 
 class Congressmen extends Repository
 {
@@ -73,17 +74,23 @@ class Congressmen extends Repository
     /**
      * @param $data
      */
-    public function sync(Collection $data)
+    public function sync(Coollection $data)
     {
         $data->each(function ($congressman) {
             $congressman = $this->createCongressmanFromRemote($congressman);
 
             if ($congressman->wasRecentlyCreated) {
-                $congressman
-                    ->legislatures()
-                    ->save(app(Legislatures::class)->getCurrent(), [
-                        'started_at' => now(),
-                    ]);
+                $legislature = CongressmanLegislature::firstOrCreate(
+                    [
+                        'congressman_id' => $congressman->id,
+                        'legislature_id' => app(
+                            Legislatures::class
+                        )->getCurrent()->id,
+                    ],
+                    ['started_at' => now()]
+                );
+
+                $congressman->legislatures()->save($legislature);
             }
         });
     }

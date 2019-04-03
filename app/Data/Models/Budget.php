@@ -18,6 +18,10 @@ class Budget extends Base
 
     protected $dates = ['date', 'created_at', 'updated_at'];
 
+    protected $orderBy = ['date' => 'desc'];
+
+    protected $filterableColumns = ['date'];
+
     /**
      * Save the model to the database.
      *
@@ -26,10 +30,21 @@ class Budget extends Base
      */
     public function save(array $options = [])
     {
-        if (blank($this->value)) {
-            $this->value = ($this->federal_value * $this->percentage) / 100;
-        }
+        $this->fillValue();
 
         return parent::save();
+    }
+
+    protected function fillValue(): void
+    {
+        if ($this->percentageChanged()) {
+            $this->value = ($this->federal_value * $this->percentage) / 100;
+        }
+    }
+
+    protected function percentageChanged()
+    {
+        return blank($this->value) ||
+            ($this->isDirty('percentage') && !$this->isDirty('value'));
     }
 }

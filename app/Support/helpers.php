@@ -61,7 +61,7 @@ function remove_punctuation($string)
 
 function request_data()
 {
-    return collect(request()->all());
+    return coollect(request()->all());
 }
 
 function ld($info)
@@ -185,7 +185,7 @@ function capitalizeBrazilian($name)
 
     $string = trim(preg_replace('/\s\s+/', ' ', $string));
 
-    collect(['de', 'da', 'do', 'das', 'dos', 'e'])->each(function (
+    coollect(['de', 'da', 'do', 'das', 'dos', 'e'])->each(function (
         $exception
     ) use (&$string) {
         $exception = mb_convert_case($exception, MB_CASE_TITLE);
@@ -197,7 +197,7 @@ function capitalizeBrazilian($name)
         preg_match_all('/(.\'.)/ui', $string, $matched);
 
         if (isset($matched[0])) {
-            collect($matched[0])->each(function ($match) use (&$string) {
+            coollect($matched[0])->each(function ($match) use (&$string) {
                 $newCase = mb_convert_case($match, MB_CASE_UPPER);
 
                 $string = str_replace(
@@ -217,6 +217,24 @@ function permission_slug($string)
     $string = str_replace(':', $replace = 'xxxxxxxxxx', $string);
 
     return str_replace($replace, ':', Str::slug($string));
+}
+
+function to_reais($number)
+{
+    return 'R$ ' . number_format($number, 2, ',', '.');
+}
+
+function db_listen($dump = false)
+{
+    \DB::listen(function ($query) use ($dump) {
+        \Log::info($query->sql);
+        \Log::info($query->bindings);
+
+        if ($dump) {
+            dump($query->sql);
+            dump($query->bindings);
+        }
+    });
 }
 
 class Timer

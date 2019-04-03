@@ -16,6 +16,9 @@ abstract class Repository
 {
     use DataProcessing;
 
+    /**
+     * @var
+     */
     protected $model;
 
     protected function buildJoins($query)
@@ -127,7 +130,7 @@ abstract class Repository
      */
     public function create($data)
     {
-        $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
+        $model = is_null($id = isset($data['id']) ? $data['id'] : null)
             ? new $this->model()
             : $this->newQuery()
                 ->where('id', $id)
@@ -208,7 +211,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if (($text = $filter['filter']['text'])) {
+        if ($text = $filter['filter']['text']) {
             $this->filterAllColumns($query, $text);
         }
 
@@ -240,9 +243,14 @@ abstract class Repository
 
     protected function generatePages(LengthAwarePaginator $data)
     {
-        $firstPage = max($data->currentPage() - 2, 1);
+        $pageLimit = 6;
 
-        $lastPage = min($firstPage + 4, $data->lastPage());
+        $firstPage =
+            $data->lastPage() > $pageLimit
+                ? max($data->currentPage() - 2, 1)
+                : 1;
+
+        $lastPage = min($firstPage + $pageLimit, $data->lastPage());
 
         return range($firstPage, $lastPage);
     }
@@ -251,7 +259,7 @@ abstract class Repository
     {
         $query = $this->newQuery();
 
-        collect((array) $columns)->each(function ($column) use (
+        coollect((array) $columns)->each(function ($column) use (
             $query,
             $arguments
         ) {

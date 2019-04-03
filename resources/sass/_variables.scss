@@ -2,11 +2,6 @@
 // Body
 $body-bg: #f8fafc;
 
-// Typography
-$font-family-sans-serif: "Nunito", sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
-
 // Colors
 $blue: #3490dc;
 $indigo: #6574cd;
@@ -18,3 +13,165 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+// Typography
+
+$font-family-sans-serif:  'Open Sans', "Nunito", sans-serif;
+$font-size-base: 0.8rem;
+$line-height-base: 1.4;
+
+// Colors
+
+$blue-lighter05: #f4f7fc;
+$blue-lighter04: #d9e2f5;
+$blue-lighter03: #b1c4ea;
+$blue-lighter02: #7c9cdb;
+$blue-lighter01: #547ed0;
+
+$blue: #305bb0;
+
+$blue-darken01: #305bb0;
+$blue-darken02: #254688;
+$blue-darken03: #1a3260;
+$blue-darken04: #132445;
+
+
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66D9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$cyan-light: rgba(110, 196, 254, 0.35);
+
+
+$grey-light03: #dce8ee;
+
+
+$grey-darken05: #21252a;
+$grey-darken04: #343a40;
+$grey-darken03: #495057;
+$grey-darken02: #495057;
+
+$grey-darken01: #868e96;
+
+$grey: #adb5bd;
+
+$grey-lighter01: #ced4da;
+$grey-lighter02: #dee2e6;
+$grey-lighter03: #e9ecef;
+$grey-lighter04: #f1f3f5;
+$grey-lighter05: #f8f9fa;
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+/// Base Colors
+
+/// Base Colors
+
+$gray:          $gray-500 !default;
+
+$primary:           $blue !default;
+$primary-light:     lighten($primary, 10%) !default;
+$primary-lighter:   lighten($primary, 30%) !default;
+$primary-lightest:  lighten($primary, 40%) !default;
+$primary-dark:      darken($primary, 10%) !default;
+$primary-darker:    darken($primary, 25%) !default;
+$primary-darkest:   darken($primary, 50%) !default;
+
+$secondary:           $blue !default;
+$secondary-light:     lighten($secondary, 10%) !default;
+$secondary-lighter:   lighten($secondary, 30%) !default;
+$secondary-lightest:  lighten($secondary, 40%) !default;
+$secondary-dark:      darken($secondary, 10%) !default;
+$secondary-darker:    darken($secondary, 25%) !default;
+$secondary-darkest:   darken($secondary, 50%) !default;
+
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+$gray-lightest:  $gray-200 !default;
+$gray-lighter:   $gray-300 !default;
+$gray-light:     $gray-400 !default;
+$gray:           $gray-500 !default;
+$gray-dark:      $gray-600 !default;
+$gray-darker:    $gray-700 !default;
+$gray-darkest:   $gray-800 !default;
+
+$theme-colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors: map-merge(
+    (
+            "primary":          $primary,
+            "primary-light":    $primary-light,
+            "primary-lighter":  $primary-lighter,
+            "primary-lightest": $primary-lightest,
+            "primary-dark":     $primary-dark,
+            "primary-darker":   $primary-darker,
+            "primary-darkest":  $primary-darkest,
+
+            "secondary":          $secondary,
+            "secondary-light":    $secondary-light,
+            "secondary-lighter":  $secondary-lighter,
+            "secondary-lightest": $secondary-lightest,
+            "secondary-dark":     $secondary-dark,
+            "secondary-darker":   $secondary-darker,
+            "secondary-darkest":  $secondary-darkest,
+
+            "gray":          $gray,
+            "gray-light":    $gray-light,
+            "gray-lighter":  $gray-lighter,
+            "gray-lightest": $gray-lightest,
+            "gray-dark":     $gray-dark,
+            "gray-darker":   $gray-darker,
+            "gray-darkest":  $gray-darkest,
+
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+    ),
+    $theme-colors
+);
+
+.swal-button--danger {
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  background-color: transparent;
+}
+
+.swal-button--danger:hover {
+  color: white;
+  border: 1px solid $danger;
+  background-color: $danger;
+}
+
+.swal-button--cancel {
+  color: white !important;
+  background-color: $success;
+}
+
+.swal-button--cancel:hover {
+  color: white !important;
+  background-color: darken($success, 10%);
+}

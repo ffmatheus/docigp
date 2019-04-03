@@ -13,17 +13,21 @@ class Congressman extends Base
         'thumbnail_url',
     ];
 
+    protected $filterableColumns = ['name'];
+
+    protected $orderBy = ['name' => 'asc'];
+
     public function legislatures()
     {
-        return $this->belongsToMany(
-            Legislature::class,
-            'congressman_legislatures'
-        );
+        return $this->hasMany(CongressmanLegislature::class);
     }
 
     public function budgets()
     {
-        return $this->hasMany(CongressmanBudget::class);
+        return $this->hasManyThrough(
+            CongressmanBudget::class,
+            CongressmanLegislature::class
+        );
     }
 
     public function scopeActive($query)
@@ -44,6 +48,14 @@ class Congressman extends Base
             ->orderBy('created_at', 'desc')
             ->first();
     }
+
+    public function getCurrentLegislatureAttribute()
+    {
+        return $this->legislatures()
+            ->whereNull('ended_at')
+            ->first();
+    }
+
 
     public function file()
     {

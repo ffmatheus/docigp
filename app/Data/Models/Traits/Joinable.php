@@ -13,6 +13,6 @@ trait Joinable
 
     public function getJoins()
     {
-        return collect($this->joins);
+        return coollect($this->joins);
     }
 }

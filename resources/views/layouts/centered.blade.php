@@ -84,6 +84,7 @@
             </div>
         </div>
 
+        @include('layouts.partials.livereload')
         @include('layouts.partials.google-analytics')
     </body>
 </html>

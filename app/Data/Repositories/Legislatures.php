@@ -14,12 +14,12 @@ class Legislatures extends Repository
     public function searchFromRequest($search = null)
     {
         $search = is_null($search)
-            ? collect()
-            : collect(explode(' ', $search))->map(function ($item) {
+            ? coollect()
+            : coollect(explode(' ', $search))->map(function ($item) {
                 return strtolower($item);
             });
 
-        $columns = collect(['number' => 'string']);
+        $columns = coollect(['number' => 'string']);
 
         $query = LegislatureModel::query();
 
@@ -41,7 +41,6 @@ class Legislatures extends Repository
 
         return $this->makeResultForSelect($query->orderBy('number')->get());
     }
-
 
     public function getCurrent()
     {

@@ -13,6 +13,6 @@ trait Selectable
 
     public function getSelectColumns()
     {
-        return collect($this->selectColumns);
+        return coollect($this->selectColumns);
     }
 }
