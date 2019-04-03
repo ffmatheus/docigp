@@ -243,9 +243,14 @@ abstract class Repository
 
     protected function generatePages(LengthAwarePaginator $data)
     {
-        $firstPage = max($data->currentPage() - 2, 1);
+        $pageLimit = 6;
 
-        $lastPage = min($firstPage + 4, $data->lastPage());
+        $firstPage =
+            $data->lastPage() > $pageLimit
+                ? max($data->currentPage() - 2, 1)
+                : 1;
+
+        $lastPage = min($firstPage + $pageLimit, $data->lastPage());
 
         return range($firstPage, $lastPage);
     }
@@ -288,7 +293,7 @@ abstract class Repository
             $queryFilter['pagination']['current_page'] ?? 1;
 
         $queryFilter['pagination']['per_page'] =
-            $queryFilter['pagination']['per_page'] ?? 10;
+            $queryFilter['pagination']['per_page'] ?? 20;
 
         return coollect($queryFilter);
     }
