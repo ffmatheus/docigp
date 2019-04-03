@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Data\Repositories\Congressmen as CongressmenRepository;
+use App\Http\Requests\Congressman as CongressmanRequest;
 
 class Congressmen extends Controller
 {
