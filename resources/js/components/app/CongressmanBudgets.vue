@@ -26,7 +26,7 @@
                 },
                 {
                     type: 'label',
-                    title: 'Recebido',
+                    title: 'Solicitado',
                     trClass: 'text-right',
                 },
                 {
@@ -81,28 +81,39 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="congressmanBudget.published_at"
+                        :value="congressmanBudget.approved_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="congressmanBudget.approved_at"
+                        :value="congressmanBudget.published_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
                 <td class="align-middle text-right">
                     <button
-                        class="btn btn-danger btn-sm text-white btn-table-utility ml-1 pull-right"
                         @click="editPercentage(congressmanBudget)"
+                        class="btn btn-sm btn-micro btn-primary"
                         title="Editar percentual"
                     >
-                        <i
-                            v-if="!congressmanBudget.busy"
-                            class="fa fa-edit"
-                        ></i>
+                        %
+                    </button>
+
+                    <button
+                        v-if="!congressmanBudget.has_pendency"
+                        class="btn btn-sm btn-micro btn-warning"
+                    >
+                        aprovar
+                    </button>
+
+                    <button
+                        v-if="congressmanBudget.approved_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                    >
+                        publicar
                     </button>
                 </td>
             </tr>
