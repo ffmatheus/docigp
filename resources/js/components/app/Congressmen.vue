@@ -1,10 +1,13 @@
 <template>
     <app-table-panel
         :title="'Deputados (' + pagination.total + ')'"
+        titleCollapsed="Deputado / Deputada"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
+        :collapsedLabel="selected.name"
+        :is-selected="selected.id !== null"
     >
         <app-table
             :pagination="pagination"

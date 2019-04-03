@@ -1,10 +1,13 @@
 <template>
     <app-table-panel
         :title="'Orçamento mensal (' + pagination.total + ')'"
+        titleCollapsed="Orçamento de"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
+        :collapsedLabel="makeDate(selected)"
+        :is-selected="selected.id !== null"
     >
         <app-table
             :pagination="pagination"
@@ -29,8 +32,8 @@
             ]"
         >
             <tr
-                @click="select(budgets)"
-                v-for="budgets in budgets.data.rows"
+                @click="select(budget)"
+                v-for="budget in budgets.data.rows"
                 :class="{
                     'cursor-pointer': true,
                     'bg-primary-lighter text-white': isCurrent(
@@ -39,18 +42,18 @@
                     ),
                 }"
             >
-                <td>{{ budgets.year }} / {{ budgets.month }}</td>
+                <td>{{ makeDate(budget) }}</td>
 
                 <td class="text-right">
-                    {{ budgets.federal_value_formatted }}
+                    {{ budget.federal_value_formatted }}
                 </td>
 
                 <td class="text-right">
-                    {{ budgets.percentage_formatted }}
+                    {{ budget.percentage_formatted }}
                 </td>
 
                 <td class="text-right">
-                    {{ budgets.value_formatted }}
+                    {{ budget.value_formatted }}
                 </td>
             </tr>
         </app-table>
@@ -71,6 +74,10 @@ export default {
         }
     },
 
-    methods: {},
+    methods: {
+        makeDate(budget) {
+            return budget.year + '/' + budget.month
+        },
+    },
 }
 </script>
