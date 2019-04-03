@@ -10,7 +10,7 @@ use App\Data\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Model extends Eloquent implements AuditableContract
+abstract class Model extends Eloquent implements AuditableContract
 {
     use Auditable, Selectable, Joinable, Orderable, Filterable;
 
