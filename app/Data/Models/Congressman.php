@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Congressman extends Model
+class Congressman extends Base
 {
     protected $fillable = [
         'remote_id',
@@ -43,5 +43,10 @@ class Congressman extends Model
         return $this->budgets()
             ->orderBy('created_at', 'desc')
             ->first();
+    }
+
+    public function file()
+    {
+        return $this->morphOne(AttachedFile::class, 'fileable');
     }
 }

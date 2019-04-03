@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Entry extends Model
+class Entry extends Base
 {
     protected $table = 'entries';
 
@@ -26,4 +26,9 @@ class Entry extends Model
     ];
 
     protected $dates = ['date', 'verified_at', 'authorised_at', 'published_at'];
+
+    public function file()
+    {
+        return $this->morphOne(AttachedFile::class, 'fileable');
+    }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Data\Models;
 
-use OwenIt\Auditing\Auditable;
 use App\Data\Models\Traits\Joinable;
 use App\Data\Models\Traits\Selectable;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class Model extends Eloquent
+abstract class Base extends Model
 {
-    use Auditable, Selectable, Joinable;
+    use Selectable, Joinable;
 
     protected $dates = ['created_at', 'updated_at'];
 }

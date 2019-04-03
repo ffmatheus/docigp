@@ -16,9 +16,6 @@ abstract class Repository
 {
     use DataProcessing;
 
-    /**
-     * @var
-     */
     protected $model;
 
     protected function buildJoins($query)
@@ -130,7 +127,7 @@ abstract class Repository
      */
     public function create($data)
     {
-        $model = is_null($id = isset($data['id']) ? $data['id'] : null)
+        $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
             ? new $this->model()
             : $this->newQuery()
                 ->where('id', $id)
@@ -211,7 +208,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if ($text = $filter['filter']['text']) {
+        if (($text = $filter['filter']['text'])) {
             $this->filterAllColumns($query, $text);
         }
 
@@ -528,55 +525,5 @@ abstract class Repository
         set_current_client_id($model->client_id);
 
         return $this;
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function search(Request $request)
-    {
-        return $this->searchFromRequest($request->get('search'));
-    }
-
-    /**
-     * @param $result
-     * @param string $label
-     * @param string $value
-     *
-     * @return mixed
-     */
-    protected function makeResultForSelect(
-        $result,
-        $label = 'name',
-        $value = 'id'
-    ) {
-        return $result->map(function ($row) use ($value, $label) {
-            $row['text'] = empty($row->text) ? $row[$label] : $row->text;
-
-            $row['value'] = $row[$value];
-
-            return $row;
-        });
-    }
-
-    public function createFromRequest($request)
-    {
-        if ($request instanceof Request) {
-            $request = $request->all();
-        }
-
-        $id = isset($request['id']) ? $request['id'] : null;
-
-        $model = is_null($id)
-            ? new $this->model()
-            : $this->model::withoutGlobalScopes()->find($id);
-
-        $model->fill($request);
-
-        $model->save();
-
-        return $model;
     }
 }

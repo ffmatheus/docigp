@@ -23,6 +23,11 @@ class UploadFile extends FormRequest
      */
     public function rules()
     {
-        return ['name' => 'required', 'file' => 'required'];
+        return [
+            'name' => 'required',
+            //20MG
+            'file' => 'required|max:20480| 
+                mimes:pdf,png,jpeg,doc,docx,xls,xlsx,csv', //https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
+        ];
     }
 }

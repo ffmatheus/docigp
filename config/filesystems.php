@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -14,6 +13,7 @@ return [
     */
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'documents_default' => env('DOCUMENTS_FILESYSTEM_DRIVER', 'documents'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,6 @@ return [
     */
 
     'disks' => [
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -51,7 +50,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -64,6 +63,9 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'documents' => [
+            'driver' => 'local',
+            'root' => storage_path('documents'),
+        ],
     ],
-
 ];

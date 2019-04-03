@@ -2,18 +2,8 @@
 
 namespace App\Data\Models;
 
-use \App\AttachedFile;
-use Illuminate\Database\Eloquent\Model;
-
-class File extends Model
+class File extends Base
 {
+    protected $fillable = ['sha1_hash', 'drive', 'path', 'remote_url'];
 
-    protected $fillable = [
-        '',
-    ];
-
-    public function file()
-    {
-        return $this->morphOne(AttachedFile::class, 'file');
-    }
 }

@@ -20,10 +20,13 @@ class CreateAttachedFilesTable extends Migration
                 ->integer('file_id')
                 ->unsigned()
                 ->index();
-            $table->string('file_type');
+            $table
+                ->integer('fileable_id')
+                ->unsigned()
+                ->index();
+            $table->string('fileable_type');
 
             $table->text('original_name');
-            $table->text('mime_type');
 
             $table->timestamps();
         });

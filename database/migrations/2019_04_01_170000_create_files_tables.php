@@ -18,17 +18,14 @@ class CreateFilesTables extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->text('sha1_hash');
+            $table->text('hash');
             $table->text('drive');
             $table->text('path');
-            $table->text('remote_url');
-
-
+            $table->text('public_url');
+            $table->text('mime_type');
 
             $table->timestamps();
         });
-
-
     }
 
     /**
