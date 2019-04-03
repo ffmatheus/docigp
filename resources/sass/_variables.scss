@@ -153,3 +153,25 @@ $theme-colors: map-merge(
     ),
     $theme-colors
 );
+
+.swal-button--danger {
+  color: #6c757d;
+  border: 1px solid #6c757d;
+  background-color: transparent;
+}
+
+.swal-button--danger:hover {
+  color: white;
+  border: 1px solid $danger;
+  background-color: $danger;
+}
+
+.swal-button--cancel {
+  color: white !important;
+  background-color: $success;
+}
+
+.swal-button--cancel:hover {
+  color: white !important;
+  background-color: darken($success, 10%);
+}

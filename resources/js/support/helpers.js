@@ -423,3 +423,26 @@ window.scroll_to_first_error = () => {
         }
     }, 500)
 }
+
+window.input = (title, vue) => {
+    return vue.$swal({
+        icon: 'warning',
+        title: title,
+        content: 'input',
+        buttonsStyling: false,
+        dangerMode: true,
+        buttons: {
+            confirm: {
+                text: 'confirmar',
+                visible: true,
+                closeModal: true,
+            },
+            cancel: {
+                text: 'cancelar',
+                value: false,
+                visible: true,
+                closeModal: true,
+            },
+        },
+    })
+}
