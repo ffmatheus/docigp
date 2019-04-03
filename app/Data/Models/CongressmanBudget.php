@@ -19,6 +19,8 @@ class CongressmanBudget extends Model
         'published_at',
     ];
 
+    protected $with = ['budget'];
+
     protected function fillValue(): void
     {
         if ($this->percentageChanged()) {
@@ -45,5 +47,10 @@ class CongressmanBudget extends Model
         $this->fillValue();
 
         return parent::save();
+    }
+
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
     }
 }

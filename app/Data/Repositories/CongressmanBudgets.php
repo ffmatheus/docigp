@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use Carbon\Carbon;
 use App\Data\Models\CongressmanBudget;
 
 class CongressmanBudgets extends Repository
@@ -27,5 +28,34 @@ class CongressmanBudgets extends Repository
                     $congressmanId
                 )
         );
+    }
+
+    public function transform($data)
+    {
+        $this->addTransformationPlugin(function ($congressmanBudget) {
+            $congressmanBudget['year'] = Carbon::parse(
+                $congressmanBudget['budget']['date']
+            )->year;
+
+            $congressmanBudget['month'] = sprintf(
+                '%02d',
+                Carbon::parse($congressmanBudget['budget']['date'])->month
+            );
+
+            $congressmanBudget['state_value_formatted'] = to_reais(
+                $congressmanBudget['budget']['value']
+            );
+
+            $congressmanBudget['value_formatted'] = to_reais(
+                $congressmanBudget['value']
+            );
+
+            $congressmanBudget['percentage_formatted'] =
+                $congressmanBudget['percentage'] . '%';
+
+            return $congressmanBudget;
+        });
+
+        return parent::transform($data);
     }
 }

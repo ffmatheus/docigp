@@ -45,7 +45,7 @@
                 <td class="align-middle">{{ makeDate(budget) }}</td>
 
                 <td class="align-middle text-right">
-                    {{ budget.federal_value_formatted }}
+                    {{ budget.state_value_formatted }}
                 </td>
 
                 <td class="align-middle text-right">

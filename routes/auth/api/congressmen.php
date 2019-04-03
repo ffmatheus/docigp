@@ -7,8 +7,17 @@ Route::group(['prefix' => '/congressmen'], function () {
 
     Route::post('/', 'Congressmen@store')->name('congressmen.store');
 
-    Route::get(
-        '/availableCongressmen',
-        'Congressmen@availableCongressmen'
-    )->name('congressmen.availableCongressmen');
+    Route::group(['prefix' => '/{id}/budgets'], function () {
+        Route::get('/', 'CongressmanBudgets@all')->name(
+            'congressmen.budgets.all'
+        );
+
+        Route::post('/{id}', 'CongressmanBudgets@update')->name(
+            'congressmen.budgets.update'
+        );
+
+        Route::post('/', 'CongressmanBudgets@store')->name(
+            'congressmen.budgets.store'
+        );
+    });
 });
