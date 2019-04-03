@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CongressmanStore;
-use App\Http\Requests\CongressmanUpdate;
+use App\Http\Requests\CongressmanBudgetUpdate;
 use App\Data\Repositories\CongressmanBudgets as CongressmanBudgetsRepository;
 
 class CongressmanBudgets extends Controller
@@ -34,11 +34,11 @@ class CongressmanBudgets extends Controller
     }
 
     /**
-     * @param CongressmanUpdate $request
+     * @param CongressmanBudgetUpdate $request
      * @param $id
      * @return mixed
      */
-    public function update(CongressmanUpdate $request, $id)
+    public function update(CongressmanBudgetUpdate $request, $id)
     {
         return app(CongressmanBudgetsRepository::class)->update(
             $id,
