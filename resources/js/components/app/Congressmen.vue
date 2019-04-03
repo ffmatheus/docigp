@@ -12,7 +12,19 @@
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="['Nome do Parlamentar']"
+            :columns="[
+                'Nome do Parlamentar',
+                {
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
+                    title: 'Situação',
+                    trClass: 'text-center',
+                },
+            ]"
         >
             <tr
                 @click="select(congressman)"
@@ -26,6 +38,28 @@
                 }"
             >
                 <td class="align-middle">{{ congressman.name }}</td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="
+                            Math.floor(
+                                Math.random() * (3 - 1) + 1,
+                            ).toString() == 2
+                        "
+                        :labels="['não', 'sim']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="
+                            Math.floor(
+                                Math.random() * (3 - 1) + 1,
+                            ).toString() == 2
+                        "
+                        :labels="['ativo', 'sem mandato ']"
+                    ></app-active-badge>
+                </td>
             </tr>
         </app-table>
     </app-table-panel>

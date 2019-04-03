@@ -42,17 +42,17 @@
                     ),
                 }"
             >
-                <td>{{ makeDate(budget) }}</td>
+                <td class="align-middle">{{ makeDate(budget) }}</td>
 
-                <td class="text-right">
+                <td class="align-middle text-right">
                     {{ budget.federal_value_formatted }}
                 </td>
 
-                <td class="text-right">
+                <td class="align-middle text-right">
                     {{ budget.percentage_formatted }}
                 </td>
 
-                <td class="text-right">
+                <td class="align-middle text-right">
                     {{ budget.value_formatted }}
                 </td>
             </tr>
@@ -76,7 +76,7 @@ export default {
 
     methods: {
         makeDate(budget) {
-            return budget.year + '/' + budget.month
+            return budget.year + ' / ' + budget.month
         },
     },
 }

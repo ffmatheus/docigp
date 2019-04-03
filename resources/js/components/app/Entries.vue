@@ -5,11 +5,11 @@
         </div>
 
         <div class="col-sm-12 col-md-6">
-            <app-budgets></app-budgets>
+            <app-congressmen></app-congressmen>
         </div>
 
         <div class="col-sm-12 col-md-6">
-            <app-congressmen></app-congressmen>
+            <app-budgets></app-budgets>
         </div>
     </div>
 </template>
