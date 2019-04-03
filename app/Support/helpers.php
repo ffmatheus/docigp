@@ -224,6 +224,19 @@ function to_reais($number)
     return 'R$ ' . number_format($number, 2, ',', '.');
 }
 
+function db_listen($dump = false)
+{
+    \DB::listen(function ($query) use ($dump) {
+        \Log::info($query->sql);
+        \Log::info($query->bindings);
+
+        if ($dump) {
+            dump($query->sql);
+            dump($query->bindings);
+        }
+    });
+}
+
 class Timer
 {
     public static $starttime;
