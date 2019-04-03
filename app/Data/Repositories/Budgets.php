@@ -93,7 +93,10 @@ class Budgets extends Repository
         $this->addTransformationPlugin(function ($budget) {
             $budget['year'] = Carbon::parse($budget['date'])->year;
 
-            $budget['month'] = Carbon::parse($budget['date'])->month;
+            $budget['month'] = sprintf(
+                '%02d',
+                Carbon::parse($budget['date'])->month
+            );
 
             $budget['federal_value_formatted'] = to_reais(
                 $budget['federal_value']
