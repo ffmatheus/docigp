@@ -27,7 +27,7 @@
             ]"
         >
             <tr
-                @click="select(congressman)"
+                @click="selectCongressman(congressman)"
                 v-for="congressman in congressmen.data.rows"
                 :class="{
                     'cursor-pointer': true,
@@ -69,6 +69,9 @@
 import crud from '../../views/mixins/crud'
 import congressmen from '../../views/mixins/congressmen'
 import permissions from '../../views/mixins/permissions'
+import { mapActions } from 'vuex'
+
+const service = { name: 'congressmen', uri: 'congressmen' }
 
 export default {
     mixins: [crud, congressmen, permissions],
@@ -79,6 +82,8 @@ export default {
         }
     },
 
-    methods: {},
+    methods: {
+        ...mapActions(service.name, ['selectCongressman']),
+    },
 }
 </script>

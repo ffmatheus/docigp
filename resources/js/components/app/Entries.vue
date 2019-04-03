@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-sm-12 col-md-6">
-            <app-budgets></app-budgets>
+            <app-congressman-budgets></app-congressman-budgets>
         </div>
     </div>
 </template>

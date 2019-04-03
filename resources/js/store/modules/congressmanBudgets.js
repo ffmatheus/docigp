@@ -22,11 +22,14 @@ let state = merge_objects(
         mode: null,
 
         model: {
-            name: 'congressman',
+            name: 'congressmanBudgets',
 
-            table: 'congressmen',
+            table: 'congressman_budgets',
 
-            class: { singular: 'Congressman', plural: 'Congressmen' },
+            class: {
+                singular: 'CongressmanBudget',
+                plural: 'CongressmanBudgets',
+            },
         },
     },
 
@@ -34,10 +37,10 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
-    selectCongressman(context, payload) {
-        context.dispatch('congressmen/select', payload, { root: true })
+    selectCongressmanBudget(context, payload) {
+        context.dispatch('congressmanBudgets/select', payload, { root: true })
 
-        context.dispatch('congressmanBudgets/load', payload, { root: true })
+        context.dispatch('entries/load', payload, { root: true })
     },
 })
 
