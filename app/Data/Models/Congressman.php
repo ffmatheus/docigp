@@ -19,10 +19,7 @@ class Congressman extends Model
 
     public function legislatures()
     {
-        return $this->belongsToMany(
-            Legislature::class,
-            'congressman_legislatures'
-        );
+        return $this->hasMany(CongressmanLegislature::class);
     }
 
     public function budgets()

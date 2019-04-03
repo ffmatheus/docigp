@@ -17,4 +17,9 @@ class CongressmanLegislature extends Model
     ];
 
     protected $dates = ['started_at', 'ended_at'];
+
+    public function legislature()
+    {
+        return $this->belongsTo(Legislature::class);
+    }
 }

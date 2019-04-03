@@ -13,8 +13,19 @@ class CongressmanBudgets extends Repository
 
     public function allFor($congressmanId)
     {
+        db_listen();
+
         return $this->applyFilter(
-            $this->newQuery()->where('congressman_id', $congressmanId)
+            $this->newQuery()
+                ->join(
+                    'congressman_legislatures',
+                    'congressman_legislatures.id',
+                    'congressman_budgets.congressman_legislature_id'
+                )
+                ->where(
+                    'congressman_legislatures.congressman_id',
+                    $congressmanId
+                )
         );
     }
 }
