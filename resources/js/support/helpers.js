@@ -62,9 +62,9 @@ window.confirm = (title, vue) => {
     })
 }
 
-window.showMessage = (title, vue) => {
+window.show_message = (title, vue, icon = 'info') => {
     return vue.$swal({
-        icon: 'info',
+        icon: icon,
         title: title,
         dangerMode: true,
     })
@@ -302,16 +302,15 @@ window.downloadPDF = fileUrl => {
 }
 
 window.publicChannel = channel => {
-    dd(window.Echo)
-    // return Echo.channel(channel)
+    return Echo.channel(channel)
 }
 
 window.privateChannel = channel => {
-    // return Echo.private(channel)
+    return Echo.private(channel)
 }
 
 window.subscribePublicChannel = (model, className, callable) => {
-    // publicChannel(model).listen(className, callable)
+    publicChannel(model).listen(className, callable)
 }
 
 window.basename = str => {
@@ -445,4 +444,12 @@ window.input = (title, vue) => {
             },
         },
     })
+}
+
+window.is_number = number => {
+    return !isNaN(parseFloat(number)) && isFinite(number)
+}
+
+window.to_number = number => {
+    return parseFloat(number)
 }

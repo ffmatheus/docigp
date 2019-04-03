@@ -8,8 +8,6 @@ export function load(context) {
 
         if (typeof debouncedByUrl[urlHash] === 'undefined') {
             debouncedByUrl[urlHash] = _.debounce((targetUrl, targetContext) => {
-                dd('loading: ', targetUrl)
-
                 get(targetUrl, {
                     params: { query: targetContext.getters.getQueryFilter },
                 }).then(response => {
@@ -17,8 +15,6 @@ export function load(context) {
                 })
             }, 450)
         }
-
-        dd('using debouncedByUrl: ', urlHash, url)
 
         return debouncedByUrl[urlHash](url, context)
     }

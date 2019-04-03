@@ -95,7 +95,6 @@ export default {
         },
 
         boot() {
-            dd(this.service)
             this.mutateSetService(this.service)
 
             if (

@@ -41,22 +41,14 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="
-                            Math.floor(
-                                Math.random() * (3 - 1) + 1,
-                            ).toString() == 2
-                        "
+                        :value="!congressman.has_pendency"
                         :labels="['não', 'sim']"
                     ></app-active-badge>
                 </td>
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="
-                            Math.floor(
-                                Math.random() * (3 - 1) + 1,
-                            ).toString() == 2
-                        "
+                        :value="congressman.has_mandate"
                         :labels="['ativo', 'sem mandato ']"
                     ></app-active-badge>
                 </td>

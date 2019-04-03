@@ -22,7 +22,7 @@ let state = merge_objects(
         mode: null,
 
         model: {
-            name: 'congressmanBudgets',
+            name: 'congressmanBudget',
 
             table: 'congressman_budgets',
 
@@ -41,6 +41,12 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('congressmanBudgets/select', payload, { root: true })
 
         context.dispatch('entries/load', payload, { root: true })
+    },
+
+    changePercentage(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.congressmanBudget.id, {
+            percentage: payload.percentage,
+        })
     },
 })
 

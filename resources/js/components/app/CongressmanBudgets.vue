@@ -6,7 +6,7 @@
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
-        :collapsedLabel="makeDate(selected)"
+        :collapsedLabel="makeDate(selected) + ' - ' + selected.value_formatted"
         :is-selected="selected.id !== null"
     >
         <app-table
@@ -29,6 +29,7 @@
                     title: 'Recebido',
                     trClass: 'text-right',
                 },
+                '',
             ]"
         >
             <tr
@@ -55,6 +56,19 @@
                 <td class="align-middle text-right">
                     {{ congressmanBudget.value_formatted }}
                 </td>
+
+                <td class="align-middle text-right">
+                    <button
+                        class="btn btn-danger btn-sm text-white btn-table-utility ml-1 pull-right"
+                        @click="editPercentage(congressmanBudget)"
+                        title="Editar percentual"
+                    >
+                        <i
+                            v-if="!congressmanBudget.busy"
+                            class="fa fa-edit"
+                        ></i>
+                    </button>
+                </td>
             </tr>
         </app-table>
     </app-table-panel>
@@ -78,8 +92,37 @@ export default {
     },
 
     methods: {
-        makeDate(budget) {
-            return budget.year + ' / ' + budget.month
+        makeDate(congressmanBudget) {
+            return congressmanBudget.year + ' / ' + congressmanBudget.month
+        },
+
+        changePercentage: function(congressmanBudget, value) {
+            return this.$store.dispatch('congressmanBudgets/changePercentage', {
+                congressmanBudget: congressmanBudget,
+                percentage: value,
+            })
+        },
+
+        editPercentage(congressmanBudget) {
+            return input('Novo percentual', this).then(value => {
+                if (!value) {
+                    return
+                }
+
+                if (
+                    !is_number(value) ||
+                    to_number(value) < 0 ||
+                    to_number(value) > 100
+                ) {
+                    return show_message(
+                        'Você precisa digitar um número entre 0 e 100',
+                        this,
+                        'error',
+                    )
+                }
+
+                return this.changePercentage(congressmanBudget, value)
+            })
         },
     },
 }

@@ -6,6 +6,7 @@ import Echo from 'laravel-echo'
 
 if (window.laravel.broadcast) {
     window.Pusher = require('pusher-js')
+    // Pusher.logToConsole = true
 
     let echoConfig = {
         broadcaster: window.laravel.broadcast.driver,
