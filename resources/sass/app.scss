@@ -1,4 +1,9 @@
 
+// FontAwesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -8,6 +13,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+// Styles
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -24,4 +31,20 @@ td:last-child, th:last-child {
 th {
   background-color: #0a008a;
   color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bg-filters {
+  background: $grey-lighter03;
+}
+
+.bg-primary {
+  background: $blue-lighter02;
+}
+
+.bg-cyan {
+  background-color: $cyan-light;
 }

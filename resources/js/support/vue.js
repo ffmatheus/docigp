@@ -19,8 +19,10 @@ Vue.use(() => import('vue-swal'))
  */
 import { Modal } from 'bootstrap-vue/es/components'
 import { Button } from 'bootstrap-vue/es/components'
+import { Collapse } from 'bootstrap-vue/es/components'
 Vue.use(Modal)
 Vue.use(Button)
+Vue.use(Collapse)
 
 /**
  * Autoload Vue components
