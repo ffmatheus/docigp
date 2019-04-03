@@ -62,4 +62,8 @@ class Congressman extends Model
             ->whereNull('ended_at')
             ->first();
     }
+
+    public function party(){
+        return $this->belongsTo(Party::class);
+    }
 }
