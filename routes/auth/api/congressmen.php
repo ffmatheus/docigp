@@ -12,9 +12,10 @@ Route::group(['prefix' => '/congressmen'], function () {
             'congressmen.budgets.all'
         );
 
-        Route::post('/{id}', 'CongressmanBudgets@update')->name(
-            'congressmen.budgets.update'
-        );
+        Route::post(
+            '/{congressmanBudgetId}',
+            'CongressmanBudgets@update'
+        )->name('congressmen.budgets.update');
 
         Route::post('/', 'CongressmanBudgets@store')->name(
             'congressmen.budgets.store'
