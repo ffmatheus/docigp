@@ -16,20 +16,17 @@
                             </div>
 
                             <div v-if="isSelected" class="col-2 text-right">
-                                <b-button
+                                <i
                                     :v-b-toggle="unCollapsed"
-                                    variant="primary"
-                                    class="btn btn-sm"
                                     @click="unCollapsed = !unCollapsed"
-                                >
-                                    <i
-                                        class="fa"
-                                        :class="{
-                                            'fa-arrow-up': unCollapsed,
-                                            'fa-arrow-down': !unCollapsed,
-                                        }"
-                                    ></i>
-                                </b-button>
+                                    class="fa fa-lg"
+                                    :class="{
+                                        'fa-minus-square': unCollapsed,
+                                        'fa-plus-square': collapsed,
+                                        'text-danger': unCollapsed,
+                                        'text-success': collapsed,
+                                    }"
+                                ></i>
                             </div>
                         </div>
                     </div>
