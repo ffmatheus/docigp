@@ -29,6 +29,21 @@
                     title: 'Recebido',
                     trClass: 'text-right',
                 },
+                {
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
+                    title: 'Aprovado',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                },
                 '',
             ]"
         >
@@ -55,6 +70,27 @@
 
                 <td class="align-middle text-right">
                     {{ congressmanBudget.value_formatted }}
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="!congressmanBudget.has_pendency"
+                        :labels="['não', 'sim']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="congressmanBudget.published_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="congressmanBudget.approved_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
                 </td>
 
                 <td class="align-middle text-right">

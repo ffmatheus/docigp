@@ -21,6 +21,12 @@ class CongressmanBudget extends Model
 
     protected $with = ['budget'];
 
+    protected $selectColumns = ['congressman_budgets.*'];
+
+    protected $selectColumnsRaw = [
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.authorised_at is null) > 0 as has_pendency',
+    ];
+
     protected function fillValue(): void
     {
         if ($this->percentageChanged()) {
