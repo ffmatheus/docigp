@@ -19,7 +19,7 @@
                                 <i
                                     :v-b-toggle="unCollapsed"
                                     @click="unCollapsed = !unCollapsed"
-                                    class="fa fa-lg"
+                                    class="fa fa-2x"
                                     :class="{
                                         'fa-minus-square': unCollapsed,
                                         'fa-plus-square': collapsed,
@@ -156,8 +156,14 @@ export default {
     },
 
     computed: {
-        collapsed() {
-            return !this.unCollapsed
+        collapsed: {
+            get() {
+                return !this.unCollapsed
+            },
+
+            set(value) {
+                this.unCollapsed = !value
+            },
         },
     },
 }

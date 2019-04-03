@@ -37,7 +37,7 @@
                 :class="{
                     'cursor-pointer': true,
                     'bg-primary-lighter text-white': isCurrent(
-                        budgets,
+                        budget,
                         selected,
                     ),
                 }"
