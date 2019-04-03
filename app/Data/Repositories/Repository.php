@@ -40,6 +40,14 @@ abstract class Repository
         if ($columns->count() > 0) {
             $query->select($columns->toArray());
         }
+
+        $columnsRaw = $this->model()->getSelectColumnsRaw();
+
+        if ($columnsRaw->count() > 0) {
+            $columnsRaw->each(function ($select) use ($query) {
+                $query->selectRaw($select);
+            });
+        }
     }
 
     /**
@@ -81,9 +89,9 @@ abstract class Repository
 
     protected function fireEventForTable($model, $eventType, $plural = false)
     {
-        $tableName = studly($model->getTable());
+        $tableName = Str::studly($model->getTable());
 
-        $tableName = $plural ? str_plural($tableName) : $tableName;
+        $tableName = $plural ? Str::plural($tableName) : $tableName;
 
         $eventClass = "App\\Events\\{$tableName}{$eventType}";
 
