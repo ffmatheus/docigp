@@ -17,12 +17,4 @@
     </tr>
     </thead>
 
-    @forelse ($uploadedFiles as $uploadFile)
-        <tr>
-            <td>{{ is_null($uploadFile->file_name) ? : $uploadFile->file_name }}</td>
-        </tr>
-
-    @empty
-        <p>Nenhum Arquivo encontrado</p>
-    @endforelse
 </table>

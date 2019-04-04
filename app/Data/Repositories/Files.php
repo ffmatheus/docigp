@@ -3,7 +3,6 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\CongressmanBudget;
 use App\Data\Models\File as FileModel;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class Files extends Repository
@@ -42,11 +41,6 @@ class Files extends Repository
         $file->public_url = 'XXXXXX depois de movido via storage XXXXXX'; //TODO descobrir como fazer
         $file->save();
 
-        $url = Storage::disk()->temporaryUrl(
-            $fileName,
-            Carbon::now()->addMinutes(5)
-        );
-        dd($url);
         app(AttachedFiles::class)->firstOrCreate(
             [
                 'file_id' => $file->id,

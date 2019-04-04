@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Budget extends Base
+class Budget extends Model
 {
     /**
      * @var array

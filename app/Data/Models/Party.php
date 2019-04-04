@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Party extends Base
+class Party extends Model
 {
     protected $fillable = ['code', 'name'];
 }

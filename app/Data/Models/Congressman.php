@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Congressman extends Base
+class Congressman extends Model
 {
     protected $fillable = [
         'remote_id',

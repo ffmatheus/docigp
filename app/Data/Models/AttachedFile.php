@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class AttachedFile extends Base
+class AttachedFile extends Model
 {
     protected $fillable = [
         'file_id',

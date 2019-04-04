@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Entry extends Base
+class Entry extends Model
 {
     protected $table = 'entries';
 

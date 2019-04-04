@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class CongressmanSettings extends Base
+class CongressmanSettings extends Model
 {
     /**
      * @var array
