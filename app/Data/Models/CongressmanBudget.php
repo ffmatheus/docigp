@@ -24,7 +24,7 @@ class CongressmanBudget extends Model
     protected $selectColumns = ['congressman_budgets.*'];
 
     protected $selectColumnsRaw = [
-        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.authorised_at is null) > 0 as has_pendency',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.approved_at is null) > 0 as has_pendency',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id) as entries_count',
     ];
 

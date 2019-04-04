@@ -28,7 +28,7 @@
                 },
                 {
                     type: 'label',
-                    title: 'Autorizado',
+                    title: 'Aprovado',
                     trClass: 'text-center',
                 },
                 '',
@@ -61,7 +61,7 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="entry.authorised_at"
+                        :value="entry.approved_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -84,7 +84,7 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at && !entry.authorised_at"
+                        v-if="entry.verified_at && !entry.approved_at"
                         class="btn btn-sm btn-micro btn-success"
                         @click="approve(entry)"
                     >
@@ -92,7 +92,7 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at && entry.authorised_at"
+                        v-if="entry.verified_at && entry.approved_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unapprove(entry)"
                     >

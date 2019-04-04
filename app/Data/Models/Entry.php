@@ -16,16 +16,16 @@ class Entry extends Model
         'to',
         'cycle_id',
         'verified_at',
-        'authorised_at',
+        'approved_at',
         'published_at',
         'verified_by_id',
-        'authorised_by_id',
+        'approved_by_id',
         'published_by_id',
         'created_by_id',
         'updated_by_id',
     ];
 
-    protected $dates = ['date', 'verified_at', 'authorised_at', 'published_at'];
+    protected $dates = ['date', 'verified_at', 'approved_at', 'published_at'];
 
     protected $selectColumns = ['entries.*'];
 

@@ -19,14 +19,14 @@ $factory->define(EntryModel::class, function (Faker $faker) {
             CongressmanBudgets::class
         )->randomElement()->id,
         'verified_at' => ($verified = rand(0, 1) ? $faker->date : null),
-        'authorised_at' => ($authorised =
+        'approved_at' => ($approved =
             $verified && rand(0, 1) ? $faker->date : null),
         'published_at' => ($published =
-            $authorised && rand(0, 1) ? $faker->date : null),
+            $approved && rand(0, 1) ? $faker->date : null),
         'verified_by_id' => $verified
             ? app(UsersRepository::class)->randomElement()->id
             : null,
-        'authorised_by_id' => $authorised
+        'approved_by_id' => $approved
             ? app(UsersRepository::class)->randomElement()->id
             : null,
         'published_by_id' => $published
