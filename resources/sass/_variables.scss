@@ -154,26 +154,26 @@ $theme-colors: map-merge(
     $theme-colors
 );
 
-.swal-button--danger {
-  color: #6c757d;
-  border: 1px solid #6c757d;
-  background-color: transparent;
+.swal-button--danger, .swal-button--confirm {
+  color: #6c757d !important;
+  border: 1px solid #6c757d !important;
+  background-color: transparent !important;
 }
 
-.swal-button--danger:hover {
-  color: white;
-  border: 1px solid $danger;
-  background-color: $danger;
+.swal-button--danger:hover, .swal-button--confirm:hover {
+  color: white !important;
+  border: 1px solid $danger !important;
+  background-color: $danger !important;
 }
 
 .swal-button--cancel {
   color: white !important;
-  background-color: $success;
+  background-color: $success !important;
 }
 
 .swal-button--cancel:hover {
   color: white !important;
-  background-color: darken($success, 10%);
+  background-color: darken($success, 10%) !important;
 }
 
 .btn-micro {
