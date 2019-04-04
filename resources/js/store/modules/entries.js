@@ -22,14 +22,11 @@ let state = merge_objects(
         mode: null,
 
         model: {
-            name: 'congressmanBudget',
+            name: 'entry',
 
-            table: 'congressman_budgets',
+            table: 'entries',
 
-            class: {
-                singular: 'CongressmanBudget',
-                plural: 'CongressmanBudgets',
-            },
+            class: { singular: 'Entry', plural: 'Entries' },
         },
     },
 
@@ -37,16 +34,20 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
-    selectCongressmanBudget(context, payload) {
-        context.dispatch('congressmanBudgets/select', payload, { root: true })
-
-        context.dispatch('entries/load', payload, { root: true })
+    verify(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/verify')
     },
 
-    changePercentage(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.congressmanBudget.id, {
-            percentage: payload.percentage,
-        })
+    unverify(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unverify')
+    },
+
+    approve(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/approve')
+    },
+
+    unapprove(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unapprove')
     },
 })
 

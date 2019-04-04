@@ -3,13 +3,13 @@ let debouncedByUrl = {}
 export function load(context) {
     const url = makeDataUrl(context)
 
+    dd(url, context)
+
     if (url) {
         let urlHash = hash(url + JSON.stringify(context.getters.getQueryFilter))
 
         if (typeof debouncedByUrl[urlHash] === 'undefined') {
             debouncedByUrl[urlHash] = _.debounce((targetUrl, targetContext) => {
-                dd('loading: ', targetUrl)
-
                 get(targetUrl, {
                     params: { query: targetContext.getters.getQueryFilter },
                 }).then(response => {
@@ -17,8 +17,6 @@ export function load(context) {
                 })
             }, 450)
         }
-
-        dd('using debouncedByUrl: ', urlHash, url)
 
         return debouncedByUrl[urlHash](url, context)
     }

@@ -28,7 +28,7 @@ class CreateEntriesTable extends Migration
                 ->nullable();
 
             $table->timestamp('verified_at')->nullable();
-            $table->timestamp('authorised_at')->nullable();
+            $table->timestamp('approved_at')->nullable();
             $table->timestamp('published_at')->nullable();
 
             $table
@@ -37,7 +37,7 @@ class CreateEntriesTable extends Migration
                 ->nullable();
 
             $table
-                ->bigInteger('authorised_by_id')
+                ->bigInteger('approved_by_id')
                 ->unsigned()
                 ->nullable();
 

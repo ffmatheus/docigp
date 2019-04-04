@@ -8,5 +8,6 @@ Route::group(
     function () {
         require __DIR__ . '/api/congressmen.php';
         require __DIR__ . '/api/budgets.php';
+        require __DIR__ . '/api/users.php';
     }
 );

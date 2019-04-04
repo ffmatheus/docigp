@@ -13,20 +13,20 @@ $factory->define(EntryModel::class, function (Faker $faker) {
             $timezone = null
         ),
         'value' => $faker->randomFloat(2, 0.1, 1000),
-        'object' => $faker->text,
+        'object' => $faker->text(30),
         'to' => $faker->name,
         'congressman_budget_id' => app(
             CongressmanBudgets::class
         )->randomElement()->id,
         'verified_at' => ($verified = rand(0, 1) ? $faker->date : null),
-        'authorised_at' => ($authorised =
+        'approved_at' => ($approved =
             $verified && rand(0, 1) ? $faker->date : null),
         'published_at' => ($published =
-            $authorised && rand(0, 1) ? $faker->date : null),
+            $approved && rand(0, 1) ? $faker->date : null),
         'verified_by_id' => $verified
             ? app(UsersRepository::class)->randomElement()->id
             : null,
-        'authorised_by_id' => $authorised
+        'approved_by_id' => $approved
             ? app(UsersRepository::class)->randomElement()->id
             : null,
         'published_by_id' => $published

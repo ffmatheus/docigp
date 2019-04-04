@@ -1,19 +1,20 @@
 <template>
     <app-table-panel
         :title="'Orçamento mensal (' + pagination.total + ')'"
-        titleCollapsed="Orçamento de"
+        titleCollapsed="Orçamento"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
-        :collapsedLabel="makeDate(selected)"
+        :collapsedLabel="makeDate(selected) + ' - ' + selected.value_formatted"
         :is-selected="selected.id !== null"
     >
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
             :columns="[
-                'Mês/Ano',
+                'Ano / Mês',
+
                 {
                     type: 'label',
                     title: 'Referência',
@@ -26,13 +27,34 @@
                 },
                 {
                     type: 'label',
-                    title: 'Recebido',
+                    title: 'Solicitado',
                     trClass: 'text-right',
                 },
+                {
+                    type: 'label',
+                    title: 'Lançamentos',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
+                    title: 'Aprovado',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                },
+                '',
             ]"
         >
             <tr
-                @click="select(congressmanBudget)"
+                @click="selectCongressmanBudget(congressmanBudget)"
                 v-for="congressmanBudget in congressmanBudgets.data.rows"
                 :class="{
                     'cursor-pointer': true,
@@ -55,6 +77,55 @@
                 <td class="align-middle text-right">
                     {{ congressmanBudget.value_formatted }}
                 </td>
+
+                <td class="align-middle text-right">
+                    {{ congressmanBudget.entries_count }}
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="!congressmanBudget.has_pendency"
+                        :labels="['não', 'sim']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="congressmanBudget.approved_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
+                        :value="congressmanBudget.published_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-right">
+                    <button
+                        @click="editPercentage(congressmanBudget)"
+                        class="btn btn-sm btn-micro btn-primary"
+                        title="Alterar percentual solicitado"
+                    >
+                        %
+                    </button>
+
+                    <button
+                        v-if="!congressmanBudget.has_pendency"
+                        class="btn btn-sm btn-micro btn-warning"
+                    >
+                        aprovar
+                    </button>
+
+                    <button
+                        v-if="congressmanBudget.approved_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                    >
+                        publicar
+                    </button>
+                </td>
             </tr>
         </app-table>
     </app-table-panel>
@@ -64,22 +135,56 @@
 import crud from '../../views/mixins/crud'
 import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 import permissions from '../../views/mixins/permissions'
+import { mapActions } from 'vuex'
+
+const service = {
+    name: 'congressmanBudgets',
+    uri: 'congressmen/{congressmen.selected.id}/budgets',
+}
 
 export default {
     mixins: [crud, congressmanBudgets, permissions],
 
     data() {
         return {
-            service: {
-                name: 'congressmanBudgets',
-                uri: 'congressmen/{congressmen.selected.id}/budgets',
-            },
+            service: service,
         }
     },
 
     methods: {
-        makeDate(budget) {
-            return budget.year + ' / ' + budget.month
+        ...mapActions(service.name, ['selectCongressmanBudget']),
+
+        makeDate(congressmanBudget) {
+            return congressmanBudget.year + ' / ' + congressmanBudget.month
+        },
+
+        changePercentage: function(congressmanBudget, value) {
+            return this.$store.dispatch('congressmanBudgets/changePercentage', {
+                congressmanBudget: congressmanBudget,
+                percentage: value,
+            })
+        },
+
+        editPercentage(congressmanBudget) {
+            return input('Novo percentual', this).then(value => {
+                if (!value) {
+                    return
+                }
+
+                if (
+                    !is_number(value) ||
+                    to_number(value) < 0 ||
+                    to_number(value) > 100
+                ) {
+                    return show_message(
+                        'Você precisa digitar um número entre 0 e 100',
+                        this,
+                        'error',
+                    )
+                }
+
+                return this.changePercentage(congressmanBudget, value)
+            })
         },
     },
 }

@@ -38,38 +38,6 @@ window.closeModal = id => {
     jQuery(id).modal('hide')
 }
 
-window.confirm = (title, vue) => {
-    return vue.$swal({
-        icon: 'warning',
-        title: title,
-        dangerMode: true,
-        buttons: {
-            cancel: {
-                text: 'sim',
-                value: true,
-                visible: true,
-                className: 'btn-outline-secondary',
-                closeModal: true,
-            },
-            confirm: {
-                text: 'não',
-                value: false,
-                visible: true,
-                className: 'btn-success',
-                closeModal: true,
-            },
-        },
-    })
-}
-
-window.showMessage = (title, vue) => {
-    return vue.$swal({
-        icon: 'info',
-        title: title,
-        dangerMode: true,
-    })
-}
-
 window.post = (...args) => {
     return axios.post(...args)
 }
@@ -183,9 +151,11 @@ window.buildApiUrl = (uri, state) => {
     let hasNulls = false
 
     _.each(uri.match(/(\{.*?\})/g), param => {
-        str = str.replace(param, objectAttributeFromString(param, state))
+        const obj = objectAttributeFromString(param, state)
 
-        hasNulls = hasNulls || objectAttributeFromString(param, state) === null
+        str = str.replace(param, obj)
+
+        hasNulls = hasNulls || obj === null
     })
 
     if (hasNulls) {
@@ -302,16 +272,15 @@ window.downloadPDF = fileUrl => {
 }
 
 window.publicChannel = channel => {
-    dd(window.Echo)
-    // return Echo.channel(channel)
+    return Echo.channel(channel)
 }
 
 window.privateChannel = channel => {
-    // return Echo.private(channel)
+    return Echo.private(channel)
 }
 
 window.subscribePublicChannel = (model, className, callable) => {
-    // publicChannel(model).listen(className, callable)
+    publicChannel(model).listen(className, callable)
 }
 
 window.basename = str => {
@@ -424,13 +393,45 @@ window.scroll_to_first_error = () => {
     }, 500)
 }
 
+window.show_message = (title, vue, icon = 'info') => {
+    return vue.$swal({
+        icon: icon,
+        title: title,
+        dangerMode: true,
+    })
+}
+
+window.confirm = (title, vue) => {
+    return vue.$swal({
+        icon: 'warning',
+        title: title,
+        dangerMode: false,
+        buttons: {
+            confirm: {
+                text: 'sim',
+                value: true,
+                visible: true,
+                className: 'btn-success',
+                closeModal: true,
+            },
+            cancel: {
+                text: 'não',
+                value: false,
+                visible: true,
+                className: 'btn-outline-secondary',
+                closeModal: true,
+            },
+        },
+    })
+}
+
 window.input = (title, vue) => {
     return vue.$swal({
         icon: 'warning',
         title: title,
         content: 'input',
         buttonsStyling: false,
-        dangerMode: true,
+        dangerMode: false,
         buttons: {
             confirm: {
                 text: 'confirmar',
@@ -445,4 +446,12 @@ window.input = (title, vue) => {
             },
         },
     })
+}
+
+window.is_number = number => {
+    return !isNaN(parseFloat(number)) && isFinite(number)
+}
+
+window.to_number = number => {
+    return parseFloat(number)
 }
