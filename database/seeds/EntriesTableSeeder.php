@@ -1,7 +1,9 @@
 <?php
 
+use Carbon\Carbon as Carbon;
+use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
-
+use App\Data\Models\Congressman;
 use App\Data\Models\Entry as EntryModel;
 
 class EntriesTableSeeder extends Seeder
@@ -13,6 +15,22 @@ class EntriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(EntryModel::class, 500)->create();
+        EntryModel::truncate();
+
+        Congressman::all()->each(function ($congressman) {
+            factory(EntryModel::class, 1)->create([
+                'to' => $congressman->name,
+                'object' => 'Crédito em conta-corrente',
+                'date' => Carbon::now()->startOfMonth(),
+                'value' => app(Faker::class)->randomFloat(2, 0.1, 1000),
+                'congressman_budget_id' => $congressman->budgets->first()->id,
+            ]);
+        });
+
+        foreach (range(1, 500) as $counter) {
+            factory(EntryModel::class)->create([
+                'value' => -app(Faker::class)->randomFloat(2, 0.1, 1000),
+            ]);
+        }
     }
 }

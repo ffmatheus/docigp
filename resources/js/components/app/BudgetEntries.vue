@@ -23,6 +23,11 @@
                 },
                 {
                     type: 'label',
+                    title: 'Tipo',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
                     title: 'Verificado',
                     trClass: 'text-center',
                 },
@@ -54,6 +59,13 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
+                        :value="entry.value > 0"
+                        :labels="['crédito', 'débito']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
                         :value="entry.verified_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
@@ -72,7 +84,7 @@
                         class="btn btn-sm btn-micro btn-primary"
                         @click="verify(entry)"
                     >
-                        verificar
+                        marcar como verificado
                     </button>
 
                     <button
