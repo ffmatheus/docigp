@@ -33,7 +33,24 @@ let state = merge_objects(
     statesMixin.common,
 )
 
-let actions = actionsMixin
+let actions = merge_objects(actionsMixin, {
+    verify(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/verify')
+    },
+
+    unverify(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unverify')
+    },
+
+    approve(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/approve')
+    },
+
+    unapprove(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unapprove')
+    },
+})
+
 let mutations = mutationsMixin
 let getters = gettersMixin
 

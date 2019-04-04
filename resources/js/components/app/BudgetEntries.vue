@@ -16,7 +16,11 @@
                 'Data',
                 'Objeto',
                 'Creditado a',
-                'Valor',
+                {
+                    type: 'label',
+                    title: 'Valor',
+                    trClass: 'text-right',
+                },
                 {
                     type: 'label',
                     title: 'Verificado',
@@ -27,51 +31,73 @@
                     title: 'Autorizado',
                     trClass: 'text-center',
                 },
-                {
-                    type: 'label',
-                    title: 'Publicado',
-                    trClass: 'text-center',
-                },
+                '',
             ]"
         >
             <tr
-                @click="select(entries)"
-                v-for="entries in entries.data.rows"
+                @click="select(entry)"
+                v-for="entry in entries.data.rows"
                 :class="{
                     'cursor-pointer': true,
-                    'bg-primary-lighter text-white': isCurrent(
-                        entries,
-                        selected,
-                    ),
+                    'bg-primary-lighter text-white': isCurrent(entry, selected),
                 }"
             >
-                <td class="align-middle">{{ entries.date_formatted }}</td>
+                <td class="align-middle">{{ entry.date_formatted }}</td>
 
-                <td class="align-middle">{{ entries.object }}</td>
+                <td class="align-middle">{{ entry.object }}</td>
 
-                <td class="align-middle">{{ entries.to }}</td>
+                <td class="align-middle">{{ entry.to }}</td>
 
-                <td class="align-middle">{{ entries.value_formatted }}</td>
+                <td class="align-middle text-right">
+                    {{ entry.value_formatted }}
+                </td>
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="entries.verified_at"
+                        :value="entry.verified_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="entries.authorized_at"
+                        :value="entry.authorised_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
-                    <app-active-badge
-                        :value="entries.published_at"
-                        :labels="['sim', 'não']"
-                    ></app-active-badge>
+                <td class="align-middle text-right">
+                    <button
+                        v-if="!entry.verified_at"
+                        class="btn btn-sm btn-micro btn-primary"
+                        @click="verify(entry)"
+                    >
+                        verificar
+                    </button>
+
+                    <button
+                        v-if="entry.verified_at"
+                        class="btn btn-sm btn-micro btn-warning"
+                        @click="unverify(entry)"
+                    >
+                        cancelar verificação
+                    </button>
+
+                    <button
+                        v-if="entry.verified_at && !entry.authorised_at"
+                        class="btn btn-sm btn-micro btn-success"
+                        @click="approve(entry)"
+                    >
+                        aprovar
+                    </button>
+
+                    <button
+                        v-if="entry.verified_at && entry.authorised_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        @click="unapprove(entry)"
+                    >
+                        cancelar aprovação
+                    </button>
                 </td>
             </tr>
         </app-table>
@@ -95,6 +121,43 @@ export default {
                     'congressmen/{congressmen.selected.id}/budgets/{congressmanBudgets.selected.id}/entries',
             },
         }
+    },
+
+    methods: {
+        verify(entry) {
+            confirm(
+                'Confirma a marcação deste lançamento como "VERIFICADO"?',
+                this,
+            ).then(value => {
+                value && this.$store.dispatch('entries/verify', entry)
+            })
+        },
+
+        unverify(entry) {
+            confirm(
+                'O status de "VERIFICADO" será removido deste lançamento, confirma?',
+                this,
+            ).then(value => {
+                value && this.$store.dispatch('entries/unverify', entry)
+            })
+        },
+
+        approve(entry) {
+            confirm('Confirma a APROVAÇÃO deste lançamento?', this).then(
+                value => {
+                    value && this.$store.dispatch('entries/approve', entry)
+                },
+            )
+        },
+
+        unapprove(entry) {
+            confirm(
+                'Confirma a remoção do status "APROVADO" deste lançamento?',
+                this,
+            ).then(value => {
+                value && this.$store.dispatch('entries/unapprove', entry)
+            })
+        },
     },
 }
 </script>

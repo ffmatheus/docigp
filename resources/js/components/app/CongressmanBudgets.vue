@@ -32,6 +32,11 @@
                 },
                 {
                     type: 'label',
+                    title: 'Lançamentos',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
                     title: 'Pendências',
                     trClass: 'text-center',
                 },
@@ -71,6 +76,10 @@
 
                 <td class="align-middle text-right">
                     {{ congressmanBudget.value_formatted }}
+                </td>
+
+                <td class="align-middle text-right">
+                    {{ congressmanBudget.entries_count }}
                 </td>
 
                 <td class="align-middle text-center">

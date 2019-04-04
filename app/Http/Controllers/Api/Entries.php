@@ -21,4 +21,24 @@ class Entries extends Controller
             $congressmanBudgetId
         );
     }
+
+    public function verify($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->verify($entryId);
+    }
+
+    public function unverify($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->unverify($entryId);
+    }
+
+    public function approve($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->approve($entryId);
+    }
+
+    public function unapprove($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->unapprov($entryId);
+    }
 }

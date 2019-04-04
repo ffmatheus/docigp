@@ -13,7 +13,7 @@ $factory->define(EntryModel::class, function (Faker $faker) {
             $timezone = null
         ),
         'value' => $faker->randomFloat(2, 0.1, 1000),
-        'object' => $faker->text,
+        'object' => $faker->text(30),
         'to' => $faker->name,
         'congressman_budget_id' => app(
             CongressmanBudgets::class
