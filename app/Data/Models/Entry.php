@@ -51,6 +51,8 @@ class Entry extends Model
             'verified_at' => null,
             'verified_by_id' => auth()->user()->id,
         ]);
+
+        $this->unapprove();
     }
 
     public function approve()
@@ -66,6 +68,24 @@ class Entry extends Model
         $this->update([
             'approved_at' => null,
             'approved_by_id' => auth()->user()->id,
+        ]);
+
+        $this->unpublish();
+    }
+
+    public function publish()
+    {
+        $this->update([
+            'published_at' => now(),
+            'published_by_id' => auth()->user()->id,
+        ]);
+    }
+
+    public function unpublish()
+    {
+        $this->update([
+            'published_at' => null,
+            'published_by_id' => auth()->user()->id,
         ]);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Data\Models;
 
 use FontLib\Table\Type\name;
 use OwenIt\Auditing\Auditable;
-use App\Data\Models\Traits\Selectable;
+use App\Data\Traits\Selectable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
