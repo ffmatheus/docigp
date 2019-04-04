@@ -15,7 +15,7 @@
             :columns="[
                 'Data',
                 'Objeto',
-                'Creditado a',
+                'Pessoa Física / Jurídica',
                 {
                     type: 'label',
                     title: 'Valor',
