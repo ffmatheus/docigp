@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class Service
 {
     const LOGIN_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/0IYFFiMHuUr1sYo6wEtjUsJQ7Zicg33SMuvtrFk9yEgwrORmblNSMdpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jObK5Uoh/login';
-    const USER_INFO_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/d6fFGg5h4jui1k5loFG3p7d6fg5h4j3kDS8HJ/user';
+    const USER_INFO_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/0IYFFiMHuUr1sYo6wEtjUsJQ7Zicg33SMuvtrFk9yEgwrORmblNSMdpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jObK5Uoh/user';
     const PERMISSIONS_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/permissions';
     const PROFILES_URL = 'http://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/profiles';
 
@@ -233,5 +233,36 @@ class Service
         }
 
         return filled($user);
+    }
+
+    public function emailExists($email)
+    {
+        return isset($this->userInfoByEmail($email)['name']);
+    }
+
+    public function userInfoByUsername($username)
+    {
+        try {
+            $response = $this->remoteRequest->post(static::USER_INFO_URL, [
+                'username' => $username,
+            ]);
+            return $response;
+        } catch (\Exception $exception) {
+            Log::error(
+                'Tentativa de procurar login de ' .
+                    $username .
+                    ' falhou pois o sistema remoto autenticação está fora do ar'
+            );
+            return $this->failedAuthentication();
+        }
+    }
+
+    public function userInfoByEmail($email)
+    {
+        preg_match('/(.*?)@(.*)/', $email, $output_array);
+        if ($output_array[2] != 'alerj.rj.gov.br') {
+            return $this->failedAuthentication();
+        }
+        return $this->userInfoByUsername($output_array[1]);
     }
 }

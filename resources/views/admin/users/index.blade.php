@@ -19,6 +19,8 @@
                 </div>
             @endif
 
+            <a href="{{route('users.create')}}" id="button-new" class="btn btn-primary pull-right">Novo</a>
+
             @include('admin.users.partials.table')
         </div>
     </div>

@@ -21,7 +21,6 @@ class InsertRolesAndAbilities extends Migration
             'name' => 'Administrator',
             'title' => 'Administrator',
         ]);
-
         Bouncer::role()->firstOrCreate([
             'name' => 'Deputado',
             'title' => 'Deputado',

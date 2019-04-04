@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-xs-8 col-md-10">
                         <h4>
-                            <a href="{{ route('users.index') }}">Users</a>
+                            <a href="{{ route('users.index') }}">Usuários</a>
 
                             @if(is_null($user->id))
                                 > NOVO
@@ -16,16 +16,19 @@
                             @endif
                         </h4>
                     </div>
-
-                    <div class="col-xs-4 col-md-2">
-                        @include('partials.save-button')
-                    </div>
                 </div>
             </div>
 
             <div class="panel-body">
+                @include('partials.alerts')
 
-                <form name="formUsers" id="formUsers" action="{{ route('users.update', ['id' => $user->id]) }}" method="POST">
+                @if ($errors->has('email'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
+
+                <form name="formUsers" id="formUsers" @if($mode == 'edit') action="{{ route('users.update', ['id' => $user->id]) }}" @else action="{{ route('users.store')}}" @endIf method="POST">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="id" value="{{$user->id}}"/>
@@ -34,20 +37,23 @@
                         <div class="form-group col-md-4">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="username">Login ALERJ</label>
-                                    <input type="hidden" name="username" id="username" value="{{$user->username}}" />
-                                    <p><label for="email">{{$user->email}}</label></p>
-                                    <input type="hidden" name="email" id="email" value="{{$user->email}}" />
+                                    <label for="username">E-mail ALERJ</label>
+                                    @if($mode == 'edit')
+                                        <p><label for="email">{{$user->email}}</label></p>
+                                    @endIf
+                                    <p><input @if($mode == 'edit') type="hidden" @endIf name="email" id="email" value="{{$user->email}}" /></p>
+                                    <input type="hidden" name="username" id="username" value="{{$user->email}}" />
                                 </div>
                             </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="name">Nome</label>
-                                    <p><label name="name">{{$user->name}}</label></p>
-                                    <input type="hidden" name="name" id="name" value="{{$user->name}}" />
+                            @if($mode == 'edit')
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="name">Nome</label>
+                                        <p><label name="name">{{$user->name}}</label></p>
+                                        <input type="hidden" name="name" id="name" value="{{$user->name}}" />
+                                    </div>
                                 </div>
-                            </div>
+                            @endIf
                         </div>
                     </div>
 
