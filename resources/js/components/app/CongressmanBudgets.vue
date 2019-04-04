@@ -1,7 +1,7 @@
 <template>
     <app-table-panel
         :title="'Orçamento mensal (' + pagination.total + ')'"
-        titleCollapsed="Orçamento de"
+        titleCollapsed="Orçamento"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
@@ -49,7 +49,7 @@
             ]"
         >
             <tr
-                @click="select(congressmanBudget)"
+                @click="selectCongressmanBudget(congressmanBudget)"
                 v-for="congressmanBudget in congressmanBudgets.data.rows"
                 :class="{
                     'cursor-pointer': true,
@@ -126,20 +126,25 @@
 import crud from '../../views/mixins/crud'
 import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 import permissions from '../../views/mixins/permissions'
+import { mapActions } from 'vuex'
+
+const service = {
+    name: 'congressmanBudgets',
+    uri: 'congressmen/{congressmen.selected.id}/budgets',
+}
 
 export default {
     mixins: [crud, congressmanBudgets, permissions],
 
     data() {
         return {
-            service: {
-                name: 'congressmanBudgets',
-                uri: 'congressmen/{congressmen.selected.id}/budgets',
-            },
+            service: service,
         }
     },
 
     methods: {
+        ...mapActions(service.name, ['selectCongressmanBudget']),
+
         makeDate(congressmanBudget) {
             return congressmanBudget.year + ' / ' + congressmanBudget.month
         },

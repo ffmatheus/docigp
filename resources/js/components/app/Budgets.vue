@@ -1,7 +1,7 @@
 <template>
     <app-table-panel
         :title="'Orçamento mensal (' + pagination.total + ')'"
-        titleCollapsed="Orçamento de"
+        titleCollapsed="Orçamento"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"

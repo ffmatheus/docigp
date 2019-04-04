@@ -183,9 +183,11 @@ window.buildApiUrl = (uri, state) => {
     let hasNulls = false
 
     _.each(uri.match(/(\{.*?\})/g), param => {
-        str = str.replace(param, objectAttributeFromString(param, state))
+        const obj = objectAttributeFromString(param, state)
 
-        hasNulls = hasNulls || objectAttributeFromString(param, state) === null
+        str = str.replace(param, obj)
+
+        hasNulls = hasNulls || obj === null
     })
 
     if (hasNulls) {

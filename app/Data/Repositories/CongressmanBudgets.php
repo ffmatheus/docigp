@@ -14,8 +14,6 @@ class CongressmanBudgets extends Repository
 
     public function allFor($congressmanId)
     {
-        db_listen();
-
         return $this->applyFilter(
             $this->newQuery()
                 ->join(

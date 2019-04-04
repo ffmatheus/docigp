@@ -3,6 +3,8 @@ let debouncedByUrl = {}
 export function load(context) {
     const url = makeDataUrl(context)
 
+    dd(url, context)
+
     if (url) {
         let urlHash = hash(url + JSON.stringify(context.getters.getQueryFilter))
 
