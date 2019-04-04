@@ -13,6 +13,10 @@ class Congressman extends Model
         'thumbnail_url',
     ];
 
+    protected $with =[
+        'party'
+    ];
+
     protected $filterableColumns = ['name'];
 
     protected $orderBy = ['name' => 'asc'];
