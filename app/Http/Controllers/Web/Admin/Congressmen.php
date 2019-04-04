@@ -30,7 +30,6 @@ class Congressmen extends Controller
     {
         return view('admin.congressmen.form')->with([
             'congressman' => $this->congressmenrepository->new(),
-            'parties'=> $this->getComboBoxMenus()
         ]);
     }
 
