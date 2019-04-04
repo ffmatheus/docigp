@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col-xs-4 col-md-2">
-                    @include('partials.save-button')
+                    {{--@include('partials.save-button')--}}
                 </div>
             </div>
         </div>
@@ -29,6 +29,11 @@
                 {{ csrf_field() }}
 
                 <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
+                <div class="row">
+                    <div class="form-group col-md-6" >
+                        <img src="{{'http://'.trim($congressman->photo_url)}}">
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="form-group col-md-6" >
@@ -49,17 +54,26 @@
                 <div class="row">
                     <div class="form-group col-md-6" >
                         <label for="nickname">Partido</label>
-                        <select name="party_id" id="party_id" class="form-control">
-                            <option value="">SELECTIONE</option>
-                            <option value="1">PSOL</option>
-                        </select>
+                        {{--{{dump($parties)}}--}}
+                        {{--@foreach($parties as $key =>$party)--}}
+                        {{--{{dump($party)}}--}}
+                        {{--@endforeach--}}
+                        {{--{{dd("fim")}}--}}
+                        {{--<select name="party_id" id="party_id" class="form-control">--}}
+                            {{--<option value="">Selecione</option>--}}
+
+                            {{--@foreach($parties as $key =>$party)--}}
+                                {{--<option value="{{ $party->id }}">{{ $party->name }}</option>--}}
+                        {{--</select>--}}
+                        {{--@endforeach--}}
+                        <input nickname="party" value="{{is_null(old('party_name')) ? $congressman->party->name : old('party_name')}}" class="form-control" id="party" aria-describedby="nicknameHelp" placeholder="party_name" >
                     </div>
 
                 </div>
 
 
 
-                @include('partials.save-button')
+                {{--@include('partials.save-button')--}}
             </form>
         </div>
     </div>

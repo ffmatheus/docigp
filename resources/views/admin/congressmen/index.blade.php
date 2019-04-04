@@ -12,8 +12,7 @@
                     @include(
                         'layouts.partials.search-form',
                         [
-                            'routeSearch' => 'congressmen.index',
-                            'routeCreate' => 'congressmen.create',
+                            'routeSearch' => 'congressmen.index'
                         ]
                     )
                 </div>

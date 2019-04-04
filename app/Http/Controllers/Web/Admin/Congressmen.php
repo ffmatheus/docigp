@@ -4,39 +4,58 @@ namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Data\Repositories\Congressmen as CongressmenRepository;
 use App\Http\Requests\Congressman as CongressmanRequest;
+
+use App\Data\Repositories\Congressmen as CongressmenRepository;
 
 class Congressmen extends Controller
 {
+    /**
+     * @var CongressmenRepository
+     */
+    private $congressmenRepository;
 
-    private $repository;
-
-    public function __construct(CongressmenRepository $repository)
+    /**
+     * Users constructor.
+     *
+     * @param CongressmenRepository $congressmenRepository
+     */
+    public function __construct(CongressmenRepository $congressmenRepository)
     {
-        $this->repository = $repository;
+        $this->congressmenRepository = $congressmenRepository;
     }
+
 
     public function create()
     {
         return view('admin.congressmen.form')->with([
-            'congressman' => $this->repository->new(),
+            'congressman' => $this->congressmenrepository->new(),
+            'parties'=> $this->getComboBoxMenus()
         ]);
     }
 
     public function store(
-        CongressmanRequest $request,
-        CongressmenRepository $repository
+        CongressmanRequest $request
     ) {
-        $repository->createFromRequest($request);
+        $this->congressmenrepository->createFromRequest($request);
 
         return redirect()->route('admin.congressmen.index');
     }
 
-    public function index(CongressmenRepository $repository, Request $request)
+    public function index(Request $request)
     {
         return view('admin.congressmen.index')
-            ->with('search', $request->get('search'))
-            ->with('congressmen', $this->repository->search($request));
+            ->with('congressmen', $this->congressmenRepository->all()
+            );
+    }
+
+    public function show($id)
+    {
+        $congressman = app(CongressmenRepository::class)->findById($id);
+
+        //TODO selecionar as roles possíveis
+        return view('admin.congressmen.form')
+            ->with('congressman', $congressman)
+            ->with('formDisabled', true);
     }
 }

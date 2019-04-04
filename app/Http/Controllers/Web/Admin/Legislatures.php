@@ -18,7 +18,7 @@ class Legislatures extends Controller
 
     public function create()
     {
-        return view('legislatures.show')->with([
+        return view('admin.legislatures.show')->with([
             'legislature' => $this->repository->new(),
         ]);
     }
@@ -29,20 +29,20 @@ class Legislatures extends Controller
     ) {
         $repository->createFromRequest($request);
 
-        return redirect()->route('legislatures.index');
+        return redirect()->route('admin.legislatures.index');
     }
 
     public function index(LegislaturesRepository $repository, Request $request)
     {
-        return view('legislatures.index')
+        return view('admin.legislatures.index')
             ->with('search', $request->get('search'))
             ->with('legislatures', $repository->search($request));
     }
 
     public function show($id)
     {
-        return view('legislatures.show')
+        return view('admin.legislatures.show')
             ->with('formDisabled', true)
-            ->with(['legislatures' => $this->repository->findById($id)]);
+            ->with(['legislature' => $this->repository->findById($id)]);
     }
 }
