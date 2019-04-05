@@ -23,6 +23,16 @@ class CreateFilesTables extends Migration
             $table->string('path');
             $table->string('public_url');
 
+            $table
+                ->bigInteger('created_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('updated_by_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamps();
         });
     }
