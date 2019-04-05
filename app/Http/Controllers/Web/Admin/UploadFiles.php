@@ -12,7 +12,6 @@ class UploadFiles extends Controller
 {
     public function index(Request $request)
     {
-        //;
         return view('admin.upload_files.index')->with(
             'uploadedFiles',
             app(FilesRepository::class)
@@ -30,7 +29,6 @@ class UploadFiles extends Controller
 
     public function store(UploadFileRequest $request)
     {
-        dd('ae');
         app(FilesRepository::class)->uploadFile(
             $request->all(),
             CongressmanBudget::class

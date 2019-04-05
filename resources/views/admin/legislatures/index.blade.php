@@ -27,7 +27,8 @@
                 </div>
             @endif
 
-            @include('legislatures.partials.table')
+            @include('admin.legislatures.partials.table')
         </div>
     </div>
 @endsection
+

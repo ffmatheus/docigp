@@ -14,6 +14,8 @@
     <thead>
     <tr>
         <th>Número</th>
+        <th>Ano início</th>
+        <th>Ano fim</th>
     </tr>
     </thead>
 
@@ -21,6 +23,12 @@
         <tr>
             <td>
                 <a href="{{ route('legislatures.show', ['id' => $legislature->id]) }}">{{ $legislature->number }}</a>
+            </td>
+            <td>
+                {{ $legislature->year_start }}
+            </td>
+            <td>
+                {{ $legislature->year_end }}
             </td>
         </tr>
     @empty
