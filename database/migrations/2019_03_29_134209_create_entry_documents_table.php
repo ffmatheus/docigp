@@ -21,8 +21,17 @@ class CreateEntryDocumentsTable extends Migration
             $table->string('path');
             $table->string('name');
 
+            $table->timestamp('approved_at')->nullable();
+            $table
+                ->bigInteger('approved_by_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamp('published_at')->nullable();
-            $table->timestamp('published_by_id')->nullable();
+            $table
+                ->bigInteger('published_by_id')
+                ->unsigned()
+                ->nullable();
 
             $table
                 ->bigInteger('created_by_id')

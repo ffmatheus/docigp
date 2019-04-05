@@ -22,4 +22,24 @@ class EntryDocuments extends Controller
             $entryId
         );
     }
+
+    public function publish($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntryDocumentsRepository::class)->publish($entryId);
+    }
+
+    public function unpublish($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntryDocumentsRepository::class)->unpublish($entryId);
+    }
+
+    public function approve($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntryDocumentsRepository::class)->approve($entryId);
+    }
+
+    public function unapprove($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntryDocumentsRepository::class)->unapprove($entryId);
+    }
 }

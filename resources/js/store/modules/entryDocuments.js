@@ -33,7 +33,28 @@ let state = merge_objects(
     statesMixin.common,
 )
 
-let actions = actionsMixin
+let actions = merge_objects(actionsMixin, {
+    selectEntryDocument(context, payload) {
+        context.dispatch('entryDocuments/select', payload, { root: true })
+    },
+
+    publish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/publish')
+    },
+
+    unpublish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unpublish')
+    },
+
+    approve(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/approve')
+    },
+
+    unapprove(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unapprove')
+    },
+})
+
 let mutations = mutationsMixin
 let getters = gettersMixin
 

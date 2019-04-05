@@ -2,10 +2,13 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Traits\RepositoryActionable;
 use App\Data\Models\EntryDocument as EntryDocument;
 
 class EntryDocuments extends Repository
 {
+    use RepositoryActionable;
+
     /**
      * @var string
      */

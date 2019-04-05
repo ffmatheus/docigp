@@ -4,9 +4,12 @@ namespace App\Data\Repositories;
 
 use Carbon\Carbon;
 use App\Data\Models\Entry;
+use App\Data\Traits\RepositoryActionable;
 
 class Entries extends Repository
 {
+    use RepositoryActionable;
+
     /**
      * @var string
      */

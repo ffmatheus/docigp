@@ -16,6 +16,11 @@
                 'Name',
                 {
                     type: 'label',
+                    title: 'Aprovado',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
                     title: 'Publicado',
                     trClass: 'text-center',
                 },
@@ -23,7 +28,7 @@
             ]"
         >
             <tr
-                @click="select(document)"
+                @click="selectEntryDocument(document)"
                 v-for="document in entryDocuments.data.rows"
                 :class="{
                     'cursor-pointer': true,
@@ -39,14 +44,49 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
+                        :value="document.approved_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
                         :value="document.published_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
                 <td class="align-middle text-right">
-                    <button class="btn btn-sm btn-micro btn-danger">
+                    <button
+                        v-if="!document.approved_at"
+                        class="btn btn-sm btn-micro btn-primary"
+                        @click="approve(document)"
+                    >
+                        aprovar
+                    </button>
+
+                    <button
+                        v-if="document.approved_at"
+                        class="btn btn-sm btn-micro btn-primary"
+                        @click="unapprove(document)"
+                    >
+                        desaprovar
+                    </button>
+
+                    <button
+                        v-if="document.approved_at && !document.published_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        @click="publish(document)"
+                    >
                         publicar
+                    </button>
+
+                    <button
+                        v-if="document.published_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        @click="publish(document)"
+                    >
+                        despublicar
                     </button>
 
                     <button class="btn btn-sm btn-micro btn-warning">
@@ -62,24 +102,65 @@
 import crud from '../../views/mixins/crud'
 import permissions from '../../views/mixins/permissions'
 import entryDocuments from '../../views/mixins/entryDocuments'
+import { mapActions } from 'vuex'
+
+const service = {
+    name: 'entryDocuments',
+
+    uri:
+        'congressmen/{congressmen.selected.id}/budgets/{congressmanBudgets.selected.id}/entries/{entries.selected.id}/documents',
+}
 
 export default {
     mixins: [crud, entryDocuments, permissions],
 
     data() {
         return {
-            service: {
-                name: 'entryDocuments',
-
-                uri:
-                    'congressmen/{congressmen.selected.id}/budgets/{congressmanBudgets.selected.id}/entries/{entries.selected.id}/documents',
-            },
+            service: service,
         }
     },
 
     methods: {
-        makeDate(entryDocument) {
-            return entryDocument.year + ' / ' + entryDocument.month
+        ...mapActions(service.name, ['selectEntryDocument']),
+
+        approve(document) {
+            confirm('Confirma a APROVAÇÃO deste documento?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch('entryDocuments/approve', document)
+                },
+            )
+        },
+
+        unapprove(document) {
+            confirm(
+                'Confirma a remoção do status "APROVADO" deste documento?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch('entryDocuments/unapprove', document)
+            })
+        },
+
+        publish(document) {
+            confirm('Confirma a PUBLICAÇÃO deste documento?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch('entryDocuments/publish', document)
+                },
+            )
+        },
+
+        unpublish(document) {
+            confirm('Confirma a DESPUBLICAÇÃO deste documento?', this)
+                .then(this)
+                .then(value => {
+                    value &&
+                        this.$store.dispatch(
+                            'entryDocuments/unpublish',
+                            document,
+                        )
+                })
         },
     },
 }
