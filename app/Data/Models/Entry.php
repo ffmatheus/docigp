@@ -37,6 +37,11 @@ class Entry extends Model
 
     protected $orderBy = ['date' => 'desc'];
 
+    public function documents()
+    {
+        return $this->hasMany(EntryDocument::class);
+    }
+
     public function verify()
     {
         $this->update([

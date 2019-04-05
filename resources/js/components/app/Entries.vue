@@ -14,19 +14,26 @@
             ></app-congressman-budgets>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-9">
             <app-budget-entries
                 v-if="congressmanBudgets.selected.id"
             ></app-budget-entries>
+        </div>
+
+        <div class="col-sm-3">
+            <app-entry-documents
+                v-if="entries.selected.id"
+            ></app-entry-documents>
         </div>
     </div>
 </template>
 
 <script>
+import entries from '../../views/mixins/entries'
 import congressmen from '../../views/mixins/congressmen'
 import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 
 export default {
-    mixins: [congressmen, congressmanBudgets],
+    mixins: [congressmen, congressmanBudgets, entries],
 }
 </script>

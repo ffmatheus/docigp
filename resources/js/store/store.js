@@ -25,6 +25,7 @@ import congressmen from './modules/congressmen'
 import budgets from './modules/budgets'
 import congressmanBudgets from './modules/congressmanBudgets'
 import entries from './modules/entries'
+import entryDocuments from './modules/entryDocuments'
 
 /**
  * State
@@ -48,6 +49,7 @@ let store = new Vuex.Store({
         budgets,
         congressmanBudgets,
         entries,
+        entryDocuments,
     },
 })
 

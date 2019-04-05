@@ -34,6 +34,12 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    selectEntry(context, payload) {
+        context.dispatch('entries/select', payload, { root: true })
+
+        context.dispatch('entryDocuments/load', payload, { root: true })
+    },
+
     verify(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/verify')
     },

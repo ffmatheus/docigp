@@ -40,7 +40,7 @@
             ]"
         >
             <tr
-                @click="select(entry)"
+                @click="selectEntry(entry)"
                 v-for="entry in entries.data.rows"
                 :class="{
                     'cursor-pointer': true,
@@ -120,22 +120,27 @@
 import crud from '../../views/mixins/crud'
 import entries from '../../views/mixins/entries'
 import permissions from '../../views/mixins/permissions'
+import { mapActions } from 'vuex'
+
+const service = {
+    name: 'entries',
+
+    uri:
+        'congressmen/{congressmen.selected.id}/budgets/{congressmanBudgets.selected.id}/entries',
+}
 
 export default {
     mixins: [crud, entries, permissions],
 
     data() {
         return {
-            service: {
-                name: 'entries',
-
-                uri:
-                    'congressmen/{congressmen.selected.id}/budgets/{congressmanBudgets.selected.id}/entries',
-            },
+            service: service,
         }
     },
 
     methods: {
+        ...mapActions(service.name, ['selectEntry']),
+
         verify(entry) {
             confirm(
                 'Confirma a marcação deste lançamento como "VERIFICADO"?',

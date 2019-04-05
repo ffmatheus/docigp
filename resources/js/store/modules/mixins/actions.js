@@ -3,7 +3,10 @@ let debouncedByUrl = {}
 export function load(context) {
     const url = makeDataUrl(context)
 
-    dd(url, context)
+    dd('url', url)
+    var stack = new Error().stack
+    console.log('PRINTING CALL STACK')
+    console.log(stack)
 
     if (url) {
         let urlHash = hash(url + JSON.stringify(context.getters.getQueryFilter))

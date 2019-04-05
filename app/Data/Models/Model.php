@@ -34,4 +34,17 @@ abstract class Model extends Eloquent implements AuditableContract
 
         return $saved;
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($model) {
+            $model->updated_by_id = ($user = auth()->user()) ? $user->id : 1;
+        });
+
+        static::creating(function ($model) {
+            $model->created_by_id = ($user = auth()->user()) ? $user->id : 1;
+        });
+    }
 }
