@@ -9,6 +9,16 @@
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
     >
+        <template slot="buttons">
+            <button
+                class="btn btn-primary btn-sm pull-right"
+                @click="createEntry()"
+                title="Novo documento"
+            >
+                <i class="fa fa-plus"></i>
+            </button>
+        </template>
+
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
@@ -89,9 +99,13 @@
                         despublicar
                     </button>
 
-                    <button class="btn btn-sm btn-micro btn-warning">
+                    <a
+                        href="/img/docigp.pdf"
+                        target="_blank"
+                        class="btn btn-sm btn-micro btn-warning cursor-pointer"
+                    >
                         <i class="fa fa-file-image"></i>
-                    </button>
+                    </a>
                 </td>
             </tr>
         </app-table>

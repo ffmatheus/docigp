@@ -1,14 +1,30 @@
 <template>
     <app-table-panel
         :title="'Lançamentos (' + pagination.total + ')'"
-        titleCollapsed="Deputado / Deputada"
+        titleCollapsed="Lançamento"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
-        :collapsedLabel="selected.name"
+        :collapsedLabel="
+            selected.date_formatted +
+                ' - ' +
+                selected.object +
+                ' - ' +
+                selected.value_formatted
+        "
         :is-selected="selected.id !== null"
     >
+        <template slot="buttons">
+            <button
+                class="btn btn-primary btn-sm pull-right"
+                @click="createEntry()"
+                title="Nova despesa"
+            >
+                <i class="fa fa-plus"></i>
+            </button>
+        </template>
+
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
@@ -16,6 +32,11 @@
                 'Data',
                 'Objeto',
                 'Pessoa Física / Jurídica',
+                {
+                    type: 'label',
+                    title: 'Documentos',
+                    trClass: 'text-right',
+                },
                 {
                     type: 'label',
                     title: 'Valor',
@@ -52,6 +73,10 @@
                 <td class="align-middle">{{ entry.object }}</td>
 
                 <td class="align-middle">{{ entry.to }}</td>
+
+                <td class="align-middle text-right">
+                    {{ entry.documents_count }}
+                </td>
 
                 <td class="align-middle text-right">
                     {{ entry.value_formatted }}
@@ -117,10 +142,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import crud from '../../views/mixins/crud'
 import entries from '../../views/mixins/entries'
 import permissions from '../../views/mixins/permissions'
-import { mapActions } from 'vuex'
+import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 
 const service = {
     name: 'entries',
@@ -130,7 +156,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, entries, permissions],
+    mixins: [crud, entries, permissions, congressmanBudgets],
 
     data() {
         return {
