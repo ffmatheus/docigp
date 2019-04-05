@@ -33,6 +33,10 @@ class Entry extends Model
 
     protected $selectColumns = ['entries.*'];
 
+    protected $selectColumnsRaw = [
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id) as documents_count',
+    ];
+
     protected $filterableColumns = [
         'entries.to',
         'entries.object',

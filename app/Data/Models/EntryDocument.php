@@ -19,5 +19,7 @@ class EntryDocument extends Model
         'published_by_id',
     ];
 
+    protected $selectColumns = ['entry_documents.*'];
+
     protected $dates = ['date', 'approved_at', 'published_at'];
 }
