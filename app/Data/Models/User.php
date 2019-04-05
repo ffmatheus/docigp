@@ -95,4 +95,9 @@ class User extends Authenticatable implements AuditableContract
 
         Bouncer::sync($this)->roles($rolesToSync);
     }
+
+    public function departament()
+    {
+        return $this->belongsTo(Departament::class);
+    }
 }
