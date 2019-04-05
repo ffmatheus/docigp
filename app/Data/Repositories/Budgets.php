@@ -38,14 +38,14 @@ class Budgets extends Repository
         ]);
     }
 
-    private function generateCongressmanBudgets()
+    private function generateCongressmanBudgets($baseDate = null)
     {
         Congressman::active()
             ->get()
-            ->each(function ($congressman) {
+            ->each(function ($congressman) use ($baseDate) {
                 $this->generateCongressmanBudget(
                     $congressman,
-                    $this->getCurrent()
+                    $this->getCurrent($baseDate)
                 );
             });
     }
@@ -74,18 +74,24 @@ class Budgets extends Repository
         }
     }
 
-    public function getCurrent()
+    public function getCurrent($baseDate = null)
     {
-        return $this->newQuery()
-            ->orderBy('date', 'desc')
-            ->first();
+        $query = $baseDate
+            ? $this->newQuery()->where('date', $baseDate)
+            : $this->newQuery()->orderBy('date', 'desc');
+
+        return $query->first();
     }
 
-    public function generate()
+    public function generate($baseDate = null)
     {
+        if ($baseDate) {
+            \Carbon\Carbon::setTestNow($baseDate);
+        }
+
         $this->generateGlobalBudget();
 
-        $this->generateCongressmanBudgets();
+        $this->generateCongressmanBudgets($baseDate);
     }
 
     public function transform($data)

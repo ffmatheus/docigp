@@ -39,6 +39,6 @@ class Entries extends Controller
 
     public function unapprove($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->unapprov($entryId);
+        app(EntriesRepository::class)->unapprove($entryId);
     }
 }

@@ -4,9 +4,12 @@ namespace App\Data\Repositories;
 
 use Carbon\Carbon;
 use App\Data\Models\Entry;
+use App\Data\Traits\RepositoryActionable;
 
 class Entries extends Repository
 {
+    use RepositoryActionable;
+
     /**
      * @var string
      */
@@ -47,25 +50,5 @@ class Entries extends Repository
         });
 
         return parent::transform($data);
-    }
-
-    public function verify($entryId)
-    {
-        $this->findById($entryId)->verify();
-    }
-
-    public function unverify($entryId)
-    {
-        $this->findById($entryId)->unverify();
-    }
-
-    public function approve($entryId)
-    {
-        $this->findById($entryId)->approve();
-    }
-
-    public function unapprove($entryId)
-    {
-        $this->findById($entryId)->unapprove();
     }
 }

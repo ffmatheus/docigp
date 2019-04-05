@@ -2,8 +2,12 @@
 
 namespace App\Data\Models;
 
+use App\Data\Traits\ModelActionable;
+
 class Entry extends Model
 {
+    use ModelActionable;
+
     protected $table = 'entries';
 
     /**
@@ -29,6 +33,11 @@ class Entry extends Model
 
     protected $selectColumns = ['entries.*'];
 
+    protected $selectColumnsRaw = [
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id) as documents_count',
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.approved_at is null) > 0 as has_pendency',
+    ];
+
     protected $filterableColumns = [
         'entries.to',
         'entries.object',
@@ -37,36 +46,14 @@ class Entry extends Model
 
     protected $orderBy = ['date' => 'desc'];
 
-    public function verify()
+    public function documents()
     {
-        $this->update([
-            'verified_at' => now(),
-            'verified_by_id' => auth()->user()->id,
-        ]);
+        return $this->hasMany(EntryDocument::class);
     }
 
-    public function unverify()
+    public function congressmanBudget()
     {
-        $this->update([
-            'verified_at' => null,
-            'verified_by_id' => auth()->user()->id,
-        ]);
-    }
-
-    public function approve()
-    {
-        $this->update([
-            'approved_at' => now(),
-            'approved_by_id' => auth()->user()->id,
-        ]);
-    }
-
-    public function unapprove()
-    {
-        $this->update([
-            'approved_at' => null,
-            'approved_by_id' => auth()->user()->id,
-        ]);
+        return $this->belongsTo(CongressmanBudget::class);
     }
 
     public function file()

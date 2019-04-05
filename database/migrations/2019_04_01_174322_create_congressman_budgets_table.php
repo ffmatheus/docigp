@@ -41,6 +41,16 @@ class CreateCongressmanBudgetsTable extends Migration
 
             $table->timestamp('published_at')->nullable();
 
+            $table
+                ->bigInteger('created_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('updated_by_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamps();
         });
     }

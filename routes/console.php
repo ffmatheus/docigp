@@ -13,7 +13,9 @@ Artisan::command('docigp:sync:parties', function () {
     app(DataSyncService::class)->parties();
 })->describe('Sync congressmen data');
 
-Artisan::command('docigp:budget:generate', function () {
+Artisan::command('docigp:budget:generate {baseDate?}', function (
+    $baseDate = null
+) {
     $this->info('Generating budgets...');
-    app(Budgets::class)->generate();
+    app(Budgets::class)->generate($baseDate);
 })->describe('Sync congressmen data');

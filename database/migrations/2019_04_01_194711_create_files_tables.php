@@ -24,6 +24,16 @@ class CreateFilesTables extends Migration
             $table->text('public_url');
             $table->text('mime_type');
 
+            $table
+                ->bigInteger('created_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('updated_by_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamps();
         });
     }

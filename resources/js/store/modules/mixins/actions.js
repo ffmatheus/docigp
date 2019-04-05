@@ -3,8 +3,6 @@ let debouncedByUrl = {}
 export function load(context) {
     const url = makeDataUrl(context)
 
-    dd(url, context)
-
     if (url) {
         let urlHash = hash(url + JSON.stringify(context.getters.getQueryFilter))
 
@@ -111,6 +109,11 @@ export function subscribeToModelEvents(context, payload) {
 
 export function subscribeToTableEvents(context) {
     if (context.state.model) {
+        dd(
+            context.state.model.table,
+            '.App\\Events\\' + context.state.model.class.plural + 'Changed',
+        )
+
         subscribePublicChannel(
             context.state.model.table,
             '.App\\Events\\' + context.state.model.class.plural + 'Changed',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCongressmanSettingsTable extends Migration
+class CreateFailedJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCongressmanSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('congressman_settings', function (Blueprint $table) {
+        Schema::create('failed_jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->decimal('budget_value', 20, 2);
-
-            $table->timestamps();
+            $table->text('connection');
+            $table->text('queue');
+            $table->longText('payload');
+            $table->longText('exception');
+            $table->timestamp('failed_at')->useCurrent();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateCongressmanSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('congressman_settings');
+        Schema::dropIfExists('failed_jobs');
     }
 }

@@ -44,6 +44,39 @@ Route::group(['prefix' => '/congressmen'], function () {
                     Route::post('/unapprove', 'Entries@unapprove')->name(
                         'congressmen.budgets.entries.unapprove'
                     );
+
+                    Route::group(['prefix' => '/documents'], function () {
+                        Route::get('/', 'EntryDocuments@all')->name(
+                            'congressmen.budgets.entries.documents.all'
+                        );
+
+                        Route::group(
+                            ['prefix' => '/{documentId}'],
+                            function () {
+                                Route::post(
+                                    '/publish',
+                                    'EntryDocuments@publish'
+                                )->name('congressmen.budgets.entries.publish');
+
+                                Route::post(
+                                    '/unpublish',
+                                    'EntryDocuments@unpublish'
+                                )->name('congressmen.budgets.entries.unverify');
+
+                                Route::post(
+                                    '/approve',
+                                    'EntryDocuments@approve'
+                                )->name('congressmen.budgets.entries.approve');
+
+                                Route::post(
+                                    '/unapprove',
+                                    'EntryDocuments@unapprove'
+                                )->name(
+                                    'congressmen.budgets.entries.unapprove'
+                                );
+                            }
+                        );
+                    });
                 });
             }
         );

@@ -29,6 +29,16 @@ class CreateAttachedFilesTable extends Migration
             $table->text('original_name');
 
             $table->timestamps();
+
+            $table
+                ->bigInteger('created_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('updated_by_id')
+                ->unsigned()
+                ->nullable();
         });
     }
 

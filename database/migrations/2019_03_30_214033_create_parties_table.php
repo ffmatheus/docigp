@@ -19,6 +19,16 @@ class CreatePartiesTable extends Migration
             $table->string('code');
             $table->string('name');
 
+            $table
+                ->bigInteger('created_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('updated_by_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamps();
         });
     }

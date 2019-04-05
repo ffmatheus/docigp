@@ -4,7 +4,7 @@ docigp:sync:parties
 docigp:sync:congressmen
 docigp:budget:generate
 
-a migrate:fresh -vvv; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:budget:generate -vvv; a db:seed -vvv
+a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:budget:generate -vvv; a docigp:budget:generate 2019-03-01; a docigp:budget:generate 2019-02-01; a db:seed -vvv --force
 
 ### Permissões
 
