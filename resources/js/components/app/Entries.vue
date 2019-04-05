@@ -49,6 +49,11 @@
                 },
                 {
                     type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                },
+                {
+                    type: 'label',
                     title: 'Verificado',
                     trClass: 'text-center',
                 },
@@ -91,6 +96,13 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
+                        :value="!entry.has_pendency"
+                        :labels="['não', 'sim']"
+                    ></app-active-badge>
+                </td>
+
+                <td class="align-middle text-center">
+                    <app-active-badge
                         :value="entry.verified_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
@@ -108,32 +120,45 @@
                         v-if="!entry.verified_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="verify(entry)"
+                        title="marcar como verificado"
                     >
-                        marcar como verificado
+                        <i class="fa fa-check"></i> verificar
                     </button>
 
                     <button
                         v-if="entry.verified_at"
                         class="btn btn-sm btn-micro btn-warning"
                         @click="unverify(entry)"
+                        title="cancelar verificação"
                     >
-                        cancelar verificação
+                        <i class="fa fa-ban"></i> verificação
                     </button>
 
                     <button
                         v-if="entry.verified_at && !entry.approved_at"
                         class="btn btn-sm btn-micro btn-success"
                         @click="approve(entry)"
+                        title="marcar como aprovado"
                     >
-                        aprovar
+                        <i class="fa fa-check"></i> aprovar
                     </button>
 
                     <button
                         v-if="entry.verified_at && entry.approved_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unapprove(entry)"
+                        title="cancelar aprovação"
                     >
-                        cancelar aprovação
+                        <i class="fa fa-ban"></i> aprovação
+                    </button>
+
+                    <button
+                        v-if="!entry.approved_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        @click="trash(entry)"
+                        title="deletar lançamento"
+                    >
+                        <i class="fa fa-trash"></i>
                     </button>
                 </td>
             </tr>
@@ -166,6 +191,8 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectEntry']),
+
+        trash(entry) {},
 
         verify(entry) {
             confirm(

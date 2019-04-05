@@ -109,6 +109,11 @@ export function subscribeToModelEvents(context, payload) {
 
 export function subscribeToTableEvents(context) {
     if (context.state.model) {
+        dd(
+            context.state.model.table,
+            '.App\\Events\\' + context.state.model.class.plural + 'Changed',
+        )
+
         subscribePublicChannel(
             context.state.model.table,
             '.App\\Events\\' + context.state.model.class.plural + 'Changed',

@@ -41,6 +41,8 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('congressmanBudgets/select', payload, { root: true })
 
         context.dispatch('entries/load', payload, { root: true })
+
+        context.dispatch('congressmen/load', payload, { root: true })
     },
 
     changePercentage(context, payload) {

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\EntryUpdated;
+use App\Events\CongressmanBudgetsChanged;
 
 class NotifyBudgetsChanged extends Listener
 {
@@ -14,6 +15,6 @@ class NotifyBudgetsChanged extends Listener
      */
     public function handle(EntryUpdated $event)
     {
-        //
+        event(new CongressmanBudgetsChanged($event->entry->congressmanBudget));
     }
 }

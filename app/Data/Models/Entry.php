@@ -35,6 +35,7 @@ class Entry extends Model
 
     protected $selectColumnsRaw = [
         '(select count(*) from entry_documents ed where ed.entry_id = entries.id) as documents_count',
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.approved_at is null) > 0 as has_pendency',
     ];
 
     protected $filterableColumns = [
@@ -43,8 +44,15 @@ class Entry extends Model
         'entries.value',
     ];
 
+    protected $orderBy = ['date' => 'desc'];
+
     public function documents()
     {
         return $this->hasMany(EntryDocument::class);
+    }
+
+    public function congressmanBudget()
+    {
+        return $this->belongsTo(CongressmanBudget::class);
     }
 }

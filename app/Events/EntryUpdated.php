@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class EntryUpdated extends Broadcastable
 {
-    protected $entry;
+    public $entry;
 
     /**
      * Create a new entry instance.

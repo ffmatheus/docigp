@@ -14,11 +14,11 @@
             ></app-congressman-budgets>
         </div>
 
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12">
             <app-entries v-if="congressmanBudgets.selected.id"></app-entries>
         </div>
 
-        <div class="col-sm-12 col-md-3">
+        <div class="col-sm-12">
             <app-documents v-if="entries.selected.id"></app-documents>
         </div>
     </div>

@@ -72,7 +72,7 @@
                         class="btn btn-sm btn-micro btn-primary"
                         @click="approve(document)"
                     >
-                        aprovar
+                        <i class="fa fa-check"></i> aprovar
                     </button>
 
                     <button
@@ -80,7 +80,7 @@
                         class="btn btn-sm btn-micro btn-primary"
                         @click="unapprove(document)"
                     >
-                        desaprovar
+                        <i class="fa fa-check"></i> desaprovar
                     </button>
 
                     <button
@@ -88,7 +88,7 @@
                         class="btn btn-sm btn-micro btn-danger"
                         @click="publish(document)"
                     >
-                        publicar
+                        <i class="fa fa-check"></i> publicar
                     </button>
 
                     <button
@@ -96,7 +96,7 @@
                         class="btn btn-sm btn-micro btn-danger"
                         @click="publish(document)"
                     >
-                        despublicar
+                        <i class="fa fa-check"></i> despublicar
                     </button>
 
                     <a
@@ -106,6 +106,15 @@
                     >
                         <i class="fa fa-file-image"></i>
                     </a>
+
+                    <button
+                        v-if="!document.approved_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        @click="trash(document)"
+                        title="deletar documento"
+                    >
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </td>
             </tr>
         </app-table>
@@ -136,6 +145,8 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectEntryDocument']),
+
+        trash(document) {},
 
         approve(document) {
             confirm('Confirma a APROVAÇÃO deste documento?', this).then(

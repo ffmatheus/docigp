@@ -120,7 +120,7 @@ window._ = require('lodash')
 
 window.loadDebounced = _.debounce(context => {
     context.dispatch('load')
-}, 450)
+}, 5) // TODO: CHECK THIS!!
 
 window.objectAttributeFromString = (str, state) => {
     let hasNulls = false

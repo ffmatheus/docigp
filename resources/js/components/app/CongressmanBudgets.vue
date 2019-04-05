@@ -109,21 +109,21 @@
                         class="btn btn-sm btn-micro btn-primary"
                         title="Alterar percentual solicitado"
                     >
-                        %
+                        <i class="fa fa-edit"></i> percentual
                     </button>
 
                     <button
                         v-if="!congressmanBudget.has_pendency"
                         class="btn btn-sm btn-micro btn-warning"
                     >
-                        aprovar
+                        <i class="fa fa-check"></i> aprovar
                     </button>
 
                     <button
                         v-if="congressmanBudget.approved_at"
                         class="btn btn-sm btn-micro btn-danger"
                     >
-                        publicar
+                        <i class="fa fa-check"></i> publicar
                     </button>
                 </td>
             </tr>
