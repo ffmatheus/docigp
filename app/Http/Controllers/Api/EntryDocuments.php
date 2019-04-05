@@ -23,23 +23,39 @@ class EntryDocuments extends Controller
         );
     }
 
-    public function publish($congressmanId, $congressmanBudgetId, $entryId)
-    {
-        app(EntryDocumentsRepository::class)->publish($entryId);
+    public function publish(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->publish($entryDocumentId);
     }
 
-    public function unpublish($congressmanId, $congressmanBudgetId, $entryId)
-    {
-        app(EntryDocumentsRepository::class)->unpublish($entryId);
+    public function unpublish(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->unpublish($entryDocumentId);
     }
 
-    public function approve($congressmanId, $congressmanBudgetId, $entryId)
-    {
-        app(EntryDocumentsRepository::class)->approve($entryId);
+    public function approve(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->approve($entryDocumentId);
     }
 
-    public function unapprove($congressmanId, $congressmanBudgetId, $entryId)
-    {
-        app(EntryDocumentsRepository::class)->unapprove($entryId);
+    public function unapprove(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->unapprove($entryDocumentId);
     }
 }

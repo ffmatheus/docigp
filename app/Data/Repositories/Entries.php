@@ -51,24 +51,4 @@ class Entries extends Repository
 
         return parent::transform($data);
     }
-
-    public function verify($entryId)
-    {
-        $this->findById($entryId)->verify();
-    }
-
-    public function unverify($entryId)
-    {
-        $this->findById($entryId)->unverify();
-    }
-
-    public function approve($entryId)
-    {
-        $this->findById($entryId)->approve();
-    }
-
-    public function unapprove($entryId)
-    {
-        $this->findById($entryId)->unapprove();
-    }
 }

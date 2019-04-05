@@ -28,6 +28,12 @@ class CongressmanBudget extends Model
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id) as entries_count',
     ];
 
+    protected $orderBy = ['budgets.date' => 'desc'];
+
+    protected $joins = [
+        'budgets' => ['budgets.id', '=', 'congressman_budgets.budget_id'],
+    ];
+
     protected function fillValue(): void
     {
         if ($this->percentageChanged()) {

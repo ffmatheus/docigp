@@ -43,8 +43,6 @@ class Entry extends Model
         'entries.value',
     ];
 
-    protected $orderBy = ['date' => 'desc'];
-
     public function documents()
     {
         return $this->hasMany(EntryDocument::class);

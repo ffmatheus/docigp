@@ -22,4 +22,6 @@ class EntryDocument extends Model
     protected $selectColumns = ['entry_documents.*'];
 
     protected $dates = ['date', 'approved_at', 'published_at'];
+
+    protected $orderBy = ['id' => 'asc'];
 }

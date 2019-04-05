@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="container-fluid" id="vue-entries">
-    <app-entries></app-entries>
+    <app-account></app-account>
 </div>
 @endsection

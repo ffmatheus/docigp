@@ -23,4 +23,14 @@ trait RepositoryActionable
     {
         $this->findById($modelId)->unapprove();
     }
+
+    public function verify($entryId)
+    {
+        $this->findById($entryId)->verify();
+    }
+
+    public function unverify($entryId)
+    {
+        $this->findById($entryId)->unverify();
+    }
 }
