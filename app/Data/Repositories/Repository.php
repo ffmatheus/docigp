@@ -86,7 +86,7 @@ abstract class Repository
      */
     public function create($data)
     {
-        $model = is_null($id = isset($data['id']) ? $data['id'] : null)
+        $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
             ? new $this->model()
             : $this->newQuery()
                 ->where('id', $id)
@@ -106,7 +106,7 @@ abstract class Repository
         $array['pagination']['per_page'] = $this->count();
         $array['pagination']['current_page'] = 1;
 
-        return collect($array);
+        return coollect($array);
     }
 
     protected function applyFilter($query)
@@ -165,7 +165,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if ($text = $filter['filter']['text']) {
+        if (($text = $filter['filter']['text'])) {
             $this->filterAllColumns($query, $text);
         }
 
