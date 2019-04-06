@@ -224,7 +224,7 @@ export default {
 
         uncomply(entry) {
             confirm(
-                'Confirma a remoção do status "EM CONFORMIDADE" deste lançamento?',
+                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value &&

@@ -163,7 +163,7 @@ export default {
 
         uncomply(document) {
             confirm(
-                'Confirma a remoção do status "EM CONFORMIDADE" deste documento?',
+                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value &&
