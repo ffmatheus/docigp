@@ -24,7 +24,7 @@ let state = merge_objects(
         model: {
             name: 'entryDocument',
 
-            table: 'entryDocuments',
+            table: 'entry_documents',
 
             class: { singular: 'EntryDocument', plural: 'EntryDocuments' },
         },
