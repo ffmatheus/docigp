@@ -9,6 +9,22 @@
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
     >
+        <template slot="checkboxes">
+            <div class="row">
+                <div class="col">
+                    <app-input
+                        name="havingMandate"
+                        label="com mandato"
+                        type="checkbox"
+                        v-model="havingMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+            </div>
+        </template>
+
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
@@ -76,6 +92,24 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectCongressman']),
+    },
+
+    computed: {
+        havingMandate: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .havingMandate
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'havingMandate',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
     },
 }
 </script>

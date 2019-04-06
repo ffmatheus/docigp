@@ -21,6 +21,30 @@ let state = merge_objects(
 
         mode: null,
 
+        data: {
+            filter: {
+                text: null,
+
+                checkboxes: {
+                    havingMandate: true,
+                },
+
+                selects: {
+                    filler: false,
+                },
+            },
+
+            links: {
+                pagination: {
+                    per_page: 5,
+
+                    current_page: 1,
+                },
+            },
+
+            order: {},
+        },
+
         model: {
             name: 'congressman',
 

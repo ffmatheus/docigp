@@ -94,4 +94,11 @@ class Congressmen extends Repository
             }
         });
     }
+
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['havingMandate'])) {
+            $query->active();
+        }
+    }
 }
