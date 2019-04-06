@@ -73,7 +73,16 @@ let actions = merge_objects(actionsMixin, {
 })
 
 let mutations = mutationsMixin
-let getters = gettersMixin
+
+let getters = merge_objects(gettersMixin, {
+    currentSummaryLabel(state, getters) {
+        return (
+            format_year_date(state.selected) +
+            ' - ' +
+            state.selected.value_formatted
+        )
+    },
+})
 
 export default {
     state,

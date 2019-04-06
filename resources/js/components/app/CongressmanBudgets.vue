@@ -2,11 +2,12 @@
     <app-table-panel
         :title="'Orçamento mensal (' + pagination.total + ')'"
         titleCollapsed="Orçamento"
+        :subTitle="congressmen.selected.name"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
-        :collapsedLabel="makeDate(selected) + ' - ' + selected.value_formatted"
+        :collapsedLabel="currentSummaryLabel"
         :is-selected="selected.id !== null"
     >
         <app-table
@@ -181,8 +182,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import crud from '../../views/mixins/crud'
+import { mapActions, mapGetters } from 'vuex'
 import congressmen from '../../views/mixins/congressmen'
 import permissions from '../../views/mixins/permissions'
 import congressmanBudgets from '../../views/mixins/congressmanBudgets'
@@ -303,6 +304,10 @@ export default {
                     )
             })
         },
+    },
+
+    computed: {
+        ...mapGetters(service.name, ['currentSummaryLabel']),
     },
 }
 </script>

@@ -455,3 +455,7 @@ window.is_number = number => {
 window.to_number = number => {
     return parseFloat(number)
 }
+
+window.format_year_date = date => {
+    return date.year + ' / ' + date.month
+}

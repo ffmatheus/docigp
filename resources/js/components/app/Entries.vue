@@ -2,6 +2,9 @@
     <app-table-panel
         :title="'Lançamentos (' + pagination.total + ')'"
         titleCollapsed="Lançamento"
+        :subTitle="
+            congressmen.selected.name + ' - ' + congressmanBudgetsSummaryLabel
+        "
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
@@ -175,9 +178,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import crud from '../../views/mixins/crud'
+import { mapActions, mapGetters } from 'vuex'
 import entries from '../../views/mixins/entries'
+import congressmen from '../../views/mixins/congressmen'
 import permissions from '../../views/mixins/permissions'
 import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 
@@ -189,7 +193,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, entries, permissions, congressmanBudgets],
+    mixins: [crud, entries, permissions, congressmanBudgets, congressmen],
 
     data() {
         return {
@@ -257,6 +261,13 @@ export default {
                 ')'
             )
         },
+    },
+
+    computed: {
+        ...mapGetters({
+            congressmanBudgetsSummaryLabel:
+                'congressmanBudgets/currentSummaryLabel',
+        }),
     },
 }
 </script>
