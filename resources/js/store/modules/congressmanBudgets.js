@@ -43,6 +43,18 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('entries/load', payload, { root: true })
 
         context.dispatch('congressmen/load', payload, { root: true })
+
+        context.commit(
+            'entries/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
+        context.commit(
+            'entriesDocuments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
     },
 
     changePercentage(context, payload) {

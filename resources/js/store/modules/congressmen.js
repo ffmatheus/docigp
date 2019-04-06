@@ -65,6 +65,24 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('congressmen/select', payload, { root: true })
 
         context.dispatch('congressmanBudgets/load', payload, { root: true })
+
+        context.commit(
+            'congressmanBudgets/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
+        context.commit(
+            'entries/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
+        context.commit(
+            'entriesDocuments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
     },
 })
 
