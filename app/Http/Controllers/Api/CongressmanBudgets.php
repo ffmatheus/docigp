@@ -57,4 +57,33 @@ class CongressmanBudgets extends Controller
             CongressmanBudgetsRepository::class
         )->getAvailableCongressmanBudgets();
     }
+
+    public function comply($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->comply($congressmanBudgetId);
+    }
+
+    public function uncomply($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->uncomply(
+            $congressmanBudgetId
+        );
+    }
+
+    public function publish($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->publish($congressmanBudgetId);
+    }
+
+    public function unpublish($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->unpublish(
+            $congressmanBudgetId
+        );
+    }
+
+    public function deposit($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->deposit($congressmanBudgetId);
+    }
 }

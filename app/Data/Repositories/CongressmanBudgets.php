@@ -4,9 +4,12 @@ namespace App\Data\Repositories;
 
 use Carbon\Carbon;
 use App\Data\Models\CongressmanBudget;
+use App\Data\Traits\RepositoryActionable;
 
 class CongressmanBudgets extends Repository
 {
+    use RepositoryActionable;
+
     /**
      * @var string
      */
@@ -55,5 +58,10 @@ class CongressmanBudgets extends Repository
         });
 
         return parent::transform($data);
+    }
+
+    public function deposit($modelId)
+    {
+        $this->findById($modelId)->deposit();
     }
 }

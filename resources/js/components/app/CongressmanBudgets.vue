@@ -105,7 +105,27 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="congressmanBudget.entries_count === 0"
+                        v-if="
+                            congressmanBudget.entries_count === 0 &&
+                                !congressmanBudget.complied_at &&
+                                !congressmanBudget.published_at
+                        "
+                        @click="deposit(congressmanBudget)"
+                        class="btn btn-sm btn-micro btn-success"
+                        :title="
+                            'Depositar ' +
+                                congressmanBudget.state_value_formatted +
+                                ' na conta de '
+                        "
+                    >
+                        <i class="fa fa-dollar-sign"></i> depositar
+                    </button>
+
+                    <button
+                        v-if="
+                            !congressmanBudget.complied_at &&
+                                congressmanBudget.entries_count === 0
+                        "
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"
                         title="Alterar percentual solicitado"
@@ -135,21 +155,24 @@
                     </button>
 
                     <button
+                        v-if="
+                            congressmanBudget.complied_at &&
+                                !congressmanBudget.published_at
+                        "
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Publicar no Portal da Transparência"
+                        @click="publish(congressmanBudget)"
+                    >
+                        <i class="fa fa-check"></i> publicar
+                    </button>
+
+                    <button
                         v-if="congressmanBudget.published_at"
                         class="btn btn-sm btn-micro btn-danger"
                         title="Remover do Portal da Transparência"
                         @click="unpublish(congressmanBudget)"
                     >
                         <i class="fa fa-ban"></i> despublicar
-                    </button>
-
-                    <button
-                        v-if="congressmanBudget.complied_at"
-                        class="btn btn-sm btn-micro btn-danger"
-                        title="Publicar no Portal da Transparência"
-                        @click="publish(congressmanBudget)"
-                    >
-                        <i class="fa fa-check"></i> publicar
                     </button>
                 </td>
             </tr>
@@ -158,10 +181,11 @@
 </template>
 
 <script>
-import crud from '../../views/mixins/crud'
-import congressmanBudgets from '../../views/mixins/congressmanBudgets'
-import permissions from '../../views/mixins/permissions'
 import { mapActions } from 'vuex'
+import crud from '../../views/mixins/crud'
+import congressmen from '../../views/mixins/congressmen'
+import permissions from '../../views/mixins/permissions'
+import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 
 const service = {
     name: 'congressmanBudgets',
@@ -169,7 +193,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, congressmanBudgets, permissions],
+    mixins: [crud, congressmen, congressmanBudgets, permissions],
 
     data() {
         return {
@@ -213,22 +237,70 @@ export default {
             })
         },
 
-        comply(entry) {
+        comply(congressmanBudget) {
             confirm('Este orçamento mensal está "EM CONFORMIDADE"?', this).then(
                 value => {
                     value &&
-                        this.$store.dispatch('congressmanBudgets/comply', entry)
+                        this.$store.dispatch(
+                            'congressmanBudgets/comply',
+                            congressmanBudget,
+                        )
                 },
             )
         },
 
-        uncomply(entry) {
+        uncomply(congressmanBudget) {
             confirm(
                 'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value &&
-                    this.$store.dispatch('congressmanBudgets/uncomply', entry)
+                    this.$store.dispatch(
+                        'congressmanBudgets/uncomply',
+                        congressmanBudget,
+                    )
+            })
+        },
+
+        publish(congressmanBudget) {
+            confirm('Confirma a PUBLICAÇÃO deste orçamento mensal?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch(
+                            'congressmanBudgets/publish',
+                            congressmanBudget,
+                        )
+                },
+            )
+        },
+
+        unpublish(congressmanBudget) {
+            confirm(
+                'Confirma a DESPUBLICAÇÃO deste orçamento mensal?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/unpublish',
+                        congressmanBudget,
+                    )
+            })
+        },
+
+        deposit(congressmanBudget) {
+            confirm(
+                'Confirma o depósito de ' +
+                    congressmanBudget.value_formatted +
+                    ' na conta de ' +
+                    this.congressmen.selected.name +
+                    '?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/deposit',
+                        congressmanBudget,
+                    )
             })
         },
     },

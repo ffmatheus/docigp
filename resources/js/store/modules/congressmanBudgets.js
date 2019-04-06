@@ -50,6 +50,26 @@ let actions = merge_objects(actionsMixin, {
             percentage: payload.percentage,
         })
     },
+
+    comply(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/comply')
+    },
+
+    uncomply(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/uncomply')
+    },
+
+    publish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/publish')
+    },
+
+    unpublish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unpublish')
+    },
+
+    deposit(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/deposit')
+    },
 })
 
 let mutations = mutationsMixin

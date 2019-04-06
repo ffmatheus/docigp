@@ -12,10 +12,31 @@ Route::group(['prefix' => '/congressmen'], function () {
             'congressmen.budgets.all'
         );
 
-        Route::post(
-            '/{congressmanBudgetId}',
-            'CongressmanBudgets@update'
-        )->name('congressmen.budgets.update');
+        Route::group(['prefix' => '/{congressmanBudgetId}'], function () {
+            Route::post('/', 'CongressmanBudgets@update')->name(
+                'congressmen.budgets.update'
+            );
+
+            Route::post('/comply', 'CongressmanBudgets@comply')->name(
+                'congressmen.budgets.comply'
+            );
+
+            Route::post('/uncomply', 'CongressmanBudgets@uncomply')->name(
+                'congressmen.budgets.uncomply'
+            );
+
+            Route::post('/publish', 'CongressmanBudgets@publish')->name(
+                'congressmen.budgets.publish'
+            );
+
+            Route::post('/unpublish', 'CongressmanBudgets@unpublish')->name(
+                'congressmen.budgets.unpublish'
+            );
+
+            Route::post('/deposit', 'CongressmanBudgets@deposit')->name(
+                'congressmen.budgets.deposit'
+            );
+        });
 
         Route::post('/', 'CongressmanBudgets@store')->name(
             'congressmen.budgets.store'
@@ -37,12 +58,12 @@ Route::group(['prefix' => '/congressmen'], function () {
                         'congressmen.budgets.entries.unverify'
                     );
 
-                    Route::post('/approve', 'Entries@approve')->name(
-                        'congressmen.budgets.entries.approve'
+                    Route::post('/comply', 'Entries@comply')->name(
+                        'congressmen.budgets.entries.comply'
                     );
 
-                    Route::post('/unapprove', 'Entries@unapprove')->name(
-                        'congressmen.budgets.entries.unapprove'
+                    Route::post('/uncomply', 'Entries@uncomply')->name(
+                        'congressmen.budgets.entries.uncomply'
                     );
 
                     Route::group(['prefix' => '/documents'], function () {
@@ -64,16 +85,14 @@ Route::group(['prefix' => '/congressmen'], function () {
                                 )->name('congressmen.budgets.entries.unverify');
 
                                 Route::post(
-                                    '/approve',
-                                    'EntryDocuments@approve'
-                                )->name('congressmen.budgets.entries.approve');
+                                    '/comply',
+                                    'EntryDocuments@comply'
+                                )->name('congressmen.budgets.entries.comply');
 
                                 Route::post(
-                                    '/unapprove',
-                                    'EntryDocuments@unapprove'
-                                )->name(
-                                    'congressmen.budgets.entries.unapprove'
-                                );
+                                    '/uncomply',
+                                    'EntryDocuments@uncomply'
+                                )->name('congressmen.budgets.entries.uncomply');
                             }
                         );
                     });

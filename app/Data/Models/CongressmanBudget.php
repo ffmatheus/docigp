@@ -3,9 +3,12 @@
 namespace App\Data\Models;
 
 use App\Data\Repositories\Budgets;
+use App\Data\Traits\ModelActionable;
 
 class CongressmanBudget extends Model
 {
+    use ModelActionable;
+
     /**
      * @var array
      */
@@ -65,5 +68,35 @@ class CongressmanBudget extends Model
     public function budget()
     {
         return $this->belongsTo(Budget::class);
+    }
+
+    public function congressmanLegislature()
+    {
+        return $this->belongsTo(CongressmanLegislature::class);
+    }
+
+    public function congressman()
+    {
+        return $this->congressmanLegislature->congressman();
+    }
+
+    public function deposit()
+    {
+        if ($this->entries_count > 0) {
+            return;
+        }
+
+        info($this->congressman);
+
+        info(
+            Entry::create([
+                'congressman_budget_id' => $this->id,
+                'to' => $this->congressman->name,
+                'object' => 'Crédito em conta-corrente',
+                'cost_center_id' => 1,
+                'date' => now(),
+                'value' => $this->value,
+            ])
+        );
     }
 }
