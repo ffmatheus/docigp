@@ -237,6 +237,11 @@ function db_listen($dump = false)
     });
 }
 
+function faker()
+{
+    return \Faker\Factory::create('pt_BR');
+}
+
 class Timer
 {
     public static $starttime;

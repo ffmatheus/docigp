@@ -5,6 +5,7 @@ namespace App\Data\Repositories;
 use Carbon\Carbon;
 use App\Data\Models\Entry;
 use App\Data\Traits\RepositoryActionable;
+use Illuminate\Support\Str;
 
 class Entries extends Repository
 {
@@ -45,6 +46,12 @@ class Entries extends Repository
             );
 
             $entry['value_formatted'] = to_reais($entry['value']);
+
+            $entry['cost_center_name_formatted'] = Str::limit(
+                $entry['cost_center_name'],
+                60,
+                '...'
+            );
 
             return $entry;
         });

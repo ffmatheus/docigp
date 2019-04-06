@@ -13,15 +13,15 @@ class EntryDocument extends Model
         'disk_name',
         'path',
         'name',
-        'approved_at',
-        'approved_by_id',
+        'complied_at',
+        'complied_by_id',
         'published_at',
         'published_by_id',
     ];
 
     protected $selectColumns = ['entry_documents.*'];
 
-    protected $dates = ['date', 'approved_at', 'published_at'];
+    protected $dates = ['date', 'complied_at', 'published_at'];
 
     protected $orderBy = ['id' => 'asc'];
 }
