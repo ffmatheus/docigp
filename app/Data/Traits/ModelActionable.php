@@ -19,10 +19,10 @@ trait ModelActionable
             'verified_by_id' => auth()->user()->id,
         ]);
 
-        $this->unapprove();
+        $this->uncomply();
     }
 
-    public function approve()
+    public function comply()
     {
         info($this);
         $this->update([
@@ -31,7 +31,7 @@ trait ModelActionable
         ]);
     }
 
-    public function unapprove()
+    public function uncomply()
     {
         $this->update([
             'complied_at' => null,
