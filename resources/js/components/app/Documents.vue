@@ -163,7 +163,7 @@ export default {
 
         uncomply(document) {
             confirm(
-                'Confirma a remoção do status "APROVADO" deste documento?',
+                'Confirma a remoção do status "EM CONFORMIDADE" deste documento?',
                 this,
             ).then(value => {
                 value &&

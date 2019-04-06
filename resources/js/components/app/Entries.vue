@@ -230,7 +230,7 @@ export default {
 
         uncomply(entry) {
             confirm(
-                'Confirma a remoção do status "APROVADO" deste lançamento?',
+                'Confirma a remoção do status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value && this.$store.dispatch('entries/uncomply', entry)
