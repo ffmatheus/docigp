@@ -70,23 +70,26 @@
                     <button
                         v-if="!document.complied_at"
                         class="btn btn-sm btn-micro btn-primary"
-                        @click="approve(document)"
+                        @click="comply(document)"
+                        title="Marcar orçamento como 'em conformidade'"
                     >
                         <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
                         v-if="document.complied_at"
-                        class="btn btn-sm btn-micro btn-primary"
-                        @click="unapprove(document)"
+                        class="btn btn-sm btn-micro btn-danger"
+                        @click="uncomply(document)"
+                        title="Cancelar marcação de 'em conformidade'"
                     >
-                        <i class="fa fa-check"></i> conformidade
+                        <i class="fa fa-ban"></i> conformidade
                     </button>
 
                     <button
                         v-if="document.complied_at && !document.published_at"
-                        class="btn btn-sm btn-micro btn-danger"
+                        class="btn btn-sm btn-micro btn-info"
                         @click="publish(document)"
+                        title="Marcar como 'publicável'"
                     >
                         <i class="fa fa-check"></i> publicar
                     </button>
@@ -94,9 +97,10 @@
                     <button
                         v-if="document.published_at"
                         class="btn btn-sm btn-micro btn-danger"
-                        @click="publish(document)"
+                        @click="unpublish(document)"
+                        title="Remover autorização de publicação"
                     >
-                        <i class="fa fa-check"></i> despublicar
+                        <i class="fa fa-ban"></i> despublicar
                     </button>
 
                     <a
@@ -108,10 +112,10 @@
                     </a>
 
                     <button
-                        v-if="!document.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
-                        title="deletar documento"
+                        title="Deletar documento"
+                        :disabled="document.complied_at"
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -148,22 +152,22 @@ export default {
 
         trash(document) {},
 
-        approve(document) {
-            confirm('Confirma a APROVAÇÃO deste documento?', this).then(
+        comply(document) {
+            confirm('Este documento está "EM CONFORMIDADE"?', this).then(
                 value => {
                     value &&
-                        this.$store.dispatch('entryDocuments/approve', document)
+                        this.$store.dispatch('entryDocuments/comply', document)
                 },
             )
         },
 
-        unapprove(document) {
+        uncomply(document) {
             confirm(
                 'Confirma a remoção do status "APROVADO" deste documento?',
                 this,
             ).then(value => {
                 value &&
-                    this.$store.dispatch('entryDocuments/unapprove', document)
+                    this.$store.dispatch('entryDocuments/uncomply', document)
             })
         },
 

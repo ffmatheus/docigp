@@ -49,7 +49,7 @@
                 <td class="align-middle text-center">
                     <app-active-badge
                         :value="congressman.has_mandate"
-                        :labels="['ativo', 'sem mandato ']"
+                        :labels="['com mandato', 'sem mandato ']"
                     ></app-active-badge>
                 </td>
             </tr>

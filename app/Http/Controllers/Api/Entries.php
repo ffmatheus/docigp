@@ -32,13 +32,13 @@ class Entries extends Controller
         app(EntriesRepository::class)->unverify($entryId);
     }
 
-    public function approve($congressmanId, $congressmanBudgetId, $entryId)
+    public function comply($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->approve($entryId);
+        app(EntriesRepository::class)->comply($entryId);
     }
 
-    public function unapprove($congressmanId, $congressmanBudgetId, $entryId)
+    public function uncomply($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->unapprove($entryId);
+        app(EntriesRepository::class)->uncomply($entryId);
     }
 }

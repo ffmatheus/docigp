@@ -105,6 +105,7 @@
 
                 <td class="align-middle text-right">
                     <button
+                        v-if="congressmanBudget.entries_count === 0"
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"
                         title="Alterar percentual solicitado"
@@ -113,15 +114,40 @@
                     </button>
 
                     <button
-                        v-if="!congressmanBudget.has_pendency"
+                        v-if="
+                            !congressmanBudget.has_pendency &&
+                                !congressmanBudget.complied_at
+                        "
                         class="btn btn-sm btn-micro btn-warning"
+                        title="Marcar orçamento como 'em conformidade'"
+                        @click="comply(congressmanBudget)"
                     >
                         <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
                         v-if="congressmanBudget.complied_at"
+                        class="btn btn-sm btn-micro btn-warning"
+                        title="Cancelar marcação de 'em conformidade'"
+                        @click="uncomply(congressmanBudget)"
+                    >
+                        <i class="fa fa-ban"></i> conformidade
+                    </button>
+
+                    <button
+                        v-if="congressmanBudget.published_at"
                         class="btn btn-sm btn-micro btn-danger"
+                        title="Remover do Portal da Transparência"
+                        @click="unpublish(congressmanBudget)"
+                    >
+                        <i class="fa fa-ban"></i> despublicar
+                    </button>
+
+                    <button
+                        v-if="congressmanBudget.complied_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Publicar no Portal da Transparência"
+                        @click="publish(congressmanBudget)"
                     >
                         <i class="fa fa-check"></i> publicar
                     </button>
@@ -184,6 +210,25 @@ export default {
                 }
 
                 return this.changePercentage(congressmanBudget, value)
+            })
+        },
+
+        comply(entry) {
+            confirm('Este orçamento mensal está "EM CONFORMIDADE"?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch('congressmanBudgets/comply', entry)
+                },
+            )
+        },
+
+        uncomply(entry) {
+            confirm(
+                'Confirma a remoção do status "APROVADO" deste lançamento?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch('congressmanBudgets/uncomply', entry)
             })
         },
     },

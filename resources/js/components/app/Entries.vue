@@ -128,7 +128,7 @@
                         v-if="!entry.verified_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="verify(entry)"
-                        title="marcar como verificado"
+                        title="Marcar como verificado"
                     >
                         <i class="fa fa-check"></i> verificar
                     </button>
@@ -137,7 +137,7 @@
                         v-if="entry.verified_at"
                         class="btn btn-sm btn-micro btn-warning"
                         @click="unverify(entry)"
-                        title="cancelar verificação"
+                        title="Cancelar verificação"
                     >
                         <i class="fa fa-ban"></i> verificação
                     </button>
@@ -145,8 +145,8 @@
                     <button
                         v-if="entry.verified_at && !entry.complied_at"
                         class="btn btn-sm btn-micro btn-success"
-                        @click="approve(entry)"
-                        title="marcar como 'em conformidade'"
+                        @click="comply(entry)"
+                        title="Marcar como 'em conformidade'"
                     >
                         <i class="fa fa-check"></i> conforme
                     </button>
@@ -154,17 +154,17 @@
                     <button
                         v-if="entry.verified_at && entry.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
-                        @click="unapprove(entry)"
-                        title="cancelar marcação de 'em conformidade'"
+                        @click="uncomply(entry)"
+                        title="Cancelar marcação de 'em conformidade'"
                     >
                         <i class="fa fa-ban"></i> conformidade
                     </button>
 
                     <button
-                        v-if="!entry.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"
+                        :disabled="entry.complied_at"
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -220,20 +220,20 @@ export default {
             })
         },
 
-        approve(entry) {
-            confirm('Confirma a APROVAÇÃO deste lançamento?', this).then(
+        comply(entry) {
+            confirm('Este lançamento está "EM CONFORMIDADE"?', this).then(
                 value => {
-                    value && this.$store.dispatch('entries/approve', entry)
+                    value && this.$store.dispatch('entries/comply', entry)
                 },
             )
         },
 
-        unapprove(entry) {
+        uncomply(entry) {
             confirm(
                 'Confirma a remoção do status "APROVADO" deste lançamento?',
                 this,
             ).then(value => {
-                value && this.$store.dispatch('entries/unapprove', entry)
+                value && this.$store.dispatch('entries/uncomply', entry)
             })
         },
 
