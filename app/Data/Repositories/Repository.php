@@ -26,7 +26,13 @@ abstract class Repository
         $this->model()
             ->getJoins()
             ->each(function ($join, $table) use ($query) {
-                $query->join($table, $join[0], $join[1], $join[2]);
+                $query->join(
+                    $table,
+                    $join[0],
+                    $join[1],
+                    $join[2],
+                    $join[3] ?? 'inner'
+                );
             });
     }
 
@@ -128,7 +134,7 @@ abstract class Repository
             $query->paginate(
                 $queryFilter->pagination && $queryFilter->pagination->perPage
                     ? $queryFilter->pagination->perPage
-                    : 5,
+                    : 10,
                 ['*'],
                 'page',
                 $queryFilter->pagination &&
@@ -431,11 +437,18 @@ abstract class Repository
     /**
      * Get a random element.
      *
+     * @param array $exceptIds
      * @return mixed
      */
-    public function randomElement()
+    public function randomElement($exceptIds = [])
     {
-        return $this->model::inRandomOrder()->first();
+        $query = $this->model::inRandomOrder();
+
+        if (filled($exceptIds)) {
+            $query->whereNotIn('id', $exceptIds);
+        }
+
+        return $query->first();
     }
 
     /**

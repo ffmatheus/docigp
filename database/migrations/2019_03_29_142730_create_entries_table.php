@@ -20,7 +20,18 @@ class CreateEntriesTable extends Migration
             $table->decimal('value', 20, 2);
 
             $table->string('object');
+
             $table->string('to');
+
+            $table
+                ->bigInteger('provider_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('cost_center_id')
+                ->unsigned()
+                ->nullable();
 
             $table
                 ->bigInteger('congressman_budget_id')
@@ -28,7 +39,7 @@ class CreateEntriesTable extends Migration
                 ->nullable();
 
             $table->timestamp('verified_at')->nullable();
-            $table->timestamp('approved_at')->nullable();
+            $table->timestamp('complied_at')->nullable();
             $table->timestamp('published_at')->nullable();
 
             $table
@@ -37,7 +48,7 @@ class CreateEntriesTable extends Migration
                 ->nullable();
 
             $table
-                ->bigInteger('approved_by_id')
+                ->bigInteger('complied_by_id')
                 ->unsigned()
                 ->nullable();
 

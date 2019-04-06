@@ -24,6 +24,8 @@ class EntriesTableSeeder extends Seeder
                 factory(EntryModel::class, 1)->create([
                     'to' => $congressman->name,
                     'object' => 'Crédito em conta-corrente',
+                    'provider_id' => null,
+                    'cost_center_id' => 1,
                     'date' => Carbon::now()->startOfMonth(),
                     'value' => app(Faker::class)->randomFloat(2, 0.1, 1000),
                     'congressman_budget_id' => $budget->id,

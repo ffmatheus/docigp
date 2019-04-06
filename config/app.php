@@ -14,6 +14,11 @@ return [
 
     'name' => 'DOCIGP',
 
+    'medium_name' => 'DOCIGP - Descentralização Orçamentária',
+
+    'long_name' =>
+        'DOCIGP - Descentralização Orçamentária de Custeio Indivitualizado para Gabinete Parlamentar',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

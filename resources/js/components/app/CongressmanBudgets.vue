@@ -42,7 +42,7 @@
                 },
                 {
                     type: 'label',
-                    title: 'Aprovado',
+                    title: 'Conforme',
                     trClass: 'text-center',
                 },
                 {
@@ -91,7 +91,7 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="congressmanBudget.approved_at"
+                        :value="congressmanBudget.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -116,11 +116,11 @@
                         v-if="!congressmanBudget.has_pendency"
                         class="btn btn-sm btn-micro btn-warning"
                     >
-                        <i class="fa fa-check"></i> aprovar
+                        <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
-                        v-if="congressmanBudget.approved_at"
+                        v-if="congressmanBudget.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
                     >
                         <i class="fa fa-check"></i> publicar

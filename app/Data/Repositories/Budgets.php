@@ -22,7 +22,7 @@ class Budgets extends Repository
     {
         if (
             $congressman->budgets
-                ->where('date', $currentGlobal->date)
+                ->where('budget_id', $currentGlobal->id)
                 ->count() > 0
         ) {
             return;

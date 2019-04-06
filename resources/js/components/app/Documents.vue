@@ -26,7 +26,7 @@
                 'Name',
                 {
                     type: 'label',
-                    title: 'Aprovado',
+                    title: 'Conforme',
                     trClass: 'text-center',
                 },
                 {
@@ -54,7 +54,7 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="document.approved_at"
+                        :value="document.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -68,23 +68,23 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="!document.approved_at"
+                        v-if="!document.complied_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="approve(document)"
                     >
-                        <i class="fa fa-check"></i> aprovar
+                        <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
-                        v-if="document.approved_at"
+                        v-if="document.complied_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="unapprove(document)"
                     >
-                        <i class="fa fa-check"></i> desaprovar
+                        <i class="fa fa-check"></i> conformidade
                     </button>
 
                     <button
-                        v-if="document.approved_at && !document.published_at"
+                        v-if="document.complied_at && !document.published_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="publish(document)"
                     >
@@ -108,7 +108,7 @@
                     </a>
 
                     <button
-                        v-if="!document.approved_at"
+                        v-if="!document.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
                         title="deletar documento"

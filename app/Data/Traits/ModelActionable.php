@@ -26,16 +26,16 @@ trait ModelActionable
     {
         info($this);
         $this->update([
-            'approved_at' => now(),
-            'approved_by_id' => auth()->user()->id,
+            'complied_at' => now(),
+            'complied_by_id' => auth()->user()->id,
         ]);
     }
 
     public function unapprove()
     {
         $this->update([
-            'approved_at' => null,
-            'approved_by_id' => auth()->user()->id,
+            'complied_at' => null,
+            'complied_by_id' => auth()->user()->id,
         ]);
 
         $this->unpublish();

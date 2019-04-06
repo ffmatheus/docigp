@@ -11,8 +11,8 @@ class CongressmanBudget extends Model
         'congressman_legislature_id',
         'budget_id',
         'percentage',
-        'approved_by_id',
-        'approved_at',
+        'complied_by_id',
+        'complied_at',
         'published_by_id',
         'published_at',
     ];
@@ -22,7 +22,7 @@ class CongressmanBudget extends Model
     protected $selectColumns = ['congressman_budgets.*'];
 
     protected $selectColumnsRaw = [
-        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.approved_at is null) > 0 as has_pendency',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.complied_at is null) > 0 as has_pendency',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id) as entries_count',
     ];
 

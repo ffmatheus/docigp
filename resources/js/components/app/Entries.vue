@@ -31,7 +31,7 @@
             :columns="[
                 'Data',
                 'Objeto',
-                'Pessoa Física / Jurídica',
+                'Favorecido',
                 {
                     type: 'label',
                     title: 'Documentos',
@@ -59,7 +59,7 @@
                 },
                 {
                     type: 'label',
-                    title: 'Aprovado',
+                    title: 'Conforme',
                     trClass: 'text-center',
                 },
                 '',
@@ -75,9 +75,17 @@
             >
                 <td class="align-middle">{{ entry.date_formatted }}</td>
 
-                <td class="align-middle">{{ entry.object }}</td>
+                <td class="align-middle">
+                    {{ entry.object }}<br />
+                    <span>
+                        <small class="text-primary">
+                            {{ entry.cost_center_code }} -
+                            {{ entry.cost_center_name_formatted }}
+                        </small>
+                    </span>
+                </td>
 
-                <td class="align-middle">{{ entry.to }}</td>
+                <td class="align-middle">{{ makeRecipientName(entry) }}</td>
 
                 <td class="align-middle text-right">
                     {{ entry.documents_count }}
@@ -110,7 +118,7 @@
 
                 <td class="align-middle text-center">
                     <app-active-badge
-                        :value="entry.approved_at"
+                        :value="entry.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -135,25 +143,25 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at && !entry.approved_at"
+                        v-if="entry.verified_at && !entry.complied_at"
                         class="btn btn-sm btn-micro btn-success"
                         @click="approve(entry)"
-                        title="marcar como aprovado"
+                        title="marcar como 'em conformidade'"
                     >
-                        <i class="fa fa-check"></i> aprovar
+                        <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
-                        v-if="entry.verified_at && entry.approved_at"
+                        v-if="entry.verified_at && entry.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unapprove(entry)"
-                        title="cancelar aprovação"
+                        title="cancelar marcação de 'em conformidade'"
                     >
-                        <i class="fa fa-ban"></i> aprovação
+                        <i class="fa fa-ban"></i> conformidade
                     </button>
 
                     <button
-                        v-if="!entry.approved_at"
+                        v-if="!entry.complied_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"
@@ -227,6 +235,21 @@ export default {
             ).then(value => {
                 value && this.$store.dispatch('entries/unapprove', entry)
             })
+        },
+
+        makeRecipientName(entry) {
+            if (!entry.provider_id) {
+                return entry.to
+            }
+
+            return (
+                entry.provider_name +
+                ' (' +
+                entry.provider_type +
+                ': ' +
+                entry.provider_cpf_cnpj +
+                ')'
+            )
         },
     },
 }
