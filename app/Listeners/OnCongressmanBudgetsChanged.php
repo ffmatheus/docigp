@@ -5,12 +5,12 @@ namespace App\Listeners;
 use App\Events\CongressmenChanged;
 use App\Events\CongressmanBudgetsChanged;
 
-class NotifyCongressmenChanged extends Listener
+class OnCongressmanBudgetsChanged extends Listener
 {
     /**
      * Handle the event.
      *
-     * @param  CongressmanBudgetsChanged  $event
+     * @param CongressmanBudgetsChanged $event
      * @return void
      */
     public function handle(CongressmanBudgetsChanged $event)

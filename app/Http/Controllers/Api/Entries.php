@@ -41,4 +41,9 @@ class Entries extends Controller
     {
         app(EntriesRepository::class)->uncomply($entryId);
     }
+
+    public function delete($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->delete($entryId);
+    }
 }

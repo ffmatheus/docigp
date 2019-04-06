@@ -33,7 +33,9 @@ trait Eventable
         $eventClass = "App\\Events\\{$className}{$eventType}";
 
         if (class_exists($eventClass)) {
-            event(new $eventClass($model));
+            event(
+                new $eventClass($eventType == 'Deleted' ? $model->id : $model)
+            );
         }
     }
 

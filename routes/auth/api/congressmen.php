@@ -50,6 +50,10 @@ Route::group(['prefix' => '/congressmen'], function () {
                 );
 
                 Route::group(['prefix' => '/{entryId}'], function () {
+                    Route::post('/delete', 'Entries@delete')->name(
+                        'congressmen.budgets.entries.delete'
+                    );
+
                     Route::post('/verify', 'Entries@verify')->name(
                         'congressmen.budgets.entries.verify'
                     );

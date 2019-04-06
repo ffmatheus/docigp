@@ -161,10 +161,10 @@
                     </button>
 
                     <button
+                        :disabled="entry.complied_at || entry.verified_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"
-                        :disabled="entry.complied_at"
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -200,7 +200,13 @@ export default {
     methods: {
         ...mapActions(service.name, ['selectEntry']),
 
-        trash(entry) {},
+        trash(entry) {
+            confirm('Deseja realmente DELETAR este lançamento?', this).then(
+                value => {
+                    value && this.$store.dispatch('entries/delete', entry)
+                },
+            )
+        },
 
         verify(entry) {
             confirm(

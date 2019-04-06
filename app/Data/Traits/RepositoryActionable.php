@@ -33,4 +33,9 @@ trait RepositoryActionable
     {
         $this->findById($entryId)->unverify();
     }
+
+    public function delete($entryId)
+    {
+        $this->findById($entryId)->delete();
+    }
 }

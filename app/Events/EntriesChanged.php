@@ -11,18 +11,6 @@ class EntriesChanged extends Event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $entry;
-
-    /**
-     * Create a new event instance.
-     *
-     * @param $entry
-     */
-    public function __construct($entry)
-    {
-        $this->entry = $entry;
-    }
-
     /**
      * Get the channels the event should broadcast on.
      *

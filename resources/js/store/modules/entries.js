@@ -55,6 +55,10 @@ let actions = merge_objects(actionsMixin, {
     uncomply(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/uncomply')
     },
+
+    delete(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/delete')
+    },
 })
 
 let mutations = mutationsMixin

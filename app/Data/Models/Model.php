@@ -46,5 +46,9 @@ abstract class Model extends Eloquent implements AuditableContract
         static::creating(function ($model) {
             $model->created_by_id = ($user = auth()->user()) ? $user->id : 1;
         });
+
+        static::deleted(function ($model) {
+            $model->fireEvents($model, 'Deleted');
+        });
     }
 }
