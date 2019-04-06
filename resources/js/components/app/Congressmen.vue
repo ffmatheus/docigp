@@ -13,10 +13,46 @@
             <div class="row">
                 <div class="col">
                     <app-input
-                        name="havingMandate"
+                        name="withMandate"
                         label="com mandato"
                         type="checkbox"
-                        v-model="havingMandate"
+                        v-model="withMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+
+                <div class="col">
+                    <app-input
+                        name="withoutMandate"
+                        label="sem mandato"
+                        type="checkbox"
+                        v-model="withoutMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+
+                <div class="col">
+                    <app-input
+                        name="withPendency"
+                        label="com pendências"
+                        type="checkbox"
+                        v-model="withPendency"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+
+                <div class="col">
+                    <app-input
+                        name="withoutPendency"
+                        label="sem pendências"
+                        type="checkbox"
+                        v-model="withoutPendency"
                         :required="true"
                         :form="form"
                         inline="true"
@@ -95,15 +131,63 @@ export default {
     },
 
     computed: {
-        havingMandate: {
+        withMandate: {
             get() {
                 return this.$store.state['congressmen'].data.filter.checkboxes
-                    .havingMandate
+                    .withMandate
             },
 
             set(filter) {
                 this.$store.commit('congressmen/mutateFilterCheckbox', {
-                    field: 'havingMandate',
+                    field: 'withMandate',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        withoutMandate: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withoutMandate
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withoutMandate',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        withPendency: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withPendency
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withPendency',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        withoutPendency: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withoutPendency
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withoutPendency',
                     value: filter,
                 })
 

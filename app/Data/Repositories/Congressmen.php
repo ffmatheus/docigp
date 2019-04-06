@@ -97,8 +97,20 @@ class Congressmen extends Repository
 
     protected function filterCheckboxes($query, array $filter)
     {
-        if (isset($filter['havingMandate'])) {
+        if (isset($filter['withMandate'])) {
             $query->active();
+        }
+
+        if (isset($filter['withoutMandate'])) {
+            $query->nonActive();
+        }
+
+        if (isset($filter['withPendency'])) {
+            $query->withPendency();
+        }
+
+        if (isset($filter['withoutPendency'])) {
+            $query->withoutPendency();
         }
     }
 }

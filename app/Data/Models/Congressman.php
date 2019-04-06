@@ -49,6 +49,32 @@ class Congressman extends Model
             ->whereNull('congressman_legislatures.ended_at');
     }
 
+    public function scopeNonActive($query)
+    {
+        return $query
+            ->join(
+                'congressman_legislatures',
+                'congressman_legislatures.congressman_id',
+                '=',
+                'congressmen.id'
+            )
+            ->whereNotNull('congressman_legislatures.ended_at');
+    }
+
+    public function scopeWithPendency($query)
+    {
+        return $query->whereRaw(
+            '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id where cl.congressman_id = congressmen.id and cb.published_at is null) > 0'
+        );
+    }
+
+    public function scopeWithoutPendency($query)
+    {
+        return $query->whereRaw(
+            '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id where cl.congressman_id = congressmen.id and cb.published_at is null) = 0'
+        );
+    }
+
     public function getCurrentBudgetAttribute()
     {
         return $this->budgets()
