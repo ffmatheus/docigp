@@ -1,6 +1,6 @@
 <?php
 
-use App\Services\CpfCnpj\Service;
+use App\Services\CpfCnpj\CpfCnpj;
 use App\Data\Models\Provider as ProviderModel;
 use App\Data\Repositories\Users as UsersRepository;
 
@@ -8,10 +8,10 @@ $factory->define(ProviderModel::class, function () {
     return [
         'cpf_cnpj' => ($code =
             ($rand = rand(1, 2)) === 2
-                ? Service::generateCpf()
-                : Service::generateCnpj()),
+                ? CpfCnpj::generateCpf()
+                : CpfCnpj::generateCnpj()),
 
-        'type' => Service::isCpf($code) ? 'PF' : 'PJ',
+        'type' => CpfCnpj::isCpf($code) ? 'PF' : 'PJ',
 
         'name' => $rand === 2 ? faker()->name : faker()->company,
 

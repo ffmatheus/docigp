@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Data\Models\Congressman;
+use App\Data\Models\CongressmanLegislature;
 
 class CongressmanTableSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class CongressmanTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Congressman::class, 5)->create();
+        factory(CongressmanLegislature::class, 5)->create();
     }
 }

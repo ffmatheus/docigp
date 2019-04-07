@@ -32,7 +32,7 @@ class CreateProvidersTable extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('cpf_cnpj');
+            $table->string('cpf_cnpj')->index();
 
             $table->string('type');
 
