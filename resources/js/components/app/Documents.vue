@@ -8,6 +8,9 @@
         @set-per-page="perPage = $event"
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
+        :subTitle="
+            entries.selected.object + ' - ' + entries.selected.value_formatted
+        "
     >
         <template slot="buttons">
             <button
@@ -126,10 +129,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import crud from '../../views/mixins/crud'
+import entries from '../../views/mixins/entries'
 import permissions from '../../views/mixins/permissions'
 import entryDocuments from '../../views/mixins/entryDocuments'
-import { mapActions } from 'vuex'
 
 const service = {
     name: 'entryDocuments',
@@ -139,7 +143,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, entryDocuments, permissions],
+    mixins: [crud, entryDocuments, permissions, entries],
 
     data() {
         return {
