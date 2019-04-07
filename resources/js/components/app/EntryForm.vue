@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-model="show" title="Novo lançamento">
+        <b-modal v-model="show" :title="formTitle">
             <b-form>
                 <div class="row">
                     <div class="col-6">
@@ -156,6 +156,10 @@ export default {
     },
 
     computed: {
+        formTitle() {
+            return (this.form.fields.id ? 'Editar' : 'Novo') + ' lançamento'
+        },
+
         showModal: {
             get() {
                 return this.show
