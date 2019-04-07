@@ -45,7 +45,11 @@ class Entries extends Repository
                 'd/m/Y'
             );
 
+            $entry['date'] = $entry['date_formatted'];
+
             $entry['value_formatted'] = to_reais($entry['value']);
+
+            $entry['value_abs'] = abs($entry['value']);
 
             $entry['cost_center_name_formatted'] = Str::limit(
                 $entry['cost_center_name'],

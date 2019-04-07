@@ -1,13 +1,23 @@
 <template>
     <div>
-        <span v-if="value" class="badge badge-success"> {{ labels[0] }} </span>
-
-        <span v-if="!value" class="badge badge-danger"> {{ labels[1] }} </span>
+        <span class="badge" :class="getColor()">
+            {{ labels[!value ? 1 : 0] }}
+        </span>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['value', 'labels'],
+    props: ['value', 'labels', 'color'],
+
+    methods: {
+        getColor() {
+            if (!this.color) {
+                return !this.value ? 'badge-danger' : 'badge-success'
+            }
+
+            return 'badge-' + this.color
+        },
+    },
 }
 </script>

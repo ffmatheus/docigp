@@ -51,7 +51,7 @@ let actions = merge_objects(actionsMixin, {
         )
 
         context.commit(
-            'entriesDocuments/mutateSetSelected',
+            'entryDocuments/mutateSetSelected',
             { id: null },
             { root: true },
         )

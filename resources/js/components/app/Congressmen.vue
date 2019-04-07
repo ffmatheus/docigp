@@ -142,8 +142,6 @@ export default {
                     field: 'withMandate',
                     value: filter,
                 })
-
-                this.$store.dispatch('congressmen/load')
             },
         },
 

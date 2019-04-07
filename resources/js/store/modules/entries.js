@@ -7,8 +7,16 @@ import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = {
     id: null,
-    name: null,
-    description: null,
+    date: null,
+    value: null,
+    value_abs: null,
+    object: null,
+    cpf_cnpj: null,
+    to: null,
+    provider_id: null,
+    provider_name: null,
+    provider_cpf_cnpj: null,
+    cost_center_id: null,
 }
 
 let state = merge_objects(
@@ -38,6 +46,8 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('entries/select', payload, { root: true })
 
         context.dispatch('entryDocuments/load', payload, { root: true })
+
+        context.commit('mutateFormData', payload)
     },
 
     verify(context, payload) {

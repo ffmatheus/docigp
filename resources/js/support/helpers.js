@@ -459,3 +459,20 @@ window.to_number = number => {
 window.format_year_date = date => {
     return date.year + ' / ' + date.month
 }
+
+window.blank = value => {
+    switch (typeof value) {
+        case 'string':
+            return value.trim().length === 0
+        case 'boolean':
+            return false
+        case 'object':
+            return value === null || JSON.stringify(value) === '{}'
+        case 'array':
+            return value.length === 0
+    }
+}
+
+window.filled = value => {
+    return !blank(value)
+}

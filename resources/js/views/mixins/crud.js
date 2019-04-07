@@ -109,6 +109,10 @@ export default {
             }
 
             this.$store.dispatch(this.service.name + '/subscribeToTableEvents')
+
+            if (this.onBoot) {
+                this.onBoot()
+            }
         },
 
         fillFormWhenEditing() {

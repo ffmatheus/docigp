@@ -102,6 +102,7 @@
                     <app-active-badge
                         :value="entry.value > 0"
                         :labels="['crédito', 'débito']"
+                        :color="entry.value > 0 ? 'success' : 'dark'"
                     ></app-active-badge>
                 </td>
 
@@ -165,6 +166,15 @@
 
                     <button
                         :disabled="entry.complied_at || entry.verified_at"
+                        class="btn btn-sm btn-micro btn-primary"
+                        @click="editEntry(entry)"
+                        title="editar lançamento"
+                    >
+                        <i class="fa fa-edit"></i>
+                    </button>
+
+                    <button
+                        :disabled="entry.complied_at || entry.verified_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"
@@ -174,6 +184,8 @@
                 </td>
             </tr>
         </app-table>
+
+        <app-entry-form :show.sync="showModal"></app-entry-form>
     </app-table-panel>
 </template>
 
@@ -198,11 +210,13 @@ export default {
     data() {
         return {
             service: service,
+
+            showModal: false,
         }
     },
 
     methods: {
-        ...mapActions(service.name, ['selectEntry']),
+        ...mapActions(service.name, ['selectEntry', 'clearForm']),
 
         trash(entry) {
             confirm('Deseja realmente DELETAR este lançamento?', this).then(
@@ -260,6 +274,18 @@ export default {
                 entry.provider_cpf_cnpj +
                 ')'
             )
+        },
+
+        createEntry() {
+            if (filled(this.form.id)) {
+                this.clearForm()
+            }
+
+            this.showModal = true
+        },
+
+        editEntry(entry) {
+            this.showModal = true
         },
     },
 
