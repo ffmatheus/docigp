@@ -20,7 +20,7 @@ class Entry extends Model
         'to',
         'provider_id',
         'cost_center_id',
-        'cycle_id',
+        'congressman_budget_id',
         'verified_at',
         'complied_at',
         'published_at',
@@ -69,7 +69,6 @@ class Entry extends Model
     {
         return $this->belongsTo(CongressmanBudget::class);
     }
-
 
     public function file()
     {
