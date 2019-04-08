@@ -12,12 +12,11 @@ return [
     |
     */
 
-    'name' => 'DOCIGP',
+    'name' => env('APP_NAME'),
 
-    'medium_name' => 'DOCIGP - Descentralização Orçamentária',
+    'medium_name' => env('APP_NAME_MEDIUM'),
 
-    'long_name' =>
-        'DOCIGP - Descentralização Orçamentária de Custeio Indivitualizado para Gabinete Parlamentar',
+    'long_name' => env('APP_NAME_LONG'),
 
     /*
     |--------------------------------------------------------------------------
