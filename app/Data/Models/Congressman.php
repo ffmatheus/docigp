@@ -95,7 +95,7 @@ class Congressman extends Model
     {
         return $this->morphOne(AttachedFile::class, 'fileable');
     }
-  
+
     public function party()
     {
         return $this->belongsTo(Party::class);

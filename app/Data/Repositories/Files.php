@@ -22,7 +22,9 @@ class Files extends Repository
             $file = $this->new();
             $file->hash = $sha1_hash;
             $file->drive = $this->getDriver();
-            $file->path = "{$file->drive}/{$this->deepPath($sha1_hash)}.{$uploadFile->getClientOriginalExtension()}";
+            $file->path = "{$file->drive}/{$this->deepPath(
+                $sha1_hash
+            )}.{$uploadFile->getClientOriginalExtension()}";
             $file->mime_type = $uploadFile->getClientMimeType();
             $file->public_url = ''; //TODO descobrir como fazer
 
@@ -30,7 +32,7 @@ class Files extends Repository
         }
 
         Storage::disk($this->getDriver())->exists(
-            ($fileName = $this->makeFileName($file, $uploadFile))
+            $fileName = $this->makeFileName($file, $uploadFile)
         ) ?:
         $uploadFile->storeAs(
             $this->deepPath($file->hash),
@@ -75,6 +77,8 @@ class Files extends Repository
      */
     private function makeFileName($newFile, $uploadFile): string
     {
-        return "{$this->deepPath($newFile->hash)}{$newFile->hash}.{$uploadFile->getClientOriginalExtension()}";
+        return "{$this->deepPath(
+            $newFile->hash
+        )}{$newFile->hash}.{$uploadFile->getClientOriginalExtension()}";
     }
 }

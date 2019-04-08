@@ -94,7 +94,7 @@ abstract class Repository
      */
     public function create($data)
     {
-        $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
+        $model = is_null($id = isset($data['id']) ? $data['id'] : null)
             ? new $this->model()
             : $this->newQuery()
                 ->where('id', $id)
@@ -173,7 +173,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if (($text = $filter['filter']['text'])) {
+        if ($text = $filter['filter']['text']) {
             $this->filterAllColumns($query, $text);
         }
 

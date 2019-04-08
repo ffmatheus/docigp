@@ -38,7 +38,9 @@ class CostCenters extends Controller
         return view('admin.cost_centers.form')
             ->with('formDisabled', true)
             ->with([
-                'costCenter' => app(CostCentersRepository::class)->findById($id),
+                'costCenter' => app(CostCentersRepository::class)->findById(
+                    $id
+                ),
             ]);
     }
 }
