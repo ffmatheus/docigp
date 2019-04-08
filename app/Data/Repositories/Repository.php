@@ -247,7 +247,17 @@ abstract class Repository
 
     protected function getQueryFilter()
     {
-        return collect(json_decode(request()->get('query'), true));
+        $queryFilter = json_decode(request()->get('query'), true);
+
+        $queryFilter['pagination'] = $queryFilter['pagination'] ?? [];
+
+        $queryFilter['pagination']['current_page'] =
+            $queryFilter['pagination']['current_page'] ?? 1;
+
+        $queryFilter['pagination']['per_page'] =
+            $queryFilter['pagination']['per_page'] ?? 20;
+
+        return coollect($queryFilter);
     }
 
     protected function makeQueryByAnyColumnName(
@@ -500,5 +510,55 @@ abstract class Repository
         set_current_client_id($model->client_id);
 
         return $this;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Database\Eloquent\Coollection|static[]
+     */
+    public function search(Request $request)
+    {
+        return $this->searchFromRequest($request->get('search'));
+    }
+
+    /**
+     * @param $result
+     * @param string $label
+     * @param string $value
+     *
+     * @return mixed
+     */
+    protected function makeResultForSelect(
+        $result,
+        $label = 'name',
+        $value = 'id'
+    ) {
+        return $result->map(function ($row) use ($value, $label) {
+            $row['text'] = empty($row->text) ? $row[$label] : $row->text;
+
+            $row['value'] = $row[$value];
+
+            return $row;
+        });
+    }
+
+    public function createFromRequest($request)
+    {
+        if ($request instanceof Request) {
+            $request = $request->all();
+        }
+
+        $id = isset($request['id']) ? $request['id'] : null;
+
+        $model = is_null($id)
+            ? new $this->model()
+            : $this->model::withoutGlobalScopes()->find($id);
+
+        $model->fill($request);
+
+        $model->save();
+
+        return $model;
     }
 }
