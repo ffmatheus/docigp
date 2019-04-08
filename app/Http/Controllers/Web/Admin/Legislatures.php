@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\legislature as LegislatureRequest;
 use App\Data\Repositories\Legislatures as LegislaturesRepository;
-use App\Http\Requests\User;
 
 class Legislatures extends Controller
 {
