@@ -5,15 +5,15 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-3">
-                    <h4>Legislaturas</h4>
+                    <h4>Centros de Custo</h4>
                 </div>
 
                 <div class="col-md-9">
                     @include(
                         'layouts.partials.search-form',
                         [
-                            'routeSearch' => 'legislatures.index',
-                            'routeCreate' => 'legislatures.create',
+                            'routeSearch' => 'costCenters.index',
+                            'routeCreate' => 'costCenters.create',
                         ]
                     )
                 </div>
@@ -27,7 +27,7 @@
                 </div>
             @endif
 
-            @include('admin.legislatures.partials.table')
+            @include('admin.cost_centers.partials.table')
         </div>
     </div>
 @endsection

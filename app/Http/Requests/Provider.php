@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class Legislature extends Request
+class Provider extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,9 +12,9 @@ class Legislature extends Request
     public function rules()
     {
         return [
-            'number' => 'required',
-            'year_start' => 'required',
-            'year_end' => 'required',
+            'cpf_cnpj' => 'required', //cpf_cnpj //TODO adicionar o plugin.
+            'name' => 'required',
+            'type' => 'required',
         ];
     }
 }

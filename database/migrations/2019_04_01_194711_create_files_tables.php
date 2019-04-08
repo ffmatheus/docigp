@@ -15,13 +15,14 @@ class CreateFilesTables extends Migration
      */
     public function up()
     {
-        Schema::create(Models::table('files'), function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('hash');
-            $table->string('drive');
-            $table->string('path');
-            $table->string('public_url');
+            $table->text('hash');
+            $table->text('drive');
+            $table->text('path');
+            $table->text('public_url');
+            $table->text('mime_type');
 
             $table
                 ->bigInteger('created_by_id')
@@ -44,6 +45,6 @@ class CreateFilesTables extends Migration
      */
     public function down()
     {
-        Schema::drop(Models::table('files'));
+        Schema::dropIfExists('files');
     }
 }

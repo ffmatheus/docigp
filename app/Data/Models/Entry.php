@@ -70,6 +70,11 @@ class Entry extends Model
         return $this->belongsTo(CongressmanBudget::class);
     }
 
+    public function file()
+    {
+        return $this->morphOne(AttachedFile::class, 'fileable');
+    }
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);

@@ -8,11 +8,11 @@
                     <h4>
                         <a href="{{ route('uploadFiles.index') }}">Arquivos</a>
 
-                        @if(is_null($uploadedFiles->id))
-                            > NOVA
-                        @else
-                            > {{ $uploadedFiles->id }}
-                        @endif
+{{--                        @if(is_null($uploadedFiles->id))--}}
+{{--                            > NOVA--}}
+{{--                        @else--}}
+{{--                            > {{ $uploadedFiles->id }}--}}
+{{--                        @endif--}}
                     </h4>
                 </div>
 
@@ -24,6 +24,12 @@
 
         <div class="panel-body">
             @include('partials.alerts')
+
+            @if ($errors->has('file'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('file') }}
+                </div>
+            @endif
 
             <form name="uploadFiles" id="uploadFiles" method="post" action="{{ route('uploadFiles.store') }}"  enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -38,8 +44,7 @@
                 </p>
 
                 @include('partials.save-button')
-
-                </form>
+            </form>
         </div>
     </div>
 @endsection
