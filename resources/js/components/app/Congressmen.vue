@@ -37,6 +37,7 @@
 
                 <div class="col">
                     <app-input
+                        v-if="can('congressman:update')"
                         name="withPendency"
                         label="com pendências"
                         type="checkbox"
@@ -49,6 +50,7 @@
 
                 <div class="col">
                     <app-input
+                        v-if="can('congressman:update')"
                         name="withoutPendency"
                         label="sem pendências"
                         type="checkbox"
@@ -64,19 +66,7 @@
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Nome do Parlamentar',
-                {
-                    type: 'label',
-                    title: 'Pendências',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Situação',
-                    trClass: 'text-center',
-                },
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectCongressman(congressman)"
@@ -91,7 +81,10 @@
             >
                 <td class="align-middle">{{ congressman.name }}</td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressman:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="!congressman.has_pendency"
                         :labels="['não', 'sim']"
@@ -128,6 +121,24 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectCongressman']),
+
+        getTableColumns() {
+            let columns = ['Nome do Parlamentar']
+
+            if (can('congressman:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                })
+            }
+
+            columns.push({
+                type: 'label',
+                title: 'Situação',
+                trClass: 'text-center',
+            })
+        },
     },
 
     computed: {

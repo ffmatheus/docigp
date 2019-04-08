@@ -16,6 +16,10 @@ class Entries extends Repository
      */
     protected $model = Entry::class;
 
+    protected $congressmanBudgetId;
+
+    protected $data;
+
     public function allFor($congressmanId, $congressmanBudgetId)
     {
         return $this->applyFilter(
@@ -36,6 +40,22 @@ class Entries extends Repository
                 )
                 ->where('congressman_budgets.id', $congressmanBudgetId)
         );
+    }
+
+    /**
+     * @param mixed $congressmanBudgetId
+     */
+    public function setCongressmanBudgetId($congressmanBudgetId): void
+    {
+        $this->congressmanBudgetId = $congressmanBudgetId;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data): void
+    {
+        $this->data = $data;
     }
 
     public function transform($data)
@@ -61,5 +81,12 @@ class Entries extends Repository
         });
 
         return parent::transform($data);
+    }
+
+    public function store()
+    {
+        $this->data['congressman_budget_id'] = $this->congressmanBudgetId;
+
+        return $this->storeFromArray($this->data);
     }
 }

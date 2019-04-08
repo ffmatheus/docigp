@@ -31,42 +31,7 @@
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Data',
-                'Objeto',
-                'Favorecido',
-                {
-                    type: 'label',
-                    title: 'Documentos',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Valor',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Tipo',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Pendências',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Verificado',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Conforme',
-                    trClass: 'text-center',
-                },
-                '',
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectEntry(entry)"
@@ -98,7 +63,10 @@
                     {{ entry.value_formatted }}
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('entries:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="entry.value > 0"
                         :labels="['crédito', 'débito']"
@@ -106,28 +74,40 @@
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('entries:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="!entry.has_pendency"
                         :labels="['não', 'sim']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('entries:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="entry.verified_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('entries:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="entry.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-right">
+                <td
+                    v-if="can('entries:update')"
+                    class="align-middle text-right"
+                >
                     <button
                         v-if="!entry.verified_at"
                         class="btn btn-sm btn-micro btn-primary"
@@ -217,6 +197,54 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectEntry', 'clearForm']),
+
+        getTableColumns() {
+            let columns = [
+                'Data',
+                'Objeto',
+                'Favorecido',
+                {
+                    type: 'label',
+                    title: 'Documentos',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: 'Valor',
+                    trClass: 'text-right',
+                },
+            ]
+
+            if (can('entries:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Tipo',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Verificado',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Conforme',
+                    trClass: 'text-center',
+                })
+
+                columns.push('')
+            }
+
+            return columns
+        },
 
         trash(entry) {
             confirm('Deseja realmente DELETAR este lançamento?', this).then(

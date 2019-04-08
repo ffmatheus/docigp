@@ -76,7 +76,10 @@
             </b-form>
 
             <template slot="modal-footer">
-                <button @click="save()" class="btn btn-outline-gray btn-sm">
+                <button
+                    @click="saveAndClose()"
+                    class="btn btn-outline-gray btn-sm"
+                >
                     Gravar
                 </button>
 
@@ -89,7 +92,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import crud from '../../views/mixins/crud'
 import entries from '../../views/mixins/entries'
 
@@ -130,7 +132,11 @@ export default {
             this.showModal = false
         },
 
-        save() {},
+        saveAndClose() {
+            this.saveModel()
+
+            this.showModal = false
+        },
 
         onBoot() {
             this.$store.dispatch('costCenters/load')

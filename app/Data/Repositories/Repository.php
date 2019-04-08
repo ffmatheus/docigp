@@ -21,6 +21,8 @@ abstract class Repository
      */
     protected $model;
 
+    protected $data;
+
     protected function buildJoins($query)
     {
         $this->model()
@@ -475,9 +477,9 @@ abstract class Repository
      * @param $array
      * @return mixed
      */
-    public function update($id, $array)
+    public function update($id, $array = null)
     {
-        return $this->fillAndSave($array, $this->findById($id));
+        return $this->fillAndSave($array ?? $this->data, $this->findById($id));
     }
 
     /**

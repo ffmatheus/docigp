@@ -13,46 +13,7 @@
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Ano / Mês',
-
-                {
-                    type: 'label',
-                    title: 'Referência',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: '%',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Solicitado',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Lançamentos',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Pendências',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Conforme',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Publicado',
-                    trClass: 'text-center',
-                },
-                '',
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectCongressmanBudget(congressmanBudget)"
@@ -83,28 +44,40 @@
                     {{ congressmanBudget.entries_count }}
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="!congressmanBudget.has_pendency"
                         :labels="['não', 'sim']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="congressmanBudget.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="congressmanBudget.published_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-right">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-right"
+                >
                     <button
                         v-if="
                             congressmanBudget.entries_count === 0 &&
@@ -204,6 +177,57 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectCongressmanBudget']),
+
+        getTableColumns() {
+            let columns = [
+                'Ano / Mês',
+
+                {
+                    type: 'label',
+                    title: 'Referência',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: '%',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: 'Solicitado',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: 'Lançamentos',
+                    trClass: 'text-right',
+                },
+            ]
+
+            if (can('congressmanBudgets:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Conforme',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                })
+
+                columns.push('')
+            }
+
+            return columns
+        },
 
         makeDate(congressmanBudget) {
             return congressmanBudget.year + ' / ' + congressmanBudget.month
