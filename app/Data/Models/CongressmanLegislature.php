@@ -22,4 +22,9 @@ class CongressmanLegislature extends Model
     {
         return $this->belongsTo(Legislature::class);
     }
+
+    public function congressman()
+    {
+        return $this->belongsTo(Congressman::class);
+    }
 }

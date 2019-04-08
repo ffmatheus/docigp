@@ -2,56 +2,18 @@
     <app-table-panel
         :title="'Orçamento mensal (' + pagination.total + ')'"
         titleCollapsed="Orçamento"
+        :subTitle="congressmen.selected.name"
         :per-page="perPage"
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
-        :collapsedLabel="makeDate(selected) + ' - ' + selected.value_formatted"
+        :collapsedLabel="currentSummaryLabel"
         :is-selected="selected.id !== null"
     >
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Ano / Mês',
-
-                {
-                    type: 'label',
-                    title: 'Referência',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: '%',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Solicitado',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Lançamentos',
-                    trClass: 'text-right',
-                },
-                {
-                    type: 'label',
-                    title: 'Pendências',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Aprovado',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Publicado',
-                    trClass: 'text-center',
-                },
-                '',
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectCongressmanBudget(congressmanBudget)"
@@ -82,29 +44,62 @@
                     {{ congressmanBudget.entries_count }}
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="!congressmanBudget.has_pendency"
                         :labels="['não', 'sim']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
-                        :value="congressmanBudget.approved_at"
+                        :value="congressmanBudget.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="congressmanBudget.published_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-right">
+                <td
+                    v-if="can('congressmanBudgets:update')"
+                    class="align-middle text-right"
+                >
                     <button
+                        v-if="
+                            congressmanBudget.entries_count === 0 &&
+                                !congressmanBudget.complied_at &&
+                                !congressmanBudget.published_at
+                        "
+                        @click="deposit(congressmanBudget)"
+                        class="btn btn-sm btn-micro btn-success"
+                        :title="
+                            'Depositar ' +
+                                congressmanBudget.state_value_formatted +
+                                ' na conta de '
+                        "
+                    >
+                        <i class="fa fa-dollar-sign"></i> depositar
+                    </button>
+
+                    <button
+                        v-if="
+                            !congressmanBudget.complied_at &&
+                                congressmanBudget.entries_count === 0
+                        "
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"
                         title="Alterar percentual solicitado"
@@ -113,17 +108,45 @@
                     </button>
 
                     <button
-                        v-if="!congressmanBudget.has_pendency"
+                        v-if="
+                            !congressmanBudget.has_pendency &&
+                                !congressmanBudget.complied_at
+                        "
                         class="btn btn-sm btn-micro btn-warning"
+                        title="Marcar orçamento como 'em conformidade'"
+                        @click="comply(congressmanBudget)"
                     >
-                        <i class="fa fa-check"></i> aprovar
+                        <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
-                        v-if="congressmanBudget.approved_at"
+                        v-if="congressmanBudget.complied_at"
+                        class="btn btn-sm btn-micro btn-warning"
+                        title="Cancelar marcação de 'em conformidade'"
+                        @click="uncomply(congressmanBudget)"
+                    >
+                        <i class="fa fa-ban"></i> conformidade
+                    </button>
+
+                    <button
+                        v-if="
+                            congressmanBudget.complied_at &&
+                                !congressmanBudget.published_at
+                        "
                         class="btn btn-sm btn-micro btn-danger"
+                        title="Publicar no Portal da Transparência"
+                        @click="publish(congressmanBudget)"
                     >
                         <i class="fa fa-check"></i> publicar
+                    </button>
+
+                    <button
+                        v-if="congressmanBudget.published_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Remover do Portal da Transparência"
+                        @click="unpublish(congressmanBudget)"
+                    >
+                        <i class="fa fa-ban"></i> despublicar
                     </button>
                 </td>
             </tr>
@@ -133,9 +156,10 @@
 
 <script>
 import crud from '../../views/mixins/crud'
-import congressmanBudgets from '../../views/mixins/congressmanBudgets'
+import { mapActions, mapGetters } from 'vuex'
+import congressmen from '../../views/mixins/congressmen'
 import permissions from '../../views/mixins/permissions'
-import { mapActions } from 'vuex'
+import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 
 const service = {
     name: 'congressmanBudgets',
@@ -143,7 +167,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, congressmanBudgets, permissions],
+    mixins: [crud, congressmen, congressmanBudgets, permissions],
 
     data() {
         return {
@@ -153,6 +177,57 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectCongressmanBudget']),
+
+        getTableColumns() {
+            let columns = [
+                'Ano / Mês',
+
+                {
+                    type: 'label',
+                    title: 'Referência',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: '%',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: 'Solicitado',
+                    trClass: 'text-right',
+                },
+                {
+                    type: 'label',
+                    title: 'Lançamentos',
+                    trClass: 'text-right',
+                },
+            ]
+
+            if (can('congressmanBudgets:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Conforme',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                })
+
+                columns.push('')
+            }
+
+            return columns
+        },
 
         makeDate(congressmanBudget) {
             return congressmanBudget.year + ' / ' + congressmanBudget.month
@@ -186,6 +261,77 @@ export default {
                 return this.changePercentage(congressmanBudget, value)
             })
         },
+
+        comply(congressmanBudget) {
+            confirm('Este orçamento mensal está "EM CONFORMIDADE"?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch(
+                            'congressmanBudgets/comply',
+                            congressmanBudget,
+                        )
+                },
+            )
+        },
+
+        uncomply(congressmanBudget) {
+            confirm(
+                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/uncomply',
+                        congressmanBudget,
+                    )
+            })
+        },
+
+        publish(congressmanBudget) {
+            confirm('Confirma a PUBLICAÇÃO deste orçamento mensal?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch(
+                            'congressmanBudgets/publish',
+                            congressmanBudget,
+                        )
+                },
+            )
+        },
+
+        unpublish(congressmanBudget) {
+            confirm(
+                'Confirma a DESPUBLICAÇÃO deste orçamento mensal?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/unpublish',
+                        congressmanBudget,
+                    )
+            })
+        },
+
+        deposit(congressmanBudget) {
+            confirm(
+                'Confirma o depósito de ' +
+                    congressmanBudget.value_formatted +
+                    ' na conta de ' +
+                    this.congressmen.selected.name +
+                    '?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/deposit',
+                        congressmanBudget,
+                    )
+            })
+        },
+    },
+
+    computed: {
+        ...mapGetters(service.name, ['currentSummaryLabel']),
     },
 }
 </script>

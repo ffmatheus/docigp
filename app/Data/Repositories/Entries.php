@@ -5,6 +5,7 @@ namespace App\Data\Repositories;
 use Carbon\Carbon;
 use App\Data\Models\Entry;
 use App\Data\Traits\RepositoryActionable;
+use Illuminate\Support\Str;
 
 class Entries extends Repository
 {
@@ -14,6 +15,10 @@ class Entries extends Repository
      * @var string
      */
     protected $model = Entry::class;
+
+    protected $congressmanBudgetId;
+
+    protected $data;
 
     public function allFor($congressmanId, $congressmanBudgetId)
     {
@@ -37,6 +42,22 @@ class Entries extends Repository
         );
     }
 
+    /**
+     * @param mixed $congressmanBudgetId
+     */
+    public function setCongressmanBudgetId($congressmanBudgetId): void
+    {
+        $this->congressmanBudgetId = $congressmanBudgetId;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data): void
+    {
+        $this->data = $data;
+    }
+
     public function transform($data)
     {
         $this->addTransformationPlugin(function ($entry) {
@@ -44,11 +65,28 @@ class Entries extends Repository
                 'd/m/Y'
             );
 
+            $entry['date'] = $entry['date_formatted'];
+
             $entry['value_formatted'] = to_reais($entry['value']);
+
+            $entry['value_abs'] = abs($entry['value']);
+
+            $entry['cost_center_name_formatted'] = Str::limit(
+                $entry['cost_center_name'],
+                60,
+                '...'
+            );
 
             return $entry;
         });
 
         return parent::transform($data);
+    }
+
+    public function store()
+    {
+        $this->data['congressman_budget_id'] = $this->congressmanBudgetId;
+
+        return $this->storeFromArray($this->data);
     }
 }

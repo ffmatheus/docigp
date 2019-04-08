@@ -12,7 +12,11 @@ return [
     |
     */
 
-    'name' => 'DOCIGP',
+    'name' => env('APP_NAME'),
+
+    'medium_name' => env('APP_NAME_MEDIUM'),
+
+    'long_name' => env('APP_NAME_LONG'),
 
     /*
     |--------------------------------------------------------------------------

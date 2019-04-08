@@ -9,22 +9,64 @@
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
     >
+        <template slot="checkboxes">
+            <div class="row">
+                <div class="col">
+                    <app-input
+                        name="withMandate"
+                        label="com mandato"
+                        type="checkbox"
+                        v-model="withMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+
+                <div class="col">
+                    <app-input
+                        name="withoutMandate"
+                        label="sem mandato"
+                        type="checkbox"
+                        v-model="withoutMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+
+                <div class="col">
+                    <app-input
+                        v-if="can('congressman:update')"
+                        name="withPendency"
+                        label="com pendências"
+                        type="checkbox"
+                        v-model="withPendency"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+
+                <div class="col">
+                    <app-input
+                        v-if="can('congressman:update')"
+                        name="withoutPendency"
+                        label="sem pendências"
+                        type="checkbox"
+                        v-model="withoutPendency"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
+            </div>
+        </template>
+
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Nome do Parlamentar',
-                {
-                    type: 'label',
-                    title: 'Pendências',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Situação',
-                    trClass: 'text-center',
-                },
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectCongressman(congressman)"
@@ -39,7 +81,10 @@
             >
                 <td class="align-middle">{{ congressman.name }}</td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressman:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="!congressman.has_pendency"
                         :labels="['não', 'sim']"
@@ -49,7 +94,7 @@
                 <td class="align-middle text-center">
                     <app-active-badge
                         :value="congressman.has_mandate"
-                        :labels="['ativo', 'sem mandato ']"
+                        :labels="['com mandato', 'sem mandato ']"
                     ></app-active-badge>
                 </td>
             </tr>
@@ -76,6 +121,88 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectCongressman']),
+
+        getTableColumns() {
+            let columns = ['Nome do Parlamentar']
+
+            if (can('congressman:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Pendências',
+                    trClass: 'text-center',
+                })
+            }
+
+            columns.push({
+                type: 'label',
+                title: 'Situação',
+                trClass: 'text-center',
+            })
+        },
+    },
+
+    computed: {
+        withMandate: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withMandate
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withMandate',
+                    value: filter,
+                })
+            },
+        },
+
+        withoutMandate: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withoutMandate
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withoutMandate',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        withPendency: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withPendency
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withPendency',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        withoutPendency: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .withoutPendency
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withoutPendency',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
     },
 }
 </script>

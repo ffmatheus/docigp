@@ -9,9 +9,9 @@
                     <th
                         v-if="columns"
                         v-for="column in columns"
-                        :class="is_object(column) ? column.trClass : ''"
+                        :class="isObject(column) ? column.trClass : ''"
                     >
-                        <span v-if="!is_object(column)">
+                        <span v-if="!isObject(column)">
                             {{ column }}
                         </span>
                         <span
@@ -50,7 +50,7 @@ export default {
     props: ['pagination', 'columns', 'rows'],
 
     methods: {
-        is_object(target) {
+        isObject(target) {
             return is_object(target)
         },
 

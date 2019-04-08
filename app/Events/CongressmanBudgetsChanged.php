@@ -11,18 +11,6 @@ class CongressmanBudgetsChanged extends Event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $congressmanBudget;
-
-    /**
-     * Create a new event instance.
-     *
-     * @param $congressmanBudget
-     */
-    public function __construct($congressmanBudget)
-    {
-        $this->congressmanBudget = $congressmanBudget;
-    }
-
     /**
      * Get the channels the event should broadcast on.
      *

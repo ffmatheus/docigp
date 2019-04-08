@@ -2,8 +2,13 @@
 
 namespace App\Data\Models;
 
+use App\Data\Repositories\Budgets;
+use App\Data\Traits\ModelActionable;
+
 class CongressmanBudget extends Model
 {
+    use ModelActionable;
+
     /**
      * @var array
      */
@@ -11,8 +16,8 @@ class CongressmanBudget extends Model
         'congressman_legislature_id',
         'budget_id',
         'percentage',
-        'approved_by_id',
-        'approved_at',
+        'complied_by_id',
+        'complied_at',
         'published_by_id',
         'published_at',
     ];
@@ -22,7 +27,7 @@ class CongressmanBudget extends Model
     protected $selectColumns = ['congressman_budgets.*'];
 
     protected $selectColumnsRaw = [
-        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.approved_at is null) > 0 as has_pendency',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.complied_at is null) > 0 as has_pendency',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id) as entries_count',
     ];
 
@@ -63,5 +68,35 @@ class CongressmanBudget extends Model
     public function budget()
     {
         return $this->belongsTo(Budget::class);
+    }
+
+    public function congressmanLegislature()
+    {
+        return $this->belongsTo(CongressmanLegislature::class);
+    }
+
+    public function congressman()
+    {
+        return $this->congressmanLegislature->congressman();
+    }
+
+    public function deposit()
+    {
+        if ($this->entries_count > 0) {
+            return;
+        }
+
+        info($this->congressman);
+
+        info(
+            Entry::create([
+                'congressman_budget_id' => $this->id,
+                'to' => $this->congressman->name,
+                'object' => 'Crédito em conta-corrente',
+                'cost_center_id' => 1,
+                'date' => now(),
+                'value' => $this->value,
+            ])
+        );
     }
 }

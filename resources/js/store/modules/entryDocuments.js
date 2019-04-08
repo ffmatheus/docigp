@@ -24,7 +24,7 @@ let state = merge_objects(
         model: {
             name: 'entryDocument',
 
-            table: 'entryDocuments',
+            table: 'entry_documents',
 
             class: { singular: 'EntryDocument', plural: 'EntryDocuments' },
         },
@@ -46,12 +46,12 @@ let actions = merge_objects(actionsMixin, {
         post(makeDataUrl(context) + '/' + payload.id + '/unpublish')
     },
 
-    approve(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/approve')
+    comply(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/comply')
     },
 
-    unapprove(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/unapprove')
+    uncomply(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/uncomply')
     },
 })
 

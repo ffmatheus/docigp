@@ -6,13 +6,29 @@
                     <div class="mb-2">
                         <div class="row">
                             <div class="col-10">
-                                <h4 class="mb-0" v-if="unCollapsed">
-                                    {{ title }}
-                                </h4>
+                                <div class="row" v-if="unCollapsed">
+                                    <div class="col-12">
+                                        <h4 class="mb-0">
+                                            {{ title }}
+                                        </h4>
+                                    </div>
+                                </div>
 
-                                <h4 class="mb-0" v-if="collapsed">
-                                    {{ titleCollapsed }}
-                                </h4>
+                                <div class="row" v-if="collapsed">
+                                    <div class="col-12">
+                                        <h4 class="mb-0">
+                                            {{ titleCollapsed }}
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="m-0">
+                                            <small>{{ subTitle }}</small>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div v-if="isSelected" class="col-2 text-right">
@@ -119,6 +135,7 @@ export default {
     props: [
         'title',
         'titleCollapsed',
+        'subTitle',
         'add-button',
         'add-button-disabled',
         'columns',

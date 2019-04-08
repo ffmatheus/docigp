@@ -43,6 +43,18 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('entries/load', payload, { root: true })
 
         context.dispatch('congressmen/load', payload, { root: true })
+
+        context.commit(
+            'entries/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
+        context.commit(
+            'entryDocuments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
     },
 
     changePercentage(context, payload) {
@@ -50,10 +62,39 @@ let actions = merge_objects(actionsMixin, {
             percentage: payload.percentage,
         })
     },
+
+    comply(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/comply')
+    },
+
+    uncomply(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/uncomply')
+    },
+
+    publish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/publish')
+    },
+
+    unpublish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unpublish')
+    },
+
+    deposit(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/deposit')
+    },
 })
 
 let mutations = mutationsMixin
-let getters = gettersMixin
+
+let getters = merge_objects(gettersMixin, {
+    currentSummaryLabel(state, getters) {
+        return (
+            format_year_date(state.selected) +
+            ' - ' +
+            state.selected.value_formatted
+        )
+    },
+})
 
 export default {
     state,

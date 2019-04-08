@@ -21,6 +21,33 @@ let state = merge_objects(
 
         mode: null,
 
+        data: {
+            filter: {
+                text: null,
+
+                checkboxes: {
+                    withMandate: true,
+                    withoutMandate: false,
+                    withPendency: false,
+                    withoutPendency: false,
+                },
+
+                selects: {
+                    filler: false,
+                },
+            },
+
+            links: {
+                pagination: {
+                    per_page: 5,
+
+                    current_page: 1,
+                },
+            },
+
+            order: {},
+        },
+
         model: {
             name: 'congressman',
 
@@ -38,6 +65,24 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('congressmen/select', payload, { root: true })
 
         context.dispatch('congressmanBudgets/load', payload, { root: true })
+
+        context.commit(
+            'congressmanBudgets/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
+        context.commit(
+            'entries/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
+        context.commit(
+            'entryDocuments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
     },
 })
 

@@ -41,21 +41,21 @@ class EntryDocuments extends Controller
         app(EntryDocumentsRepository::class)->unpublish($entryDocumentId);
     }
 
-    public function approve(
+    public function comply(
         $congressmanId,
         $congressmanBudgetId,
         $entryId,
         $entryDocumentId
     ) {
-        app(EntryDocumentsRepository::class)->approve($entryDocumentId);
+        app(EntryDocumentsRepository::class)->comply($entryDocumentId);
     }
 
-    public function unapprove(
+    public function uncomply(
         $congressmanId,
         $congressmanBudgetId,
         $entryId,
         $entryDocumentId
     ) {
-        app(EntryDocumentsRepository::class)->unapprove($entryDocumentId);
+        app(EntryDocumentsRepository::class)->uncomply($entryDocumentId);
     }
 }

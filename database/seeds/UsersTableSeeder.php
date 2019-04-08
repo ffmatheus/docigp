@@ -13,6 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        UserModel::truncate();
+
         factory(UserModel::class, 50)->create();
     }
 }

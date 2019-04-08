@@ -20,8 +20,8 @@ class CreateCongressmenTable extends Migration
             $table->string('name');
             $table->string('nickname');
             $table->bigInteger('party_id')->unsigned();
-            $table->string('photo_url');
-            $table->string('thumbnail_url');
+            $table->string('photo_url')->nullable();
+            $table->string('thumbnail_url')->nullable();
 
             $table
                 ->bigInteger('created_by_id')

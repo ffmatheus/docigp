@@ -37,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        info(request()->all());
     }
 }

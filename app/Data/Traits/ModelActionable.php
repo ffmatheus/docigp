@@ -19,23 +19,23 @@ trait ModelActionable
             'verified_by_id' => auth()->user()->id,
         ]);
 
-        $this->unapprove();
+        $this->uncomply();
     }
 
-    public function approve()
+    public function comply()
     {
         info($this);
         $this->update([
-            'approved_at' => now(),
-            'approved_by_id' => auth()->user()->id,
+            'complied_at' => now(),
+            'complied_by_id' => auth()->user()->id,
         ]);
     }
 
-    public function unapprove()
+    public function uncomply()
     {
         $this->update([
-            'approved_at' => null,
-            'approved_by_id' => auth()->user()->id,
+            'complied_at' => null,
+            'complied_by_id' => auth()->user()->id,
         ]);
 
         $this->unpublish();

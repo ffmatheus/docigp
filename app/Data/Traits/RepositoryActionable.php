@@ -14,14 +14,14 @@ trait RepositoryActionable
         $this->findById($modelId)->unpublish();
     }
 
-    public function approve($modelId)
+    public function comply($modelId)
     {
-        $this->findById($modelId)->approve();
+        $this->findById($modelId)->comply();
     }
 
-    public function unapprove($modelId)
+    public function uncomply($modelId)
     {
-        $this->findById($modelId)->unapprove();
+        $this->findById($modelId)->uncomply();
     }
 
     public function verify($entryId)
@@ -32,5 +32,10 @@ trait RepositoryActionable
     public function unverify($entryId)
     {
         $this->findById($entryId)->unverify();
+    }
+
+    public function delete($entryId)
+    {
+        $this->findById($entryId)->delete();
     }
 }

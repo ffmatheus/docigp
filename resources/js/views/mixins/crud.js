@@ -57,10 +57,14 @@ export default {
     },
 
     methods: {
+        getPerPage() {
+            return this.environment.user ? this.environment.user.per_page : 10
+        },
+
         load() {
             this.$store.commit(
                 this.service.name + '/mutateSetPerPage',
-                this.environment.user.per_page,
+                this.getPerPage(),
             )
 
             return this.$store.dispatch(this.service.name + '/load')
@@ -109,6 +113,10 @@ export default {
             }
 
             this.$store.dispatch(this.service.name + '/subscribeToTableEvents')
+
+            if (this.onBoot) {
+                this.onBoot()
+            }
         },
 
         fillFormWhenEditing() {
@@ -135,7 +143,9 @@ export default {
         },
 
         saveModel() {
-            this.save(this.mode)
+            this.save(
+                this.mode ? this.mode : this.form.id ? 'create' : 'update',
+            )
                 .then(() => {
                     this.back()
 

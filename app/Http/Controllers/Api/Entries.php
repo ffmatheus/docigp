@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\EntryStore;
+use App\Http\Requests\EntryUpdate;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Entries as EntriesRepository;
 
@@ -32,13 +34,52 @@ class Entries extends Controller
         app(EntriesRepository::class)->unverify($entryId);
     }
 
-    public function approve($congressmanId, $congressmanBudgetId, $entryId)
+    public function comply($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->approve($entryId);
+        app(EntriesRepository::class)->comply($entryId);
     }
 
-    public function unapprove($congressmanId, $congressmanBudgetId, $entryId)
+    public function uncomply($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->unapprove($entryId);
+        app(EntriesRepository::class)->uncomply($entryId);
+    }
+
+    public function delete($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->delete($entryId);
+    }
+
+    /**
+     * Store
+     *
+     * @param EntryStore $request
+     * @return mixed
+     */
+    public function store(
+        EntryStore $request,
+        $congressmanId,
+        $congressmanBudgetId
+    ) {
+        return app(EntriesRepository::class)
+            ->setCongressmanBudgetId($congressmanBudgetId)
+            ->setData($request->all())
+            ->store();
+    }
+
+    /**
+     * @param EntryUpdate $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(
+        EntryUpdate $request,
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId
+    ) {
+        return app(EntriesRepository::class)
+            ->setCongressmanBudgetId($congressmanBudgetId)
+            ->setData($request->all())
+            ->update($entryId);
     }
 }

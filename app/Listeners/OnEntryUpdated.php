@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\EntryUpdated;
 use App\Events\CongressmanBudgetsChanged;
 
-class NotifyBudgetsChanged extends Listener
+class OnEntryUpdated extends Listener
 {
     /**
      * Handle the event.

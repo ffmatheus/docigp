@@ -28,11 +28,11 @@ class CreateCongressmanBudgetsTable extends Migration
             $table->decimal('value', 20, 2);
 
             $table
-                ->bigInteger('approved_by_id')
+                ->bigInteger('complied_by_id')
                 ->unsigned()
                 ->nullable();
 
-            $table->timestamp('approved_at')->nullable();
+            $table->timestamp('complied_at')->nullable();
 
             $table
                 ->bigInteger('published_by_id')

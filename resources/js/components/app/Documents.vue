@@ -8,6 +8,9 @@
         @set-per-page="perPage = $event"
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
+        :subTitle="
+            entries.selected.object + ' - ' + entries.selected.value_formatted
+        "
     >
         <template slot="buttons">
             <button
@@ -22,20 +25,7 @@
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Name',
-                {
-                    type: 'label',
-                    title: 'Aprovado',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Publicado',
-                    trClass: 'text-center',
-                },
-                '',
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectEntryDocument(document)"
@@ -52,14 +42,20 @@
                     {{ document.name.substring(1, 10) }}
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('documents:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
-                        :value="document.approved_at"
+                        :value="document.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('documents:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="document.published_at"
                         :labels="['sim', 'não']"
@@ -68,35 +64,43 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="!document.approved_at"
+                        v-if="!document.complied_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-primary"
-                        @click="approve(document)"
+                        @click="comply(document)"
+                        title="Marcar orçamento como 'em conformidade'"
                     >
-                        <i class="fa fa-check"></i> aprovar
+                        <i class="fa fa-check"></i> conforme
                     </button>
 
                     <button
-                        v-if="document.approved_at"
-                        class="btn btn-sm btn-micro btn-primary"
-                        @click="unapprove(document)"
-                    >
-                        <i class="fa fa-check"></i> desaprovar
-                    </button>
-
-                    <button
-                        v-if="document.approved_at && !document.published_at"
+                        v-if="document.complied_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
+                        @click="uncomply(document)"
+                        title="Cancelar marcação de 'em conformidade'"
+                    >
+                        <i class="fa fa-ban"></i> conformidade
+                    </button>
+
+                    <button
+                        v-if="
+                            document.complied_at &&
+                                !document.published_at &&
+                                can('documents:update')
+                        "
+                        class="btn btn-sm btn-micro btn-info"
                         @click="publish(document)"
+                        title="Marcar como 'publicável'"
                     >
                         <i class="fa fa-check"></i> publicar
                     </button>
 
                     <button
-                        v-if="document.published_at"
+                        v-if="document.published_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
-                        @click="publish(document)"
+                        @click="unpublish(document)"
+                        title="Remover autorização de publicação"
                     >
-                        <i class="fa fa-check"></i> despublicar
+                        <i class="fa fa-ban"></i> despublicar
                     </button>
 
                     <a
@@ -108,10 +112,11 @@
                     </a>
 
                     <button
-                        v-if="!document.approved_at"
+                        v-if="can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
-                        title="deletar documento"
+                        title="Deletar documento"
+                        :disabled="document.complied_at"
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -122,10 +127,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import crud from '../../views/mixins/crud'
+import entries from '../../views/mixins/entries'
 import permissions from '../../views/mixins/permissions'
 import entryDocuments from '../../views/mixins/entryDocuments'
-import { mapActions } from 'vuex'
 
 const service = {
     name: 'entryDocuments',
@@ -135,7 +141,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, entryDocuments, permissions],
+    mixins: [crud, entryDocuments, permissions, entries],
 
     data() {
         return {
@@ -146,24 +152,44 @@ export default {
     methods: {
         ...mapActions(service.name, ['selectEntryDocument']),
 
+        getTableColumns() {
+            let columns = ['Name', '']
+
+            if (can('documents:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Conforme',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                })
+            }
+
+            columns.push('')
+        },
+
         trash(document) {},
 
-        approve(document) {
-            confirm('Confirma a APROVAÇÃO deste documento?', this).then(
+        comply(document) {
+            confirm('Este documento está "EM CONFORMIDADE"?', this).then(
                 value => {
                     value &&
-                        this.$store.dispatch('entryDocuments/approve', document)
+                        this.$store.dispatch('entryDocuments/comply', document)
                 },
             )
         },
 
-        unapprove(document) {
+        uncomply(document) {
             confirm(
-                'Confirma a remoção do status "APROVADO" deste documento?',
+                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value &&
-                    this.$store.dispatch('entryDocuments/unapprove', document)
+                    this.$store.dispatch('entryDocuments/uncomply', document)
             })
         },
 

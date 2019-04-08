@@ -30,6 +30,7 @@
         "sass-loader": "^7.1.0",
         "sha256": "^0.2.0",
         "sweet-modal-vue": "^2.0.0",
+        "v-money": "^0.8.1",
         "vue": "^2.6.10",
         "vue-router": "^3.0.1",
         "vue-select": "^2.6.0",

@@ -21,12 +21,20 @@ abstract class Repository
      */
     protected $model;
 
+    protected $data;
+
     protected function buildJoins($query)
     {
         $this->model()
             ->getJoins()
             ->each(function ($join, $table) use ($query) {
-                $query->join($table, $join[0], $join[1], $join[2]);
+                $query->join(
+                    $table,
+                    $join[0],
+                    $join[1],
+                    $join[2],
+                    $join[3] ?? 'inner'
+                );
             });
     }
 
@@ -128,7 +136,7 @@ abstract class Repository
             $query->paginate(
                 $queryFilter->pagination && $queryFilter->pagination->perPage
                     ? $queryFilter->pagination->perPage
-                    : 5,
+                    : 10,
                 ['*'],
                 'page',
                 $queryFilter->pagination &&
@@ -431,11 +439,18 @@ abstract class Repository
     /**
      * Get a random element.
      *
+     * @param array $exceptIds
      * @return mixed
      */
-    public function randomElement()
+    public function randomElement($exceptIds = [])
     {
-        return $this->model::inRandomOrder()->first();
+        $query = $this->model::inRandomOrder();
+
+        if (filled($exceptIds)) {
+            $query->whereNotIn('id', $exceptIds);
+        }
+
+        return $query->first();
     }
 
     /**
@@ -452,9 +467,9 @@ abstract class Repository
      * @param $array
      * @return mixed
      */
-    public function update($id, $array)
+    public function update($id, $array = null)
     {
-        return $this->fillAndSave($array, $this->findById($id));
+        return $this->fillAndSave($array ?? $this->data, $this->findById($id));
     }
 
     /**
