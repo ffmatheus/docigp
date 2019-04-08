@@ -25,20 +25,7 @@
         <app-table
             :pagination="pagination"
             @goto-page="gotoPage($event)"
-            :columns="[
-                'Name',
-                {
-                    type: 'label',
-                    title: 'Conforme',
-                    trClass: 'text-center',
-                },
-                {
-                    type: 'label',
-                    title: 'Publicado',
-                    trClass: 'text-center',
-                },
-                '',
-            ]"
+            :columns="getTableColumns()"
         >
             <tr
                 @click="selectEntryDocument(document)"
@@ -55,14 +42,20 @@
                     {{ document.name.substring(1, 10) }}
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('documents:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="document.complied_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('documents:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="document.published_at"
                         :labels="['sim', 'não']"
@@ -71,7 +64,7 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="!document.complied_at"
+                        v-if="!document.complied_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="comply(document)"
                         title="Marcar orçamento como 'em conformidade'"
@@ -80,7 +73,7 @@
                     </button>
 
                     <button
-                        v-if="document.complied_at"
+                        v-if="document.complied_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="uncomply(document)"
                         title="Cancelar marcação de 'em conformidade'"
@@ -89,7 +82,11 @@
                     </button>
 
                     <button
-                        v-if="document.complied_at && !document.published_at"
+                        v-if="
+                            document.complied_at &&
+                                !document.published_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-info"
                         @click="publish(document)"
                         title="Marcar como 'publicável'"
@@ -98,7 +95,7 @@
                     </button>
 
                     <button
-                        v-if="document.published_at"
+                        v-if="document.published_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unpublish(document)"
                         title="Remover autorização de publicação"
@@ -115,6 +112,7 @@
                     </a>
 
                     <button
+                        v-if="can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
                         title="Deletar documento"
@@ -153,6 +151,26 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectEntryDocument']),
+
+        getTableColumns() {
+            let columns = ['Name', '']
+
+            if (can('documents:update')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Conforme',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                })
+            }
+
+            columns.push('')
+        },
 
         trash(document) {},
 
