@@ -168,13 +168,13 @@ class Congressmen extends Repository
 
     }
 
-    public function associateWithUser($request){
-
-        $email = $request['email'];
-
-        Users::class:find
-
-    }
+//    public function associateWithUser($request){
+//
+//        $email = $request['email'];
+//
+//        Users::class:find
+//
+//    }
 //
 //    public function all()
 //    {

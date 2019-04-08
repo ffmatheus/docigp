@@ -23,20 +23,18 @@ class Legislatures extends Controller
         ]);
     }
 
-    public function store(
-        LegislatureRequest $request,
-        LegislaturesRepository $repository
-    ) {
-        $repository->createFromRequest($request);
+    public function store(LegislatureRequest $request)
+    {
+        $this->repository->createFromRequest($request);
 
         return redirect()->route('admin.legislatures.index');
     }
 
-    public function index(LegislaturesRepository $repository, Request $request)
+    public function index(Request $request)
     {
         return view('admin.legislatures.index')
             ->with('search', $request->get('search'))
-            ->with('legislatures', $repository->search($request));
+            ->with('legislatures', $this->repository->search($request));
     }
 
     public function show($id)
