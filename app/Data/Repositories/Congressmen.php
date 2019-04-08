@@ -6,6 +6,7 @@ use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanLegislature;
 use App\Data\Models\User;
 use PragmaRX\Coollection\Package\Coollection;
+use App\Data\Repositories\Departaments as DepartamentsRepository;
 
 class Congressmen extends Repository
 {
@@ -79,6 +80,9 @@ class Congressmen extends Repository
     {
         $data->each(function ($congressman) {
             $congressman = $this->createCongressmanFromRemote($congressman);
+            $departament = app(
+                DepartamentsRepository::class
+            )->createDepartamentFromCongressman($congressman);
 
             if ($congressman->wasRecentlyCreated) {
                 $legislature = CongressmanLegislature::firstOrCreate(

@@ -25,6 +25,16 @@ class CreateTableDepartaments extends Migration
                 ->unsigned()
                 ->nullable();
 
+            $table
+                ->bigInteger('created_by_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('updated_by_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamps();
         });
 

@@ -4,6 +4,7 @@ namespace App\Services\DataSync;
 
 use App\Data\Repositories\Parties;
 use App\Data\Repositories\Congressmen;
+use App\Data\Repositories\Departaments;
 use App\Services\HttpClient\Service as HttpClientService;
 use PragmaRX\Coollection\Package\Coollection;
 
@@ -42,5 +43,10 @@ class Service
                 break;
             }
         }
+    }
+
+    public function departaments()
+    {
+        $result = app(Departaments::class)->createCIDepartament();
     }
 }

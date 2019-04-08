@@ -13,6 +13,11 @@ Artisan::command('docigp:sync:parties', function () {
     app(DataSyncService::class)->parties();
 })->describe('Sync congressmen data');
 
+Artisan::command('docigp:sync:departaments', function () {
+    $this->info('Creating departaments...');
+    app(DataSyncService::class)->departaments();
+})->describe('Create departaments');
+
 Artisan::command('docigp:budget:generate {baseDate?}', function (
     $baseDate = null
 ) {
