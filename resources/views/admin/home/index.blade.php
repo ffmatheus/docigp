@@ -29,6 +29,9 @@
                     <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('users.index') }}">
                         Usuários
                     </a>
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('providers.index') }}">
+                        Fornecedores / Favorecidos
+                    </a>
                 </div>
             </div>
         </div>
