@@ -38,8 +38,6 @@ class User extends Authenticatable implements AuditableContract
      */
     protected $hidden = ['password', 'remember_token'];
 
-    protected $appends = ['roles', 'abilities', 'roles_string'];
-
     /**
      * The attributes that should be cast to native types.
      *

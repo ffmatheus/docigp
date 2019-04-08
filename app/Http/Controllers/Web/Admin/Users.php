@@ -40,6 +40,8 @@ class Users extends Controller
             ->with('formDisabled', true);
     }
 
+    //protected $appends = ['roles', 'abilities', 'roles_string'];
+
     /**
      * @param $id
      *
@@ -47,7 +49,9 @@ class Users extends Controller
      */
     public function show($id)
     {
-        $user = app(UsersRepository::class)->findById($id);
+        $user = app(UsersRepository::class)
+            ->append(['roles', 'abilities', 'roles_string'])
+            ->findById($id);
 
         //TODO selecionar só as roles possíveis em allRoles
         return view('admin.users.form')
