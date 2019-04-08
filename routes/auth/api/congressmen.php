@@ -1,17 +1,11 @@
 <?php
 
 Route::group(['prefix' => '/congressmen'], function () {
-    Route::get('/', 'Congressmen@all')->name('congressmen.all');
-
     Route::post('/{id}', 'Congressmen@update')->name('congressmen.update');
 
     Route::post('/', 'Congressmen@store')->name('congressmen.store');
 
     Route::group(['prefix' => '/{congressmanId}/budgets'], function () {
-        Route::get('/', 'CongressmanBudgets@all')->name(
-            'congressmen.budgets.all'
-        );
-
         Route::group(['prefix' => '/{congressmanBudgetId}'], function () {
             Route::post('/', 'CongressmanBudgets@update')->name(
                 'congressmen.budgets.update'
@@ -45,11 +39,13 @@ Route::group(['prefix' => '/congressmen'], function () {
         Route::group(
             ['prefix' => '/{congressmanBudgetId}/entries'],
             function () {
-                Route::get('/', 'Entries@all')->name(
-                    'congressmen.budgets.entries.all'
-                );
+                Route::post('/', 'Entries@store')->name('congressmen.store');
 
                 Route::group(['prefix' => '/{entryId}'], function () {
+                    Route::post('/', 'Entries@update')->name(
+                        'congressmen.update'
+                    );
+
                     Route::post('/delete', 'Entries@delete')->name(
                         'congressmen.budgets.entries.delete'
                     );
@@ -71,10 +67,6 @@ Route::group(['prefix' => '/congressmen'], function () {
                     );
 
                     Route::group(['prefix' => '/documents'], function () {
-                        Route::get('/', 'EntryDocuments@all')->name(
-                            'congressmen.budgets.entries.documents.all'
-                        );
-
                         Route::group(
                             ['prefix' => '/{documentId}'],
                             function () {

@@ -313,6 +313,7 @@ window.can = (...args) => {
             return false
         }
     }
+
     return true
 }
 

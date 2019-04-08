@@ -20,13 +20,14 @@ import * as mutations from './mutations'
  * Modules
  */
 import admin from './modules/admin'
+import gate from './modules/gate'
+import entries from './modules/entries'
+import budgets from './modules/budgets'
 import environment from './modules/environment'
 import congressmen from './modules/congressmen'
-import budgets from './modules/budgets'
-import congressmanBudgets from './modules/congressmanBudgets'
-import entries from './modules/entries'
-import entryDocuments from './modules/entryDocuments'
 import costCenters from './modules/costCenters'
+import entryDocuments from './modules/entryDocuments'
+import congressmanBudgets from './modules/congressmanBudgets'
 
 /**
  * State
@@ -52,6 +53,7 @@ let store = new Vuex.Store({
         entries,
         entryDocuments,
         costCenters,
+        gate,
     },
 })
 

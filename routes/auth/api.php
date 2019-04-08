@@ -10,6 +10,5 @@ Route::group(
         require __DIR__ . '/api/budgets.php';
         require __DIR__ . '/api/users.php';
         require __DIR__ . '/api/costCenters.php';
-        require __DIR__ . '/api/cpfCnpj.php';
     }
 );
