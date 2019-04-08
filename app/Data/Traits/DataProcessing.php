@@ -2,6 +2,7 @@
 
 namespace App\Data\Traits;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
 trait DataProcessing
@@ -44,26 +45,29 @@ trait DataProcessing
 
     public function processPlugins($data, $plugins, $convertToArray)
     {
-        $data
-            ->getCollection()
-            ->transform(function ($model, $key) use (
-                $plugins,
+        $data =
+            $data instanceof LengthAwarePaginator
+                ? $data->getCollection()
+                : collect($data);
+
+        $data->transform(function ($model, $key) use (
+            $plugins,
+            $convertToArray
+        ) {
+            coollect($plugins)->each(function ($plugin) use (
+                &$model,
+                $key,
                 $convertToArray
             ) {
-                coollect($plugins)->each(function ($plugin) use (
-                    &$model,
-                    $key,
-                    $convertToArray
-                ) {
-                    if ($convertToArray && $model instanceof Model) {
-                        $model = $model->toArray();
-                    }
+                if ($convertToArray && $model instanceof Model) {
+                    $model = $model->toArray();
+                }
 
-                    $model = $plugin($model);
-                });
-
-                return $model;
+                $model = $plugin($model);
             });
+
+            return $model;
+        });
 
         return $data;
     }
