@@ -20,7 +20,7 @@ class Entry extends Model
         'to',
         'provider_id',
         'cost_center_id',
-        'congressman_budget_id',
+        'cycle_id',
         'verified_at',
         'complied_at',
         'published_at',
@@ -70,6 +70,12 @@ class Entry extends Model
         return $this->belongsTo(CongressmanBudget::class);
     }
 
+
+    public function file()
+    {
+        return $this->morphOne(AttachedFile::class, 'fileable');
+    }
+
     public function provider()
     {
         return $this->belongsTo(Provider::class);
@@ -78,10 +84,5 @@ class Entry extends Model
     public function costCenter()
     {
         return $this->belongsTo(CostCenter::class);
-    }
-
-    public function file()
-    {
-        return $this->morphOne(AttachedFile::class, 'fileable');
     }
 }
