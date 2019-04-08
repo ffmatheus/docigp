@@ -4,40 +4,39 @@ namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Congressman as CongressmanRequest;
+use App\Http\Requests\CongressmanSettings as CongressmanSettingsRequest;
 
-use App\Data\Repositories\Congressmen as CongressmenRepository;
+use App\Data\Repositories\CongressmanSettings as CongressmanSettingsRepository;
 
-class Congressmen extends Controller
+class CongressmanSettings extends Controller
 {
     /**
-     * @var CongressmenRepository
+     * @var CongressmanSettingsRepository
      */
     private $congressmenRepository;
 
     /**
      * Users constructor.
      *
-     * @param CongressmenRepository $congressmenRepository
+     * @param CongressmanSettingsRepository $congressmenRepository
      */
-    public function __construct(CongressmenRepository $congressmenRepository)
-    {
+    public function __construct(
+        CongressmanSettingsRepository $congressmenRepository
+    ) {
         $this->congressmenRepository = $congressmenRepository;
     }
 
     public function create()
     {
-        return view('admin.congressmen.form')->with([
+        return view('admin.congressmenSetting.form')->with([
             'congressman' => $this->congressmenrepository->new(),
             'parties' => $this->getComboBoxMenus(),
         ]);
     }
 
-    public function store(CongressmanRequest $request)
+    public function store(CongressmanSettingsRequest $request)
     {
-        $this->congressmenRepository->createFromRequest($request);
-
-        $this->congressmenRepository->associateWithUser($request);
+        $this->congressmenrepository->createFromRequest($request);
 
         return redirect()->route('admin.congressmen.index');
     }
@@ -52,10 +51,10 @@ class Congressmen extends Controller
 
     public function show($id)
     {
-        $congressman = app(CongressmenRepository::class)->findById($id);
+        $congressman = app(CongressmanSettingsRepository::class)->findById($id);
 
         //TODO selecionar as roles possíveis
-        return view('admin.congressmen.form')
+        return view('admin.congressman_settings.form')
             ->with('congressman', $congressman)
             ->with('formDisabled', true);
     }

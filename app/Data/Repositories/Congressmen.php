@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanLegislature;
+use App\Data\Models\User;
 use PragmaRX\Coollection\Package\Coollection;
 
 class Congressmen extends Repository
@@ -113,4 +114,67 @@ class Congressmen extends Repository
             $query->withoutPendency();
         }
     }
+
+    public function searchFromRequest($search = null)
+    {
+        $search = is_null($search)
+            ? collect()
+            : collect(explode(' ', $search))->map(function ($item) {
+                return strtolower($item);
+            });
+
+        $columns = collect(['number' => 'string']);
+
+        $query = $this->model::query();
+
+        $search->each(function ($item) use ($columns, $query) {
+            $columns->each(function ($type, $column) use ($query, $item) {
+                if ($type === 'string') {
+                    $query->orWhere(
+                        DB::raw("lower({$column})"),
+                        'like',
+                        '%' . $item . '%'
+                    );
+                } else {
+                    if ($this->isDate($item)) {
+                        $query->orWhere($column, '=', $item);
+                    }
+                }
+            });
+        });
+
+        return $this->makeResultForSelect($query->orderBy('name')->get());
+    }
+
+    public function transform($data)
+    {
+        $this->addTransformationPlugin(function ($congressman) {
+            if ($congressman['thumbnail_url'] != '') {
+                $congressman['thumbnail_url'] =
+                    'http://' . trim($congressman['thumbnail_url']);
+            }
+
+            if ($congressman['photo_url'] != '') {
+                $congressman['photo_url'] =
+                    'http://' . trim($congressman['photo_url']);
+            }
+
+            return $congressman;
+        });
+
+        return parent::transform($data);
+    }
+
+    //    public function associateWithUser($request){
+    //
+    //        $email = $request['email'];
+    //
+    //        Users::class:find
+    //
+    //    }
+    //
+    //    public function all()
+    //    {
+    //        return dd($this->transform($this->model::paginate()->items()));
+    //    }
 }
