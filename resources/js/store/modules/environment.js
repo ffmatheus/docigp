@@ -31,6 +31,10 @@ let getters = merge_objects(gettersMixin, {
     getCurrentClient(state, getters) {
         return state.session.current_client
     },
+
+    getuser(state, getters) {
+        return state.user
+    },
 })
 
 const actions = {

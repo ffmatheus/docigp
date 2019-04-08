@@ -6,7 +6,7 @@ const getters = {
     can: state => permission => {
         return Store.getters['environment/getPermissions']
             ? Store.getters['environment/getPermissions'].includes(permission)
-            : false
+            : !!Store.state.environment.user
     },
 }
 
