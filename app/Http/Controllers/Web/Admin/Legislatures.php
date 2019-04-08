@@ -29,8 +29,7 @@ class Legislatures extends Controller
     {
         $request->merge(['created_by_id' => current_user()->id]);
         app(LegislaturesRepository::class)->create($request->all());
-
-        return redirect()->route('legislatures.index');
+        return redirect()->route('admin.legislatures.index');
     }
 
     public function show($id)

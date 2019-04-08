@@ -13,6 +13,8 @@ class Congressman extends Model
         'thumbnail_url',
     ];
 
+    protected $with = ['party'];
+
     protected $filterableColumns = ['name'];
 
     protected $orderBy = ['name' => 'asc'];
@@ -89,9 +91,13 @@ class Congressman extends Model
             ->first();
     }
 
-
     public function file()
     {
         return $this->morphOne(AttachedFile::class, 'fileable');
+    }
+  
+    public function party()
+    {
+        return $this->belongsTo(Party::class);
     }
 }
