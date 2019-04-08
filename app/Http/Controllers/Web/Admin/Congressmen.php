@@ -25,18 +25,16 @@ class Congressmen extends Controller
         $this->congressmenRepository = $congressmenRepository;
     }
 
-
     public function create()
     {
         return view('admin.congressmen.form')->with([
             'congressman' => $this->congressmenrepository->new(),
-            'parties'=> $this->getComboBoxMenus()
+            'parties' => $this->getComboBoxMenus(),
         ]);
     }
 
-    public function store(
-        CongressmanRequest $request
-    ) {
+    public function store(CongressmanRequest $request)
+    {
         $this->congressmenRepository->createFromRequest($request);
 
         $this->congressmenRepository->associateWithUser($request);
@@ -46,9 +44,10 @@ class Congressmen extends Controller
 
     public function index(Request $request)
     {
-        return view('admin.congressmen.index')
-            ->with('congressmen', $this->congressmenRepository->all()
-            );
+        return view('admin.congressmen.index')->with(
+            'congressmen',
+            $this->congressmenRepository->all()
+        );
     }
 
     public function show($id)

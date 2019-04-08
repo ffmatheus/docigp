@@ -252,7 +252,8 @@ abstract class Repository
         $queryFilter['pagination'] = $queryFilter['pagination'] ?? [];
 
         $queryFilter['pagination']['current_page'] =
-            $queryFilter['pagination']['current_page'] ?? 1;
+            $queryFilter['pagination']['current_page'] ??
+            (request()->get('page') ?? 1);
 
         $queryFilter['pagination']['per_page'] =
             $queryFilter['pagination']['per_page'] ?? 20;
@@ -357,24 +358,26 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
-        return [
-            'links' => [
-                'pagination' => [
-                    'total' => $data->total(),
-                    'per_page' => $data->perPage(),
-                    'current_page' => $data->currentPage(),
-                    'last_page' => $data->lastPage(),
-                    'from' => ($from =
-                        ($data->currentPage() - 1) * $data->perPage() + 1),
-                    'to' => $from + count($data->items()) - 1,
-                    'pages' => $this->generatePages($data),
+        return !request()->expectsJson()
+            ? $this->transform($data)
+            : [
+                'links' => [
+                    'pagination' => [
+                        'total' => $data->total(),
+                        'per_page' => $data->perPage(),
+                        'current_page' => $data->currentPage(),
+                        'last_page' => $data->lastPage(),
+                        'from' => ($from =
+                            ($data->currentPage() - 1) * $data->perPage() + 1),
+                        'to' => $from + count($data->items()) - 1,
+                        'pages' => $this->generatePages($data),
+                    ],
                 ],
-            ],
 
-            'filter' => $this->getQueryFilter()['filter'],
+                'filter' => $this->getQueryFilter()['filter'],
 
-            'rows' => $this->transform($data->items()),
-        ];
+                'rows' => $this->transform($data->items()),
+            ];
     }
 
     /**

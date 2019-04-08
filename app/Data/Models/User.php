@@ -19,7 +19,13 @@ class User extends Authenticatable implements AuditableContract
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'username','congressman_id'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'username',
+        'congressman_id',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.

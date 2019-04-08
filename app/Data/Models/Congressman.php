@@ -13,9 +13,7 @@ class Congressman extends Model
         'thumbnail_url',
     ];
 
-    protected $with =[
-        'party'
-    ];
+    protected $with = ['party'];
 
     protected $filterableColumns = ['name'];
 
@@ -93,7 +91,8 @@ class Congressman extends Model
             ->first();
     }
 
-    public function party(){
+    public function party()
+    {
         return $this->belongsTo(Party::class);
     }
 }

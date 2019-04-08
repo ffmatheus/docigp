@@ -44,23 +44,26 @@ trait DataProcessing
 
     public function processPlugins($data, $plugins, $convertToArray)
     {
-        coollect($plugins)->each(function ($plugin) use (
-            &$data,
-            $convertToArray
-        ) {
-            $data = coollect($data)->map(function ($item) use (
-                $plugin,
+        $data
+            ->getCollection()
+            ->transform(function ($model, $key) use (
+                $plugins,
                 $convertToArray
             ) {
-                if ($convertToArray && $item instanceof Model) {
-                    $item = $item->toArray();
-                }
+                coollect($plugins)->each(function ($plugin) use (
+                    &$model,
+                    $key,
+                    $convertToArray
+                ) {
+                    if ($convertToArray && $model instanceof Model) {
+                        $model = $model->toArray();
+                    }
 
-                $item = $plugin($item);
+                    $model = $plugin($model);
+                });
 
-                return $item;
+                return $model;
             });
-        });
 
         return $data;
     }

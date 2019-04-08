@@ -24,27 +24,27 @@
     </thead>
 
 
-    @forelse ($congressmen['rows'] as $congressman)
+    @forelse ($congressmen as $congressman)
 
 
         <tr>
             <td>
-                <a href="{{ route('congressmen.show', ['id' => $congressman->id]) }}">{{$congressman->id}}</a>
+                <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}">{{$congressman['id']}}</a>
             </td>
             <td>
-                @if (isset($congressman->thumbnail_url))
-                    <img src="{{$congressman->thumbnail_url}}" >
+                @if (isset($congressman['thumbnail_url']))
+                    <img src="{{$congressman['thumbnail_url']}}" >
                 @endif
             </td>
             <td>
 
-                  <a> {{ $congressman->name }}</a>
+                  <a> {{ $congressman['name']}}</a>
             </td>
             <td>
-                {{ $congressman->nickname }}
+                {{ $congressman['nickname']}}
             </td>
             <td>
-                {{ $congressman->party->name }} ({{$congressman->party->code}})
+                {{ $congressman['party']['name'] }} ({{$congressman['party']['code']}})
             </td>
             <td>
                 <i class="fas fa-user-shield"></i>
@@ -57,5 +57,5 @@
     @endforelse
 
 
-    {{--{{$congressmen->links()}}--}}
+    {{$congressmen->links()}}
 </table>

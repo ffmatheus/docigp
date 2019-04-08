@@ -20,23 +20,22 @@ class CongressmanSettings extends Controller
      *
      * @param CongressmanSettingsRepository $congressmenRepository
      */
-    public function __construct(CongressmanSettingsRepository $congressmenRepository)
-    {
+    public function __construct(
+        CongressmanSettingsRepository $congressmenRepository
+    ) {
         $this->congressmenRepository = $congressmenRepository;
     }
-
 
     public function create()
     {
         return view('admin.congressmenSetting.form')->with([
             'congressman' => $this->congressmenrepository->new(),
-            'parties'=> $this->getComboBoxMenus()
+            'parties' => $this->getComboBoxMenus(),
         ]);
     }
 
-    public function store(
-        CongressmanSettingsRequest $request
-    ) {
+    public function store(CongressmanSettingsRequest $request)
+    {
         $this->congressmenrepository->createFromRequest($request);
 
         return redirect()->route('admin.congressmen.index');
@@ -44,9 +43,10 @@ class CongressmanSettings extends Controller
 
     public function index(Request $request)
     {
-        return view('admin.congressmen.index')
-            ->with('congressmen', $this->congressmenRepository->all()
-            );
+        return view('admin.congressmen.index')->with(
+            'congressmen',
+            $this->congressmenRepository->all()
+        );
     }
 
     public function show($id)

@@ -10,14 +10,12 @@ use App\Data\Repositories\Parties as PartiesRepository;
 
 class Parties extends Controller
 {
-
     private $repository;
 
     public function __construct(PartiesRepository $repository)
     {
         $this->repository = $repository;
     }
-
 
     public function index(PartiesRepository $repository, Request $request)
     {
@@ -39,5 +37,4 @@ class Parties extends Controller
 
         return redirect()->route('admin.legislatures.index');
     }
-
 }
