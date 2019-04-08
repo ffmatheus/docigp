@@ -59,7 +59,7 @@
                     class="align-middle text-center"
                 >
                     <app-active-badge
-                        :value="congressmanBudget.complied_at"
+                        :value="congressmanBudget.analysed_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -81,7 +81,7 @@
                     <button
                         v-if="
                             congressmanBudget.entries_count === 0 &&
-                                !congressmanBudget.complied_at &&
+                                !congressmanBudget.analysed_at &&
                                 !congressmanBudget.published_at
                         "
                         @click="deposit(congressmanBudget)"
@@ -97,7 +97,7 @@
 
                     <button
                         v-if="
-                            !congressmanBudget.complied_at &&
+                            !congressmanBudget.analysed_at &&
                                 congressmanBudget.entries_count === 0
                         "
                         @click="editPercentage(congressmanBudget)"
@@ -110,27 +110,27 @@
                     <button
                         v-if="
                             !congressmanBudget.has_pendency &&
-                                !congressmanBudget.complied_at
+                                !congressmanBudget.analysed_at
                         "
                         class="btn btn-sm btn-micro btn-warning"
-                        title="Marcar orçamento como 'em conformidade'"
-                        @click="comply(congressmanBudget)"
+                        title="Marcar orçamento como 'analisado'"
+                        @click="analyse(congressmanBudget)"
                     >
-                        <i class="fa fa-check"></i> conforme
+                        <i class="fa fa-check"></i> analisado
                     </button>
 
                     <button
-                        v-if="congressmanBudget.complied_at"
+                        v-if="congressmanBudget.analysed_at"
                         class="btn btn-sm btn-micro btn-warning"
-                        title="Cancelar marcação de 'em conformidade'"
-                        @click="uncomply(congressmanBudget)"
+                        title="Cancelar marcação de 'em analisado'"
+                        @click="unanalyse(congressmanBudget)"
                     >
-                        <i class="fa fa-ban"></i> conformidade
+                        <i class="fa fa-ban"></i> analisado
                     </button>
 
                     <button
                         v-if="
-                            congressmanBudget.complied_at &&
+                            congressmanBudget.analysed_at &&
                                 !congressmanBudget.published_at
                         "
                         class="btn btn-sm btn-micro btn-danger"
@@ -213,7 +213,7 @@ export default {
 
                 columns.push({
                     type: 'label',
-                    title: 'Conforme',
+                    title: 'Analisado',
                     trClass: 'text-center',
                 })
 
@@ -262,26 +262,26 @@ export default {
             })
         },
 
-        comply(congressmanBudget) {
+        analyse(congressmanBudget) {
             confirm('Este orçamento mensal está "EM CONFORMIDADE"?', this).then(
                 value => {
                     value &&
                         this.$store.dispatch(
-                            'congressmanBudgets/comply',
+                            'congressmanBudgets/analyse',
                             congressmanBudget,
                         )
                 },
             )
         },
 
-        uncomply(congressmanBudget) {
+        unanalyse(congressmanBudget) {
             confirm(
                 'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value &&
                     this.$store.dispatch(
-                        'congressmanBudgets/uncomply',
+                        'congressmanBudgets/unanalyse',
                         congressmanBudget,
                     )
             })

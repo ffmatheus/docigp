@@ -53,7 +53,7 @@
                 <div v-if="perPage" class="row">
                     <div class="col-12 card-filters bg-filters py-2">
                         <div class="row">
-                            <div v-if="perPage" class="col-4">
+                            <div v-if="perPage" class="col">
                                 <input
                                     class="form-control"
                                     :value="filterText"
@@ -62,14 +62,14 @@
                                 />
                             </div>
 
-                            <div v-if="perPage" class="col-2 p-0">
+                            <div v-if="perPage" class="col p-0">
                                 <app-per-page
                                     :value="perPage"
                                     @input="$emit('set-per-page', $event)"
                                 ></app-per-page>
                             </div>
 
-                            <div class="col-6 text-right">
+                            <div class="col text-right">
                                 <slot name="buttons"></slot>
 
                                 <router-link

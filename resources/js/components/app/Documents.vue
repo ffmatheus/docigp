@@ -47,7 +47,7 @@
                     class="align-middle text-center"
                 >
                     <app-active-badge
-                        :value="document.complied_at"
+                        :value="document.analysed_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -64,26 +64,26 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="!document.complied_at && can('documents:update')"
+                        v-if="!document.analysed_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-primary"
-                        @click="comply(document)"
-                        title="Marcar orçamento como 'em conformidade'"
+                        @click="analyse(document)"
+                        title="Marcar orçamento como 'analisado'"
                     >
-                        <i class="fa fa-check"></i> conforme
+                        <i class="fa fa-check"></i> analisado
                     </button>
 
                     <button
-                        v-if="document.complied_at && can('documents:update')"
+                        v-if="document.analysed_at && can('documents:update')"
                         class="btn btn-sm btn-micro btn-danger"
-                        @click="uncomply(document)"
-                        title="Cancelar marcação de 'em conformidade'"
+                        @click="unanalyse(document)"
+                        title="Cancelar marcação de 'em analisado'"
                     >
-                        <i class="fa fa-ban"></i> conformidade
+                        <i class="fa fa-ban"></i> analisado
                     </button>
 
                     <button
                         v-if="
-                            document.complied_at &&
+                            document.analysed_at &&
                                 !document.published_at &&
                                 can('documents:update')
                         "
@@ -116,7 +116,7 @@
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
                         title="Deletar documento"
-                        :disabled="document.complied_at"
+                        :disabled="document.analysed_at"
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -158,7 +158,7 @@ export default {
             if (can('documents:update')) {
                 columns.push({
                     type: 'label',
-                    title: 'Conforme',
+                    title: 'Analisado',
                     trClass: 'text-center',
                 })
 
@@ -174,22 +174,22 @@ export default {
 
         trash(document) {},
 
-        comply(document) {
+        analyse(document) {
             confirm('Este documento está "EM CONFORMIDADE"?', this).then(
                 value => {
                     value &&
-                        this.$store.dispatch('entryDocuments/comply', document)
+                        this.$store.dispatch('entryDocuments/analyse', document)
                 },
             )
         },
 
-        uncomply(document) {
+        unanalyse(document) {
             confirm(
                 'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
                 value &&
-                    this.$store.dispatch('entryDocuments/uncomply', document)
+                    this.$store.dispatch('entryDocuments/unanalyse', document)
             })
         },
 

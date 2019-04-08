@@ -46,12 +46,12 @@ let actions = merge_objects(actionsMixin, {
         post(makeDataUrl(context) + '/' + payload.id + '/unpublish')
     },
 
-    comply(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/comply')
+    analyse(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/analyse')
     },
 
-    uncomply(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/uncomply')
+    unanalyse(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unanalyse')
     },
 })
 

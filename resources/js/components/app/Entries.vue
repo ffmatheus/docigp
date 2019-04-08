@@ -99,7 +99,7 @@
                     class="align-middle text-center"
                 >
                     <app-active-badge
-                        :value="entry.complied_at"
+                        :value="entry.analysed_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
@@ -127,25 +127,25 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at && !entry.complied_at"
+                        v-if="entry.verified_at && !entry.analysed_at"
                         class="btn btn-sm btn-micro btn-success"
-                        @click="comply(entry)"
-                        title="Marcar como 'em conformidade'"
+                        @click="analyse(entry)"
+                        title="Marcar como 'analisado'"
                     >
-                        <i class="fa fa-check"></i> conforme
+                        <i class="fa fa-check"></i> analisado
                     </button>
 
                     <button
-                        v-if="entry.verified_at && entry.complied_at"
+                        v-if="entry.verified_at && entry.analysed_at"
                         class="btn btn-sm btn-micro btn-danger"
-                        @click="uncomply(entry)"
-                        title="Cancelar marcação de 'em conformidade'"
+                        @click="unanalyse(entry)"
+                        title="Cancelar marcação de 'em analisado'"
                     >
-                        <i class="fa fa-ban"></i> conformidade
+                        <i class="fa fa-ban"></i> analisado
                     </button>
 
                     <button
-                        :disabled="entry.complied_at || entry.verified_at"
+                        :disabled="entry.analysed_at || entry.verified_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="editEntry(entry)"
                         title="editar lançamento"
@@ -154,7 +154,7 @@
                     </button>
 
                     <button
-                        :disabled="entry.complied_at || entry.verified_at"
+                        :disabled="entry.analysed_at || entry.verified_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"
@@ -236,7 +236,7 @@ export default {
 
                 columns.push({
                     type: 'label',
-                    title: 'Conforme',
+                    title: 'Analisado',
                     trClass: 'text-center',
                 })
 
@@ -272,20 +272,20 @@ export default {
             })
         },
 
-        comply(entry) {
+        analyse(entry) {
             confirm('Este lançamento está "EM CONFORMIDADE"?', this).then(
                 value => {
-                    value && this.$store.dispatch('entries/comply', entry)
+                    value && this.$store.dispatch('entries/analyse', entry)
                 },
             )
         },
 
-        uncomply(entry) {
+        unanalyse(entry) {
             confirm(
                 'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
                 this,
             ).then(value => {
-                value && this.$store.dispatch('entries/uncomply', entry)
+                value && this.$store.dispatch('entries/unanalyse', entry)
             })
         },
 

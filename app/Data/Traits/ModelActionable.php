@@ -19,23 +19,23 @@ trait ModelActionable
             'verified_by_id' => auth()->user()->id,
         ]);
 
-        $this->uncomply();
+        $this->unanalyse();
     }
 
-    public function comply()
+    public function analyse()
     {
         info($this);
         $this->update([
-            'complied_at' => now(),
-            'complied_by_id' => auth()->user()->id,
+            'analysed_at' => now(),
+            'analysed_by_id' => auth()->user()->id,
         ]);
     }
 
-    public function uncomply()
+    public function unanalyse()
     {
         $this->update([
-            'complied_at' => null,
-            'complied_by_id' => auth()->user()->id,
+            'analysed_at' => null,
+            'analysed_by_id' => auth()->user()->id,
         ]);
 
         $this->unpublish();

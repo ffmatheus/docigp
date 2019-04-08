@@ -205,7 +205,7 @@ abstract class Repository
 
     protected function generatePages(LengthAwarePaginator $data)
     {
-        $pageLimit = 6;
+        $pageLimit = 4;
 
         $firstPage =
             $data->lastPage() > $pageLimit

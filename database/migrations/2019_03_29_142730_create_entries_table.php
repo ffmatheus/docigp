@@ -39,7 +39,7 @@ class CreateEntriesTable extends Migration
                 ->nullable();
 
             $table->timestamp('verified_at')->nullable();
-            $table->timestamp('complied_at')->nullable();
+            $table->timestamp('analysed_at')->nullable();
             $table->timestamp('published_at')->nullable();
 
             $table
@@ -48,7 +48,7 @@ class CreateEntriesTable extends Migration
                 ->nullable();
 
             $table
-                ->bigInteger('complied_by_id')
+                ->bigInteger('analysed_by_id')
                 ->unsigned()
                 ->nullable();
 

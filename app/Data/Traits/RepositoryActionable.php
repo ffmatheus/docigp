@@ -14,14 +14,14 @@ trait RepositoryActionable
         $this->findById($modelId)->unpublish();
     }
 
-    public function comply($modelId)
+    public function analyse($modelId)
     {
-        $this->findById($modelId)->comply();
+        $this->findById($modelId)->analyse();
     }
 
-    public function uncomply($modelId)
+    public function unanalyse($modelId)
     {
-        $this->findById($modelId)->uncomply();
+        $this->findById($modelId)->unanalyse();
     }
 
     public function verify($entryId)

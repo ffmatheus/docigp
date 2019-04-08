@@ -9,7 +9,7 @@
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
     >
-        <template slot="checkboxes">
+        <template v-if="can('congressman:update')" slot="checkboxes">
             <div class="row">
                 <div class="col">
                     <app-input
@@ -37,7 +37,6 @@
 
                 <div class="col">
                     <app-input
-                        v-if="can('congressman:update')"
                         name="withPendency"
                         label="com pendências"
                         type="checkbox"
@@ -50,7 +49,6 @@
 
                 <div class="col">
                     <app-input
-                        v-if="can('congressman:update')"
                         name="withoutPendency"
                         label="sem pendências"
                         type="checkbox"
@@ -91,7 +89,10 @@
                     ></app-active-badge>
                 </td>
 
-                <td class="align-middle text-center">
+                <td
+                    v-if="can('congressman:update')"
+                    class="align-middle text-center"
+                >
                     <app-active-badge
                         :value="congressman.has_mandate"
                         :labels="['com mandato', 'sem mandato ']"
@@ -131,13 +132,15 @@ export default {
                     title: 'Pendências',
                     trClass: 'text-center',
                 })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Situação',
+                    trClass: 'text-center',
+                })
             }
 
-            columns.push({
-                type: 'label',
-                title: 'Situação',
-                trClass: 'text-center',
-            })
+            return columns
         },
     },
 

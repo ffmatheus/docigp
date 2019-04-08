@@ -34,14 +34,14 @@ class Entries extends Controller
         app(EntriesRepository::class)->unverify($entryId);
     }
 
-    public function comply($congressmanId, $congressmanBudgetId, $entryId)
+    public function analyse($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->comply($entryId);
+        app(EntriesRepository::class)->analyse($entryId);
     }
 
-    public function uncomply($congressmanId, $congressmanBudgetId, $entryId)
+    public function unanalyse($congressmanId, $congressmanBudgetId, $entryId)
     {
-        app(EntriesRepository::class)->uncomply($entryId);
+        app(EntriesRepository::class)->unanalyse($entryId);
     }
 
     public function delete($congressmanId, $congressmanBudgetId, $entryId)

@@ -28,14 +28,14 @@ $factory->define(EntryModel::class, function () {
             CongressmanBudgets::class
         )->randomElement()->id,
         'verified_at' => ($verified = rand(0, 1) ? faker()->date : null),
-        'complied_at' => ($complied =
+        'analysed_at' => ($analysed =
             $verified && rand(0, 1) ? faker()->date : null),
         'published_at' => ($published =
-            $complied && rand(0, 1) ? faker()->date : null),
+            $analysed && rand(0, 1) ? faker()->date : null),
         'verified_by_id' => $verified
             ? app(UsersRepository::class)->randomElement()->id
             : null,
-        'complied_by_id' => $complied
+        'analysed_by_id' => $analysed
             ? app(UsersRepository::class)->randomElement()->id
             : null,
         'published_by_id' => $published

@@ -41,21 +41,21 @@ class EntryDocuments extends Controller
         app(EntryDocumentsRepository::class)->unpublish($entryDocumentId);
     }
 
-    public function comply(
+    public function analyse(
         $congressmanId,
         $congressmanBudgetId,
         $entryId,
         $entryDocumentId
     ) {
-        app(EntryDocumentsRepository::class)->comply($entryDocumentId);
+        app(EntryDocumentsRepository::class)->analyse($entryDocumentId);
     }
 
-    public function uncomply(
+    public function unanalyse(
         $congressmanId,
         $congressmanBudgetId,
         $entryId,
         $entryDocumentId
     ) {
-        app(EntryDocumentsRepository::class)->uncomply($entryDocumentId);
+        app(EntryDocumentsRepository::class)->unanalyse($entryDocumentId);
     }
 }

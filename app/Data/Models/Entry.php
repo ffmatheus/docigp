@@ -22,16 +22,16 @@ class Entry extends Model
         'cost_center_id',
         'congressman_budget_id',
         'verified_at',
-        'complied_at',
+        'analysed_at',
         'published_at',
         'verified_by_id',
-        'complied_by_id',
+        'analysed_by_id',
         'published_by_id',
         'created_by_id',
         'updated_by_id',
     ];
 
-    protected $dates = ['date', 'verified_at', 'complied_at', 'published_at'];
+    protected $dates = ['date', 'verified_at', 'analysed_at', 'published_at'];
 
     protected $selectColumns = [
         'entries.*',
@@ -44,7 +44,7 @@ class Entry extends Model
 
     protected $selectColumnsRaw = [
         '(select count(*) from entry_documents ed where ed.entry_id = entries.id) as documents_count',
-        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.complied_at is null) > 0 as has_pendency',
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null) > 0 as has_pendency',
     ];
 
     protected $filterableColumns = [

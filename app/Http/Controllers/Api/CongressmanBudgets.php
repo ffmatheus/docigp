@@ -58,14 +58,14 @@ class CongressmanBudgets extends Controller
         )->getAvailableCongressmanBudgets();
     }
 
-    public function comply($congressmanId, $congressmanBudgetId)
+    public function analyse($congressmanId, $congressmanBudgetId)
     {
-        app(CongressmanBudgetsRepository::class)->comply($congressmanBudgetId);
+        app(CongressmanBudgetsRepository::class)->analyse($congressmanBudgetId);
     }
 
-    public function uncomply($congressmanId, $congressmanBudgetId)
+    public function unanalyse($congressmanId, $congressmanBudgetId)
     {
-        app(CongressmanBudgetsRepository::class)->uncomply(
+        app(CongressmanBudgetsRepository::class)->unanalyse(
             $congressmanBudgetId
         );
     }
