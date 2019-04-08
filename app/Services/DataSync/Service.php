@@ -7,6 +7,7 @@ use App\Data\Repositories\Congressmen;
 use App\Data\Repositories\Departaments;
 use App\Services\HttpClient\Service as HttpClientService;
 use PragmaRX\Coollection\Package\Coollection;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class Service
 {
@@ -48,5 +49,88 @@ class Service
     public function departaments()
     {
         $result = app(Departaments::class)->createCIDepartament();
+    }
+
+    public function roles()
+    {
+        $ci = app(Departaments::class)->findByInitials('CI');
+
+        //        RoleRole
+        //
+        //        user
+        //            departament_id
+        //                Departamento de deputado
+        //                    - acesso só ao que é do deputado
+        //                CI
+        //                    - analisar e publicar
+        //                Informática
+        //                    - dar permissão
+        //                Diretoria geral
+        //                    - ver
+        //
+        //        @can('acessar pag do deputado',$x)
+        //
+        //        Gate::
+        //            user->isFromDepartament(X)
+        //
+        //        deputado
+        //            legislatura
+        //                orçamento
+        //
+        //        lançamento
+        //            deputado - legisatura
+
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Administrator',
+            'title' => 'Administrator',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Deputado',
+            'title' => 'Deputado',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Chefe',
+            'title' => 'Chefe',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Gestor',
+            'title' => 'Gestor',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Assessor',
+            'title' => 'Assessor',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Lançador',
+            'title' => 'Lançador',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Verificador',
+            'title' => 'Verificador',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Diretor',
+            'title' => 'Diretor',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Assistente',
+            'title' => 'Assistente',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Gestor',
+            'title' => 'Gestor',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Funcionário',
+            'title' => 'Funcionário',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Publicador',
+            'title' => 'Publicador',
+        ]);
+        Bouncer::role()->firstOrCreate([
+            'name' => 'Visualizador',
+            'title' => 'Visualizador',
+        ]);
     }
 }

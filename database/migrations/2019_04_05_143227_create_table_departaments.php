@@ -44,6 +44,13 @@ class CreateTableDepartaments extends Migration
                 ->unsigned()
                 ->nullable();
         });
+
+        Schema::table('bouncer_roles', function (Blueprint $table) {
+            $table
+                ->bigInteger('departament_id')
+                ->unsigned()
+                ->nullable();
+        });
     }
 
     /**
@@ -56,6 +63,10 @@ class CreateTableDepartaments extends Migration
         Schema::dropIfExists('departaments');
 
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('departament_id');
+        });
+
+        Schema::table('bouncer_roles', function (Blueprint $table) {
             $table->dropColumn('departament_id');
         });
     }

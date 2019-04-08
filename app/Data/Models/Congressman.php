@@ -159,6 +159,6 @@ class Congressman extends Model
 
     public function departament()
     {
-        $this->belongsTo(Departament::class);
+        return $this->hasOne(Departament::class);
     }
 }

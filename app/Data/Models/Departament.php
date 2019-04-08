@@ -8,11 +8,16 @@ class Departament extends Model
 
     public function congressman()
     {
-        $this->hasOne(Congressman::class);
+        $this->belongsTo(Congressman::class);
     }
 
     public function users()
     {
         $this->hasMany(Departament::class);
+    }
+
+    public function isCongressmanCabinet()
+    {
+        return filled($this->congressman_id);
     }
 }
