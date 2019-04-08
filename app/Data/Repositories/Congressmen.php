@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanLegislature;
+use App\Data\Models\User;
 use PragmaRX\Coollection\Package\Coollection;
 
 class Congressmen extends Repository
@@ -164,6 +165,14 @@ class Congressmen extends Repository
         });
 
         return parent::transform($data);
+
+    }
+
+    public function associateWithUser($request){
+
+        $email = $request['email'];
+
+        Users::class:find
 
     }
 //

@@ -71,9 +71,17 @@
 
                 </div>
 
+                <div class="row">
+                    <div class="form-group col-md-6" >
+                        <label for="email">Email:</label>
+                        <input nickname="email" value="{{is_null(old('email')) ? $congressman->email : old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email" >
+                    </div>
+
+                </div>
 
 
-                {{--@include('partials.save-button')--}}
+
+                @include('partials.save-button')
             </form>
         </div>
     </div>
