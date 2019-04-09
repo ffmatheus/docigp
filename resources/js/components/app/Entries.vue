@@ -20,16 +20,16 @@
     >
         <template slot="widgets" v-if="can('entries:update')">
             <div class="mr-2">
-                saldo:
                 <span
-                    class="badge p-2"
+                    class="btn btn-sm m-2"
                     :class="{
-                        'badge-success':
+                        'btn-outline-success':
                             congressmanBudgets.selected.balance > 0,
-                        'badge-danger':
+                        'btn-outline-danger':
                             congressmanBudgets.selected.balance <= 0,
                     }"
                 >
+                    saldo acumulado |
                     {{ congressmanBudgets.selected.balance_formatted }}
                 </span>
             </div>
