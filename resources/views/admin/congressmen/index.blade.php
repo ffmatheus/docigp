@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="card card-default">
+        <div class="card-header">
             <div class="row">
-                <div class="col-md-3">
-                    <h4>Deputados</h4>
+                <div class="col-md-3 align-self-center">
+                    <h4 class="mb-0">Deputados</h4>
                 </div>
 
                 <div class="col-md-9">
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}

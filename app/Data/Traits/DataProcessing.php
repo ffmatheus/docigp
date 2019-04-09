@@ -43,14 +43,14 @@ trait DataProcessing
         return $this->processPlugins($data, $this->plugins['data'], false);
     }
 
-    public function processPlugins($data, $plugins, $convertToArray)
+    public function processPlugins($paginated, $plugins, $convertToArray)
     {
-        $data =
-            $data instanceof LengthAwarePaginator
-                ? $data->getCollection()
-                : collect($data);
+        $transformable =
+            $paginated instanceof LengthAwarePaginator
+                ? $paginated->getCollection()
+                : collect($paginated);
 
-        $data->transform(function ($model, $key) use (
+        $transformable->transform(function ($model, $key) use (
             $plugins,
             $convertToArray
         ) {
@@ -69,7 +69,9 @@ trait DataProcessing
             return $model;
         });
 
-        return $data;
+        return $paginated instanceof LengthAwarePaginator
+            ? $paginated
+            : $transformable;
     }
 
     public function transform($data)

@@ -1,10 +1,10 @@
-@if(session()->has('message'))
+@if (session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
     </div>
 @endif
 
-@if(session()->has('warning'))
+@if (session()->has('warning'))
     <div class="alert alert-warning">
         {{ session()->get('warning') }}
     </div>
@@ -12,50 +12,49 @@
 
 <table id="congressmenTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
-    <tr>
-        <th>#</th>
-        <th>Foto</th>
-        <th>Nome</th>
-        <th>Nome Público</th>
-        <th>Partido</th>
-        <th></th>
-
-    </tr>
+        <tr>
+            <th>#</th>
+            <th>Foto</th>
+            <th>Nome</th>
+            <th>Nome Público</th>
+            <th>Partido</th>
+            <th></th>
+        </tr>
     </thead>
 
+    <tbody>
+        @forelse ($congressmen as $congressman)
+            <tr>
+                <td>
+                    <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}">{{$congressman['id']}}</a>
+                </td>
 
-    @forelse ($congressmen as $congressman)
+                <td>
+                    @if (isset($congressman['thumbnail_url']))
+                        <img src="{{$congressman['thumbnail_url']}}" >
+                    @endif
+                </td>
 
+                <td>
+                    <a> {{ $congressman['name']}}</a>
+                </td>
 
-        <tr>
-            <td>
-                <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}">{{$congressman['id']}}</a>
-            </td>
-            <td>
-                @if (isset($congressman['thumbnail_url']))
-                    <img src="{{$congressman['thumbnail_url']}}" >
-                @endif
-            </td>
-            <td>
+                <td>
+                    {{ $congressman['nickname']}}
+                </td>
 
-                  <a> {{ $congressman['name']}}</a>
-            </td>
-            <td>
-                {{ $congressman['nickname']}}
-            </td>
-            <td>
-                {{ $congressman['party']['name'] }} ({{$congressman['party']['code']}})
-            </td>
-            <td>
-                <i class="fas fa-user-shield"></i>
-            </td>
+                <td>
+                    {{ $congressman['party']['name'] }} ({{$congressman['party']['code']}})
+                </td>
 
-        </tr>
-
-    @empty
-        <p>Nenhum Deputado encontrado</p>
-    @endforelse
-
-
-    {{$congressmen->links()}}
+                <td>
+                    <i class="fas fa-user-shield"></i>
+                </td>
+            </tr>
+        @empty
+            <p>Nenhum Deputado encontrado</p>
+        @endforelse
+    </tbody>
 </table>
+
+{{ $congressmen->links() }}

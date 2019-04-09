@@ -19,7 +19,7 @@
     </tr>
     </thead>
 
-    @forelse ($parties['rows'] as $party)
+    @forelse ($parties as $party)
         <tr>
             <td>
                 <a href="{{ route('parties.show', ['id' => $party->id]) }}">

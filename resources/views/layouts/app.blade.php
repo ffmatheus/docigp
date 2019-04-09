@@ -27,7 +27,13 @@
             @include('layouts.partials.menu')
 
             <main class="py-4">
-                @yield('content')
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
 

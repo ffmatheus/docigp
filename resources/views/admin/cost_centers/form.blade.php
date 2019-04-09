@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="card card-default">
+        <div class="card-header">
             <div class="row">
                 <div class="col-xs-8 col-md-10">
-                    <h4>
+                    <h4 class="mb-0">
                         <a href="{{ route('costCenters.index') }}">Centros de Custo</a>
 
                         @if(is_null($costCenter->id))
@@ -16,14 +16,14 @@
                     </h4>
                 </div>
 
-                <div class="col-xs-4 col-md-2">
+                <div class="col-xs-4 col-md-2 text-right">
                     @include('partials.save-button')
                     @include('partials.edit-button', ['model' => $costCenter])
                 </div>
             </div>
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
             @include('partials.alerts')
 
             @if ($errors->has('name'))
