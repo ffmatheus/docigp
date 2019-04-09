@@ -8,9 +8,13 @@
                             <div class="col-10">
                                 <div class="row" v-if="unCollapsed">
                                     <div class="col-12">
-                                        <h4 class="mb-0">
-                                            {{ title }}
-                                        </h4>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h4 class="mb-0">
+                                                    {{ title }}
+                                                </h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -31,8 +35,11 @@
                                 </div>
                             </div>
 
-                            <div v-if="isSelected" class="col-2 text-right">
+                            <div class="col-2 d-flex justify-content-end">
+                                <slot name="widgets"></slot>
+
                                 <i
+                                    v-if="isSelected"
                                     :v-b-toggle="unCollapsed"
                                     @click="unCollapsed = !unCollapsed"
                                     class="fa fa-2x"

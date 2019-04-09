@@ -18,6 +18,23 @@
         "
         :is-selected="selected.id !== null"
     >
+        <template slot="widgets" v-if="can('entries:update')">
+            <div class="mr-2">
+                saldo:
+                <span
+                    class="badge p-2"
+                    :class="{
+                        'badge-success':
+                            congressmanBudgets.selected.balance > 0,
+                        'badge-danger':
+                            congressmanBudgets.selected.balance <= 0,
+                    }"
+                >
+                    {{ congressmanBudgets.selected.balance_formatted }}
+                </span>
+            </div>
+        </template>
+
         <template slot="buttons">
             <button
                 class="btn btn-primary btn-sm pull-right"

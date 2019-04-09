@@ -51,6 +51,22 @@ class CongressmanBudgets extends Repository
                 $congressmanBudget['value']
             );
 
+            $congressmanBudget['sum_debit_formatted'] = to_reais(
+                $congressmanBudget['sum_debit']
+            );
+
+            $congressmanBudget['sum_credit_formatted'] = to_reais(
+                $congressmanBudget['sum_credit']
+            );
+
+            $congressmanBudget['balance'] =
+                $congressmanBudget['sum_credit'] +
+                $congressmanBudget['sum_debit'];
+
+            $congressmanBudget['balance_formatted'] = to_reais(
+                $congressmanBudget['balance']
+            );
+
             $congressmanBudget['percentage_formatted'] =
                 $congressmanBudget['percentage'] . '%';
 
