@@ -24,17 +24,17 @@ let state = merge_objects(
         mode: null,
 
         model: {
-            name: 'costCenters',
+            name: 'entryType',
 
-            table: 'cost_centers',
+            table: 'entry_types',
 
-            class: { singular: 'CostCenter', plural: 'CostCenters' },
+            class: { singular: 'EntryType', plural: 'EntryTypes' },
         },
 
         service: {
-            name: 'cost-centers',
+            name: 'entry-types',
 
-            uri: 'cost-centers',
+            uri: 'entry-types',
         },
     },
 
@@ -42,7 +42,6 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {})
-
 let mutations = mutationsMixin
 let getters = gettersMixin
 

@@ -37,6 +37,7 @@ export function save(context, payload) {
 
 export function clearForm(context) {
     context.state.form.fields = clone(context.state.emptyForm)
+    context.state.form.errors.clear()
 }
 
 export function mutateSetQueryFilterText(context, payload) {

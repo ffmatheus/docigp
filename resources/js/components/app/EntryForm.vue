@@ -27,6 +27,28 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-8">
+                        <app-select
+                            name="entry_type_id"
+                            label="Meio"
+                            v-model="form.fields.entry_type_id"
+                            :required="true"
+                            :form="form"
+                            :options="getEntryTypeRows()"
+                        ></app-select>
+                    </div>
+
+                    <div class="col-4">
+                        <app-input
+                            name="document_number"
+                            label="Documento"
+                            v-model="form.fields.document_number"
+                            :form="form"
+                        ></app-input>
+                    </div>
+                </div>
+
                 <app-input
                     name="object"
                     label="Objeto"
@@ -111,6 +133,8 @@ export default {
         return {
             costCenters: Store.state.costCenters,
 
+            entryTypes: Store.state.entryTypes,
+
             service: service,
 
             checkCpfCnpj: _.debounce(cpfCnpj => {
@@ -140,11 +164,18 @@ export default {
 
         onBoot() {
             this.$store.dispatch('costCenters/load')
+            this.$store.dispatch('entryTypes/load')
         },
 
         getCostCenterRows() {
             return this.costCenters.data && this.costCenters.data.rows
                 ? this.costCenters.data.rows
+                : []
+        },
+
+        getEntryTypeRows() {
+            return this.entryTypes.data && this.entryTypes.data.rows
+                ? this.entryTypes.data.rows
                 : []
         },
 

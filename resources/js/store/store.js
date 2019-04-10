@@ -23,6 +23,7 @@ import admin from './modules/admin'
 import gate from './modules/gate'
 import entries from './modules/entries'
 import budgets from './modules/budgets'
+import entryTypes from './modules/entryTypes'
 import environment from './modules/environment'
 import congressmen from './modules/congressmen'
 import costCenters from './modules/costCenters'
@@ -54,6 +55,7 @@ let store = new Vuex.Store({
         entryDocuments,
         costCenters,
         gate,
+        entryTypes,
     },
 })
 
