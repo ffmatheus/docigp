@@ -23,6 +23,8 @@ abstract class Repository
 
     protected $data;
 
+    protected $shouldPaginate = true;
+
     protected function buildJoins($query)
     {
         $this->model()
@@ -82,6 +84,19 @@ abstract class Repository
         return $query;
     }
 
+    /**
+     * @param \PragmaRX\Coollection\Package\Coollection $queryFilter
+     * @return int|mixed|\PragmaRX\Coollection\Package\Coollection
+     */
+    protected function getPageSize($queryFilter)
+    {
+        return $this->shouldPaginate
+            ? ($queryFilter->pagination && $queryFilter->pagination->perPage
+                ? $queryFilter->pagination->perPage
+                : 10)
+            : 10000;
+    }
+
     protected function qualifyColumn($name)
     {
         return $this->model()->qualifyColumn($name);
@@ -134,9 +149,7 @@ abstract class Repository
 
         return $this->makePaginationResult(
             $query->paginate(
-                $queryFilter->pagination && $queryFilter->pagination->perPage
-                    ? $queryFilter->pagination->perPage
-                    : 10,
+                $this->getPageSize($queryFilter),
                 ['*'],
                 'page',
                 $queryFilter->pagination &&
