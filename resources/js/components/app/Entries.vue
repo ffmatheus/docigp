@@ -24,9 +24,9 @@
                     class="btn btn-sm m-2"
                     :class="{
                         'btn-outline-success':
-                            congressmanBudgets.selected.balance > 0,
+                            congressmanBudgets.selected.balance >= 0,
                         'btn-outline-danger':
-                            congressmanBudgets.selected.balance <= 0,
+                            congressmanBudgets.selected.balance < 0,
                     }"
                 >
                     saldo acumulado |

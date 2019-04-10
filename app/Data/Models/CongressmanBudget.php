@@ -3,6 +3,7 @@
 namespace App\Data\Models;
 
 use App\Data\Repositories\Budgets;
+use App\Data\Repositories\CostCenters;
 use App\Data\Traits\ModelActionable;
 
 class CongressmanBudget extends Model
@@ -39,6 +40,15 @@ class CongressmanBudget extends Model
         'budgets' => ['budgets.id', '=', 'congressman_budgets.budget_id'],
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function (CongressmanBudget $model) {
+            $model->updateTransportEntries();
+        });
+    }
+
     protected function fillValue(): void
     {
         if ($this->percentageChanged()) {
@@ -46,6 +56,43 @@ class CongressmanBudget extends Model
 
             $this->value = ($budget->value * $this->percentage) / 100;
         }
+    }
+
+    /**
+     * @param $balance
+     */
+    private function updateTransportEntry($balance): void
+    {
+        $date = $this->budget->date;
+
+        $field =
+            'transport_' . ($balance > 0 ? 'credit' : 'debit') . '_entry_id';
+
+        Entry::disableEvents();
+
+        $this->{$field} = Entry::updateOrCreate(
+            [
+                'congressman_budget_id' => $this->id,
+                'cost_center_id' => app(CostCenters::class)->findByCode(
+                    $balance > 0 ? '3' : '2'
+                )->id,
+            ],
+            [
+                'to' => $this->congressman->name,
+                'object' =>
+                    'Transporte de saldo ' .
+                    ($balance > 0
+                        ? 'do período anterior'
+                        : 'para o próximo período'),
+                'date' =>
+                    $balance > 0 ? $date->startOfMonth() : $date->endOfMonth(),
+                'value' => $balance,
+            ]
+        )->id;
+
+        $this->save();
+
+        Entry::enableEvents();
     }
 
     protected function percentageChanged()
@@ -67,9 +114,29 @@ class CongressmanBudget extends Model
         return parent::save();
     }
 
+    public function entries()
+    {
+        return $this->hasMany(Entry::class);
+    }
+
     public function budget()
     {
         return $this->belongsTo(Budget::class);
+    }
+
+    public function getBalance()
+    {
+        return $this->entries()
+            ->selectRaw('sum(value) as balance')
+            ->first()->balance ?? 0;
+    }
+
+    public function getBalanceWithoutDebitTransport()
+    {
+        return $this->entries()
+            ->selectRaw('sum(value) as balance')
+            ->whereNotIn('cost_center_id', [2]) // débito
+            ->first()->balance ?? 0;
     }
 
     public function congressmanLegislature()
@@ -100,5 +167,16 @@ class CongressmanBudget extends Model
                 'value' => $this->value,
             ])
         );
+    }
+
+    public function updateTransportEntries()
+    {
+        if ($next = $this->congressman->getNextBudgetRelativeTo($this)) {
+            $next->updateTransportEntry(
+                $balance = abs($this->getBalanceWithoutDebitTransport())
+            );
+
+            $this->updateTransportEntry($balance * -1);
+        }
     }
 }

@@ -51,6 +51,16 @@ class CreateCongressmanBudgetsTable extends Migration
                 ->unsigned()
                 ->nullable();
 
+            $table
+                ->bigInteger('transport_debit_entry_id')
+                ->unsigned()
+                ->nullable();
+
+            $table
+                ->bigInteger('transport_credit_entry_id')
+                ->unsigned()
+                ->nullable();
+
             $table->timestamps();
         });
     }

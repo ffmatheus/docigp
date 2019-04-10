@@ -60,6 +60,33 @@ class Entry extends Model
         'cost_centers' => ['cost_centers.id', '=', 'entries.cost_center_id'],
     ];
 
+    protected $updatingTransport = false;
+
+    protected static $eventsEnabled = true;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updated(function (Entry $model) {
+            if (static::$eventsEnabled) {
+                $model->updateTransport();
+            }
+        });
+
+        static::created(function (Entry $model) {
+            if (static::$eventsEnabled) {
+                $model->updateTransport();
+            }
+        });
+
+        static::deleted(function (Entry $model) {
+            if (static::$eventsEnabled) {
+                $model->updateTransport();
+            }
+        });
+    }
+
     public function documents()
     {
         return $this->hasMany(EntryDocument::class);
@@ -83,5 +110,28 @@ class Entry extends Model
     public function costCenter()
     {
         return $this->belongsTo(CostCenter::class);
+    }
+
+    public function updateTransport()
+    {
+        if ($this->updatingTransport) {
+            return;
+        }
+
+        $this->updatingTransport = true;
+
+        $this->congressmanBudget->updateTransportEntries();
+
+        $this->updatingTransport = false;
+    }
+
+    public static function disableEvents()
+    {
+        static::$eventsEnabled = false;
+    }
+
+    public static function enableEvents()
+    {
+        static::$eventsEnabled = true;
     }
 }

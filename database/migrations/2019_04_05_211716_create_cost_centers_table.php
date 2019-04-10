@@ -10,8 +10,22 @@ class CreateCostCentersTable extends Migration
     private function populate()
     {
         $data = [
-            '0' => [
+            '1' => [
                 'name' => 'Crédito em conta-corrente',
+                'limit' => 0,
+                'frequency' => 'monthly',
+                'can_accumulate' => true,
+            ],
+
+            '2' => [
+                'name' => 'Transporte de saldo acumulado (débito)',
+                'limit' => 0,
+                'frequency' => 'monthly',
+                'can_accumulate' => true,
+            ],
+
+            '3' => [
+                'name' => 'Transporte de saldo acumulado (crédito)',
                 'limit' => 0,
                 'frequency' => 'monthly',
                 'can_accumulate' => true,

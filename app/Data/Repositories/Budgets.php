@@ -2,10 +2,10 @@
 
 namespace App\Data\Repositories;
 
+use Carbon\Carbon;
 use App\Data\Models\Budget;
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanBudget;
-use Carbon\Carbon;
 
 class Budgets extends Repository
 {
@@ -21,7 +21,7 @@ class Budgets extends Repository
     private function generateCongressmanBudget($congressman, $currentGlobal)
     {
         if (
-            $congressman->budgets
+            $congressman->congressmanBudgets
                 ->where('budget_id', $currentGlobal->id)
                 ->count() > 0
         ) {
@@ -45,7 +45,7 @@ class Budgets extends Repository
             ->each(function ($congressman) use ($baseDate) {
                 $this->generateCongressmanBudget(
                     $congressman,
-                    $this->getCurrent($baseDate)
+                    $current = $this->getCurrent($baseDate)
                 );
             });
     }
@@ -81,6 +81,17 @@ class Budgets extends Repository
             : $this->newQuery()->orderBy('date', 'desc');
 
         return $query->first();
+    }
+
+    public function getPrevious($baseDate = null)
+    {
+        $baseDate = Carbon::parse($baseDate ?? now())->startOfMonth();
+
+        return $this->newQuery()
+            ->where('date', '<', $baseDate)
+            ->newQuery()
+            ->orderBy('date', 'desc')
+            ->first();
     }
 
     public function generate($baseDate = null)

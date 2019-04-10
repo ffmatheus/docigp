@@ -31,7 +31,7 @@ class Congressman extends Model
         return $this->hasMany(CongressmanLegislature::class);
     }
 
-    public function budgets()
+    public function congressmanBudgets()
     {
         return $this->hasManyThrough(
             CongressmanBudget::class,
@@ -77,13 +77,69 @@ class Congressman extends Model
         );
     }
 
+    /**
+     * @return \App\Data\Models\CongressmanBudget|null
+     */
     public function getCurrentBudgetAttribute()
     {
-        return $this->budgets()
-            ->orderBy('created_at', 'desc')
+        return $this->congressmanBudgets()
+            ->join(
+                'budgets',
+                'budgets.id',
+                '=',
+                'congressman_budgets.budget_id'
+            )
+            ->orderBy('budgets.date', 'desc')
             ->first();
     }
 
+    /**
+     * @param $congressmanBudget
+     * @return \App\Data\Models\CongressmanBudget|null
+     */
+    public function getPriorBudgetRelativeTo($congressmanBudget)
+    {
+        return $this->congressmanBudgets()
+            ->orderBy('budgets.date', 'desc')
+            ->join(
+                'budgets',
+                'budgets.id',
+                '=',
+                'congressman_budgets.budget_id'
+            )
+            ->where(
+                'budgets.date',
+                '<',
+                $congressmanBudget->budget->date->startOfMonth()
+            )
+            ->first();
+    }
+
+    /**
+     * @param $congressmanBudget
+     * @return \App\Data\Models\CongressmanBudget|null
+     */
+    public function getNextBudgetRelativeTo($congressmanBudget)
+    {
+        return $this->congressmanBudgets()
+            ->orderBy('budgets.date', 'asc')
+            ->join(
+                'budgets',
+                'budgets.id',
+                '=',
+                'congressman_budgets.budget_id'
+            )
+            ->where(
+                'budgets.date',
+                '>',
+                $congressmanBudget->budget->date->endOfMonth()
+            )
+            ->first();
+    }
+
+    /**
+     * @return \App\Data\Models\Legislature|null
+     */
     public function getCurrentLegislatureAttribute()
     {
         return $this->legislatures()
