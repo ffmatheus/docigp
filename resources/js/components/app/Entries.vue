@@ -84,11 +84,31 @@
                     v-if="can('entries:update')"
                     class="align-middle text-center"
                 >
-                    <app-active-badge
-                        :value="entry.value > 0"
-                        :labels="['crédito', 'débito']"
-                        :color="entry.value > 0 ? 'success' : 'dark'"
-                    ></app-active-badge>
+                    <span
+                        :class="
+                            'badge badge-' +
+                                (entry.value > 0 ? 'success' : 'dark')
+                        "
+                    >
+                        {{ entry.value > 0 ? 'crédito' : 'débito' }}
+                    </span>
+                </td>
+
+                <td
+                    v-if="can('entries:update')"
+                    class="align-middle text-center"
+                >
+                    <span
+                        class="
+                            badge badge-primary"
+                    >
+                        {{
+                            entry.entry_type_name +
+                                (entry.document_number
+                                    ? ': ' + entry.document_number
+                                    : '')
+                        }}
+                    </span>
                 </td>
 
                 <td
@@ -236,6 +256,12 @@ export default {
                 columns.push({
                     type: 'label',
                     title: 'Tipo',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
+                    title: 'Meio',
                     trClass: 'text-center',
                 })
 

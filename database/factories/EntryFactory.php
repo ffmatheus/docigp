@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\Repositories\EntryTypes;
 use App\Data\Repositories\Providers;
 use App\Data\Repositories\CostCenters;
 use App\Data\Models\Entry as EntryModel;
@@ -16,6 +17,14 @@ $factory->define(EntryModel::class, function () {
         'value' => faker()->randomFloat(2, 0.1, 1000),
         'object' => faker()->text(30),
         'to' => faker()->name,
+
+        'entry_type_id' => ($entry_type = app(
+            EntryTypes::class
+        )->randomElement())->id,
+
+        'document_number' => $entry_type->document_number_required
+            ? faker()->numberBetween(1, 9999)
+            : null,
 
         'provider_id' =>
             rand(0, 10) == 0

@@ -24,6 +24,13 @@ class CreateEntriesTable extends Migration
             $table->string('to');
 
             $table
+                ->bigInteger('entry_type_id')
+                ->unsigned()
+                ->nullable();
+
+            $table->string('document_number')->nullable();
+
+            $table
                 ->bigInteger('provider_id')
                 ->unsigned()
                 ->nullable();

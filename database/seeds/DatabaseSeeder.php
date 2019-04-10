@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        config(['broadcasting.default' => 'null']);
+
         $this->call(UsersTableSeeder::class);
 
         $this->call(CongressmanTableSeeder::class);

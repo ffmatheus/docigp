@@ -40,6 +40,7 @@ class Entry extends Model
         'providers.name as provider_name',
         'providers.cpf_cnpj as provider_cpf_cnpj',
         'providers.type as provider_type',
+        'entry_types.name as entry_type_name',
     ];
 
     protected $selectColumnsRaw = [
@@ -58,6 +59,7 @@ class Entry extends Model
     protected $joins = [
         'providers' => ['providers.id', '=', 'entries.provider_id', 'left'],
         'cost_centers' => ['cost_centers.id', '=', 'entries.cost_center_id'],
+        'entry_types' => ['entry_types.id', '=', 'entries.entry_type_id'],
     ];
 
     protected $updatingTransport = false;

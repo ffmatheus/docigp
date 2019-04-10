@@ -17,8 +17,6 @@ class EntriesTableSeeder extends Seeder
      */
     public function run()
     {
-        config(['broadcasting.default' => 'null']);
-
         EntryModel::truncate();
         EntryDocumentModel::truncate();
 
@@ -40,6 +38,8 @@ class EntriesTableSeeder extends Seeder
                             26000
                         )),
                         'congressman_budget_id' => $congressmanBudget->id,
+
+                        'entry_type_id' => 1, // transferência
                     ]);
 
                     $entry[0]->congressmanBudget->percentage =
