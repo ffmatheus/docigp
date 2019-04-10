@@ -17,6 +17,8 @@ class EntriesTableSeeder extends Seeder
      */
     public function run()
     {
+        config(['broadcasting.default' => 'null']);
+
         EntryModel::truncate();
         EntryDocumentModel::truncate();
 
