@@ -70,17 +70,6 @@ class CongressmanBudget extends Model
 
         Entry::disableEvents();
 
-        $entry = Entry::where(
-            $data = [
-                'congressman_budget_id' => $this->id,
-                'cost_center_id' => app(CostCenters::class)->findByCode(
-                    $balance > 0 ? '3' : '2'
-                )->id,
-            ]
-        )->first();
-
-        dump([$entry ? 'found: ' . $entry->id : 'not found', $data]);
-
         $this->{$field} = ($entry2 = Entry::updateOrCreate(
             [
                 'congressman_budget_id' => $this->id,
@@ -104,8 +93,6 @@ class CongressmanBudget extends Model
         ))->id;
 
         $this->save();
-
-        dump('new: ' . $entry2->wasRecentlyCreated);
 
         Entry::enableEvents();
     }
