@@ -49,15 +49,13 @@ class Users extends Controller
      */
     public function show($id)
     {
-        $user = app(UsersRepository::class)
-            ->append(['roles', 'abilities', 'roles_string'])
-            ->findById($id);
+        $user = app(UsersRepository::class)->findById($id);
 
         //TODO selecionar só as roles possíveis em allRoles
         return view('admin.users.form')
             ->with('allRoles', BouncerRole::all())
             ->with('mode', 'edit')
-            ->with('user', $user)
+            ->with('user', $user->append('roles'))
             ->with('formDisabled', true);
     }
 
@@ -105,7 +103,7 @@ class Users extends Controller
     {
         return view('admin.users.index')->with(
             'users',
-            $this->usersRepository->all()
+            $this->usersRepository->all()->each->append('roles_string')
         );
     }
 

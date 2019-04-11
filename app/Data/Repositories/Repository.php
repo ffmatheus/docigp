@@ -16,7 +16,6 @@ abstract class Repository
 {
     use DataProcessing, Eventable;
 
-    protected $appends = [];
     /**
      * @var
      */
@@ -284,8 +283,6 @@ abstract class Repository
         if (!$query) {
             $query = $this->newQuery($type);
         }
-
-        $query = $this->queryAppends($query);
 
         $columnName = snake_case(Str::after($name, $type));
 
@@ -590,16 +587,5 @@ abstract class Repository
         $this->data = $data;
 
         return $this;
-    }
-
-    public function append($appends)
-    {
-        $this->appends = $appends;
-        return $this;
-    }
-
-    public function queryAppends($query)
-    {
-        return $query->append($this->appends);
     }
 }

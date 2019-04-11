@@ -7,11 +7,11 @@ class BaseUser extends Request
     /**
      * @return array
      */
-    public function sanitize()
+    public function sanitize(array $all)
     {
-        $input = $this->all();
-        $input['roles_array'] = json_decode($input['roles_array'], true);
-        $this->replace($input);
-        return $this->all();
+        if (!is_array($all['roles_array'])) {
+            $all['roles_array'] = json_decode($all['roles_array'], true);
+        }
+        return parent::sanitize($all);
     }
 }
