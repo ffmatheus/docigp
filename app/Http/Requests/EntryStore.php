@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\WithinBudgetDate;
 use Carbon\Carbon;
 
 class EntryStore extends Request
@@ -16,6 +17,13 @@ class EntryStore extends Request
         return true; // Gate::allows('entries:store');
     }
 
+    private function getQueryValue(string $string)
+    {
+        return request()->segment(
+            collect(request()->segments())->search($string) + 2
+        );
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +32,10 @@ class EntryStore extends Request
     public function rules()
     {
         return [
-            'date' => 'required',
+            'date' => [
+                'required',
+                new WithinBudgetDate($this->getQueryValue('budgets')),
+            ],
             'value_abs' => 'required',
             'object' => 'required',
             'to' => 'required',
@@ -40,9 +51,13 @@ class EntryStore extends Request
      */
     public function sanitize(array $all)
     {
-        $all['date'] = Carbon::createFromFormat('d/m/Y', $all['date']);
+        if (isset($all['date'])) {
+            $all['date'] = Carbon::createFromFormat('d/m/Y', $all['date']);
+        }
 
-        $all['value'] = -$all['value_abs'];
+        if (isset($all['date'])) {
+            $all['value'] = -$all['value_abs'];
+        }
 
         return $all;
     }
