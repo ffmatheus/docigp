@@ -577,4 +577,15 @@ abstract class Repository
 
         return $model;
     }
+
+    /**
+     * @param mixed $data
+     * @return \App\Data\Repositories\Repository
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+
+        return $this;
+    }
 }

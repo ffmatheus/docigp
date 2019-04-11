@@ -14,8 +14,6 @@ class ProvidersTableSeeder extends Seeder
      */
     public function run()
     {
-        ProviderModel::truncate();
-
         factory(ProviderModel::class, 30)->create();
     }
 }

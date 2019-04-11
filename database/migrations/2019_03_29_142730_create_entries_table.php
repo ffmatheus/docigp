@@ -23,58 +23,50 @@ class CreateEntriesTable extends Migration
 
             $table->string('to');
 
-            $table
-                ->bigInteger('entry_type_id')
-                ->unsigned()
-                ->nullable();
+            $table->bigInteger('entry_type_id')->unsigned();
 
             $table->string('document_number')->nullable();
 
-            $table
-                ->bigInteger('provider_id')
-                ->unsigned()
-                ->nullable();
+            $table->bigInteger('provider_id')->unsigned();
 
-            $table
-                ->bigInteger('cost_center_id')
-                ->unsigned()
-                ->nullable();
+            $table->bigInteger('cost_center_id')->unsigned();
 
-            $table
-                ->bigInteger('congressman_budget_id')
-                ->unsigned()
-                ->nullable();
+            $table->bigInteger('congressman_budget_id')->unsigned();
 
             $table->timestamp('verified_at')->nullable();
-            $table->timestamp('analysed_at')->nullable();
-            $table->timestamp('published_at')->nullable();
 
             $table
                 ->bigInteger('verified_by_id')
                 ->unsigned()
                 ->nullable();
 
+            $table->timestamp('analysed_at')->nullable();
+
             $table
                 ->bigInteger('analysed_by_id')
                 ->unsigned()
                 ->nullable();
+
+            $table->timestamp('published_at')->nullable();
 
             $table
                 ->bigInteger('published_by_id')
                 ->unsigned()
                 ->nullable();
 
+            $table->timestamp('created_at')->nullable();
+
             $table
                 ->bigInteger('created_by_id')
                 ->unsigned()
                 ->nullable();
 
+            $table->timestamp('updated_at')->nullable();
+
             $table
                 ->bigInteger('updated_by_id')
                 ->unsigned()
                 ->nullable();
-
-            $table->timestamps();
         });
     }
 

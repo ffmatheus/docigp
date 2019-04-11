@@ -21,6 +21,8 @@ class Entry extends Model
         'provider_id',
         'cost_center_id',
         'congressman_budget_id',
+        'entry_type_id',
+        'document_number',
         'verified_at',
         'analysed_at',
         'published_at',

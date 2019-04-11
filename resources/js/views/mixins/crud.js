@@ -142,14 +142,22 @@ export default {
             this.$router.back()
         },
 
-        saveModel() {
-            this.save(
-                this.mode ? this.mode : this.form.id ? 'create' : 'update',
+        saveModel(onResolved = null) {
+            this.clearErrors()
+
+            return this.save(
+                this.mode
+                    ? this.mode
+                    : this.form.fields.id === null
+                    ? 'create'
+                    : 'update',
             )
                 .then(() => {
                     this.back()
 
                     this.clearForm()
+
+                    onResolved && onResolved()
                 })
                 .catch(response => {
                     dd('catch response', response)

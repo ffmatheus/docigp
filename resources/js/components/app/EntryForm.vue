@@ -58,7 +58,7 @@
                 ></app-input>
 
                 <app-input
-                    name="cpf_cnpj"
+                    name="provider_cpf_cnpj"
                     label="CPF / CNPJ"
                     v-model="form.fields.provider_cpf_cnpj"
                     :required="true"
@@ -114,6 +114,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import crud from '../../views/mixins/crud'
 import entries from '../../views/mixins/entries'
 
@@ -152,14 +153,17 @@ export default {
     },
 
     methods: {
+        ...mapActions(service.name, ['clearErrors']),
+
         close() {
             this.showModal = false
         },
 
         saveAndClose() {
-            this.saveModel()
-
-            this.showModal = false
+            this.saveModel(() => {
+                dd('then save and close')
+                this.showModal = false
+            })
         },
 
         onBoot() {

@@ -79,6 +79,8 @@ class CongressmanBudget extends Model
             ],
             [
                 'to' => $this->congressman->name,
+                'provider_id' => 1, // Alerj
+                'entry_type_id' => 1, // Transferência
                 'object' =>
                     'Transporte de saldo ' .
                     ($balance > 0
@@ -161,8 +163,9 @@ class CongressmanBudget extends Model
             Entry::create([
                 'congressman_budget_id' => $this->id,
                 'to' => $this->congressman->name,
+                'provider_id' => 1, // Alerj
                 'object' => 'Crédito em conta-corrente',
-                'cost_center_id' => 1,
+                'cost_center_id' => 1, // Depósito
                 'date' => now(),
                 'value' => $this->value,
             ])

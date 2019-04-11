@@ -23,13 +23,10 @@ $factory->define(EntryModel::class, function () {
         )->randomElement())->id,
 
         'document_number' => $entry_type->document_number_required
-            ? faker()->numberBetween(1, 9999)
+            ? faker()->numberBetween(1111, 9999)
             : null,
 
-        'provider_id' =>
-            rand(0, 10) == 0
-                ? null
-                : app(Providers::class)->randomElement([1])->id,
+        'provider_id' => app(Providers::class)->randomElement([1])->id,
 
         'cost_center_id' => app(CostCenters::class)->randomElement([1])->id,
 

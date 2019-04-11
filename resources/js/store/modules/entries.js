@@ -11,7 +11,6 @@ const __emptyModel = {
     value: null,
     value_abs: null,
     object: null,
-    cpf_cnpj: null,
     to: null,
     provider_id: null,
     provider_name: null,

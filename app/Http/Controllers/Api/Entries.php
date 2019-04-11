@@ -53,6 +53,8 @@ class Entries extends Controller
      * Store
      *
      * @param EntryStore $request
+     * @param $congressmanId
+     * @param $congressmanBudgetId
      * @return mixed
      */
     public function store(

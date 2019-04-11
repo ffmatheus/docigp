@@ -233,7 +233,11 @@ export default {
     },
 
     methods: {
-        ...mapActions(service.name, ['selectEntry', 'clearForm']),
+        ...mapActions(service.name, [
+            'selectEntry',
+            'clearForm',
+            'clearErrors',
+        ]),
 
         getTableColumns() {
             let columns = [

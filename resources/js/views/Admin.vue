@@ -33,7 +33,7 @@ export default {
     },
 
     methods: {
-        ...mapActions('admin', ['clearForm']),
+        ...mapActions('admin', ['clearForm', 'clearErrors']),
     },
 
     computed: {

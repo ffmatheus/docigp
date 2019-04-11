@@ -40,6 +40,10 @@ export function clearForm(context) {
     context.state.form.errors.clear()
 }
 
+export function clearErrors(context) {
+    context.state.form.errors.clear()
+}
+
 export function mutateSetQueryFilterText(context, payload) {
     let data = context.state.data
 

@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Services\CpfCnpj\CpfCnpj;
+
 class Provider extends Model
 {
     protected $fillable = [
@@ -11,4 +13,17 @@ class Provider extends Model
         'created_by_id',
         'updated_by_id',
     ];
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $this->type = $this->type ?? CpfCnpj::type($this->cpf_cnpj);
+
+        return parent::save();
+    }
 }

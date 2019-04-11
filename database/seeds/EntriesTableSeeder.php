@@ -1,10 +1,10 @@
 <?php
 
-use App\Data\Models\CongressmanBudget;
 use Carbon\Carbon as Carbon;
 use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 use App\Data\Models\Congressman;
+use App\Data\Models\CongressmanBudget;
 use App\Data\Models\Entry as EntryModel;
 use App\Data\Models\EntryDocument as EntryDocumentModel;
 
@@ -29,7 +29,7 @@ class EntriesTableSeeder extends Seeder
                     $entry = factory(EntryModel::class, 1)->create([
                         'to' => $congressman->name,
                         'object' => 'Crédito em conta-corrente',
-                        'provider_id' => null,
+                        'provider_id' => 1,
                         'cost_center_id' => 1,
                         'date' => $congressmanBudget->budget->date->startOfMonth(),
                         'value' => ($value = app(Faker::class)->randomFloat(
@@ -39,7 +39,7 @@ class EntriesTableSeeder extends Seeder
                         )),
                         'congressman_budget_id' => $congressmanBudget->id,
 
-                        'entry_type_id' => 1, // transferência
+                        'entry_type_id' => 1, // Transferência
                     ]);
 
                     $entry[0]->congressmanBudget->percentage =

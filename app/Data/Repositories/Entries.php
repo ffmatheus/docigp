@@ -42,20 +42,23 @@ class Entries extends Repository
         );
     }
 
-    /**
-     * @param mixed $congressmanBudgetId
-     */
-    public function setCongressmanBudgetId($congressmanBudgetId): void
+    private function firstOrCreateProvider($to, $provider_cpf_cnpj)
     {
-        $this->congressmanBudgetId = $congressmanBudgetId;
+        return app(Providers::class)->firstOrCreate(
+            ['cpf_cnpj' => $provider_cpf_cnpj],
+            ['name' => $to]
+        );
     }
 
     /**
-     * @param mixed $data
+     * @param mixed $congressmanBudgetId
+     * @return \App\Data\Repositories\Entries
      */
-    public function setData($data): void
+    public function setCongressmanBudgetId($congressmanBudgetId): Entries
     {
-        $this->data = $data;
+        $this->congressmanBudgetId = $congressmanBudgetId;
+
+        return $this;
     }
 
     public function transform($data)
@@ -87,6 +90,13 @@ class Entries extends Repository
     {
         $this->data['congressman_budget_id'] = $this->congressmanBudgetId;
 
-        return $this->storeFromArray($this->data);
+        $this->data['provider_id'] = $this->firstOrCreateProvider(
+            $this->data['to'],
+            $this->data['provider_cpf_cnpj']
+        )->id;
+
+        return tap($this->storeFromArray($this->data), function ($entry) {
+            info($entry);
+        });
     }
 }
