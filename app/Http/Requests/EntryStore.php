@@ -59,6 +59,6 @@ class EntryStore extends Request
             $all['value'] = -$all['value_abs'];
         }
 
-        return $all;
+        return parent::sanitize($all);
     }
 }

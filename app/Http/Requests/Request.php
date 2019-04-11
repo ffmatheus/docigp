@@ -30,6 +30,8 @@ class Request extends FormRequest
      */
     public function sanitize(array $all)
     {
+        request()->replace($all);
+
         return $all;
     }
 }
