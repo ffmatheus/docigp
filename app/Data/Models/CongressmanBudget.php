@@ -157,26 +157,24 @@ class CongressmanBudget extends Model
             return;
         }
 
-        info($this->congressman);
-
-        info(
-            Entry::create([
-                'congressman_budget_id' => $this->id,
-                'to' => $this->congressman->name,
-                'provider_id' => 1, // Alerj
-                'object' => 'Crédito em conta-corrente',
-                'cost_center_id' => 1, // Depósito
-                'date' => now(),
-                'value' => $this->value,
-            ])
-        );
+        Entry::create([
+            'congressman_budget_id' => $this->id,
+            'to' => $this->congressman->name,
+            'provider_id' => 1, // Alerj
+            'object' => 'Crédito em conta-corrente',
+            'cost_center_id' => 1, // Depósito
+            'date' => now(),
+            'value' => $this->value,
+        ]);
     }
 
     public function updateTransportEntries()
     {
         if ($next = $this->congressman->getNextBudgetRelativeTo($this)) {
+            $value = $this->getBalanceWithoutDebitTransport();
+
             $next->updateTransportEntry(
-                $balance = abs($this->getBalanceWithoutDebitTransport())
+                $balance = abs($value = $value < 0 ? 0 : $value)
             );
 
             $this->updateTransportEntry($balance * -1);

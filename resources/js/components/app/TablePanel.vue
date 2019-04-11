@@ -42,7 +42,7 @@
                                     v-if="isSelected"
                                     :v-b-toggle="unCollapsed"
                                     @click="unCollapsed = !unCollapsed"
-                                    class="fa fa-2x"
+                                    class="fa fa-2x fa-align-middle"
                                     :class="{
                                         'fa-minus-square': unCollapsed,
                                         'fa-plus-square': collapsed,
