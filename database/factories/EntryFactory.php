@@ -18,9 +18,9 @@ $factory->define(EntryModel::class, function () {
         'object' => faker()->text(30),
         'to' => faker()->name,
 
-        'entry_type_id' => ($entry_type = app(EntryTypes::class)->randomElement(
-            [1, 2, 3]
-        ))->id,
+        'entry_type_id' => ($entry_type = app(
+            EntryTypes::class
+        )->randomElement())->id,
 
         'document_number' => $entry_type->document_number_required
             ? faker()->numberBetween(1111, 9999)
@@ -28,7 +28,8 @@ $factory->define(EntryModel::class, function () {
 
         'provider_id' => app(Providers::class)->randomElement([1])->id,
 
-        'cost_center_id' => app(CostCenters::class)->randomElement([1])->id,
+        'cost_center_id' => app(CostCenters::class)->randomElement([1, 2, 3])
+            ->id,
 
         'congressman_budget_id' => app(
             CongressmanBudgets::class
