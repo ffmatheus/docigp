@@ -44,6 +44,16 @@ class Entries extends Controller
         app(EntriesRepository::class)->unanalyse($entryId);
     }
 
+    public function publish($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->publish($entryId);
+    }
+
+    public function unpublish($congressmanId, $congressmanBudgetId, $entryId)
+    {
+        app(EntriesRepository::class)->unpublish($entryId);
+    }
+
     public function delete($congressmanId, $congressmanBudgetId, $entryId)
     {
         app(EntriesRepository::class)->delete($entryId);

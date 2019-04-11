@@ -11,12 +11,12 @@ Route::group(['prefix' => '/congressmen'], function () {
                 'congressmen.budgets.update'
             );
 
-            Route::post('/comply', 'CongressmanBudgets@comply')->name(
-                'congressmen.budgets.comply'
+            Route::post('/analyse', 'CongressmanBudgets@analyse')->name(
+                'congressmen.budgets.analyse'
             );
 
-            Route::post('/uncomply', 'CongressmanBudgets@uncomply')->name(
-                'congressmen.budgets.uncomply'
+            Route::post('/unanalyse', 'CongressmanBudgets@unanalyse')->name(
+                'congressmen.budgets.unanalyse'
             );
 
             Route::post('/publish', 'CongressmanBudgets@publish')->name(
@@ -58,12 +58,20 @@ Route::group(['prefix' => '/congressmen'], function () {
                         'congressmen.budgets.entries.unverify'
                     );
 
-                    Route::post('/comply', 'Entries@comply')->name(
-                        'congressmen.budgets.entries.comply'
+                    Route::post('/analyse', 'Entries@analyse')->name(
+                        'congressmen.budgets.entries.analyse'
                     );
 
-                    Route::post('/uncomply', 'Entries@uncomply')->name(
-                        'congressmen.budgets.entries.uncomply'
+                    Route::post('/unanalyse', 'Entries@unanalyse')->name(
+                        'congressmen.budgets.entries.unanalyse'
+                    );
+
+                    Route::post('/publish', 'Entries@publish')->name(
+                        'congressmen.budgets.entries.publish'
+                    );
+
+                    Route::post('/unpublish', 'Entries@unpublish')->name(
+                        'congressmen.budgets.entries.unpublish'
                     );
 
                     Route::group(['prefix' => '/documents'], function () {
@@ -81,14 +89,16 @@ Route::group(['prefix' => '/congressmen'], function () {
                                 )->name('congressmen.budgets.entries.unverify');
 
                                 Route::post(
-                                    '/comply',
-                                    'EntryDocuments@comply'
-                                )->name('congressmen.budgets.entries.comply');
+                                    '/analyse',
+                                    'EntryDocuments@analyse'
+                                )->name('congressmen.budgets.entries.analyse');
 
                                 Route::post(
-                                    '/uncomply',
-                                    'EntryDocuments@uncomply'
-                                )->name('congressmen.budgets.entries.uncomply');
+                                    '/unanalyse',
+                                    'EntryDocuments@unanalyse'
+                                )->name(
+                                    'congressmen.budgets.entries.unanalyse'
+                                );
                             }
                         );
                     });

@@ -65,6 +65,14 @@ let actions = merge_objects(actionsMixin, {
         post(makeDataUrl(context) + '/' + payload.id + '/unanalyse')
     },
 
+    publish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/publish')
+    },
+
+    unpublish(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unpublish')
+    },
+
     delete(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/delete')
     },
