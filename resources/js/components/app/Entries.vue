@@ -70,7 +70,15 @@
                     </span>
                 </td>
 
-                <td class="align-middle">{{ makeRecipientName(entry) }}</td>
+                <td class="align-middle">
+                    {{ entry.to }}
+                    <span v-if="entry.cpf_cnpj">
+                        <br />
+                        <small class="text-primary">
+                            {{ entry.cpf_cnpj }}
+                        </small>
+                    </span>
+                </td>
 
                 <td class="align-middle text-right">
                     {{ entry.documents_count }}
@@ -143,6 +151,16 @@
 
                 <td
                     v-if="can('entries:update')"
+                    class="align-middle text-center"
+                >
+                    <app-active-badge
+                        :value="entry.published_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td
+                    v-if="can('entries:update')"
                     class="align-middle text-right"
                 >
                     <button
@@ -179,6 +197,24 @@
                         title="Cancelar marcação de 'em analisado'"
                     >
                         <i class="fa fa-ban"></i> analisado
+                    </button>
+
+                    <button
+                        v-if="entry.analysed_at && !entry.published_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Publicar no Portal da Transparência"
+                        @click="publish(entry)"
+                    >
+                        <i class="fa fa-check"></i> publicar
+                    </button>
+
+                    <button
+                        v-if="entry.published_at"
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Remover do Portal da Transparência"
+                        @click="unpublish(entry)"
+                    >
+                        <i class="fa fa-ban"></i> despublicar
                     </button>
 
                     <button
@@ -287,6 +323,12 @@ export default {
                     trClass: 'text-center',
                 })
 
+                columns.push({
+                    type: 'label',
+                    title: 'Publicado',
+                    trClass: 'text-center',
+                })
+
                 columns.push('')
             }
 
@@ -336,19 +378,16 @@ export default {
             })
         },
 
-        makeRecipientName(entry) {
-            if (!entry.provider_id) {
-                return entry.to
-            }
+        publish(entry) {
+            confirm('Publicar este lançamento??', this).then(value => {
+                value && this.$store.dispatch('entries/publish', entry)
+            })
+        },
 
-            return (
-                entry.provider_name +
-                ' (' +
-                entry.provider_type +
-                ': ' +
-                entry.provider_cpf_cnpj +
-                ')'
-            )
+        unpublish(entry) {
+            confirm('Despublicar este lançamento?', this).then(value => {
+                value && this.$store.dispatch('entries/unpublish', entry)
+            })
         },
 
         createEntry() {

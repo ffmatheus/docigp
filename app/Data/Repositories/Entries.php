@@ -80,6 +80,17 @@ class Entries extends Repository
                 '...'
             );
 
+            $entry['name'] = ($forCongressman = in_array(
+                $entry['cost_center_id'],
+                ['1', '2', '3']
+            ))
+                ? $entry['to']
+                : $entry['provider_name'];
+
+            $entry['cpf_cnpj'] = $forCongressman
+                ? null
+                : "{$entry['provider_type']}: {$entry['provider_cpf_cnpj']}";
+
             return $entry;
         });
 
