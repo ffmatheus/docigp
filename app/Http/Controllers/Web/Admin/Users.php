@@ -6,6 +6,7 @@ use App\Data\Repositories\Roles;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Users as UsersRepository;
 use App\Http\Requests\User as UserRequest;
+use Silber\Bouncer\Bouncer;
 use Silber\Bouncer\Database\Role as BouncerRole;
 
 class Users extends Controller
@@ -42,7 +43,7 @@ class Users extends Controller
     {
         $user = app(UsersRepository::class)->findById($id);
 
-        //TODO selecionar as roles possíveis
+        //TODO selecionar só as roles possíveis em allRoles
         return view('users.form')
             ->with('allRoles', BouncerRole::all())
             ->with('user', $user)
@@ -58,6 +59,9 @@ class Users extends Controller
     public function store(UserRequest $request, UsersRepository $repository)
     {
         $repository->createFromRequest($request);
+
+        dd($request->all());
+        dd($request->get('assigned-roles'));
 
         return redirect()
             ->route('users.index')

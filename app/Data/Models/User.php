@@ -55,12 +55,12 @@ class User extends Authenticatable implements AuditableContract
 
     public function getRolesAttribute()
     {
-        return $this->roles();
+        return $this->roles()->get() ? $this->roles()->get() : [];
     }
 
     public function getAbilitiesAttribute()
     {
-        return $this->abilities();
+        return $this->abilities()->get() ? $this->abilities()->get() : [];
     }
 
     public function getRolesStringAttribute()

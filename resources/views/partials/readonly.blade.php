@@ -1,1 +1,0 @@
-{{ $formDisabled ? 'readonly="readonly"' : '' }}
