@@ -19,7 +19,6 @@ class User extends Authenticatable implements AuditableContract
      *
      * @var array
      */
-<<<<<<< HEAD
     protected $fillable = [
         'name',
         'email',
@@ -27,9 +26,6 @@ class User extends Authenticatable implements AuditableContract
         'username',
         'congressman_id',
     ];
-=======
-    protected $fillable = ['name', 'email', 'username'];
->>>>>>> Users roles crud
 
     /**
      * The attributes that should be hidden for arrays.
