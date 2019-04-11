@@ -17,7 +17,12 @@ class CreateEntriesTable extends Migration
             $table->bigIncrements('id');
 
             $table->timestamp('date');
+
             $table->decimal('value', 20, 2);
+
+            $table->bigInteger('cost_center_id')->unsigned();
+
+            $table->bigInteger('congressman_budget_id')->unsigned();
 
             $table->string('object');
 
@@ -28,10 +33,6 @@ class CreateEntriesTable extends Migration
             $table->string('document_number')->nullable();
 
             $table->bigInteger('provider_id')->unsigned();
-
-            $table->bigInteger('cost_center_id')->unsigned();
-
-            $table->bigInteger('congressman_budget_id')->unsigned();
 
             $table->timestamp('verified_at')->nullable();
 

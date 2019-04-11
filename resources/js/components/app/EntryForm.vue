@@ -125,6 +125,14 @@ const service = {
         'congressmen/{congressmen.selected.id}/budgets/{congressmanBudgets.selected.id}/entries',
 }
 
+const __cpfCnpj = {
+    person: null,
+    is_valid: false,
+    type: false,
+    formatted: false,
+    unformatted: '',
+}
+
 export default {
     mixins: [crud, entries],
 
@@ -142,13 +150,7 @@ export default {
                 this.checkCpfCnpjChecker(cpfCnpj)
             }, 650),
 
-            cpfCnpj: {
-                person: null,
-                is_valid: false,
-                type: false,
-                formatted: false,
-                unformatted: '',
-            },
+            cpfCnpj: clone(__cpfCnpj),
         }
     },
 
@@ -161,8 +163,7 @@ export default {
 
         saveAndClose() {
             this.saveModel(() => {
-                dd('then save and close')
-                this.showModal = false
+                this.closeModal(true)
             })
         },
 
@@ -193,6 +194,20 @@ export default {
             }).then(response => {
                 this.cpfCnpj = response.data
             })
+        },
+
+        closeModal(clearForm = false) {
+            this.showModal = false
+
+            if (clearForm) {
+                this.clearErrors()
+                this.clearForm()
+                this.clearCpfCnpj()
+            }
+        },
+
+        clearCpfCnpj() {
+            this.cpfCnpj = clone(__cpfCnpj)
         },
     },
 
@@ -234,6 +249,10 @@ export default {
                 this.cpfCnpj.formatted
             )
         },
+    },
+
+    mounted() {
+        dd('mounted')
     },
 }
 </script>
