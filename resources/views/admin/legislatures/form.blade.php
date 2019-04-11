@@ -72,6 +72,10 @@
                     </div>
                 </div>
             </form>
+
+            <div class="row">
+                @include('admin.congressman_legislatures.partials.table')
+            </div>
         </div>
     </div>
 @endsection

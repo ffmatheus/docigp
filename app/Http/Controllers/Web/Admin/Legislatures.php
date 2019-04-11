@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\legislature as LegislatureRequest;
 use App\Data\Repositories\Legislatures as LegislaturesRepository;
+use App\Data\Repositories\CongressmanLegislatures as CongressmanLegislaturesRepository;
 
 class Legislatures extends Controller
 {
@@ -40,6 +41,7 @@ class Legislatures extends Controller
                 'legislature' => app(LegislaturesRepository::class)->findById(
                     $id
                 ),
-            ]);
+            ])
+            ->with(['congressmanLegislatures' => app(CongressmanLegislaturesRepository::class)->filterByLegislatureId($id)]);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Congressman as CongressmanRequest;
 
 use App\Data\Repositories\Congressmen as CongressmenRepository;
+use App\Data\Repositories\CongressmanLegislatures as CongressmanLegislaturesRepository;
 
 class Congressmen extends Controller
 {
@@ -35,7 +36,8 @@ class Congressmen extends Controller
 
     public function store(CongressmanRequest $request)
     {
-        $this->congressmenRepository->createFromRequest($request);
+      //  $this->congressmenRepository->createFromRequest($request);
+
 
         $this->congressmenRepository->associateWithUser($request);
 
@@ -53,10 +55,13 @@ class Congressmen extends Controller
     public function show($id)
     {
         $congressman = app(CongressmenRepository::class)->findById($id);
+        $congressmanLegislatures = app(CongressmanLegislaturesRepository::class)->filterByCongressmanId($id);
 
         //TODO selecionar as roles possíveis
         return view('admin.congressmen.form')
             ->with('congressman', $congressman)
+            ->with('congressmanLegislatures',$congressmanLegislatures)
             ->with('formDisabled', true);
+
     }
 }
