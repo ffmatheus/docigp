@@ -56,12 +56,15 @@ class Congressmen extends Controller
     {
         $congressman = app(CongressmenRepository::class)->findById($id);
         $congressmanLegislatures = app(CongressmanLegislaturesRepository::class)->filterByCongressmanId($id);
+        $isInCurrentLegislature = app(CongressmanLegislaturesRepository::class)->isInCurrentLegislature($id);
 
         //TODO selecionar as roles possíveis
         return view('admin.congressmen.form')
             ->with('congressman', $congressman)
             ->with('congressmanLegislatures',$congressmanLegislatures)
-            ->with('formDisabled', true);
+            ->with('formDisabled', true)
+            ->with('isInCurrentLegislature',$isInCurrentLegislature);
+
 
     }
 }

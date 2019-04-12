@@ -11,7 +11,7 @@
                         @if(is_null($legislature->id))
                             > NOVA
                         @else
-                            > {{ $legislature->number }}a
+                            > {{ $legislature->number }}
                         @endif
                     </h4>
                 </div>
@@ -74,7 +74,9 @@
             </form>
 
             <div class="row">
-                @include('admin.congressman_legislatures.partials.table')
+                <div class="form-group col-md-6" >
+                    @include('admin.congressman_legislatures.partials.table')
+                </div>
             </div>
         </div>
     </div>

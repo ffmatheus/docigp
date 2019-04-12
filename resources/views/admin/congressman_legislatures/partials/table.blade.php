@@ -24,26 +24,26 @@
 
     <tbody>
 
-        @forelse ($congressmanLegislatures as $congressman)
+        @forelse ($congressmanLegislatures as $congressmanLegislature)
             <tr>
                 <td>
-                    {{$congressman->id}}
+                    {{$congressmanLegislature->id}}
                 </td>
 
                 <td>
-                    {{$congressman->congressman->name}}
+                   <a href="{{ route('congressmen.show', ['id' => $congressmanLegislature['id']])}}"> {{$congressmanLegislature->congressman->name}} ({{$congressmanLegislature->congressman->party->code}})</a>
                 </td>
 
                 <td>
-                    {{ $congressman->legislature->number}}
+                    <a href="{{ route('legislatures.show', ['id' => $congressmanLegislature->legislature->id])}}">{{ $congressmanLegislature->legislature->number}}</a>
                 </td>
 
                 <td>
-                    {{ $congressman->started_at}}
+                    {{ $congressmanLegislature->started_at}}
                 </td>
 
                 <td>
-                    {{ $congressman->ended_at}}
+                    {{ $congressmanLegislature->ended_at}}
                 </td>
             </tr>
         @empty
@@ -51,5 +51,6 @@
         @endforelse
     </tbody>
 </table>
+{{$congressmanLegislatures->links()}}
 
 
