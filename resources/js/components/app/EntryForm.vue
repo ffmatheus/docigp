@@ -102,6 +102,8 @@
                     @click="saveAndClose()"
                     class="btn btn-outline-gray btn-sm"
                 >
+                    <i v-if="busy" class="fas fa-compact-disc fa-spin"></i>
+
                     Gravar
                 </button>
 
@@ -140,6 +142,8 @@ export default {
 
     data() {
         return {
+            busy: false,
+
             costCenters: Store.state.costCenters,
 
             entryTypes: Store.state.entryTypes,
@@ -155,13 +159,15 @@ export default {
     },
 
     methods: {
-        ...mapActions(service.name, ['clearErrors']),
+        ...mapActions(service.name, ['clearForm', 'clearErrors']),
 
         close() {
             this.showModal = false
         },
 
         saveAndClose() {
+            this.busy = true
+
             this.saveModel(() => {
                 this.closeModal(true)
             })
@@ -211,7 +217,7 @@ export default {
         },
 
         onShow() {
-            dd('onShow', this.form.fields.provider_cpf_cnpj)
+            this.busy = false
 
             this.checkCpfCnpjChecker(this.form.fields.provider_cpf_cnpj)
         },
@@ -255,10 +261,6 @@ export default {
                 this.cpfCnpj.formatted
             )
         },
-    },
-
-    mounted() {
-        dd('mounted')
     },
 }
 </script>

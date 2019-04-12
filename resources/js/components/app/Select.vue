@@ -50,9 +50,17 @@ export default {
                 return { name: null, id: null }
             }
 
-            return _.find(this.options.rows, value => {
+            return _.find(this.getOptionsList(), value => {
                 return value.id === id
             })
+        },
+
+        getOptionsList() {
+            if (this.options.hasOwnProperty('rows')) {
+                return this.options.rows
+            }
+
+            return this.options
         },
 
         makeObject(value) {
@@ -83,6 +91,13 @@ export default {
     computed: {
         selected: {
             get() {
+                dd(
+                    'get selected: ',
+                    this.name,
+                    this.value,
+                    this.findById(this.value),
+                )
+
                 return this.makeObject(this.findById(this.value))
             },
             set(item) {

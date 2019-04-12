@@ -153,9 +153,10 @@ export default {
                     : 'update',
             )
                 .then(() => {
-                    this.back()
+                    // this.back()
 
                     this.clearForm()
+                    this.clearErrors()
 
                     onResolved && onResolved()
                 })
