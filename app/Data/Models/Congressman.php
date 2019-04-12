@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\Congressman as CongressmanScope;
+
 class Congressman extends Model
 {
     protected $fillable = [
@@ -11,6 +13,7 @@ class Congressman extends Model
         'party_id',
         'photo_url',
         'thumbnail_url',
+        'departament_id',
     ];
 
     protected $with = ['party'];
@@ -159,6 +162,13 @@ class Congressman extends Model
 
     public function departament()
     {
-        return $this->hasOne(Departament::class);
+        return $this->belongsTo(Departament::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new CongressmanScope());
     }
 }

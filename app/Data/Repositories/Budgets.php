@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Data\Models\Budget;
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanBudget;
+use App\Data\Scopes\Congressman as CongressmanScope;
+use App\Data\Scopes\Published as PublishedScope;
 
 class Budgets extends Repository
 {
@@ -20,22 +22,38 @@ class Budgets extends Repository
 
     private function generateCongressmanBudget($congressman, $currentGlobal)
     {
-        if (
-            $congressman->congressmanBudgets
-                ->where('budget_id', $currentGlobal->id)
-                ->count() > 0
+        $this->withGlobalScopesDisabled(function () use (
+            $congressman,
+            $currentGlobal
         ) {
-            return;
-        }
+            if (
+                $congressman->congressmanBudgets
+                    ->where('budget_id', $currentGlobal->id)
+                    ->count() > 0
+            ) {
+                return;
+            }
 
-        $current = $congressman->currentBudget;
+            $current = $congressman->currentBudget;
 
-        CongressmanBudget::create([
-            'congressman_legislature_id' =>
-                $congressman->currentLegislature->id,
-            'budget_id' => $currentGlobal->id,
-            'percentage' => $current->percentage ?? 0,
-        ]);
+            CongressmanBudget::create([
+                'congressman_legislature_id' =>
+                    $congressman->currentLegislature->id,
+                'budget_id' => $currentGlobal->id,
+                'percentage' => $current->percentage ?? 0,
+            ]);
+        });
+    }
+
+    public function withGlobalScopesDisabled($callable)
+    {
+        CongressmanScope::disable();
+        PublishedScope::disable();
+
+        $callable();
+
+        CongressmanScope::enable();
+        PublishedScope::enable();
     }
 
     private function generateCongressmanBudgets($baseDate = null)

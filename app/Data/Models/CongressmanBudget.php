@@ -5,6 +5,7 @@ namespace App\Data\Models;
 use App\Data\Repositories\Budgets;
 use App\Data\Repositories\CostCenters;
 use App\Data\Traits\ModelActionable;
+use App\Data\Scopes\Published;
 
 class CongressmanBudget extends Model
 {
@@ -43,6 +44,8 @@ class CongressmanBudget extends Model
     public static function boot()
     {
         parent::boot();
+
+        static::addGlobalScope(new Published());
 
         static::created(function (CongressmanBudget $model) {
             $model->updateTransportEntries();

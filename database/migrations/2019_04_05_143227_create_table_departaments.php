@@ -21,11 +21,6 @@ class CreateTableDepartaments extends Migration
             $table->string('initials')->nullable();
 
             $table
-                ->bigInteger('congressman_id')
-                ->unsigned()
-                ->nullable();
-
-            $table
                 ->bigInteger('created_by_id')
                 ->unsigned()
                 ->nullable();

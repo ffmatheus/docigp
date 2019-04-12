@@ -239,6 +239,13 @@ function to_reais($number)
     return 'R$ ' . number_format($number, 2, ',', '.');
 }
 
+function get_current_departament_id()
+{
+    return auth()->user() && auth()->user()->departament
+        ? auth()->user()->departament->id
+        : null;
+}
+
 function db_listen($dump = false)
 {
     \DB::listen(function ($query) use ($dump) {

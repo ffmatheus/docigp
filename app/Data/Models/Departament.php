@@ -8,7 +8,7 @@ class Departament extends Model
 
     public function congressman()
     {
-        $this->belongsTo(Congressman::class);
+        $this->hasOne(Congressman::class);
     }
 
     public function users()

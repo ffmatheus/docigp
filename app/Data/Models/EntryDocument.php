@@ -3,6 +3,7 @@
 namespace App\Data\Models;
 
 use App\Data\Traits\ModelActionable;
+use App\Data\Scopes\Published;
 
 class EntryDocument extends Model
 {
@@ -18,6 +19,13 @@ class EntryDocument extends Model
         'published_at',
         'published_by_id',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new Published());
+    }
 
     protected $selectColumns = ['entry_documents.*'];
 

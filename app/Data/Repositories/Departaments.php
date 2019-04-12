@@ -14,8 +14,7 @@ class Departaments extends Repository
     public function createDepartamentFromCongressman($congressman)
     {
         return $this->model::firstOrCreate([
-            'name' => $congressman->name,
-            'congressman_id' => $congressman->id,
+            'name' => ($name = $this->normalizeName($congressman['Nome'])),
             'created_by_id' => 1,
             'updated_by_id' => 1,
         ]);
