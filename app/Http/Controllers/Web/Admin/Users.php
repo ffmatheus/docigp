@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
-use App\Data\Repositories\Roles;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Users as UsersRepository;
 use App\Http\Requests\UserUpdate as UserUpdateRequest;
@@ -32,9 +31,8 @@ class Users extends Controller
      */
     public function create()
     {
-        //TODO selecionar só as roles possíveis em allRoles
         return view('admin.users.form')
-            ->with('allRoles', BouncerRole::all())
+            ->with('assignableRoles', \Auth::user()->assignable_roles)
             ->with('user', $this->usersRepository->new())
             ->with('mode', 'create')
             ->with('formDisabled', true);
@@ -51,9 +49,8 @@ class Users extends Controller
     {
         $user = app(UsersRepository::class)->findById($id);
 
-        //TODO selecionar só as roles possíveis em allRoles
         return view('admin.users.form')
-            ->with('allRoles', BouncerRole::all())
+            ->with('assignableRoles', \Auth::user()->assignable_roles)
             ->with('mode', 'edit')
             ->with('user', $user->append('roles'))
             ->with('formDisabled', true);

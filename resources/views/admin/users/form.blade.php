@@ -62,8 +62,8 @@
                     <div class="row">
                         <div class="form-group col-md-3">
                             <select size="10" name="all-roles" id="all-roles" class="ui-widget-content ui-corner-all" style="width:250px;">
-                                @foreach($allRoles as $role)
-                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                @foreach($assignableRoles as $role)
+                                    <option value="{{$role->id}}">{{$role->title}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -79,7 +79,7 @@
                         <div class="form-group col-md-3">
                             <select multiple size="10" name="assigned-roles" id="assigned-roles" class="ui-widget-content ui-corner-all" style="width:250px;">
                                 @foreach($user->roles as $role)
-                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                    <option value="{{$role->id}}">{{$role->title}}</option>
                                 @endforeach
                             </select>
                         </div>

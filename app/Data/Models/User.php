@@ -9,6 +9,8 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use Silber\Bouncer\BouncerFacade as Bouncer;
+use Illuminate\Support\Facades\Gate;
+use Silber\Bouncer\Database\Role as BouncerRole;
 
 class User extends Authenticatable implements AuditableContract
 {
@@ -84,14 +86,23 @@ class User extends Authenticatable implements AuditableContract
         $rolesToSync = [];
 
         foreach ($roles_array as $role) {
-            $rolesToSync[] = $role['name'];
+            $rolesToSync[] = $role['id'];
         }
 
-        Bouncer::sync($this)->roles($rolesToSync);
+        Bouncer::sync($this)->roles(
+            BouncerRole::whereIn('id', $rolesToSync)->get()
+        );
     }
 
     public function departament()
     {
         return $this->belongsTo(Departament::class);
+    }
+
+    public function getAssignableRolesAttribute()
+    {
+        return collect(BouncerRole::all())->filter(function ($item, $key) {
+            return $this->can('assign:' . $item['name']);
+        });
     }
 }

@@ -5,9 +5,12 @@ namespace App\Services\DataSync;
 use App\Data\Repositories\Parties;
 use App\Data\Repositories\Congressmen;
 use App\Data\Repositories\Departaments;
+use App\Data\Repositories\Users;
 use App\Services\HttpClient\Service as HttpClientService;
 use PragmaRX\Coollection\Package\Coollection;
 use Silber\Bouncer\BouncerFacade as Bouncer;
+use Silber\Bouncer\Database\Role as BouncerRole;
+use Silber\Bouncer\Database\Ability as BouncerAbility;
 
 class Service
 {
@@ -81,56 +84,94 @@ class Service
         //            deputado - legisatura
 
         Bouncer::role()->firstOrCreate([
-            'name' => 'Administrator',
             'title' => 'Administrator',
+            'name' => 'administrator',
         ]);
+
         Bouncer::role()->firstOrCreate([
-            'name' => 'Deputado',
             'title' => 'Deputado',
+            'name' => 'deputado',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Chefe',
             'title' => 'Chefe',
+            'name' => 'chefe',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Gestor',
             'title' => 'Gestor',
+            'name' => 'gestor',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Assessor',
             'title' => 'Assessor',
+            'name' => 'assessor',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Lançador',
             'title' => 'Lançador',
+            'name' => 'lancador',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Verificador',
             'title' => 'Verificador',
+            'name' => 'verificador',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Diretor',
             'title' => 'Diretor',
+            'name' => 'diretor',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Assistente',
             'title' => 'Assistente',
+            'name' => 'assistente',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Gestor',
             'title' => 'Gestor',
+            'name' => 'gestor',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Funcionário',
             'title' => 'Funcionário',
+            'name' => 'funcionario',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Publicador',
             'title' => 'Publicador',
+            'name' => 'publicador',
         ]);
         Bouncer::role()->firstOrCreate([
-            'name' => 'Visualizador',
             'title' => 'Visualizador',
+            'name' => 'visualizador',
         ]);
+    }
+
+    public function abilities()
+    {
+        $allRoles = BouncerRole::all();
+
+        $allRoles->each(function ($item, $key) {
+            Bouncer::ability()->firstOrCreate([
+                'name' => 'assign:' . $item->name,
+                'title' => 'Atribuir perfil de ' . $item->name,
+            ]);
+        });
+    }
+
+    public function rolesAbilities()
+    {
+        $rolesArray = BouncerRole::all()->mapWithKeys(function ($item) {
+            return [$item['name'] => $item];
+        });
+
+        $abilitiesArray = BouncerAbility::all()->mapWithKeys(function ($item) {
+            return [$item['name'] => $item];
+        });
+
+        Bouncer::allow('administrator')->everything();
+
+        Bouncer::allow($rolesArray['deputado'])->to('assign:chefe');
+        Bouncer::allow($rolesArray['deputado'])->to('assign:gestor');
+        Bouncer::allow($rolesArray['deputado'])->to('assign:assessor');
+        Bouncer::allow($rolesArray['deputado'])->to('assign:lancador');
+        Bouncer::allow($rolesArray['deputado'])->to('assign:verificador');
+
+        Bouncer::allow($rolesArray['diretor'])->to('assign:assistente');
+        Bouncer::allow($rolesArray['diretor'])->to('assign:gestor');
+        Bouncer::allow($rolesArray['diretor'])->to('assign:funcionario');
+        Bouncer::allow($rolesArray['diretor'])->to('assign:publicador');
+        Bouncer::allow($rolesArray['diretor'])->to('assign:visualizador');
     }
 }
