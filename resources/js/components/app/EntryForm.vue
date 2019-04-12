@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-model="show" :title="formTitle">
+        <b-modal v-model="show" :title="formTitle" @shown="onShow()">
             <b-form>
                 <div class="row">
                     <div class="col-6">
@@ -208,6 +208,12 @@ export default {
 
         clearCpfCnpj() {
             this.cpfCnpj = clone(__cpfCnpj)
+        },
+
+        onShow() {
+            dd('onShow', this.form.fields.provider_cpf_cnpj)
+
+            this.checkCpfCnpjChecker(this.form.fields.provider_cpf_cnpj)
         },
     },
 
