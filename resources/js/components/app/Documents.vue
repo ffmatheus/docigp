@@ -15,7 +15,7 @@
         <template slot="buttons">
             <button
                 class="btn btn-primary btn-sm pull-right"
-                @click="createEntry()"
+                @click="createDocument()"
                 title="Novo documento"
             >
                 <i class="fa fa-plus"></i>
@@ -123,6 +123,8 @@
                 </td>
             </tr>
         </app-table>
+
+        <app-document-form :show.sync="showModal"></app-document-form>
     </app-table-panel>
 </template>
 
@@ -146,6 +148,8 @@ export default {
     data() {
         return {
             service: service,
+
+            showModal: false,
         }
     },
 
@@ -212,6 +216,10 @@ export default {
                             document,
                         )
                 })
+        },
+
+        createDocument() {
+            this.showModal = true
         },
     },
 }
