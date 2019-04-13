@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\Published as PublishedScope;
 use App\Data\Scopes\Congressman as CongressmanScope;
 
 class Congressman extends Model
@@ -170,5 +171,17 @@ class Congressman extends Model
         parent::boot();
 
         static::addGlobalScope(new CongressmanScope());
+    }
+
+    public static function disableGlobalScopes()
+    {
+        PublishedScope::disable();
+        CongressmanScope::disable();
+    }
+
+    public static function enableGlobalScopes()
+    {
+        PublishedScope::disable();
+        CongressmanScope::enable();
     }
 }

@@ -4,8 +4,8 @@ namespace App\Data\Repositories;
 
 use Carbon\Carbon;
 use App\Data\Models\Entry;
-use App\Data\Traits\RepositoryActionable;
 use Illuminate\Support\Str;
+use App\Data\Traits\RepositoryActionable;
 
 class Entries extends Repository
 {
@@ -109,5 +109,20 @@ class Entries extends Repository
         return tap($this->storeFromArray($this->data), function ($entry) {
             info($entry);
         });
+    }
+
+    /**
+     * @param $callable
+     * @return mixed
+     */
+    public function withGlobalScopesDisabled($callable)
+    {
+        Entry::disableGlobalScopes();
+
+        $result = $callable();
+
+        Entry::enableGlobalScopes();
+
+        return $result;
     }
 }

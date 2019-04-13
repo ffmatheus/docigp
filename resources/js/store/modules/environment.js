@@ -24,7 +24,7 @@ const state = {
 }
 
 let getters = merge_objects(gettersMixin, {
-    getPermissions(state, getters) {
+    getAbilities(state, getters) {
         return state.user ? state.user.abilities : []
     },
 

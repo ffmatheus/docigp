@@ -6,8 +6,6 @@ use Carbon\Carbon;
 use App\Data\Models\Budget;
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanBudget;
-use App\Data\Scopes\Congressman as CongressmanScope;
-use App\Data\Scopes\Published as PublishedScope;
 
 class Budgets extends Repository
 {
@@ -43,17 +41,6 @@ class Budgets extends Repository
                 'percentage' => $current->percentage ?? 0,
             ]);
         });
-    }
-
-    public function withGlobalScopesDisabled($callable)
-    {
-        CongressmanScope::disable();
-        PublishedScope::disable();
-
-        $callable();
-
-        CongressmanScope::enable();
-        PublishedScope::enable();
     }
 
     private function generateCongressmanBudgets($baseDate = null)

@@ -2,10 +2,11 @@
 
 namespace App\Data\Models;
 
-use App\Data\Repositories\Budgets;
-use App\Data\Repositories\CostCenters;
-use App\Data\Traits\ModelActionable;
 use App\Data\Scopes\Published;
+use App\Data\Repositories\Budgets;
+use App\Data\Traits\ModelActionable;
+use App\Data\Repositories\CostCenters;
+use App\Data\Scopes\Congressman as CongressmanScope;
 
 class CongressmanBudget extends Model
 {
@@ -182,5 +183,17 @@ class CongressmanBudget extends Model
 
             $this->updateTransportEntry($balance * -1);
         }
+    }
+
+    public static function disableGlobalScopes()
+    {
+        Published::disable();
+        CongressmanScope::disable();
+    }
+
+    public static function enableGlobalScopes()
+    {
+        Published::disable();
+        CongressmanScope::enable();
     }
 }

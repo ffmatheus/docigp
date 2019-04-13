@@ -597,4 +597,13 @@ abstract class Repository
     {
         return filled($name = trim($name)) ? $name : null;
     }
+
+    /**
+     * @param $callable
+     * @return mixed
+     */
+    public function withGlobalScopesDisabled($callable)
+    {
+        return $callable();
+    }
 }

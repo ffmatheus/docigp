@@ -19,14 +19,4 @@ class Departaments extends Repository
             'updated_by_id' => 1,
         ]);
     }
-
-    public function createCIDepartament()
-    {
-        return $this->model::firstOrCreate([
-            'name' => 'Subdiretoria-Geral de Controle Interno',
-            'initials' => 'CI',
-            'created_by_id' => 1,
-            'updated_by_id' => 1,
-        ]);
-    }
 }

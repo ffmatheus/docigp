@@ -60,7 +60,7 @@ class User extends Authenticatable implements AuditableContract
 
     public function getAbilitiesAttribute()
     {
-        return $this->abilities()->get() ? $this->abilities()->get() : [];
+        return $this->getAbilities()->pluck('name');
     }
 
     public function getRolesStringAttribute()

@@ -2,8 +2,9 @@
 
 namespace App\Data\Models;
 
-use App\Data\Traits\ModelActionable;
 use App\Data\Scopes\Published;
+use App\Data\Traits\ModelActionable;
+use App\Data\Scopes\Published as PublishedScope;
 
 class Entry extends Model
 {
@@ -140,5 +141,15 @@ class Entry extends Model
     public static function enableEvents()
     {
         static::$eventsEnabled = true;
+    }
+
+    public static function disableGlobalScopes()
+    {
+        PublishedScope::disable();
+    }
+
+    public static function enableGlobalScopes()
+    {
+        PublishedScope::disable();
     }
 }

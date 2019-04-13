@@ -103,11 +103,11 @@ class Congressmen extends Repository
 
     public function withGlobalScopesDisabled($callable)
     {
-        CongressmanScope::disable();
+        Congressman::disableGlobalScopes();
 
         $callable();
 
-        CongressmanScope::enable();
+        Congressman::enableGlobalScopes();
     }
 
     protected function filterCheckboxes($query, array $filter)
