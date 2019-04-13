@@ -13,6 +13,20 @@ Artisan::command('docigp:sync:parties', function () {
     app(DataSyncService::class)->parties();
 })->describe('Sync congressmen data');
 
+Artisan::command('docigp:sync:departaments', function () {
+    $this->info('Creating departaments...');
+    app(DataSyncService::class)->departaments();
+})->describe('Create departaments');
+
+Artisan::command('docigp:sync:roles', function () {
+    $this->info('Creating roles...');
+    app(DataSyncService::class)->roles();
+    $this->info('Creating abilities...');
+    app(DataSyncService::class)->abilities();
+    $this->info('Assigning abilities to roles...');
+    app(DataSyncService::class)->rolesAbilities();
+})->describe('Create roles');
+
 Artisan::command('docigp:budget:generate {baseDate?}', function (
     $baseDate = null
 ) {

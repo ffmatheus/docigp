@@ -18,6 +18,21 @@ function endTimer()
     return Timer::$endtime - Timer::$starttime;
 }
 
+if (!function_exists('studly')) {
+    /**
+     * Convert a value to studly caps case.
+     *
+     * @param  string $value
+     * @return string
+     */
+    function studly($value)
+    {
+        $value = ucwords(str_replace(array('-', '_'), ' ', $value));
+
+        return str_replace(' ', '', $value);
+    }
+}
+
 function toBoolean($boolean)
 {
     return $boolean === 'true' ||
@@ -222,6 +237,13 @@ function permission_slug($string)
 function to_reais($number)
 {
     return 'R$ ' . number_format($number, 2, ',', '.');
+}
+
+function get_current_departament_id()
+{
+    return auth()->user() && auth()->user()->departament
+        ? auth()->user()->departament->id
+        : null;
 }
 
 function db_listen($dump = false)

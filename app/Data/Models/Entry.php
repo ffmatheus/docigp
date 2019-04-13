@@ -3,6 +3,7 @@
 namespace App\Data\Models;
 
 use App\Data\Traits\ModelActionable;
+use App\Data\Scopes\Published;
 
 class Entry extends Model
 {
@@ -71,6 +72,8 @@ class Entry extends Model
     public static function boot()
     {
         parent::boot();
+
+        static::addGlobalScope(new Published());
 
         static::updated(function (Entry $model) {
             if (static::$eventsEnabled) {

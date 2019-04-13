@@ -588,4 +588,13 @@ abstract class Repository
 
         return $this;
     }
+
+    /**
+     * @param $name
+     * @return string|null
+     */
+    protected function normalizeName(string $name)
+    {
+        return filled($name = trim($name)) ? $name : null;
+    }
 }

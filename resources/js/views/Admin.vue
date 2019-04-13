@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import crud from './mixins/crud'
-import permissions from './mixins/permissions'
+// import crud from './mixins/crud'
+// import permissions from './mixins/permissions'
 import { mapState, mapActions } from 'vuex'
 
 export default {
