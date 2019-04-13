@@ -43,6 +43,12 @@
                             <a class="dropdown-item" href="{{ route('users.index') }}">
                                 Usuários
                             </a>
+                            <a class="dropdown-item" href="{{ route('providers.index') }}">
+                                Fornecedores / Favorecidos
+                            </a>
+                            <a class="dropdown-item" href="{{ route('costCenters.index') }}">
+                                Centro de Custo
+                            </a>
                         </div>
                     </li>
 
