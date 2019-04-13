@@ -36,8 +36,7 @@ class Congressmen extends Controller
 
     public function store(CongressmanRequest $request)
     {
-      //  $this->congressmenRepository->createFromRequest($request);
-
+        //  $this->congressmenRepository->createFromRequest($request);
 
         $this->congressmenRepository->associateWithUser($request);
 
@@ -55,16 +54,18 @@ class Congressmen extends Controller
     public function show($id)
     {
         $congressman = app(CongressmenRepository::class)->findById($id);
-        $congressmanLegislatures = app(CongressmanLegislaturesRepository::class)->filterByCongressmanId($id);
-        $isInCurrentLegislature = app(CongressmanLegislaturesRepository::class)->isInCurrentLegislature($id);
+        $congressmanLegislatures = app(
+            CongressmanLegislaturesRepository::class
+        )->filterByCongressmanId($id);
+        $isInCurrentLegislature = app(
+            CongressmanLegislaturesRepository::class
+        )->isInCurrentLegislature($id);
 
         //TODO selecionar as roles possíveis
         return view('admin.congressmen.form')
             ->with('congressman', $congressman)
-            ->with('congressmanLegislatures',$congressmanLegislatures)
+            ->with('congressmanLegislatures', $congressmanLegislatures)
             ->with('formDisabled', true)
-            ->with('isInCurrentLegislature',$isInCurrentLegislature);
-
-
+            ->with('isInCurrentLegislature', $isInCurrentLegislature);
     }
 }

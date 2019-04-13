@@ -179,12 +179,10 @@ class Congressmen extends Repository
         return parent::transform($data);
     }
 
-        public function associateWithUser($request){
-            $userRepository =  new Users();
+    public function associateWithUser($request)
+    {
+        $userRepository = new Users();
 
         dd($userRepository->findUserByEmail($request['email']));
-
-        }
-
-
+    }
 }
