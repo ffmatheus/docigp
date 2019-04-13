@@ -165,16 +165,12 @@ class Congressmen extends Repository
         return parent::transform($data);
     }
 
-    //    public function associateWithUser($request){
-    //
-    //        $email = $request['email'];
-    //
-    //        Users::class:find
-    //
-    //    }
-    //
-    //    public function all()
-    //    {
-    //        return dd($this->transform($this->model::paginate()->items()));
-    //    }
+        public function associateWithUser($request){
+            $userRepository =  new Users();
+
+        dd($userRepository->findUserByEmail($request['email']));
+
+        }
+
+
 }
