@@ -35,7 +35,7 @@ class UploadFiles extends Controller
         );
         //
         return redirect()
-            ->route('uploadFiles.index')
+            ->route('upload-files.index')
             ->with($this->getSuccessMessage('Arquivo está sendo processado.'));
     }
 }
