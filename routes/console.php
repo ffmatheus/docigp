@@ -26,10 +26,7 @@ Artisan::command('docigp:sync:roles', function () {
     $this->info('Creating roles...');
     app(DataSyncService::class)->roles();
 
-    $this->info('Creating abilities...');
-    app(DataSyncService::class)->abilities();
-
-    $this->info('Assigning abilities to roles...');
+    $this->info('Creating abilities and assigning them to roles...');
     app(DataSyncService::class)->rolesAbilities();
 })->describe('Create roles');
 

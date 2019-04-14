@@ -60,23 +60,18 @@ class Service
         });
     }
 
-    public function abilities()
-    {
-        collect(config('roles.abilities'))->each(function ($ability, $key) {
-            Bouncer::ability()->firstOrCreate([
-                'name' => $ability['ability'],
-                'title' => $ability['title'],
-            ]);
-        });
-    }
-
     public function rolesAbilities()
     {
         collect(config('roles.grants'))->each(function ($grant) {
-            collect($grant['abilities'])->each(function ($ability) use (
+            collect($grant['abilities'])->each(function ($title, $ability) use (
                 $grant
             ) {
-                if ($ability === 'everything') {
+                Bouncer::ability()->firstOrCreate([
+                    'name' => $ability,
+                    'title' => $title,
+                ]);
+
+                if (in($ability, 'everything', '*')) {
                     Bouncer::allow($grant['group'])->everything();
                 } else {
                     Bouncer::allow($grant['group'])->to($ability);
