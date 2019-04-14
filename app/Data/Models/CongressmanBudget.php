@@ -32,6 +32,9 @@ class CongressmanBudget extends Model
 
     protected $selectColumnsRaw = [
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.analysed_at is null) > 0 as has_pendency',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.entry_type_id = ' .
+            Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID .
+            ') > 0 as has_deposit',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id) as entries_count',
         '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value > 0) as sum_credit',
         '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value < 0) as sum_debit',
@@ -85,7 +88,7 @@ class CongressmanBudget extends Model
             [
                 'to' => $this->congressman->name,
                 'provider_id' => Constants::ALERJ_PROVIDER_ID,
-                'entry_type_id' => Constants::ENTRY_TYPE_TRANSFER_ID,
+                'entry_type_id' => Constants::ENTRY_TYPE_TRANSPORT_ID,
                 'object' =>
                     'Transporte de saldo ' .
                     ($balance > 0
@@ -160,7 +163,7 @@ class CongressmanBudget extends Model
 
     public function deposit()
     {
-        if ($this->entries_count > 0) {
+        if ($this->has_deposit) {
             return;
         }
 
@@ -170,7 +173,7 @@ class CongressmanBudget extends Model
             'provider_id' => Constants::ALERJ_PROVIDER_ID,
             'object' => 'Crédito em conta-corrente',
             'cost_center_id' => Constants::COST_CENTER_CREDIT_ID,
-            'entry_type_id' => Constants::ENTRY_TYPE_TRANSFER_ID,
+            'entry_type_id' => Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID,
             'date' => now(),
             'value' => $this->value,
         ]);

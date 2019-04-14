@@ -10,6 +10,8 @@ class CreateEntryTypesTable extends Migration
     private function populate()
     {
         EntryType::insert([
+            ['name' => 'Depósito Alerj', 'document_number_required' => false],
+            ['name' => 'Transporte', 'document_number_required' => false],
             ['name' => 'Transferência', 'document_number_required' => false],
             ['name' => 'Cheque', 'document_number_required' => true],
             ['name' => 'Débito', 'document_number_required' => false],

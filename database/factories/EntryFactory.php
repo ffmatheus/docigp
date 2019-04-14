@@ -19,9 +19,12 @@ $factory->define(EntryModel::class, function () {
         'object' => faker()->text(30),
         'to' => faker()->name,
 
-        'entry_type_id' => ($entry_type = app(
-            EntryTypes::class
-        )->randomElement())->id,
+        'entry_type_id' => ($entry_type = app(EntryTypes::class)->randomElement(
+            [
+                Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID,
+                Constants::ENTRY_TYPE_TRANSPORT_ID,
+            ]
+        ))->id,
 
         'document_number' => $entry_type->document_number_required
             ? faker()->numberBetween(1111, 9999)

@@ -34,12 +34,16 @@ class Budgets extends Repository
 
             $current = $congressman->currentBudget;
 
-            CongressmanBudget::create([
+            $new = CongressmanBudget::create([
                 'congressman_legislature_id' =>
                     $congressman->currentLegislature->id,
                 'budget_id' => $currentGlobal->id,
                 'percentage' => $current->percentage ?? 0,
             ]);
+
+            if ($new->wasRecentlyCreated && $current) {
+                $current->updateTransportEntries();
+            }
         });
     }
 

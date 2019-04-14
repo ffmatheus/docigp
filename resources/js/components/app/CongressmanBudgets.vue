@@ -81,7 +81,7 @@
                     <button
                         v-if="
                             can('congressman-budgets:deposit') &&
-                                congressmanBudget.entries_count === 0 &&
+                                !congressmanBudget.has_deposit &&
                                 !congressmanBudget.analysed_at &&
                                 !congressmanBudget.published_at
                         "

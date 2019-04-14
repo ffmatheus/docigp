@@ -47,7 +47,7 @@ class EntriesTableSeeder extends Seeder
                 )),
                 'congressman_budget_id' => $congressmanBudget->id,
 
-                'entry_type_id' => Constants::ENTRY_TYPE_TRANSFER_ID,
+                'entry_type_id' => Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID,
             ]);
 
             $entry[0]->congressmanBudget->percentage =
