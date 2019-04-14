@@ -88,10 +88,7 @@
                     {{ entry.value_formatted }}
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('entries:show')" class="align-middle text-center">
                     <span
                         :class="
                             'badge badge-' +
@@ -102,10 +99,7 @@
                     </span>
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('entries:show')" class="align-middle text-center">
                     <span
                         class="
                             badge badge-primary"
@@ -119,52 +113,37 @@
                     </span>
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
                         :value="!entry.has_pendency"
                         :labels="['não', 'sim']"
                     ></app-active-badge>
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
                         :value="entry.verified_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
                         :value="entry.analysed_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
                         :value="entry.published_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
                 </td>
 
-                <td
-                    v-if="can('entries:update')"
-                    class="align-middle text-right"
-                >
+                <td class="align-middle text-right">
                     <button
-                        v-if="!entry.verified_at"
+                        v-if="can('entries:verify') && !entry.verified_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="verify(entry)"
                         title="Marcar como verificado"
@@ -173,7 +152,7 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at"
+                        v-if="can('entries:verify') && entry.verified_at"
                         class="btn btn-sm btn-micro btn-warning"
                         @click="unverify(entry)"
                         title="Cancelar verificação"
@@ -182,7 +161,11 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at && !entry.analysed_at"
+                        v-if="
+                            can('entries:analyse') &&
+                                entry.verified_at &&
+                                !entry.analysed_at
+                        "
                         class="btn btn-sm btn-micro btn-success"
                         @click="analyse(entry)"
                         title="Marcar como 'analisado'"
@@ -191,7 +174,11 @@
                     </button>
 
                     <button
-                        v-if="entry.verified_at && entry.analysed_at"
+                        v-if="
+                            can('entries:analyse') &&
+                                entry.verified_at &&
+                                entry.analysed_at
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(entry)"
                         title="Cancelar marcação de 'em analisado'"
@@ -200,7 +187,11 @@
                     </button>
 
                     <button
-                        v-if="entry.analysed_at && !entry.published_at"
+                        v-if="
+                            can('entries:publish') &&
+                                entry.analysed_at &&
+                                !entry.published_at
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         title="Publicar no Portal da Transparência"
                         @click="publish(entry)"
@@ -209,7 +200,7 @@
                     </button>
 
                     <button
-                        v-if="entry.published_at"
+                        v-if="can('entries:publish') && entry.published_at"
                         class="btn btn-sm btn-micro btn-danger"
                         title="Remover do Portal da Transparência"
                         @click="unpublish(entry)"
@@ -218,7 +209,11 @@
                     </button>
 
                     <button
-                        :disabled="entry.analysed_at || entry.verified_at"
+                        :disabled="
+                            !can('entries:update') ||
+                                entry.analysed_at ||
+                                entry.verified_at
+                        "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="editEntry(entry)"
                         title="editar lançamento"
@@ -227,7 +222,11 @@
                     </button>
 
                     <button
-                        :disabled="entry.analysed_at || entry.verified_at"
+                        :disabled="
+                            !can('entries:delete') ||
+                                entry.analysed_at ||
+                                entry.verified_at
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"
@@ -292,7 +291,7 @@ export default {
                 },
             ]
 
-            if (can('entries:update')) {
+            if (can('entries:show')) {
                 columns.push({
                     type: 'label',
                     title: 'Tipo',
@@ -328,9 +327,9 @@ export default {
                     title: 'Publicado',
                     trClass: 'text-center',
                 })
-
-                columns.push('')
             }
+
+            columns.push('')
 
             return columns
         },

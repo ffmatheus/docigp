@@ -43,7 +43,7 @@
                 </td>
 
                 <td
-                    v-if="can('documents:update')"
+                    v-if="can('entry-documents:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -53,7 +53,7 @@
                 </td>
 
                 <td
-                    v-if="can('documents:update')"
+                    v-if="can('entry-documents:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -64,7 +64,11 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="!document.analysed_at && can('documents:update')"
+                        v-if="
+                            can('entry-documents:analyse') &&
+                                !document.analysed_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="analyse(document)"
                         title="Marcar orçamento como 'analisado'"
@@ -73,7 +77,11 @@
                     </button>
 
                     <button
-                        v-if="document.analysed_at && can('documents:update')"
+                        v-if="
+                            can('entry-documents:analyse') &&
+                                document.analysed_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(document)"
                         title="Cancelar marcação de 'em analisado'"
@@ -83,7 +91,8 @@
 
                     <button
                         v-if="
-                            document.analysed_at &&
+                            can('entry-documents:publish') &&
+                                document.analysed_at &&
                                 !document.published_at &&
                                 can('documents:update')
                         "
@@ -95,7 +104,11 @@
                     </button>
 
                     <button
-                        v-if="document.published_at && can('documents:update')"
+                        v-if="
+                            can('entry-documents:publish') &&
+                                document.published_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unpublish(document)"
                         title="Remover autorização de publicação"
@@ -112,7 +125,7 @@
                     </a>
 
                     <button
-                        v-if="can('documents:update')"
+                        v-if="can('entry-documents:publish')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
                         title="Deletar documento"
