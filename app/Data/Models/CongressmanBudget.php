@@ -7,6 +7,7 @@ use App\Data\Repositories\Budgets;
 use App\Data\Traits\ModelActionable;
 use App\Data\Repositories\CostCenters;
 use App\Data\Scopes\Congressman as CongressmanScope;
+use App\Support\Constants;
 
 class CongressmanBudget extends Model
 {
@@ -83,8 +84,8 @@ class CongressmanBudget extends Model
             ],
             [
                 'to' => $this->congressman->name,
-                'provider_id' => 1, // Alerj
-                'entry_type_id' => 1, // Transferência
+                'provider_id' => Constants::ALERJ_PROVIDER_ID,
+                'entry_type_id' => Constants::ENTRY_TYPE_TRANSFER_ID,
                 'object' =>
                     'Transporte de saldo ' .
                     ($balance > 0
@@ -141,7 +142,9 @@ class CongressmanBudget extends Model
     {
         return $this->entries()
             ->selectRaw('sum(value) as balance')
-            ->whereNotIn('cost_center_id', [2]) // débito
+            ->whereNotIn('cost_center_id', [
+                Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
+            ]) // débito
             ->first()->balance ?? 0;
     }
 
@@ -164,9 +167,10 @@ class CongressmanBudget extends Model
         Entry::create([
             'congressman_budget_id' => $this->id,
             'to' => $this->congressman->name,
-            'provider_id' => 1, // Alerj
+            'provider_id' => Constants::ALERJ_PROVIDER_ID,
             'object' => 'Crédito em conta-corrente',
-            'cost_center_id' => 1, // Depósito
+            'cost_center_id' => Constants::COST_CENTER_CREDIT_ID,
+            'entry_type_id' => Constants::ENTRY_TYPE_TRANSFER_ID,
             'date' => now(),
             'value' => $this->value,
         ]);
