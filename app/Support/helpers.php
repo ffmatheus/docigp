@@ -264,6 +264,22 @@ function faker()
     return \Faker\Factory::create('pt_BR');
 }
 
+function in($needle, ...$haystack): bool
+{
+    foreach ($haystack as $hay) {
+        if ((is_array($hay) && in($needle, ...$hay)) || $needle == $hay) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function nin($needle, ...$haystack): bool
+{
+    return !in($needle, ...$haystack);
+}
+
 class Timer
 {
     public static $starttime;
