@@ -13,7 +13,7 @@ import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
-    props: ['value', 'url'],
+    props: ['value', 'url', 'token'],
 
     components: {
         vueDropzone: vue2Dropzone,
@@ -25,7 +25,7 @@ export default {
                 url: this.url,
                 thumbnailWidth: 150,
                 maxFilesize: 0.5,
-                headers: { 'My-Awesome-Header': 'header value' },
+                headers: { 'X-CSRF-TOKEN': this.token },
             },
         }
     },

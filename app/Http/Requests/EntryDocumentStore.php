@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UploadFile extends FormRequest
+class EntryDocumentStore extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,7 @@ class UploadFile extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return true; // Gate::allows('entries:store');
     }
 
     /**

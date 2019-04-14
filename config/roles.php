@@ -28,11 +28,13 @@ return [
 
                 'entries:show' => 'Lançamentos: ver',
                 'entries:verify' => 'Lançamentos: verificar',
+                'entries:create' => 'Lançamentos: create',
                 'entries:update' => 'Lançamentos: alterar',
                 'entries:publish' => 'Lançamentos: publicar',
                 'entries:delete' => 'Lançamentos: deletar',
 
                 'entry-documents:show' => 'Documentos: ver',
+                'entry-documents:create' => 'Documentos: criar',
                 'entry-documents:publish' => 'Documentos: publicar',
             ],
         ],

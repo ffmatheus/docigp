@@ -2,21 +2,15 @@
     <div>
         <b-modal v-model="show" title="Novo documento" @shown="onShow()">
             <template>
-                <app-dropzone url="/api/v1/upload-files"></app-dropzone>
+                <app-dropzone
+                    :url="uploadUrl"
+                    :token="environment.token"
+                ></app-dropzone>
             </template>
 
             <template slot="modal-footer">
-                <button
-                    @click="saveAndClose()"
-                    class="btn btn-outline-gray btn-sm"
-                >
-                    <i v-if="busy" class="fas fa-compact-disc fa-spin"></i>
-
-                    Gravar
-                </button>
-
                 <button @click="close()" class="btn btn-success btn-sm">
-                    Cancelar
+                    Fechar
                 </button>
             </template>
         </b-modal>
@@ -52,14 +46,6 @@ export default {
             this.showModal = false
         },
 
-        saveAndClose() {
-            this.busy = true
-
-            this.saveModel(() => {
-                this.closeModal(true)
-            })
-        },
-
         closeModal() {
             this.showModal = false
         },
@@ -78,6 +64,10 @@ export default {
             set(showModal) {
                 this.$emit('update:show', showModal)
             },
+        },
+
+        uploadUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state)
         },
     },
 }

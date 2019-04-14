@@ -14,6 +14,7 @@
     >
         <template slot="buttons">
             <button
+                v-if="can('entry-documents:create')"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createDocument()"
                 title="Novo documento"
@@ -39,7 +40,7 @@
                 }"
             >
                 <td class="align-middle">
-                    {{ document.name.substring(1, 10) }}
+                    {{ document.name }}
                 </td>
 
                 <td

@@ -106,9 +106,7 @@ class Entries extends Repository
             $this->data['provider_cpf_cnpj']
         )->id;
 
-        return tap($this->storeFromArray($this->data), function ($entry) {
-            info($entry);
-        });
+        $this->storeFromArray($this->data);
     }
 
     /**
