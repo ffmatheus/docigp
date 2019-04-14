@@ -1,8 +1,9 @@
 <?php
-Route::group(['prefix' => '/uploadFiles'], function () {
-    Route::get('/', 'UploadFiles@index')->name('uploadFiles.index');
 
-    Route::get('/create', 'UploadFiles@create')->name('uploadFiles.create');
+Route::group(['prefix' => '/upload-files'], function () {
+    Route::get('/', 'UploadFiles@index')->name('upload-files.index');
 
-    Route::post('/', 'UploadFiles@store')->name('uploadFiles.store');
+    Route::get('/create', 'UploadFiles@create')->name('upload-files.create');
+
+    Route::post('/', 'UploadFiles@store')->name('upload-files.store');
 });

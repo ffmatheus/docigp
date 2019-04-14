@@ -1,4 +1,5 @@
 <?php
+
 Route::group(['prefix' => '/costCenters'], function () {
     Route::get('/create', 'CostCenters@create')->name('costCenters.create');
 
