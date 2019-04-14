@@ -2,7 +2,7 @@
     <div>
         <b-modal v-model="show" title="Novo documento" @shown="onShow()">
             <template>
-                <app-dropzone></app-dropzone>
+                <app-dropzone url="/api/v1/upload-files"></app-dropzone>
             </template>
 
             <template slot="modal-footer">

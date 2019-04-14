@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Data\Models\CongressmanBudget;
 use App\Data\Repositories\Files as FilesRepository;
