@@ -41,14 +41,25 @@ Artisan::command('docigp:budget:generate {baseDate?}', function (
     app(Budgets::class)->generate($baseDate);
 })->describe('Sync congressmen data');
 
-Artisan::command('docigp:make-admin {email?}', function ($email = null) {
+Artisan::command('docigp:role:assign {role} {email}', function ($role, $email) {
     if (!($user = app(Users::class)->findByEmail($email))) {
         return $this->info('E-mail não encontrado.');
     }
 
-    $user->assign('administrator');
+    $user->assign($role);
 
-    $this->info("{$user->name} is now an administrator");
+    $this->info("{$user->name} is now '{$role}'");
+})->describe('Add role to user');
 
-    dd($user->abilities);
-})->describe('Make a user an administrator');
+Artisan::command('docigp:role:retract {role} {email}', function (
+    $role,
+    $email
+) {
+    if (!($user = app(Users::class)->findByEmail($email))) {
+        return $this->info('E-mail não encontrado.');
+    }
+
+    $user->retract($role);
+
+    $this->info("{$user->name} is not '{$role}' anymore");
+})->describe('Remove role from user');
