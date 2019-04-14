@@ -171,9 +171,9 @@ export default {
         ...mapActions(service.name, ['selectEntryDocument']),
 
         getTableColumns() {
-            let columns = ['Name', '']
+            let columns = ['Nome do arquivo']
 
-            if (can('documents:update')) {
+            if (can('documents:show')) {
                 columns.push({
                     type: 'label',
                     title: 'Analisado',
@@ -188,6 +188,8 @@ export default {
             }
 
             columns.push('')
+
+            return columns
         },
 
         trash(document) {},
