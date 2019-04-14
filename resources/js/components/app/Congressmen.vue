@@ -9,7 +9,7 @@
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
     >
-        <template v-if="can('congressman:update')" slot="checkboxes">
+        <template v-if="can('congressman:show')" slot="checkboxes">
             <div class="row">
                 <div class="col">
                     <app-input
@@ -80,7 +80,7 @@
                 <td class="align-middle">{{ congressman.name }}</td>
 
                 <td
-                    v-if="can('congressman:update')"
+                    v-if="can('congressman:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -90,7 +90,7 @@
                 </td>
 
                 <td
-                    v-if="can('congressman:update')"
+                    v-if="can('congressman:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -126,7 +126,7 @@ export default {
         getTableColumns() {
             let columns = ['Nome do Parlamentar']
 
-            if (can('congressman:update')) {
+            if (can('congressman:show')) {
                 columns.push({
                     type: 'label',
                     title: 'Pendências',

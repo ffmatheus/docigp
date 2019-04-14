@@ -45,7 +45,7 @@
                 </td>
 
                 <td
-                    v-if="can('congressmanBudgets:update')"
+                    v-if="can('congressman-budgets:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -55,7 +55,7 @@
                 </td>
 
                 <td
-                    v-if="can('congressmanBudgets:update')"
+                    v-if="can('congressman-budgets:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -65,7 +65,7 @@
                 </td>
 
                 <td
-                    v-if="can('congressmanBudgets:update')"
+                    v-if="can('congressman-budgets:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -75,12 +75,13 @@
                 </td>
 
                 <td
-                    v-if="can('congressmanBudgets:update')"
+                    v-if="can('congressman-budgets:show')"
                     class="align-middle text-right"
                 >
                     <button
                         v-if="
-                            congressmanBudget.entries_count === 0 &&
+                            can('congressman-budgets:deposit') &&
+                                congressmanBudget.entries_count === 0 &&
                                 !congressmanBudget.analysed_at &&
                                 !congressmanBudget.published_at
                         "
@@ -97,7 +98,8 @@
 
                     <button
                         v-if="
-                            !congressmanBudget.analysed_at &&
+                            can('congressman-budgets:percentage') &&
+                                !congressmanBudget.analysed_at &&
                                 congressmanBudget.entries_count === 0
                         "
                         @click="editPercentage(congressmanBudget)"
@@ -109,7 +111,8 @@
 
                     <button
                         v-if="
-                            !congressmanBudget.has_pendency &&
+                            can('congressman-budgets:analyse') &&
+                                !congressmanBudget.has_pendency &&
                                 !congressmanBudget.analysed_at
                         "
                         class="btn btn-sm btn-micro btn-warning"
@@ -120,7 +123,10 @@
                     </button>
 
                     <button
-                        v-if="congressmanBudget.analysed_at"
+                        v-if="
+                            can('congressman-budgets:analyse') &&
+                                congressmanBudget.analysed_at
+                        "
                         class="btn btn-sm btn-micro btn-warning"
                         title="Cancelar marcação de 'em analisado'"
                         @click="unanalyse(congressmanBudget)"
@@ -130,7 +136,8 @@
 
                     <button
                         v-if="
-                            congressmanBudget.analysed_at &&
+                            can('congressman-budgets:publish') &&
+                                congressmanBudget.analysed_at &&
                                 !congressmanBudget.published_at
                         "
                         class="btn btn-sm btn-micro btn-danger"
@@ -141,7 +148,10 @@
                     </button>
 
                     <button
-                        v-if="congressmanBudget.published_at"
+                        v-if="
+                            can('congressman-budgets:publish') &&
+                                congressmanBudget.published_at
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         title="Remover do Portal da Transparência"
                         @click="unpublish(congressmanBudget)"
@@ -204,7 +214,7 @@ export default {
                 },
             ]
 
-            if (can('congressmanBudgets:update')) {
+            if (can('congressman-budgets:show')) {
                 columns.push({
                     type: 'label',
                     title: 'Pendências',

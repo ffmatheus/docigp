@@ -7,7 +7,6 @@ use App\Data\Repositories\Congressmen;
 use App\Data\Repositories\Departaments;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 use PragmaRX\Coollection\Package\Coollection;
-use Silber\Bouncer\Database\Role as BouncerRole;
 use App\Services\HttpClient\Service as HttpClientService;
 
 class Service
@@ -63,32 +62,26 @@ class Service
 
     public function abilities()
     {
-        $allRoles = BouncerRole::all();
-
-        $allRoles->each(function ($item, $key) {
+        collect(config('roles.abilities'))->each(function ($ability, $key) {
             Bouncer::ability()->firstOrCreate([
-                'name' => 'assign:' . $item->name,
-                'title' => 'Atribuir perfil de ' . $item->name,
+                'name' => $ability['ability'],
+                'title' => $ability['title'],
             ]);
         });
     }
 
     public function rolesAbilities()
     {
-        $rolesArray = BouncerRole::all()->mapWithKeys(function ($item) {
-            return [$item['name'] => $item];
-        });
-
-        collect(config('roles.abilities'))->each(function ($ability) use (
-            $rolesArray
-        ) {
-            if ($ability['ability'] === 'everything') {
-                Bouncer::allow($rolesArray[$ability['group']])->everything();
-            } else {
-                Bouncer::allow($rolesArray[$ability['group']])->to(
-                    $ability['ability']
-                );
-            }
+        collect(config('roles.grants'))->each(function ($grant) {
+            collect($grant['abilities'])->each(function ($ability) use (
+                $grant
+            ) {
+                if ($ability === 'everything') {
+                    Bouncer::allow($grant['group'])->everything();
+                } else {
+                    Bouncer::allow($grant['group'])->to($ability);
+                }
+            });
         });
     }
 }

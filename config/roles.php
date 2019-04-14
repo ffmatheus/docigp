@@ -1,20 +1,122 @@
 <?php
 
 return [
+    'grants' => [
+        ['group' => 'administrator', 'abilities' => ['*']],
+
+        [
+            'group' => 'congressman',
+
+            'abilities' => [
+                'assign:chief',
+                'assign:manager',
+                'assign:advisor',
+                'assign:operator',
+                'assign:verifier',
+                'congressman:show',
+                'congressman-budgets:show',
+                'congressman-budgets:create',
+                'congressman-budgets:update',
+                'congressman-budgets:percentage',
+            ],
+        ],
+
+        [
+            'group' => 'director',
+
+            'abilities' => [
+                'assign:assistant',
+                'assign:manager',
+                'assign:employee',
+                'assign:publisher',
+                'assign:viewer',
+                'congressman:show',
+                'congressman-budgets:show',
+                'congressman-budgets:create',
+                'congressman-budgets:update',
+                'congressman-budgets:publish',
+                'congressman-budgets:deposit',
+                'congressman-budgets:analyse',
+            ],
+        ],
+    ],
+
     'abilities' => [
-        ['group' => 'administrator', 'ability' => 'everything'],
+        [
+            'ability' => '*',
+            'title' => 'PODE TUDO',
+        ],
 
-        ['group' => 'congressman', 'ability' => 'assign:chief'],
-        ['group' => 'congressman', 'ability' => 'assign:manager'],
-        ['group' => 'congressman', 'ability' => 'assign:advisor'],
-        ['group' => 'congressman', 'ability' => 'assign:operator'],
-        ['group' => 'congressman', 'ability' => 'assign:verifier'],
+        [
+            'ability' => 'assign:chief',
+            'title' => 'Atribuir perfil de Chefe',
+        ],
+        [
+            'ability' => 'assign:manager',
+            'title' => 'Atribuir perfil de Gestor',
+        ],
+        [
+            'ability' => 'assign:advisor',
+            'title' => 'Atribuir perfil de Assessor',
+        ],
+        [
+            'ability' => 'assign:operator',
+            'title' => 'Atribuir perfil de Deputado',
+        ],
+        [
+            'ability' => 'assign:verifier',
+            'title' => 'Atribuir perfil de Verificador',
+        ],
 
-        ['group' => 'director', 'ability' => 'assign:assistant'],
-        ['group' => 'director', 'ability' => 'assign:manager'],
-        ['group' => 'director', 'ability' => 'assign:employee'],
-        ['group' => 'director', 'ability' => 'assign:publisher'],
-        ['group' => 'director', 'ability' => 'assign:viewer'],
+        [
+            'ability' => 'assign:assistant',
+            'title' => 'Atribuir perfil de Assistente',
+        ],
+        [
+            'ability' => 'assign:manager',
+            'title' => 'Atribuir perfil de Gestor',
+        ],
+        [
+            'ability' => 'assign:employee',
+            'title' => 'Atribuir perfil de Funcinário',
+        ],
+        [
+            'ability' => 'assign:publisher',
+            'title' => 'Atribuir perfil de Publicador',
+        ],
+        [
+            'ability' => 'assign:viewer',
+            'title' => 'Atribuir perfil de Visualizador',
+        ],
+
+        [
+            'ability' => 'congressman-budgets:show',
+            'title' => 'Orçamento de Deputado: ver',
+        ],
+        [
+            'ability' => 'congressman-budgets:create',
+            'title' => 'Orçamento de Deputado: criar',
+        ],
+        [
+            'ability' => 'congressman-budgets:update',
+            'title' => 'Orçamento de Deputado: alterar',
+        ],
+        [
+            'ability' => 'congressman-budgets:publish',
+            'title' => 'Orçamento de Deputado: publicar',
+        ],
+        [
+            'ability' => 'congressman:show',
+            'title' => 'Deputados: ver',
+        ],
+        [
+            'ability' => 'congressman-budgets:deposit',
+            'title' => 'Orçamento de Deputado: depositar',
+        ],
+        [
+            'ability' => 'congressman-budgets:analyse',
+            'title' => 'Orçamento de Deputado: analisar',
+        ],
     ],
 
     'roles' => [

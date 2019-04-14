@@ -45,6 +45,8 @@ class Budgets extends Repository
 
     private function generateCongressmanBudgets($baseDate = null)
     {
+        Congressman::disableGlobalScopes();
+
         Congressman::active()
             ->get()
             ->each(function ($congressman) use ($baseDate) {
@@ -53,6 +55,8 @@ class Budgets extends Repository
                     $current = $this->getCurrent($baseDate)
                 );
             });
+
+        Congressman::enableGlobalScopes();
     }
 
     /**
