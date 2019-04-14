@@ -132,7 +132,7 @@ return [
 
     'roles' => [
         [
-            'title' => 'Administrator',
+            'title' => 'Administrador',
             'name' => 'administrator',
         ],
         [
