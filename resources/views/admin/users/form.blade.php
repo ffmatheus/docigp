@@ -66,10 +66,16 @@
 
                         <div class="form-group col-md-3" align="center">
                             <br>
-                            <a href="#" id="add-profile-button" class="btn btn-primary pull-right" v-on:click="f_add($event)">Adicionar ></a>
+                            <br>
+                            <a href="#" id="add-profile-button" class="btn btn-primary" v-on:click="f_add($event)">
+                                <i class="fa fa-angle-double-right fa-2x"></i>
+                            </a>
+
                             <br>
                             <br>
-                            <a href="#" id="remove-profile-button" class="btn btn-primary pull-right" v-on:click="f_remove($event)">Remove <</a>
+                            <a href="#" id="remove-profile-button" class="btn btn-primary pull-right" v-on:click="f_remove($event)">
+                                <i class="fa fa-angle-double-left fa-2x"></i>
+                            </a>
                         </div>
 
                         <div class="form-group col-md-3">
