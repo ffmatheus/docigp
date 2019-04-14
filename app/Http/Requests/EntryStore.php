@@ -51,11 +51,11 @@ class EntryStore extends Request
      */
     public function sanitize(array $all)
     {
-        if (isset($all['date'])) {
+        if (isset($all['date']) && is_string($all['date'])) {
             $all['date'] = Carbon::createFromFormat('d/m/Y', $all['date']);
         }
 
-        if (isset($all['date'])) {
+        if (isset($all['value'])) {
             $all['value'] = -$all['value_abs'];
         }
 
