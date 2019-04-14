@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container-fluid" id="vue-users">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="card card-default">
+            <div class="card-header">
                 <div class="row">
-                    <div class="col-xs-8 col-md-10">
+                    <div class="col-md-8 align-self-center">
                         <h4>
                             <a href="{{ route('users.index') }}">Usuários</a>
 
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="panel-body">
+            <div class="card-body">
                 @include('partials.alerts')
 
                 @if ($errors->has('email'))
@@ -38,19 +38,15 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="username">E-mail ALERJ</label>
-                                    @if($mode == 'edit')
-                                        <p><label for="email">{{$user->email}}</label></p>
-                                    @endIf
-                                    <p><input @if($mode == 'edit') type="hidden" @endIf name="email" id="email" value="{{$user->email}}" /></p>
-                                    <input type="hidden" name="username" id="username" value="{{$user->email}}" />
+                                    <input class="form-control" disabled="{{ $mode == 'edit' ? 'disabled' : '' }}" name="email" id="email" value="{{$user->email}}" />
                                 </div>
                             </div>
+
                             @if($mode == 'edit')
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="name">Nome</label>
-                                        <p><label name="name">{{$user->name}}</label></p>
-                                        <input type="hidden" name="name" id="name" value="{{$user->name}}" />
+                                        <input class="form-control" disabled="{{ $mode == 'edit' ? 'disabled' : '' }}" name="name" id="name" value="{{$user->name}}" />
                                     </div>
                                 </div>
                             @endIf
