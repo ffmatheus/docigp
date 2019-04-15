@@ -11,6 +11,11 @@ class Congressman extends Request
      */
     public function rules()
     {
-        return ['name' => 'required'];
+        return ['email' => 'required|exists:users,email'];
+    }
+
+    public function messages()
+    {
+        return ['email.exists' =>'Email não encontrado no cadastro de usuários'];
     }
 }

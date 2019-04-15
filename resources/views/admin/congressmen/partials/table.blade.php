@@ -18,7 +18,6 @@
             <th>Nome</th>
             <th>Nome Público</th>
             <th>Partido</th>
-            <th></th>
         </tr>
     </thead>
 
@@ -45,10 +44,6 @@
 
                 <td>
                     {{ $congressman['party']['name'] }} ({{$congressman['party']['code']}})
-                </td>
-
-                <td>
-                    <i class="fas fa-user-shield"></i>
                 </td>
             </tr>
         @empty
