@@ -33,6 +33,9 @@
                 <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('costCenters.index') }}">
                     Centro de Custo
                 </a>
+                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entryTypes.index') }}">
+                    Tipos de Lançamentos
+                </a>
             </div>
         </div>
     </div>

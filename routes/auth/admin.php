@@ -16,5 +16,6 @@ Route::group(
         require __DIR__ . '/web/users.php';
         require __DIR__ . '/web/providers.php';
         require __DIR__ . '/web/costCenters.php';
+        require __DIR__ . '/web/entryTypes.php';
     }
 );

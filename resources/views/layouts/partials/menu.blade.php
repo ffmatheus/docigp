@@ -49,6 +49,9 @@
                             <a class="dropdown-item" href="{{ route('costCenters.index') }}">
                                 Centro de Custo
                             </a>
+                            <a class="dropdown-item" href="{{ route('entryTypes.index') }}">
+                                Tipos de Lançamentos
+                            </a>
                         </div>
                     </li>
 
