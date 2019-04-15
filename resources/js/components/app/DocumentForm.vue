@@ -63,6 +63,11 @@ export default {
 
             set(showModal) {
                 this.$emit('update:show', showModal)
+
+                document.getElementById('dropzone').dropzone.removeAllFiles()
+                document.getElementById('dropzone').dropzone.options[
+                    'url'
+                ] = this.uploadUrl
             },
         },
 
