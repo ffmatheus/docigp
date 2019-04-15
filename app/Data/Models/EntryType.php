@@ -8,7 +8,12 @@ class EntryType extends Model
 {
     use ModelActionable;
 
-    protected $fillable = ['name', 'document_number_required'];
+    protected $fillable = [
+        'name',
+        'document_number_required',
+        'created_by_id',
+        'updated_by_id',
+    ];
 
     protected $orderBy = ['name' => 'asc'];
 }
