@@ -26,6 +26,21 @@ export default {
                 thumbnailWidth: 150,
                 maxFilesize: 0.5,
                 headers: { 'X-CSRF-TOKEN': this.token },
+                error: function(e, t) {
+                    e.previewElement.classList.add('dz-error'),
+                        (t = t.errors.file[0])
+                    for (
+                        var i = 0,
+                            n = (n = e.previewElement.querySelectorAll(
+                                '[data-dz-errormessage]',
+                            ));
+                        ;
+
+                    ) {
+                        if (i >= n.length) break
+                        n[i++].textContent = t
+                    }
+                },
             },
         }
     },
