@@ -5,12 +5,12 @@ namespace App\Data\Models;
 use OwenIt\Auditing\Auditable;
 use App\Data\Traits\Selectable;
 use Illuminate\Notifications\Notifiable;
+use Silber\Bouncer\BouncerFacade as Bouncer;
+use App\Notifications\ResetPasswordNotification;
+use Silber\Bouncer\Database\Role as BouncerRole;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
-use Silber\Bouncer\BouncerFacade as Bouncer;
-use Illuminate\Support\Facades\Gate;
-use Silber\Bouncer\Database\Role as BouncerRole;
 
 class User extends Authenticatable implements AuditableContract
 {
@@ -108,5 +108,16 @@ class User extends Authenticatable implements AuditableContract
         return collect(BouncerRole::all())->filter(function ($item, $key) {
             return $this->can('assign:' . $item['name']);
         });
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
