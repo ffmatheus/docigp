@@ -100,7 +100,7 @@
                         v-if="
                             can('congressman-budgets:percentage') &&
                                 !congressmanBudget.analysed_at &&
-                                congressmanBudget.entries_count === 0
+                                !congressmanBudget.has_deposit
                         "
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"

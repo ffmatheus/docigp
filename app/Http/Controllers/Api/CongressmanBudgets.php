@@ -38,10 +38,13 @@ class CongressmanBudgets extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(CongressmanBudgetUpdate $request, $id)
-    {
+    public function update(
+        CongressmanBudgetUpdate $request,
+        $congressmanId,
+        $budgetId
+    ) {
         return app(CongressmanBudgetsRepository::class)->update(
-            $id,
+            $budgetId,
             $request->all()
         );
     }
