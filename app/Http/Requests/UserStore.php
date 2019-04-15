@@ -15,7 +15,7 @@ class UserStore extends BaseUser
     public function rules()
     {
         return [
-            'email' => ['required', 'email', 'unique:users', new EmailExists()],
+            'email' => ['required', 'email', 'unique:users'],
         ];
     }
 }

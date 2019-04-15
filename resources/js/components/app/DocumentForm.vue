@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-model="show" title="Novo documento" @shown="onShow()">
+        <b-modal v-model="showModal" title="Novo documento" @shown="onShow()">
             <template>
                 <app-dropzone
                     :url="uploadUrl"
@@ -63,6 +63,11 @@ export default {
 
             set(showModal) {
                 this.$emit('update:show', showModal)
+
+                document.getElementById('dropzone').dropzone.removeAllFiles()
+                document.getElementById('dropzone').dropzone.options[
+                    'url'
+                ] = this.uploadUrl
             },
         },
 
