@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-model="show" title="Novo documento" @shown="onShow()">
+        <b-modal v-model="showModal" title="Novo documento" @shown="onShow()">
             <template>
                 <app-dropzone
                     :url="uploadUrl"
