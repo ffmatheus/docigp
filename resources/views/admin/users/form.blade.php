@@ -37,7 +37,7 @@
                         <div class="form-group col-md-4">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="username">E-mail ALERJ</label>
+                                    <label for="email">E-mail ALERJ</label>
                                     <input class="form-control" disabled="{{ $mode == 'edit' ? 'disabled' : '' }}" name="email" id="email" value="{{$user->email}}" />
                                 </div>
                             </div>

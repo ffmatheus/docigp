@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+
 class UserUpdate extends BaseUser
 {
     /**
@@ -12,8 +14,11 @@ class UserUpdate extends BaseUser
     public function rules()
     {
         return [
-            'username' => 'required',
-            'email' => 'required',
+            'id' => 'required',
+            'email' => [
+                'email',
+                Rule::unique('users')->ignore($this->get('id')),
+            ],
         ];
     }
 }
