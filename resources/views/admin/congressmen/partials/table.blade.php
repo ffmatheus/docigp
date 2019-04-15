@@ -30,7 +30,7 @@
 
                 <td>
                     @if (isset($congressman['thumbnail_url']))
-                        <img src="{{$congressman['thumbnail_url']}}" >
+                        <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}"><img src="{{$congressman['thumbnail_url']}}" ></a>
                     @endif
                 </td>
 

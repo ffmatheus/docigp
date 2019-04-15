@@ -11,7 +11,7 @@ class Congressman extends Request
      */
     public function rules()
     {
-        return ['email' => 'required|exists:users,email'];
+        return ['email' => 'required|email|exists:users,email'];
     }
 
     public function messages()
