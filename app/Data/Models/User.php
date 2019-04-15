@@ -99,6 +99,10 @@ class User extends Authenticatable implements AuditableContract
         return $this->belongsTo(Departament::class);
     }
 
+    public function congressman(){
+        return $this->belongsTo(Congressman::class);
+    }
+
     public function getAssignableRolesAttribute()
     {
         return collect(BouncerRole::all())->filter(function ($item, $key) {

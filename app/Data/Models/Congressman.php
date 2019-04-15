@@ -17,7 +17,7 @@ class Congressman extends Model
         'departament_id',
     ];
 
-    protected $with = ['party'];
+    protected $with = ['party','user'];
 
     protected $filterableColumns = ['name'];
 
@@ -33,6 +33,11 @@ class Congressman extends Model
     public function legislatures()
     {
         return $this->hasMany(CongressmanLegislature::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 
     public function congressmanBudgets()
