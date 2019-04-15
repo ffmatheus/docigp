@@ -68,7 +68,7 @@
                     <div class="form-group col-md-6" >
                         <label for="email">Email:</label>
 
-                        <input name="email" value="{{is_null(old('email')) ? is_null($congressman->user)?:$congressman->user->email: old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email">
+                        <input name="email" value="{{is_null(old('email')) ? is_null($congressman->user)?'':$congressman->user->email: old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email">
                     </div>
 
                 </div>
