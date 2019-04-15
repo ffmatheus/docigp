@@ -75,29 +75,39 @@ Route::group(['prefix' => '/congressmen'], function () {
                     );
 
                     Route::group(['prefix' => '/documents'], function () {
+                        Route::post('/', 'EntryDocuments@store')->name(
+                            'congressmen.budgets.entries-documents.store'
+                        );
+
                         Route::group(
                             ['prefix' => '/{documentId}'],
                             function () {
                                 Route::post(
                                     '/publish',
                                     'EntryDocuments@publish'
-                                )->name('congressmen.budgets.entries.publish');
+                                )->name(
+                                    'congressmen.budgets.entries-documents.publish'
+                                );
 
                                 Route::post(
                                     '/unpublish',
                                     'EntryDocuments@unpublish'
-                                )->name('congressmen.budgets.entries.unverify');
+                                )->name(
+                                    'congressmen.budgets.entries-documents.unverify'
+                                );
 
                                 Route::post(
                                     '/analyse',
                                     'EntryDocuments@analyse'
-                                )->name('congressmen.budgets.entries.analyse');
+                                )->name(
+                                    'congressmen.budgets.entries-documents.analyse'
+                                );
 
                                 Route::post(
                                     '/unanalyse',
                                     'EntryDocuments@unanalyse'
                                 )->name(
-                                    'congressmen.budgets.entries.unanalyse'
+                                    'congressmen.budgets.entries-documents.unanalyse'
                                 );
                             }
                         );

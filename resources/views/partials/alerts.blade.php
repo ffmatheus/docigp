@@ -3,6 +3,7 @@
         {{ session('status') }}
     </div>
 @endif
+
 @if ($alerts = session('alerts'))
     @foreach($alerts as $alert)
         <div class="alert alert-{{ $alert['type'] }}">

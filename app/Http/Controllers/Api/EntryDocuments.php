@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EntryDocumentStore;
 use App\Data\Repositories\EntryDocuments as EntryDocumentsRepository;
 
 class EntryDocuments extends Controller
@@ -21,6 +22,27 @@ class EntryDocuments extends Controller
             $congressmanBudgetId,
             $entryId
         );
+    }
+
+    /**
+     * Store
+     *
+     * @param \App\Http\Requests\EntryDocumentStore $request
+     * @param $congressmanId
+     * @param $congressmanBudgetId
+     * @param $entryId
+     * @return mixed
+     */
+    public function store(
+        EntryDocumentStore $request,
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId
+    ) {
+        return app(EntryDocumentsRepository::class)
+            ->setEntryId($entryId)
+            ->setData($request->all())
+            ->store();
     }
 
     public function publish(

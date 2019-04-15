@@ -42,6 +42,10 @@ class Legislatures extends Controller
                     $id
                 ),
             ])
-            ->with(['congressmanLegislatures' => app(CongressmanLegislaturesRepository::class)->filterByLegislatureId($id)]);
+            ->with([
+                'congressmanLegislatures' => app(
+                    CongressmanLegislaturesRepository::class
+                )->filterByLegislatureId($id),
+            ]);
     }
 }

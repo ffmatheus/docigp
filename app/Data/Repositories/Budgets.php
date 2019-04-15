@@ -20,26 +20,37 @@ class Budgets extends Repository
 
     private function generateCongressmanBudget($congressman, $currentGlobal)
     {
-        if (
-            $congressman->congressmanBudgets
-                ->where('budget_id', $currentGlobal->id)
-                ->count() > 0
+        $this->withGlobalScopesDisabled(function () use (
+            $congressman,
+            $currentGlobal
         ) {
-            return;
-        }
+            if (
+                $congressman->congressmanBudgets
+                    ->where('budget_id', $currentGlobal->id)
+                    ->count() > 0
+            ) {
+                return;
+            }
 
-        $current = $congressman->currentBudget;
+            $current = $congressman->currentBudget;
 
-        CongressmanBudget::create([
-            'congressman_legislature_id' =>
-                $congressman->currentLegislature->id,
-            'budget_id' => $currentGlobal->id,
-            'percentage' => $current->percentage ?? 0,
-        ]);
+            $new = CongressmanBudget::create([
+                'congressman_legislature_id' =>
+                    $congressman->currentLegislature->id,
+                'budget_id' => $currentGlobal->id,
+                'percentage' => $current->percentage ?? 0,
+            ]);
+
+            if ($new->wasRecentlyCreated && $current) {
+                $current->updateTransportEntries();
+            }
+        });
     }
 
     private function generateCongressmanBudgets($baseDate = null)
     {
+        Congressman::disableGlobalScopes();
+
         Congressman::active()
             ->get()
             ->each(function ($congressman) use ($baseDate) {
@@ -48,6 +59,8 @@ class Budgets extends Repository
                     $current = $this->getCurrent($baseDate)
                 );
             });
+
+        Congressman::enableGlobalScopes();
     }
 
     /**

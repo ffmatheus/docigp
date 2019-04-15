@@ -91,13 +91,6 @@ export default {
     computed: {
         selected: {
             get() {
-                dd(
-                    'get selected: ',
-                    this.name,
-                    this.value,
-                    this.findById(this.value),
-                )
-
                 return this.makeObject(this.findById(this.value))
             },
             set(item) {

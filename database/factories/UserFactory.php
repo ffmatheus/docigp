@@ -1,9 +1,9 @@
 <?php
 
-use App\Data\Models\User as UserModel;
+use App\Data\Models\User;
 use Illuminate\Support\Str;
 
-$factory->define(UserModel::class, function () {
+$factory->define(User::class, function () {
     preg_match('/(.*?)@(.*)/', faker()->unique()->safeEmail, $output_array);
 
     return [

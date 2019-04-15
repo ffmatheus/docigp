@@ -30,6 +30,9 @@
                 <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('providers.index') }}">
                     Fornecedores / Favorecidos
                 </a>
+                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('costCenters.index') }}">
+                    Centro de Custo
+                </a>
             </div>
         </div>
     </div>

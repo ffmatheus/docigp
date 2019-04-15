@@ -4,8 +4,10 @@ namespace App\Services\DataSync;
 
 use App\Data\Repositories\Parties;
 use App\Data\Repositories\Congressmen;
-use App\Services\HttpClient\Service as HttpClientService;
+use App\Data\Repositories\Departaments;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 use PragmaRX\Coollection\Package\Coollection;
+use App\Services\HttpClient\Service as HttpClientService;
 
 class Service
 {
@@ -42,5 +44,39 @@ class Service
                 break;
             }
         }
+    }
+
+    public function departaments()
+    {
+        collect(config('departments.list'))->each(function ($department) {
+            app(Departaments::class)->firstOrCreate($department);
+        });
+    }
+
+    public function roles()
+    {
+        collect(config('roles.roles'))->each(function ($role) {
+            Bouncer::role()->firstOrCreate($role);
+        });
+    }
+
+    public function rolesAbilities()
+    {
+        collect(config('roles.grants'))->each(function ($grant) {
+            collect($grant['abilities'])->each(function ($title, $ability) use (
+                $grant
+            ) {
+                Bouncer::ability()->firstOrCreate([
+                    'name' => $ability,
+                    'title' => $title,
+                ]);
+
+                if (in($ability, 'everything', '*')) {
+                    Bouncer::allow($grant['group'])->everything();
+                } else {
+                    Bouncer::allow($grant['group'])->to($ability);
+                }
+            });
+        });
     }
 }

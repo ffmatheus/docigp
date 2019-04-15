@@ -14,8 +14,9 @@
     >
         <template slot="buttons">
             <button
+                v-if="can('entry-documents:create')"
                 class="btn btn-primary btn-sm pull-right"
-                @click="createEntry()"
+                @click="createDocument()"
                 title="Novo documento"
             >
                 <i class="fa fa-plus"></i>
@@ -39,11 +40,11 @@
                 }"
             >
                 <td class="align-middle">
-                    {{ document.name.substring(1, 10) }}
+                    {{ document.name }}
                 </td>
 
                 <td
-                    v-if="can('documents:update')"
+                    v-if="can('entry-documents:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -53,7 +54,7 @@
                 </td>
 
                 <td
-                    v-if="can('documents:update')"
+                    v-if="can('entry-documents:show')"
                     class="align-middle text-center"
                 >
                     <app-active-badge
@@ -64,7 +65,11 @@
 
                 <td class="align-middle text-right">
                     <button
-                        v-if="!document.analysed_at && can('documents:update')"
+                        v-if="
+                            can('entry-documents:analyse') &&
+                                !document.analysed_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="analyse(document)"
                         title="Marcar orçamento como 'analisado'"
@@ -73,7 +78,11 @@
                     </button>
 
                     <button
-                        v-if="document.analysed_at && can('documents:update')"
+                        v-if="
+                            can('entry-documents:analyse') &&
+                                document.analysed_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(document)"
                         title="Cancelar marcação de 'em analisado'"
@@ -83,7 +92,8 @@
 
                     <button
                         v-if="
-                            document.analysed_at &&
+                            can('entry-documents:publish') &&
+                                document.analysed_at &&
                                 !document.published_at &&
                                 can('documents:update')
                         "
@@ -95,7 +105,11 @@
                     </button>
 
                     <button
-                        v-if="document.published_at && can('documents:update')"
+                        v-if="
+                            can('entry-documents:publish') &&
+                                document.published_at &&
+                                can('documents:update')
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unpublish(document)"
                         title="Remover autorização de publicação"
@@ -112,7 +126,7 @@
                     </a>
 
                     <button
-                        v-if="can('documents:update')"
+                        v-if="can('entry-documents:publish')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
                         title="Deletar documento"
@@ -123,6 +137,8 @@
                 </td>
             </tr>
         </app-table>
+
+        <app-document-form :show.sync="showModal"></app-document-form>
     </app-table-panel>
 </template>
 
@@ -146,6 +162,8 @@ export default {
     data() {
         return {
             service: service,
+
+            showModal: false,
         }
     },
 
@@ -153,9 +171,9 @@ export default {
         ...mapActions(service.name, ['selectEntryDocument']),
 
         getTableColumns() {
-            let columns = ['Name', '']
+            let columns = ['Nome do arquivo']
 
-            if (can('documents:update')) {
+            if (can('documents:show')) {
                 columns.push({
                     type: 'label',
                     title: 'Analisado',
@@ -170,6 +188,8 @@ export default {
             }
 
             columns.push('')
+
+            return columns
         },
 
         trash(document) {},
@@ -212,6 +232,10 @@ export default {
                             document,
                         )
                 })
+        },
+
+        createDocument() {
+            this.showModal = true
         },
     },
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Api;
 
-use App\Data\Models\CongressmanBudget;
-use App\Data\Repositories\Files as FilesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Data\Models\CongressmanBudget;
+use App\Data\Repositories\Files as FilesRepository;
 use App\Http\Requests\UploadFile as UploadFileRequest;
 
 class UploadFiles extends Controller
@@ -33,9 +33,9 @@ class UploadFiles extends Controller
             $request->all(),
             CongressmanBudget::class
         );
-        //
+
         return redirect()
-            ->route('uploadFiles.index')
+            ->route('upload-files.index')
             ->with($this->getSuccessMessage('Arquivo está sendo processado.'));
     }
 }

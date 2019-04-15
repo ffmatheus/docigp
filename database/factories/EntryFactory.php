@@ -6,6 +6,7 @@ use App\Data\Repositories\CostCenters;
 use App\Data\Models\Entry as EntryModel;
 use App\Data\Repositories\CongressmanBudgets;
 use App\Data\Repositories\Users as UsersRepository;
+use App\Support\Constants;
 
 $factory->define(EntryModel::class, function () {
     return [
@@ -18,18 +19,26 @@ $factory->define(EntryModel::class, function () {
         'object' => faker()->text(30),
         'to' => faker()->name,
 
-        'entry_type_id' => ($entry_type = app(
-            EntryTypes::class
-        )->randomElement())->id,
+        'entry_type_id' => ($entry_type = app(EntryTypes::class)->randomElement(
+            [
+                Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID,
+                Constants::ENTRY_TYPE_TRANSPORT_ID,
+            ]
+        ))->id,
 
         'document_number' => $entry_type->document_number_required
             ? faker()->numberBetween(1111, 9999)
             : null,
 
-        'provider_id' => app(Providers::class)->randomElement([1])->id,
+        'provider_id' => app(Providers::class)->randomElement([
+            Constants::ALERJ_PROVIDER_ID,
+        ])->id,
 
-        'cost_center_id' => app(CostCenters::class)->randomElement([1, 2, 3])
-            ->id,
+        'cost_center_id' => app(CostCenters::class)->randomElement([
+            Constants::COST_CENTER_CREDIT_ID,
+            Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
+            Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
+        ])->id,
 
         'congressman_budget_id' => app(
             CongressmanBudgets::class

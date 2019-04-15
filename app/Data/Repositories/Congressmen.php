@@ -5,7 +5,10 @@ namespace App\Data\Repositories;
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanLegislature;
 use App\Data\Models\User;
+use App\Data\Scopes\Published as PublishedScope;
 use PragmaRX\Coollection\Package\Coollection;
+use App\Data\Repositories\Departaments as DepartamentsRepository;
+use App\Data\Scopes\Congressman as CongressmanScope;
 
 class Congressmen extends Repository
 {
@@ -14,7 +17,7 @@ class Congressmen extends Repository
      */
     protected $model = Congressman::class;
 
-    private function createCongressmanFromRemote($congressman)
+    private function createCongressmanFromRemote($congressman, $departamentId)
     {
         return $this->firstOrCreate(
             [
@@ -31,6 +34,8 @@ class Congressmen extends Repository
 
                 'photo_url' => $congressman['Foto'],
 
+                'departament_id' => $departamentId,
+
                 'thumbnail_url' => $congressman['FotoPequena'],
             ]
         );
@@ -41,15 +46,6 @@ class Congressmen extends Repository
         return app(Parties::class)->findByCode(
             $this->normalizePartyCode($party)
         );
-    }
-
-    /**
-     * @param $name
-     * @return string|null
-     */
-    protected function normalizeName(string $name)
-    {
-        return filled($name = trim($name)) ? $name : null;
     }
 
     /**
@@ -77,23 +73,41 @@ class Congressmen extends Repository
      */
     public function sync(Coollection $data)
     {
-        $data->each(function ($congressman) {
-            $congressman = $this->createCongressmanFromRemote($congressman);
+        $this->withGlobalScopesDisabled(function () use ($data) {
+            $data->each(function ($congressman) {
+                $departament = app(
+                    DepartamentsRepository::class
+                )->createDepartamentFromCongressman($congressman);
 
-            if ($congressman->wasRecentlyCreated) {
-                $legislature = CongressmanLegislature::firstOrCreate(
-                    [
-                        'congressman_id' => $congressman->id,
-                        'legislature_id' => app(
-                            Legislatures::class
-                        )->getCurrent()->id,
-                    ],
-                    ['started_at' => now()]
+                $congressman = $this->createCongressmanFromRemote(
+                    $congressman,
+                    $departament->id
                 );
 
-                $congressman->legislatures()->save($legislature);
-            }
+                if ($congressman->wasRecentlyCreated) {
+                    $legislature = CongressmanLegislature::firstOrCreate(
+                        [
+                            'congressman_id' => $congressman->id,
+                            'legislature_id' => app(
+                                Legislatures::class
+                            )->getCurrent()->id,
+                        ],
+                        ['started_at' => now()]
+                    );
+
+                    $congressman->legislatures()->save($legislature);
+                }
+            });
         });
+    }
+
+    public function withGlobalScopesDisabled($callable)
+    {
+        Congressman::disableGlobalScopes();
+
+        $callable();
+
+        Congressman::enableGlobalScopes();
     }
 
     protected function filterCheckboxes($query, array $filter)
@@ -165,12 +179,10 @@ class Congressmen extends Repository
         return parent::transform($data);
     }
 
-        public function associateWithUser($request){
-            $userRepository =  new Users();
+    public function associateWithUser($request)
+    {
+        $userRepository = new Users();
 
         dd($userRepository->findUserByEmail($request['email']));
-
-        }
-
-
+    }
 }

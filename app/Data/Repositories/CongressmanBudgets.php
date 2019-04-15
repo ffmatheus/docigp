@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use Carbon\Carbon;
+use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanBudget;
 use App\Data\Traits\RepositoryActionable;
 
@@ -79,5 +80,20 @@ class CongressmanBudgets extends Repository
     public function deposit($modelId)
     {
         $this->findById($modelId)->deposit();
+    }
+
+    /**
+     * @param $callable
+     * @return mixed
+     */
+    public function withGlobalScopesDisabled($callable)
+    {
+        Congressman::disableGlobalScopes();
+
+        $result = $callable();
+
+        Congressman::enableGlobalScopes();
+
+        return $result;
     }
 }

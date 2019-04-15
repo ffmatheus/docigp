@@ -51,4 +51,12 @@ abstract class Model extends Eloquent implements AuditableContract
             $model->fireEvents($model, 'Deleted');
         });
     }
+
+    public static function disableGlobalScopes()
+    {
+    }
+
+    public static function enableGlobalScopes()
+    {
+    }
 }

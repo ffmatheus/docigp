@@ -53,20 +53,18 @@
                     <div class="form-group col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <div class="form-group">
-                                    <label for="number">Número</label>
-                                    <input class="form-control" name="number" id="number" value="{{ $legislature->number }}"/>
-                                </div>
+                                <label for="number">Número</label>
+                                <input class="form-control" name="number" id="number" value="{{ $legislature->number }}"/>
+                            </div>
 
-                                <div class="form-group" >
-                                    <label for="year_start">Ano de início</label>
-                                    <input class="form-control" name="year_start" id="year_start" value="{{$legislature->year_start}}"/>
-                                </div>
+                            <div class="form-group" >
+                                <label for="year_start">Ano de início</label>
+                                <input class="form-control" name="year_start" id="year_start" value="{{$legislature->year_start}}"/>
+                            </div>
 
-                                <div class="form-group" >
-                                    <label for="year_end">Ano final</label>
-                                    <input class="form-control" name="year_end" id="year_end" value="{{$legislature->year_end}}"/>
-                                </div>
+                            <div class="form-group" >
+                                <label for="year_end">Ano final</label>
+                                <input class="form-control" name="year_end" id="year_end" value="{{$legislature->year_end}}"/>
                             </div>
                         </div>
                     </div>

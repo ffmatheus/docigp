@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
-use App\Data\Repositories\Roles;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Users as UsersRepository;
-use App\Http\Requests\User as UserRequest;
+use App\Http\Requests\UserUpdate as UserUpdateRequest;
+use App\Http\Requests\UserStore as UserStoreRequest;
 use Silber\Bouncer\Database\Role as BouncerRole;
+use App\Services\Authentication\Service as AuthenticationService;
 
 class Users extends Controller
 {
@@ -30,8 +31,14 @@ class Users extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('admin.users.form')
+            ->with('assignableRoles', \Auth::user()->assignable_roles)
+            ->with('user', $this->usersRepository->new())
+            ->with('mode', 'create')
+            ->with('formDisabled', true);
     }
+
+    //protected $appends = ['roles', 'abilities', 'roles_string'];
 
     /**
      * @param $id
@@ -42,26 +49,48 @@ class Users extends Controller
     {
         $user = app(UsersRepository::class)->findById($id);
 
-        //TODO selecionar as roles possíveis
-        return view('users.form')
-            ->with('allRoles', BouncerRole::all())
-            ->with('user', $user)
+        return view('admin.users.form')
+            ->with('assignableRoles', \Auth::user()->assignable_roles)
+            ->with('mode', 'edit')
+            ->with('user', $user->append('roles'))
             ->with('formDisabled', true);
     }
 
+    public function normalizeUserInfoFromRequest(UserStoreRequest $request)
+    {
+        preg_match('/(.*?)@(.*)/', $request->get('email'), $output_array);
+        if (isset($output_array[1])) {
+            $userResponse = app(
+                AuthenticationService::class
+            )->userInfoByUsername($output_array[1]);
+
+            $request->merge([
+                'email' => strtolower($userResponse['email'][0]),
+                'name' => $userResponse['name'][0],
+                'username' => strtolower($output_array[1]),
+            ]);
+
+            return $request;
+        }
+    }
+
     /**
-     * @param UserRequest     $request
+     * @param UserStoreRequest     $request
      * @param UsersRepository $repository
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request, UsersRepository $repository)
-    {
-        $repository->createFromRequest($request);
+    public function store(
+        UserStoreRequest $request,
+        UsersRepository $repository
+    ) {
+        $request = $this->normalizeUserInfoFromRequest($request);
 
-        return redirect()
-            ->route('users.index')
-            ->with('');
+        $user = app(UsersRepository::class)->storeFromArray($request->all());
+
+        $user->syncRoles($request->get('roles_array'));
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -69,9 +98,23 @@ class Users extends Controller
      */
     public function index()
     {
-        return view('users.index')->with(
+        return view('admin.users.index')->with(
             'users',
-            $this->usersRepository->all()
+            $this->usersRepository->all()->each->append('roles_string')
         );
+    }
+
+    /**
+     * @param UserUpdateRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(UserUpdateRequest $request, $id)
+    {
+        $user = app(UsersRepository::class)->update($id, $request->all());
+
+        $user->syncRoles($request->get('roles_array'));
+
+        return redirect()->route('users.index');
     }
 }

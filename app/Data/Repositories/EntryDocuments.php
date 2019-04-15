@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Traits\RepositoryActionable;
+use App\Data\Repositories\Files as FilesRepository;
 use App\Data\Models\EntryDocument as EntryDocument;
 
 class EntryDocuments extends Repository
@@ -13,6 +14,11 @@ class EntryDocuments extends Repository
      * @var string
      */
     protected $model = EntryDocument::class;
+
+    /**
+     * @var integer
+     */
+    private $entryId;
 
     public function allFor($congressmanId, $congressmanBudgetId, $entryId)
     {
@@ -36,5 +42,37 @@ class EntryDocuments extends Repository
                 ->where('congressman_budgets.id', $congressmanBudgetId)
                 ->where('entry_documents.entry_id', $entryId)
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getEntry()
+    {
+        return app(Entries::class)->findById($this->entryId);
+    }
+
+    /**
+     * @param mixed $entryId
+     * @return \App\Data\Repositories\EntryDocuments
+     */
+    public function setEntryId($entryId): EntryDocuments
+    {
+        $this->entryId = $entryId;
+
+        return $this;
+    }
+
+    public function store()
+    {
+        $attachedFile = app(FilesRepository::class)->uploadFile(
+            $this->data,
+            $entry = $this->getEntry()
+        );
+
+        EntryDocument::firstOrCreate([
+            'entry_id' => $entry->id,
+            'attached_file_id' => $attachedFile->id,
+        ]);
     }
 }

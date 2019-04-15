@@ -3,9 +3,10 @@ const state = {
 }
 
 const getters = {
-    can: state => permission => {
-        return Store.getters['environment/getPermissions']
-            ? Store.getters['environment/getPermissions'].includes(permission)
+    can: state => ability => {
+        return Store.getters['environment/getAbilities']
+            ? Store.getters['environment/getAbilities'].includes(ability) ||
+                  Store.getters['environment/getAbilities'].includes('*')
             : !!Store.state.environment.user
     },
 }

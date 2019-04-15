@@ -39,7 +39,11 @@ class Service
                 ],
             ],
 
-            'user' => auth()->user(),
+            'user' => auth()->user()
+                ? auth()
+                    ->user()
+                    ->append(['roles', 'abilities'])
+                : null,
 
             'timestamp' => now()->toDateTimeString(),
 

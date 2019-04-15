@@ -18,6 +18,21 @@ function endTimer()
     return Timer::$endtime - Timer::$starttime;
 }
 
+if (!function_exists('studly')) {
+    /**
+     * Convert a value to studly caps case.
+     *
+     * @param  string $value
+     * @return string
+     */
+    function studly($value)
+    {
+        $value = ucwords(str_replace(array('-', '_'), ' ', $value));
+
+        return str_replace(' ', '', $value);
+    }
+}
+
 function toBoolean($boolean)
 {
     return $boolean === 'true' ||
@@ -224,6 +239,13 @@ function to_reais($number)
     return 'R$ ' . number_format($number, 2, ',', '.');
 }
 
+function get_current_departament_id()
+{
+    return auth()->user() && auth()->user()->departament
+        ? auth()->user()->departament->id
+        : null;
+}
+
 function db_listen($dump = false)
 {
     \DB::listen(function ($query) use ($dump) {
@@ -240,6 +262,22 @@ function db_listen($dump = false)
 function faker()
 {
     return \Faker\Factory::create('pt_BR');
+}
+
+function in($needle, ...$haystack): bool
+{
+    foreach ($haystack as $hay) {
+        if ((is_array($hay) && in($needle, ...$hay)) || $needle == $hay) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function nin($needle, ...$haystack): bool
+{
+    return !in($needle, ...$haystack);
 }
 
 class Timer
