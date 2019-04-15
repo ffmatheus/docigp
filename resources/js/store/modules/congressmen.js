@@ -66,6 +66,8 @@ let actions = merge_objects(actionsMixin, {
 
         context.dispatch('congressmanBudgets/load', payload, { root: true })
 
+        context.dispatch('congressmanBudgets/setCurrentPage', 1, { root: true })
+
         context.commit(
             'congressmanBudgets/mutateSetSelected',
             { id: null },

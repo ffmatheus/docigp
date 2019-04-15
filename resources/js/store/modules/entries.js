@@ -46,6 +46,14 @@ let actions = merge_objects(actionsMixin, {
 
         context.dispatch('entryDocuments/load', payload, { root: true })
 
+        context.dispatch('entryDocuments/setCurrentPage', 1, { root: true })
+
+        context.commit(
+            'entryDocuments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
+
         context.commit('mutateFormData', payload)
     },
 
