@@ -23,11 +23,8 @@ Artisan::command('docigp:sync:departaments', function () {
 })->describe('Create departaments');
 
 Artisan::command('docigp:sync:roles', function () {
-    $this->info('Creating roles...');
+    $this->info('Creating roles and abilities...');
     app(DataSyncService::class)->roles();
-
-    $this->info('Creating abilities and assigning them to roles...');
-    app(DataSyncService::class)->rolesAbilities();
 })->describe('Create roles');
 
 Artisan::command('docigp:budget:generate {baseDate?}', function (

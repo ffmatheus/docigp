@@ -18,7 +18,7 @@ return [
                 'assign:congressman' => 'Atribuir perfil de Deputado',
                 'assign:verifier' => 'Atribuir perfil de Verificador',
 
-                'congressman:show',
+                'congressman:show' => 'Deputados: ver',
                 'congressman-budgets:show' => 'Orçamento de Deputado: ver',
                 'congressman-budgets:create' => 'Orçamento de Deputado: criar',
                 'congressman-budgets:update' =>

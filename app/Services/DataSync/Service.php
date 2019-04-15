@@ -56,8 +56,17 @@ class Service
     public function roles()
     {
         collect(config('roles.roles'))->each(function ($role) {
-            Bouncer::role()->firstOrCreate($role);
+            Bouncer::role()->updateOrCreate(
+                [
+                    'name' => $role['name'],
+                ],
+                [
+                    'title' => $role['title'],
+                ]
+            );
         });
+
+        $this->rolesAbilities();
     }
 
     public function rolesAbilities()
@@ -66,10 +75,14 @@ class Service
             collect($grant['abilities'])->each(function ($title, $ability) use (
                 $grant
             ) {
-                Bouncer::ability()->firstOrCreate([
-                    'name' => $ability,
-                    'title' => $title,
-                ]);
+                Bouncer::ability()->updateOrCreate(
+                    [
+                        'name' => $ability,
+                    ],
+                    [
+                        'title' => $title,
+                    ]
+                );
 
                 if (in($ability, 'everything', '*')) {
                     Bouncer::allow($grant['group'])->everything();
