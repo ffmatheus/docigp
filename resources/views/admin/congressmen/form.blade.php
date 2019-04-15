@@ -24,8 +24,13 @@
 
         <div class="card-body">
             @include('partials.alerts')
+            @if ($errors->has('email'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('email') }}
+                </div>
+            @endif
 
-            <form name="formulario" id="formulario" action="{{ route('congressmen.store') }}" method="POST">
+            <form name="formulario" id="formulario" action="{{ route('congressmen.associateWithUser') }}" method="POST">
                 {{ csrf_field() }}
 
                 <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
@@ -54,18 +59,6 @@
                 <div class="row">
                     <div class="form-group col-md-6" >
                         <label for="party">Partido</label>
-                        {{--{{dump($parties)}}--}}
-                        {{--@foreach($parties as $key =>$party)--}}
-                        {{--{{dump($party)}}--}}
-                        {{--@endforeach--}}
-                        {{--{{dd("fim")}}--}}
-                        {{--<select name="party_id" id="party_id" class="form-control">--}}
-                            {{--<option value="">Selecione</option>--}}
-
-                            {{--@foreach($parties as $key =>$party)--}}
-                                {{--<option value="{{ $party->id }}">{{ $party->name }}</option>--}}
-                        {{--</select>--}}
-                        {{--@endforeach--}}
                         <input name="party" value="{{is_null(old('party_name')) ? $congressman->party->name : old('party_name')}}" class="form-control" id="party" aria-describedby="nicknameHelp" placeholder="party_name" readonly="readonly">
                     </div>
 
@@ -74,7 +67,8 @@
                 <div class="row">
                     <div class="form-group col-md-6" >
                         <label for="email">Email:</label>
-                        <input name="email" value="{{is_null(old('email')) ? $congressman->email : old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email" readonly="readonly">
+
+                        <input name="email" value="{{is_null(old('email')) ? is_null($congressman->user)?:$congressman->user->email: old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email">
                     </div>
 
                 </div>
@@ -103,9 +97,7 @@
                             </a>
                         @endif
                     </div>
-                    {{--<div class="col-5 col-md-12 text-right">--}}
 
-                    {{--</div>--}}
                     @include('admin.congressman_legislatures.partials.form-modal')
                     Legislaturas
 
