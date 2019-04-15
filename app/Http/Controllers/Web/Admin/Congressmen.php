@@ -70,5 +70,6 @@ class Congressmen extends Controller
     public function associateWithUser(CongressmanRequest $request)
     {
         $this->congressmenRepository->associateWithUser($request);
+        return redirect()->route('congressmen.index')->with($this->getSuccessMessage());
     }
 }
