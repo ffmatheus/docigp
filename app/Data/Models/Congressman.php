@@ -17,7 +17,7 @@ class Congressman extends Model
         'departament_id',
     ];
 
-    protected $with = ['party','user'];
+    protected $with = ['party', 'user'];
 
     protected $filterableColumns = ['name'];
 

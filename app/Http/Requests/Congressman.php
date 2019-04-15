@@ -16,6 +16,8 @@ class Congressman extends Request
 
     public function messages()
     {
-        return ['email.exists' =>'Email não encontrado no cadastro de usuários'];
+        return [
+            'email.exists' => 'Email não encontrado no cadastro de usuários',
+        ];
     }
 }

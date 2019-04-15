@@ -24,7 +24,7 @@ export default {
             dropzoneOptions: {
                 url: this.url,
                 thumbnailWidth: 150,
-                maxFilesize: 0.5,
+                maxFilesize: 20,
                 headers: { 'X-CSRF-TOKEN': this.token },
                 error: function(e, t) {
                     e.previewElement.classList.add('dz-error'),
