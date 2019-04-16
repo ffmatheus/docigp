@@ -26,21 +26,25 @@
                     {{ $errors->first('name') }}
                 </div>
             @endif
+
             @if ($errors->has('code'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('code') }}
                 </div>
             @endif
+
             @if ($errors->has('parent_code'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('parent_code') }}
                 </div>
             @endif
+
             @if ($errors->has('frequency'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('frequency') }}
                 </div>
             @endif
+
             @if ($errors->has('limit'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('limit') }}
@@ -53,35 +57,36 @@
                 <input type="hidden" name="id" value="{{$costCenter->id}}" >
 
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <label for="name">Nome</label>
-                                    <input type="text" name="name" id="name" value="{{$costCenter->name}}"/>
-                                </div>
-                                <div class="row">
-                                    <label for="code">Código</label>
-                                    <input name="code" id="code" value="{{$costCenter->code}}"/>
-                                </div>
-                                <div class="row">
-                                    <label for="parent_code">Código Superior</label>
-                                    <input name="parent_code" id="parent_code" value="{{$costCenter->parent_code}}"/>
-                                </div>
-                                <div class="row">
-                                    <label for="frequency">Frequência</label>
-                                    <input type="text" name="frequency" id="frequency" value="{{$costCenter->frequency}}"/>
-                                </div>
-                                <div class="row">
-                                    <label for="limit">Limite</label>
-                                    <input type="text" name="limit" id="limit" value="{{$costCenter->limit}}"/>
-                                </div>
-                                <div class="row">
-                                    <label for="can_accumulate">Acumulável</label>
-                                    <input type="hidden" name="can_accumulate" value="false">
-                                    <input type="checkbox" name="can_accumulate" id="can_accumulate" {{$costCenter->can_accumulate ? 'checked="checked"' : ''}}/>
-                                </div>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input class="form-control" name="name" id="name" value="{{$costCenter->name}}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input class="form-control" name="code" id="code" value="{{$costCenter->code}}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="parent_code">Código Superior</label>
+                            <input class="form-control" name="parent_code" id="parent_code" value="{{$costCenter->parent_code}}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="frequency">Frequência</label>
+                            <input class="form-control" name="frequency" id="frequency" value="{{$costCenter->frequency}}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="limit">Limite</label>
+                            <input class="form-control" name="limit" id="limit" value="{{$costCenter->limit}}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="can_accumulate">Acumulável</label>
+                            <input class="form-control" type="hidden" name="can_accumulate" value="false">
+                            <input class="form-control" type="checkbox" name="can_accumulate" id="can_accumulate" {{$costCenter->can_accumulate ? 'checked="checked"' : ''}}/>
                         </div>
                     </div>
                 </div>
