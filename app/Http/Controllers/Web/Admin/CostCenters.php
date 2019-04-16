@@ -13,9 +13,7 @@ class CostCenters extends Controller
     {
         return view('admin.cost_centers.index')->with(
             'costCenters',
-            app(CostCentersRepository::class)
-                ->model()
-                ->all()
+            app(CostCentersRepository::class)->all()
         );
     }
 
@@ -53,7 +51,10 @@ class CostCenters extends Controller
      */
     public function update(CostCenterUpdateRequest $request, $id)
     {
-        $user = app(CostCentersRepository::class)->update($id, $request->all());
+        $costCenter = app(CostCentersRepository::class)->update(
+            $id,
+            $request->all()
+        );
 
         return redirect()->route('costCenters.index');
     }

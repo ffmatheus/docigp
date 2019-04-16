@@ -15,10 +15,6 @@
                         @endif
                     </h4>
                 </div>
-
-                <div class="col-xs-4 col-md-2 text-right">
-                    @include('partials.save-button')
-                </div>
             </div>
         </div>
 

@@ -32,6 +32,8 @@ class User extends Authenticatable implements AuditableContract
         'congressman_id',
     ];
 
+    protected $orderBy = ['name' => 'asc'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
