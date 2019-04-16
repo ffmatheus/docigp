@@ -58,6 +58,7 @@ class Users extends Controller
 
     public function normalizeUserInfoFromRequest(UserStoreRequest $request)
     {
+        //Get the user info from remote
         preg_match('/(.*?)@(.*)/', $request->get('email'), $output_array);
         if (isset($output_array[1])) {
             $userResponse = app(
@@ -84,8 +85,6 @@ class Users extends Controller
         UserStoreRequest $request,
         UsersRepository $repository
     ) {
-        $request = $this->normalizeUserInfoFromRequest($request);
-
         $user = app(UsersRepository::class)->storeFromArray($request->all());
 
         $user->syncRoles($request->get('roles_array'));

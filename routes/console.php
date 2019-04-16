@@ -3,6 +3,7 @@
 use App\Data\Repositories\Budgets;
 use App\Data\Repositories\Users;
 use App\Services\DataSync\Service as DataSyncService;
+use Illuminate\Support\Facades\Hash;
 
 Artisan::command('docigp:sync:congressmen', function () {
     $this->info('Synchronizing congressmen...');
@@ -57,3 +58,21 @@ Artisan::command('docigp:role:retract {role} {email}', function (
 
     $this->info("{$user->name} is not '{$role}' anymore");
 })->describe('Remove role from user');
+
+Artisan::command('docigp:user:create {email} {name} {password}', function (
+    $email,
+    $name,
+    $password
+) {
+    $user = app(Users::class)->firstOrCreate(
+        ['email' => $email],
+        [
+            'name' => $name,
+            'email' => $email,
+            'username' => $email,
+            'password' => Hash::make($password),
+        ]
+    );
+
+    $this->info("User {$user->email} created");
+})->describe('Create user');
