@@ -99,7 +99,9 @@ class Users extends Controller
     {
         return view('admin.users.index')->with(
             'users',
-            $this->usersRepository->all()->each->append('roles_string')
+            $this->usersRepository
+                ->allWithoutPagination()
+                ->appends('roles_string')
         );
     }
 

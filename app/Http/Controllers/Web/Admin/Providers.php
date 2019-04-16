@@ -12,9 +12,7 @@ class Providers extends Controller
     {
         return view('admin.providers.index')->with(
             'providers',
-            app(ProvidersRepository::class)
-                ->model()
-                ->all()
+            app(ProvidersRepository::class)->allWithoutPagination()
         );
     }
 

@@ -15,11 +15,6 @@
                         @endif
                     </h4>
                 </div>
-
-                <div class="col-sm-4 align-self-center d-flex justify-content-end">
-                    @include('partials.save-button')
-                    @include('partials.edit-button', ['model' => $provider])
-                </div>
             </div>
         </div>
 
@@ -71,6 +66,7 @@
                         </div>
                     </div>
                 </div>
+                @include('partials.save-button')
             </form>
         </div>
     </div>
