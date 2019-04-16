@@ -13,7 +13,7 @@ class Party extends Request
     {
         return [
             'code' => 'required',
-            'name' => 'required'
+            'name' => 'required',
         ];
     }
 }

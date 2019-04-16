@@ -18,7 +18,12 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends Authenticatable implements AuditableContract
 {
-    use Notifiable, Auditable, Selectable, HasRolesAndAbilities, Filterable, Eventable;
+    use Notifiable,
+        Auditable,
+        Selectable,
+        HasRolesAndAbilities,
+        Filterable,
+        Eventable;
 
     /**
      * The attributes that are mass assignable.

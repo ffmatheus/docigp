@@ -47,8 +47,6 @@
                 </div>
             @endif
 
-
-
             <form name="formulario" id="formulario" @if($mode == 'edit') action="{{ route('costCenters.update', ['id' => $costCenter->id]) }}" @else action="{{ route('costCenters.store')}}" @endIf method="POST">
                 {{ csrf_field() }}
 

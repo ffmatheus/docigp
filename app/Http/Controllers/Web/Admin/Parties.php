@@ -35,7 +35,9 @@ class Parties extends Controller
     {
         $this->repository->createFromRequest($request);
 
-        return redirect()->route('parties.index')->with($this->getSuccessMessage('Partido Gravado com Sucesso'));
+        return redirect()
+            ->route('parties.index')
+            ->with($this->getSuccessMessage('Partido Gravado com Sucesso'));
     }
 
     public function create()
