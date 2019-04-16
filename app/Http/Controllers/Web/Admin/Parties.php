@@ -26,7 +26,7 @@ class Parties extends Controller
 
     public function show($id)
     {
-        return view('admin.parties.show')
+        return view('admin.parties.form')
             ->with('formDisabled', true)
             ->with(['party' => $this->repository->findById($id)]);
     }
@@ -40,7 +40,7 @@ class Parties extends Controller
 
     public function create()
     {
-        return view('admin.parties.show')->with([
+        return view('admin.parties.form')->with([
             'party' => app(PartiesRepository::class)->new(),
         ]);
     }
