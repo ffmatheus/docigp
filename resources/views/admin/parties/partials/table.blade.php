@@ -37,3 +37,4 @@
         <p>Nenhuma Legislatura encontrada</p>
     @endforelse
 </table>
+{{$parties->links()}}

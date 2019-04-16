@@ -12,8 +12,8 @@
                     @include(
                         'layouts.partials.search-form',
                         [
-                            'routeSearch' => 'legislatures.index',
-                            'routeCreate' => 'legislatures.create',
+                            'routeSearch' => 'parties.index',
+                            'routeCreate' => 'parties.create',
                         ]
                     )
                 </div>
