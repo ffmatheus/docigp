@@ -67,12 +67,12 @@ class User extends Authenticatable implements AuditableContract
     {
         $string = '';
 
-        $array = $this->getRoles()->toArray();
-
-        sort($array);
+        $array = $this->roles->transform(function ($item, $key){
+            return $item['title'];
+        })->sort();
 
         foreach ($array as $role) {
-            if ($role == end($array)) {
+            if ($role == $array->last()) {
                 $string .= $role;
             } else {
                 $string .= $role . ', ';
