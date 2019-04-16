@@ -52,6 +52,7 @@
                         <input name="name" value="{{is_null(old('name')) ? $party->name : old('name')}}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Nome" >
                     </div>
                 </div>
+                @include('partials.save-button')
             </div>
         </form>
     </div>
