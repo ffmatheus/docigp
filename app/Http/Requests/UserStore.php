@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\EmailExists;
-use App\Services\Authentication\Service as AuthenticationService;
-
-class UserStore extends BaseUser
+class UserStore extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,5 +14,16 @@ class UserStore extends BaseUser
         return [
             'email' => ['required', 'email', 'unique:users'],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function sanitize(array $all)
+    {
+        if (!is_array($all['roles_array'])) {
+            $all['roles_array'] = json_decode($all['roles_array'], true);
+        }
+        return parent::sanitize($all);
     }
 }
