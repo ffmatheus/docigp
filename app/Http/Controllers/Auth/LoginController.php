@@ -88,7 +88,7 @@ class LoginController extends Controller
      *
      * @return bool
      */
-    protected function attemptLogin(Request $request)
+    protected function attemptLoginAlerj(Request $request)
     {
         return $this->authentication->attempt(
             $request,
