@@ -1,7 +1,11 @@
 {
+    "Hello!": "Olá",
     "Login": "Entrar",
-    "E-Mail Address": "Login na rede Alerj",
+    "E-Mail Address": "E-mail na Alerj",
     "Password": "Senha",
-    "Forgot Your Password?": "Esqueceu Sua Senha?",
-    "Remember Me": "Lembrar de Mim"
+    "Forgot Your Password?": "Esqueceu sua senha?",
+    "Remember Me": "Lembrar de mim",
+    "Confirm Password": "Confirmar senha",
+    "Reset Password": "Trocar senha",
+    "Send Password Reset Link": "Enviar enviar link para troca de senha"
 }

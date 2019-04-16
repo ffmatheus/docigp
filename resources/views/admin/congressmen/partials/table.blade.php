@@ -18,7 +18,6 @@
             <th>Nome</th>
             <th>Nome Público</th>
             <th>Partido</th>
-            <th></th>
         </tr>
     </thead>
 
@@ -31,7 +30,7 @@
 
                 <td>
                     @if (isset($congressman['thumbnail_url']))
-                        <img src="{{$congressman['thumbnail_url']}}" >
+                        <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}"><img src="{{$congressman['thumbnail_url']}}" ></a>
                     @endif
                 </td>
 
@@ -45,10 +44,6 @@
 
                 <td>
                     {{ $congressman['party']['name'] }} ({{$congressman['party']['code']}})
-                </td>
-
-                <td>
-                    <i class="fas fa-user-shield"></i>
                 </td>
             </tr>
         @empty

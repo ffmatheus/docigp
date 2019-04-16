@@ -80,4 +80,13 @@ class EntryDocuments extends Controller
     ) {
         app(EntryDocumentsRepository::class)->unanalyse($entryDocumentId);
     }
+
+    public function delete(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->delete($entryDocumentId);
+    }
 }

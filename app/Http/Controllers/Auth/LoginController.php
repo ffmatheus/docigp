@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use Auth;
@@ -53,7 +54,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function loginAlerj(Request $request)
     {
         $this->validateLogin($request);
 
@@ -87,7 +88,7 @@ class LoginController extends Controller
      *
      * @return bool
      */
-    protected function attemptLogin(Request $request)
+    protected function attemptLoginAlerj(Request $request)
     {
         return $this->authentication->attempt(
             $request,

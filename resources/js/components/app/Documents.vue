@@ -192,7 +192,14 @@ export default {
             return columns
         },
 
-        trash(document) {},
+        trash(document) {
+            confirm('Deseja realmente DELETAR este documento?', this).then(
+                value => {
+                    value &&
+                        this.$store.dispatch('entryDocuments/delete', document)
+                },
+            )
+        },
 
         analyse(document) {
             confirm('Este documento está "EM CONFORMIDADE"?', this).then(

@@ -109,6 +109,13 @@ Route::group(['prefix' => '/congressmen'], function () {
                                 )->name(
                                     'congressmen.budgets.entries-documents.unanalyse'
                                 );
+
+                                Route::post(
+                                    '/delete',
+                                    'EntryDocuments@delete'
+                                )->name(
+                                    'congressmen.budgets.entries-documents.delete'
+                                );
                             }
                         );
                     });

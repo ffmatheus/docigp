@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
-class UserUpdate extends BaseUser
+use Illuminate\Validation\Rule;
+use App\Rules\AlerjEmail;
+
+class UserUpdate extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,8 +15,24 @@ class UserUpdate extends BaseUser
     public function rules()
     {
         return [
-            'username' => 'required',
-            'email' => 'required',
+            'id' => 'required',
+            'email' => [
+                'email',
+                Rule::unique('users')->ignore($this->get('id')),
+                new AlerjEmail(),
+            ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function sanitize(array $all)
+    {
+        if (!is_array($all['roles_array'])) {
+            $all['roles_array'] = json_decode($all['roles_array'], true);
+        }
+        $all['username'] = $all['email'];
+        return parent::sanitize($all);
     }
 }

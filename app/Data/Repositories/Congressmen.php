@@ -182,7 +182,9 @@ class Congressmen extends Repository
     public function associateWithUser($request)
     {
         $userRepository = new Users();
-
-        dd($userRepository->findUserByEmail($request['email']));
+        return $userRepository->associateCongressmanWithUser(
+            $request['id'],
+            $request
+        );
     }
 }
