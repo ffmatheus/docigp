@@ -64,14 +64,12 @@ Artisan::command('docigp:user:create {email} {name} {password}', function (
     $name,
     $password
 ) {
-    preg_match('/(.*?)@(.*)/', $email, $output_array);
-
     $user = app(Users::class)->firstOrCreate(
         ['email' => $email],
         [
             'name' => $name,
             'email' => $email,
-            'username' => $output_array[1],
+            'username' => $email,
             'password' => Hash::make($password),
         ]
     );
