@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CostCenter as CostCenterRequest;
+use App\Http\Requests\CostCenterStore as CostCenterRequest;
 use App\Data\Repositories\CostCenters as CostCentersRepository;
+use App\Http\Requests\CostCenterUpdate as CostCenterUpdateRequest;
 
 class CostCenters extends Controller
 {
@@ -22,15 +23,15 @@ class CostCenters extends Controller
     {
         return view('admin.cost_centers.form')->with([
             'costCenter' => app(CostCentersRepository::class)->new(),
+            'mode' => 'create',
         ]);
     }
 
     public function store(CostCenterRequest $request)
     {
-        $request->merge(['created_by_id' => current_user()->id]);
         app(CostCentersRepository::class)->create($request->all());
 
-        return redirect()->route('providers.index');
+        return redirect()->route('costCenters.index');
     }
 
     public function show($id)
@@ -41,6 +42,19 @@ class CostCenters extends Controller
                 'costCenter' => app(CostCentersRepository::class)->findById(
                     $id
                 ),
+                'mode' => 'edit',
             ]);
+    }
+
+    /**
+     * @param CostCenterUpdateRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(CostCenterUpdateRequest $request, $id)
+    {
+        $user = app(CostCentersRepository::class)->update($id, $request->all());
+
+        return redirect()->route('costCenters.index');
     }
 }

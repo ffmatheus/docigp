@@ -18,7 +18,6 @@
 
                 <div class="col-xs-4 col-md-2 text-right">
                     @include('partials.save-button')
-                    @include('partials.edit-button', ['model' => $costCenter])
                 </div>
             </div>
         </div>
@@ -54,7 +53,7 @@
 
 
 
-            <form name="formulario" id="formulario" action="{{ route('costCenters.store') }}" method="POST">
+            <form name="formulario" id="formulario" @if($mode == 'edit') action="{{ route('costCenters.update', ['id' => $costCenter->id]) }}" @else action="{{ route('costCenters.store')}}" @endIf method="POST">
                 {{ csrf_field() }}
 
                 <input type="hidden" name="id" value="{{$costCenter->id}}" >
@@ -63,29 +62,31 @@
                     <div class="form-group col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
-
-                                <label for="name">Nome</label>
-                                <input type="text" name="name" id="name" value="{{$costCenter->name}}"/>
-
-                                <label for="code">Sigla (Código)</label>
-                                <select name="code" id="code">
-                                    <option value="">Selecione</option>
-                                </select>
-
-                                <label for="parent_code">Sigla Superior(Código)</label>
-                                <select name="parent_code" id="parent_code">
-                                    <option value="">Selecione</option>
-                                </select>
-
-                                <label for="frequency">Frequência</label>
-                                <input type="text" name="frequency" id="frequency" value="{{$costCenter->frequency}}"/>
-
-                                <label for="limit">Limite</label>
-                                <input type="text" name="limit" id="limit" value="{{$costCenter->limit}}"/>
-
-                                <label for="can_accumulate">Acumulável</label>
-                                <input type="checkbox" name="can_accumulate" id="can_accumulate" value="{{$costCenter->can_accumulate}}"/>
-
+                                <div class="row">
+                                    <label for="name">Nome</label>
+                                    <input type="text" name="name" id="name" value="{{$costCenter->name}}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="code">Código</label>
+                                    <input name="code" id="code" value="{{$costCenter->code}}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="parent_code">Código Superior</label>
+                                    <input name="parent_code" id="parent_code" value="{{$costCenter->parent_code}}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="frequency">Frequência</label>
+                                    <input type="text" name="frequency" id="frequency" value="{{$costCenter->frequency}}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="limit">Limite</label>
+                                    <input type="text" name="limit" id="limit" value="{{$costCenter->limit}}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="can_accumulate">Acumulável</label>
+                                    <input type="hidden" name="can_accumulate" value="false">
+                                    <input type="checkbox" name="can_accumulate" id="can_accumulate" {{$costCenter->can_accumulate ? 'checked="checked"' : ''}}/>
+                                </div>
                             </div>
                         </div>
                     </div>

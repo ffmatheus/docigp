@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class CostCenter extends Request
+class CostCenterStore extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,8 +12,7 @@ class CostCenter extends Request
     public function rules()
     {
         return [
-            'code' => 'required',
-            'parent_code' => 'required',
+            'code' => 'required | unique:cost_centers',
             'name' => 'required',
             'frequency' => 'required',
             'limit' => 'required',
