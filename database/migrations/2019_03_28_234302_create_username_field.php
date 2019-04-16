@@ -10,6 +10,8 @@ class CreateUsernameField extends Migration
 {
     private function populate()
     {
+        User::disableEvents();
+
         User::create([
             'name' => 'SISTEMA DOCIGP',
             'email' => ($email = 'system@docigp.alerj.rj.gov.br'),

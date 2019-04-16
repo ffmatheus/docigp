@@ -6,9 +6,8 @@ use Illuminate\Support\Str;
 $factory->define(File::class, function () {
     return [
         'hash' => sha1(Str::random(30)),
-        'drive' => 'local',
+        'drive' => 'documents',
         'path' => '/documents',
-        'public_url' => '/url',
         'mime_type' => 'application/pdf',
     ];
 });

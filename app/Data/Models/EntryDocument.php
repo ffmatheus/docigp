@@ -11,12 +11,21 @@ class EntryDocument extends Model
 
     protected $fillable = [
         'entry_id',
-        'attached_file_id',
         'analysed_at',
         'analysed_by_id',
         'published_at',
         'published_by_id',
     ];
+
+    protected $selectColumns = ['entry_documents.*'];
+
+    protected $dates = ['date', 'analysed_at', 'published_at'];
+
+    protected $orderBy = ['id' => 'asc'];
+
+    protected $joins = [];
+
+    protected $appends = ['url'];
 
     public static function boot()
     {
@@ -25,30 +34,18 @@ class EntryDocument extends Model
         static::addGlobalScope(new Published());
     }
 
-    protected $selectColumns = [
-        'entry_documents.*',
-        'attached_files.original_name as name',
-    ];
-
-    protected $dates = ['date', 'analysed_at', 'published_at'];
-
-    protected $orderBy = ['id' => 'asc'];
-
-    protected $joins = [
-        'attached_files' => [
-            'attached_files.id',
-            '=',
-            'entry_documents.attached_file_id',
-        ],
-    ];
-
     public function attachedFile()
     {
-        $this->belongsTo(AttachedFile::class);
+        return $this->morphOne(AttachedFile::class, 'fileable');
     }
 
     public function entry()
     {
-        $this->belongsTo(Entry::class);
+        return $this->belongsTo(Entry::class);
+    }
+
+    public function getUrlAttribute()
+    {
+        return $this->attachedFile->file->url;
     }
 }

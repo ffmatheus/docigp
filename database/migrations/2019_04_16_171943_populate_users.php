@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\Models\User;
 use App\Data\Repositories\Users;
 use Illuminate\Database\Migrations\Migration;
 
@@ -21,6 +22,8 @@ class PopulateUsers extends Migration
     public function up()
     {
         collect(static::USERS)->each(function ($name, $email) {
+            User::disableEvents();
+
             app(Users::class)->firstOrCreate([
                 'email' => $email,
                 'name' => $name,

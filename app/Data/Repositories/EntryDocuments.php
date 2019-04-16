@@ -65,14 +65,10 @@ class EntryDocuments extends Repository
 
     public function store()
     {
-        $attachedFile = app(FilesRepository::class)->uploadFile(
-            $this->data,
-            $entry = $this->getEntry()
-        );
-
-        EntryDocument::firstOrCreate([
-            'entry_id' => $entry->id,
-            'attached_file_id' => $attachedFile->id,
+        $document = EntryDocument::firstOrCreate([
+            'entry_id' => $this->getEntry()->id,
         ]);
+
+        app(FilesRepository::class)->uploadFile($this->data, $document);
     }
 }
