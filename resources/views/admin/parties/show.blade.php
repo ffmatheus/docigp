@@ -24,7 +24,17 @@
 
         <div class="card-body">
             @include('partials.alerts')
+            @if ($errors->has('code'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('code') }}
+                </div>
+            @endif
 
+            @if ($errors->has('name'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('name') }}
+                </div>
+            @endif
             <form name="formulario" id="formulario" action="{{ route('parties.store') }}" method="POST">
                 {{ csrf_field() }}
 
@@ -41,6 +51,7 @@
                         <input name="name" value="{{is_null(old('name')) ? $party->name : old('name')}}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Nome" >
                     </div>
                 </div>
+                @include('partials.save-button')
             </form>
         </div>
     </div>

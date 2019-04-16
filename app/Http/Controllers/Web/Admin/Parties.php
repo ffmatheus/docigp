@@ -35,6 +35,13 @@ class Parties extends Controller
     {
         $this->repository->createFromRequest($request);
 
-        return redirect()->route('admin.legislatures.index');
+        return redirect()->route('parties.index')->with($this->getSuccessMessage('Partido Gravado com Sucesso'));
+    }
+
+    public function create()
+    {
+        return view('admin.parties.show')->with([
+            'party' => app(PartiesRepository::class)->new(),
+        ]);
     }
 }
