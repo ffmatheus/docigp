@@ -65,10 +65,14 @@ class EntryDocuments extends Repository
 
     public function store()
     {
-        $document = EntryDocument::firstOrCreate([
+        $document = EntryDocument::create([
             'entry_id' => $this->getEntry()->id,
         ]);
 
-        app(FilesRepository::class)->uploadFile($this->data, $document);
+        $file = app(FilesRepository::class)->uploadFile($this->data, $document);
+
+        if (!$file->wasRecentlyCreated) {
+            $document->delete();
+        }
     }
 }

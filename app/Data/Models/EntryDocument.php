@@ -46,6 +46,6 @@ class EntryDocument extends Model
 
     public function getUrlAttribute()
     {
-        return $this->attachedFile->file->url;
+        return $this->attachedFile ? $this->attachedFile->file->url : null;
     }
 }
