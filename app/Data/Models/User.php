@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Data\Traits\Filterable;
 use App\Data\Traits\Eventable;
 use App\Events\UserCreated;
 use OwenIt\Auditing\Auditable;
@@ -17,7 +18,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends Authenticatable implements AuditableContract
 {
-    use Notifiable, Auditable, Selectable, HasRolesAndAbilities, Eventable;
+    use Notifiable, Auditable, Selectable, HasRolesAndAbilities, Filterable, Eventable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +32,8 @@ class User extends Authenticatable implements AuditableContract
         'username',
         'congressman_id',
     ];
+
+    protected $orderBy = ['name' => 'asc'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -130,12 +133,17 @@ class User extends Authenticatable implements AuditableContract
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function getOrderBy()
+    {
+        return coollect($this->orderBy);
     }
 
     public function sendWelcomeMessage()

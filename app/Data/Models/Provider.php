@@ -14,6 +14,8 @@ class Provider extends Model
         'updated_by_id',
     ];
 
+    protected $orderBy = ['name' => 'asc'];
+
     /**
      * Save the model to the database.
      *

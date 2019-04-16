@@ -339,6 +339,15 @@ abstract class Repository
     }
 
     /**
+     * @return mixed
+     */
+    public function allWithoutPagination()
+    {
+        $this->shouldPaginate = false;
+        return $this->all();
+    }
+
+    /**
      * @param $perPage
      * @param $total
      * @return float

@@ -23,6 +23,7 @@
     </thead>
 
     @forelse ($costCenters as $costCenter)
+
         <tr>
             <td>
                 <a href="{{ route('costCenters.show', ['id' => $costCenter->id]) }}">{{ $costCenter->name }}</a>
