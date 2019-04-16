@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\AttachedFile;
 use App\Data\Models\File as FileModel;
+use App\Data\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -12,25 +13,22 @@ class Files extends Repository
     protected $model = FileModel::class;
 
     /**
-     * @param $entry
+     * @param $model
      * @param $file
-     * @param $uploadedFile
+     * @param $originalName
      * @return \App\Data\Models\AttachedFile
      */
-    protected function createAttachment(
-        $entry,
-        $file,
-        $uploadedFile
-    ): AttachedFile {
+    public function createAttachment($model, $file, $originalName): AttachedFile
+    {
         return app(AttachedFiles::class)->firstOrCreate(
             [
                 'file_id' => $file->id,
-                'fileable_id' => $entry->id,
-                'fileable_type' => get_class($entry),
+                'fileable_id' => $model->id,
+                'fileable_type' => get_class($model),
             ],
 
             [
-                'original_name' => $uploadedFile->getClientOriginalName(),
+                'original_name' => $originalName,
             ]
         );
     }
@@ -89,20 +87,17 @@ class Files extends Repository
     }
 
     /**
-     * @param $attributes
-     * @param $model
-     * @return \App\Data\Models\AttachedFile
+     * @param $uploadedFile
+     * @return File
      */
-    public function uploadFile($attributes, $model): AttachedFile
+    public function storePhysicalFile($uploadedFile): File
     {
         $this->storeFile(
-            $file = $this->findOrCreateFile(
-                $uploadedFile = $attributes['file']
-            ),
+            $file = $this->findOrCreateFile($uploadedFile),
             $uploadedFile
         );
 
-        return $this->createAttachment($model, $file, $uploadedFile);
+        return $file;
     }
 
     private function getDrive()

@@ -45,6 +45,23 @@ class EntryDocuments extends Repository
     }
 
     /**
+     * @param \App\Data\Models\File $physicalFile
+     * @return bool
+     */
+    private function documentWasAlreadyUploaded(
+        \App\Data\Models\File $physicalFile
+    ): bool {
+        return $this->getEntry()->documents->reduce(function (
+            $carry,
+            $document
+        ) use ($physicalFile) {
+            return $carry ||
+                $document->attachedFile->file->id == $physicalFile->id;
+        },
+        false);
+    }
+
+    /**
      * @return mixed
      */
     protected function getEntry()
@@ -65,14 +82,20 @@ class EntryDocuments extends Repository
 
     public function store()
     {
-        $document = EntryDocument::create([
-            'entry_id' => $this->getEntry()->id,
-        ]);
+        $physicalFile = app(FilesRepository::class)->storePhysicalFile(
+            $uploadedFile = $this->data['file']
+        );
 
-        $file = app(FilesRepository::class)->uploadFile($this->data, $document);
-
-        if (!$file->wasRecentlyCreated) {
-            $document->delete();
+        if ($this->documentWasAlreadyUploaded($physicalFile)) {
+            return;
         }
+
+        app(FilesRepository::class)->createAttachment(
+            EntryDocument::create([
+                'entry_id' => $this->getEntry()->id,
+            ]),
+            $physicalFile,
+            $uploadedFile->getClientOriginalName()
+        );
     }
 }
