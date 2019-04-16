@@ -38,18 +38,16 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="email">E-mail ALERJ</label>
-                                    <input class="form-control" disabled="{{ $mode == 'edit' ? 'disabled' : '' }}" name="email" id="email" value="{{$user->email}}" />
+                                    <input class="form-control" @if($mode == 'edit') disabled @endIf name="email" id="email" value="{{$user->email}}" />
                                 </div>
                             </div>
 
-                            @if($mode == 'edit')
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="name">Nome</label>
-                                        <input class="form-control" disabled="{{ $mode == 'edit' ? 'disabled' : '' }}" name="name" id="name" value="{{$user->name}}" />
-                                    </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name">Nome</label>
+                                    <input class="form-control" name="name" id="name" value="{{$user->name}}" />
                                 </div>
-                            @endIf
+                            </div>
                         </div>
                     </div>
 
