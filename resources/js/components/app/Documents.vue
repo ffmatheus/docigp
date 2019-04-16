@@ -40,7 +40,7 @@
                 }"
             >
                 <td class="align-middle">
-                    {{ document.name }}
+                    {{ document.attached_file.original_name }}
                 </td>
 
                 <td
@@ -118,8 +118,9 @@
                     </button>
 
                     <a
-                        href="/img/docigp.pdf"
+                        :href="document.url"
                         target="_blank"
+                        title="Ver imagem do documento"
                         class="btn btn-sm btn-micro btn-warning cursor-pointer"
                     >
                         <i class="fa fa-file-image"></i>

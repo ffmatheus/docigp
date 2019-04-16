@@ -4,32 +4,31 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\AttachedFile;
 use App\Data\Models\File as FileModel;
+use App\Data\Models\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Files extends Repository
 {
     protected $model = FileModel::class;
 
     /**
-     * @param $entry
+     * @param $model
      * @param $file
-     * @param $uploadedFile
+     * @param $originalName
      * @return \App\Data\Models\AttachedFile
      */
-    protected function createAttachment(
-        $entry,
-        $file,
-        $uploadedFile
-    ): AttachedFile {
+    public function createAttachment($model, $file, $originalName): AttachedFile
+    {
         return app(AttachedFiles::class)->firstOrCreate(
             [
                 'file_id' => $file->id,
-                'fileable_id' => $entry->id,
-                'fileable_type' => get_class($entry),
+                'fileable_id' => $model->id,
+                'fileable_type' => get_class($model),
             ],
 
             [
-                'original_name' => $uploadedFile->getClientOriginalName(),
+                'original_name' => $originalName,
             ]
         );
     }
@@ -41,29 +40,25 @@ class Files extends Repository
      */
     protected function fileExists($file, $uploadedFile): bool
     {
-        return Storage::disk($this->getDriver())->exists(
-            $fileName = $this->makeFileName($file, $uploadedFile)
+        return Storage::disk($this->getDrive())->exists(
+            $this->makePath($file->hash, $uploadedFile)
         );
     }
 
     private function findOrCreateFile($uploadedFile)
     {
-        $sha1_hash = sha1(file_get_contents($uploadedFile->getPathName()));
+        $hash = sha1(file_get_contents($uploadedFile->getPathName()));
 
-        if (!($file = $this->findByHash($sha1_hash))) {
+        if (!($file = $this->findByHash($hash))) {
             $file = $this->new();
 
-            $file->hash = $sha1_hash;
+            $file->hash = $hash;
 
-            $file->drive = $this->getDriver();
+            $file->drive = $this->getDrive();
 
-            $file->path = "{$file->drive}/{$this->deepPath(
-                $sha1_hash
-            )}.{$uploadedFile->getClientOriginalExtension()}";
+            $file->path = $this->makePath($hash, $uploadedFile);
 
             $file->mime_type = $uploadedFile->getClientMimeType();
-
-            $file->public_url = ''; //TODO descobrir como fazer
 
             $file->save();
         }
@@ -71,14 +66,9 @@ class Files extends Repository
         return $file;
     }
 
-    /**
-     * @param $file
-     */
-    protected function makePublicUrl($file): void
+    private function makeDirectory($hash)
     {
-        $file->public_url = 'XXXXXX depois de movido via storage XXXXXX'; //TODO descobrir como fazer
-
-        $file->save();
+        return make_deep_path($hash);
     }
 
     /**
@@ -89,55 +79,55 @@ class Files extends Repository
     {
         if (!$this->fileExists($file, $uploadedFile)) {
             $uploadedFile->storeAs(
-                $this->deepPath($file->hash),
-                $file->hash . '.' . $uploadedFile->getClientOriginalExtension(),
-                $this->getDriver()
+                $this->makeDirectory($file->hash),
+                $this->makeFileName($file->hash, $uploadedFile),
+                $this->getDrive()
             );
-
-            $this->makePublicUrl($file);
         }
     }
 
     /**
-     * @param $attributes
-     * @param $model
-     * @return \App\Data\Models\AttachedFile
+     * @param $uploadedFile
+     * @return File
      */
-    public function uploadFile($attributes, $model): AttachedFile
+    public function storePhysicalFile($uploadedFile): File
     {
         $this->storeFile(
-            $file = $this->findOrCreateFile(
-                $uploadedFile = $attributes['file']
-            ),
+            $file = $this->findOrCreateFile($uploadedFile),
             $uploadedFile
         );
 
-        return $this->createAttachment($model, $file, $uploadedFile);
+        return $file;
     }
 
-    private function deepPath($nameHash, $length = 4)
-    {
-        $deepPath = '';
-        for ($i = 1; $i <= $length; $i++) {
-            $deepPath =
-                $deepPath . substr($nameHash, $i - 1, 1) . DIRECTORY_SEPARATOR;
-        }
-        return $deepPath;
-    }
-
-    private function getDriver()
+    private function getDrive()
     {
         return config('filesystems.documents_default', 'documents');
     }
 
     /**
-     * @param $newFile
+     * @param $hash
+     * @param $uploadedFile
      * @return string
      */
-    private function makeFileName($newFile, $uploadedFile): string
+    private function makeFileName($hash, $uploadedFile): string
     {
-        return "{$this->deepPath(
-            $newFile->hash
-        )}{$newFile->hash}.{$uploadedFile->getClientOriginalExtension()}";
+        return $hash .
+            '.' .
+            Str::lower($uploadedFile->getClientOriginalExtension());
+    }
+
+    /**
+     * @param $hash
+     * @param $uploadedFile
+     * @return string
+     */
+    private function makePath($hash, $uploadedFile): string
+    {
+        $deep = $this->makeDirectory($hash);
+
+        $filename = $this->makeFileName($hash, $uploadedFile);
+
+        return "{$deep}{$filename}";
     }
 }

@@ -17,7 +17,6 @@ class CreateEntryDocumentsTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('entry_id')->unsigned();
-            $table->bigInteger('attached_file_id')->unsigned();
 
             $table->timestamp('analysed_at')->nullable();
             $table

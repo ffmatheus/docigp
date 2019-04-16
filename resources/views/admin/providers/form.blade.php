@@ -2,39 +2,45 @@
 
 @section('content')
     <div class="card card-default">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-8 align-self-center">
-                    <h4 class="mb-0">
-                        <a href="{{ route('providers.index') }}">Favorecidos</a>
+        <form name="formulario" id="formulario" action="{{ route('providers.store') }}" method="POST">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8 align-self-center">
+                        <h4 class="mb-0">
+                            <a href="{{ route('providers.index') }}">Favorecidos</a>
 
-                        @if(is_null($provider->id))
-                            > NOVA
-                        @else
-                            > {{ $provider->cpf_cnpj }} - {{ $provider->name }}
-                        @endif
-                    </h4>
+                            @if(is_null($provider->id))
+                                > NOVA
+                            @else
+                                > {{ $provider->cpf_cnpj }} - {{ $provider->name }}
+                            @endif
+                        </h4>
+                    </div>
+
+                    <div class="col-sm-4 align-self-center d-flex justify-content-end">
+                        @include('partials.save-button')
+                        @include('partials.edit-button', ['model' => $provider])
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card-body">
-            @include('partials.alerts')
-            @if ($errors->has('cpf_cnpj'))
-                <div class="alert alert-danger" role="alert">
-                    {{ $errors->first('cpf_cnpj') }}
-                </div>
-            @endif
-            @if ($errors->has('type'))
-                <div class="alert alert-danger" role="alert">
-                    {{ $errors->first('type') }}
-                </div>
-            @endif
-            @if ($errors->has('name'))
-                <div class="alert alert-danger" role="alert">
-                    {{ $errors->first('name') }}
-                </div>
-            @endif
+            <div class="card-body">
+                @include('partials.alerts')
+                @if ($errors->has('cpf_cnpj'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('cpf_cnpj') }}
+                    </div>
+                @endif
+                @if ($errors->has('type'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('type') }}
+                    </div>
+                @endif
+                @if ($errors->has('name'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
 
 
             <form name="formulario" id="formulario" @if($mode == 'edit') action="{{ route('providers.update', ['id' => $provider->id]) }}" @else action="{{ route('providers.store')}}" @endIf method="POST">
@@ -66,6 +72,7 @@
                         </div>
                     </div>
                 </div>
+
                 @include('partials.save-button')
             </form>
         </div>

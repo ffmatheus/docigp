@@ -68,9 +68,9 @@ class EntriesTableSeeder extends Seeder
                     'congressman_budget_id' => $congressmanBudget->id,
                 ]);
 
-                factory(EntryDocumentModel::class, rand(0, 8))->create([
-                    'entry_id' => $entry->id,
-                ]);
+                //                factory(EntryDocumentModel::class, rand(0, 8))->create([
+                //                    'entry_id' => $entry->id,
+                //                ]);
             }
 
             $congressmanBudget->updateTransportEntries();

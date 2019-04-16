@@ -37,6 +37,7 @@
 ```
 php artisan migrate
 php artisan docigp:sync:roles
+php artisan storage:link
 ```
 
 #### Passos extras específicos desta aplicação
@@ -72,7 +73,9 @@ a docigp:sync:parties
 a docigp:sync:congressmen
 a docigp:sync:departaments
 a docigp:sync:roles
-a docigp:budget:generate 
+a docigp:budget:generate
+a docigp:role:assign administrator afaria@alerj.rj.gov.br 
+a storage:link
 ```
 
 ### Para debugar

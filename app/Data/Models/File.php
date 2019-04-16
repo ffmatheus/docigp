@@ -4,5 +4,13 @@ namespace App\Data\Models;
 
 class File extends Model
 {
-    protected $fillable = ['sha1_hash', 'drive', 'path', 'remote_url'];
+    protected $fillable = ['hash', 'drive', 'path', 'mime_type'];
+
+    protected $appends = ['url'];
+
+    public function getUrlAttribute()
+    {
+        return config("filesystems.disks.{$this->drive}.url_prefix") .
+            $this->path;
+    }
 }
