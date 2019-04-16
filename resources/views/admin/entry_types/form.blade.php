@@ -46,13 +46,13 @@
                     <div class="form-group col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
-
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" id="name" value="{{$entryType->name}}"/>
+                                <input class="form-control" name="name" id="name" value="{{$entryType->name}}"/>
+                            </div>
 
-                                <label for="document_number_required">Número do documento</label>
+                            <div class="form-group">
                                 <input type="checkbox" name="document_number_required" id="document_number_required" {{ $entryType->document_number_required == 1 ? 'checked="checked"' : '' }}/>
-
+                                <label for="document_number_required">Este tipo de lançamento exige número de documento</label>
                             </div>
                         </div>
                     </div>
