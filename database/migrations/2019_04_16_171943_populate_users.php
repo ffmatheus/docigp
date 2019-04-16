@@ -7,10 +7,10 @@ class PopulateUsers extends Migration
 {
     const USERS = [
         'afaria@alerj.rj.gov.br' => 'Antonio Carlos Ribeiro',
-        'ovalenca@alerj.rj.gov.br' => 'Orlando Vinícios Valença',
-        'bmasqui@alerj.rj.gov.br' => 'Bruno Masquio',
-        'afdsilva@alerj.rj.gov.br' => 'Alexandre Ferreira',
-        'blainier@alerj.rj.gov.br' => 'Breno Laignier',
+        //        'ovalenca@alerj.rj.gov.br' => 'Orlando Vinícios Valença',
+        //        'bmasqui@alerj.rj.gov.br' => 'Bruno Masquio',
+        //        'afdsilva@alerj.rj.gov.br' => 'Alexandre Ferreira',
+        //        'blainier@alerj.rj.gov.br' => 'Breno Laignier',
     ];
 
     /**

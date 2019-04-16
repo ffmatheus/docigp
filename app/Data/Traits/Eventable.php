@@ -7,6 +7,24 @@ use Illuminate\Support\Str;
 
 trait Eventable
 {
+    protected static $modelEventsEnabled = true;
+
+    /**
+     * Disable model events.
+     */
+    public static function disableEvents()
+    {
+        static::$modelEventsEnabled = false;
+    }
+
+    /**
+     * Enable model events.
+     */
+    public static function enableEvents()
+    {
+        static::$modelEventsEnabled = true;
+    }
+
     /**
      * @param $model
      * @param string $type

@@ -2,10 +2,13 @@
 
 namespace App\Data\Models;
 
+use App\Data\Traits\Eventable;
+use App\Events\UserCreated;
 use OwenIt\Auditing\Auditable;
 use App\Data\Traits\Selectable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\BouncerFacade as Bouncer;
+use App\Notifications\UserWelcomeNotification;
 use App\Notifications\ResetPasswordNotification;
 use Silber\Bouncer\Database\Role as BouncerRole;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
@@ -14,7 +17,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class User extends Authenticatable implements AuditableContract
 {
-    use Notifiable, Auditable, Selectable, HasRolesAndAbilities;
+    use Notifiable, Auditable, Selectable, HasRolesAndAbilities, Eventable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +47,17 @@ class User extends Authenticatable implements AuditableContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function (User $model) {
+            if (static::$modelEventsEnabled) {
+                event(new UserCreated($model));
+            }
+        });
+    }
 
     /**
      * @return array
@@ -122,5 +136,10 @@ class User extends Authenticatable implements AuditableContract
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function sendWelcomeMessage()
+    {
+        $this->notify(new UserWelcomeNotification());
     }
 }
