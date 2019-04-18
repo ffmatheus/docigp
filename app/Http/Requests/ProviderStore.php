@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Services\CpfCnpj\CpfCnpj;
+use App\Rules\ValidCPF;
+use App\Rules\ValidCNPJ;
 
 class ProviderStore extends Request
 {
@@ -13,7 +15,8 @@ class ProviderStore extends Request
      */
     public function rules()
     {
-        $cpfOrCnpj = $this->get('type') == 'PF' ? 'cpf' : 'cnpj';
+        $cpfOrCnpj =
+            $this->get('type') == 'PF' ? new ValidCPF() : new ValidCNPJ();
         return [
             'cpf_cnpj' => ['required', $cpfOrCnpj, 'unique:providers'],
             'name' => 'required',
