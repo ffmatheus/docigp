@@ -49,7 +49,7 @@ class Entry extends Model
 
     protected $selectColumnsRaw = [
         '(select count(*) from entry_documents ed where ed.entry_id = entries.id) as documents_count',
-        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null) > 0 as has_pendency',
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null :published-at-filter:) > 0 as has_pendency',
     ];
 
     protected $filterableColumns = [

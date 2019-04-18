@@ -35,7 +35,7 @@ class CongressmanBudget extends Model
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.entry_type_id = ' .
             Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID .
             ') > 0 as has_deposit',
-        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id) as entries_count',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id :published-at-filter:) as entries_count',
         '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value > 0) as sum_credit',
         '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value < 0) as sum_debit',
     ];
