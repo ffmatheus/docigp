@@ -35,10 +35,8 @@ class Providers extends Controller
 
     public function show($id)
     {
-        return view('admin.providers.form')
-            ->with('formDisabled', true)
-            ->with([
-                'provider' => app(ProvidersRepository::class)->findById($id),
-            ]);
+        return view('admin.providers.form')->with([
+            'provider' => app(ProvidersRepository::class)->findById($id),
+        ]);
     }
 }

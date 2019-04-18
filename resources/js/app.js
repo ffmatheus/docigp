@@ -5,3 +5,6 @@ require('./support/core')
 require('./support/vue')
 require('./support/broadcast')
 require('./pages/boostrap')
+
+
+require('./apps/providers.js')
