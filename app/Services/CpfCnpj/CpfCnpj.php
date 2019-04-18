@@ -151,7 +151,7 @@ class CpfCnpj
      * @author                Luiz Otávio Miranda <contato@tutsup.com>
      * @access protected
      */
-    protected function validateCpf()
+    public function validateCpf()
     {
         // Captura os 9 primeiros dígitos do CPF
         // Ex.: 02546288423 = 025462884
@@ -181,7 +181,7 @@ class CpfCnpj
      * @author                  Luiz Otávio Miranda <contato@tutsup.com>
      * @access protected
      */
-    protected function validateCnpj()
+    public function validateCnpj()
     {
         // O number original
         $originalCnpj = $this->number;
