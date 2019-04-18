@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 
+use App\Rules\ValidCPF;
+use App\Rules\ValidCNPJ;
+
 class ProviderUpdate extends ProviderStore
 {
     /**
@@ -13,7 +16,8 @@ class ProviderUpdate extends ProviderStore
      */
     public function rules()
     {
-        $cpfOrCnpj = $this->get('type') == 'PF' ? 'cpf' : 'cnpj';
+        $cpfOrCnpj =
+            $this->get('type') == 'PF' ? new ValidCPF() : new ValidCNPJ();
         return [
             'cpf_cnpj' => [
                 'required',
