@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Data\Repositories\Providers as ProvidersRepository;
 use App\Http\Requests\ProviderStore as ProviderStoreRequest;
 use App\Http\Requests\ProviderUpdate as ProviderUpdateRequest;
-use App\Data\Repositories\Providers as ProvidersRepository;
 
 class Providers extends Controller
 {
@@ -34,12 +34,9 @@ class Providers extends Controller
 
     public function show($id)
     {
-        return view('admin.providers.form')
-            ->with('formDisabled', true)
-            ->with([
-                'provider' => app(ProvidersRepository::class)->findById($id),
-                'mode' => 'edit',
-            ]);
+        return view('admin.providers.form')->with([
+            'provider' => app(ProvidersRepository::class)->findById($id),
+        ]);
     }
 
     /**
@@ -49,10 +46,7 @@ class Providers extends Controller
      */
     public function update(ProviderUpdateRequest $request, $id)
     {
-        $provider = app(ProvidersRepository::class)->update(
-            $id,
-            $request->all()
-        );
+        app(ProvidersRepository::class)->update($id, $request->all());
 
         return redirect()->route('providers.index');
     }
