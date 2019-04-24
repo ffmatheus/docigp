@@ -105,7 +105,7 @@ class Users extends Controller
                 'users',
                 $this->usersRepository
                     ->searchFromRequest($p)
-                    ->appends('roles_string')
+                   // ->appends('roles_string')
             );
         }else{
             return view('admin.users.index')->with(

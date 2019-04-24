@@ -108,7 +108,11 @@ class Users extends Repository
                 return strtolower($item);
             });
 
-        $columns = collect(['number' => 'string']);
+        $columns = collect([
+            'name' => 'string',
+            'email' => 'string',
+            'username' => 'string',
+        ]);
 
         $query = $this->model::query();
 
