@@ -1,4 +1,4 @@
-# DOCIGP - Descentralização Orçamentária de Custeio Indivitualizado para Gabinete Parlamentar 
+# DOCIGP - Descentralização Orçamentária de Custeio Individualizado para Gabinete Parlamentar 
 
 ## [https://docigp.alerj.rj.gov.br/](https://docigp.alerj.rj.gov.br/)
 
