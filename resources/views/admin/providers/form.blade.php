@@ -2,9 +2,7 @@
 
 @section('content')
     <div class="card card-default">
-        <form name="formulario" id="formulario" @if($mode == 'edit') action="{{ route('providers.update', ['id' => $provider->id]) }}" @else action="{{ route('providers.store')}}" @endIf method="POST">
-            {{ csrf_field() }}
-
+        <form name="formulario" id="formulario" action="{{ route('providers.store') }}" method="POST">
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-8 align-self-center">
@@ -44,6 +42,9 @@
                     </div>
                 @endif
 
+
+                {{ csrf_field() }}
+
                 <input type="hidden" name="id" value="{{$provider->id}}" >
 
                 <div class="row">
@@ -70,9 +71,7 @@
                         </div>
                     </div>
                 </div>
-
-                @include('partials.save-button')
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 @endsection
