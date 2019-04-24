@@ -9,6 +9,8 @@
                         <i class="fa fa-plus"></i> Novo
                     </a>
                 @endif
+
+
             </div>
 
             <div class="col-xs-8 d-flex justify-content-end">
@@ -38,6 +40,16 @@
                     @endif
                 </div>
             </div>
+
+            @if(isset($routeSearch))
+                <div class="col-xs-8 d-flex justify-content-end">
+                    <div class="input-group">
+                        <a href="{{ route($routeSearch) }}" class="btn btn-primary pull-right">
+                            <i class="fas fa-eraser"></i> Limpar
+                        </a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </form>
