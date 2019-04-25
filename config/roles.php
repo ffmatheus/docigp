@@ -69,6 +69,23 @@ return [
                 'entry-documents:analyse' => 'Documentos: analisar',
             ],
         ],
+        [
+            'group' => 'financial',
+
+            'abilities' => [
+                'assign:financier' => 'Atribuir perfil de Financeiro',
+
+                'congressman:show' => 'Deputados: ver',
+
+                'congressman-budgets:show' => 'Orçamento de Deputado: ver',
+                'congressman-budgets:deposit' =>
+                    'Orçamento de Deputado: depositar',
+
+                'entries:show' => 'Lançamentos: ver',
+
+                'entry-documents:show' => 'Documentos: ver',
+            ],
+        ],
     ],
 
     'roles' => [
@@ -123,6 +140,10 @@ return [
         [
             'title' => 'Visualizador',
             'name' => 'viewer',
+        ],
+        [
+            'title' => 'Financeiro',
+            'name' => 'financier',
         ],
     ],
 ];
