@@ -7,5 +7,7 @@ Route::group(['prefix' => '/legislatures'], function () {
 
     Route::get('/{id}', 'Legislatures@show')->name('legislatures.show');
 
+    Route::post('/{id}', 'Legislatures@update')->name('legislatures.update');
+
     Route::get('/', 'Legislatures@index')->name('legislatures.index');
 });
