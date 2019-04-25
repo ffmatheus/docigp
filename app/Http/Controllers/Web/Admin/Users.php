@@ -36,8 +36,7 @@ class Users extends Controller
         return view('admin.users.form')
             ->with('assignableRoles', \Auth::user()->assignable_roles)
             ->with('user', $this->usersRepository->new())
-            ->with('mode', 'create')
-            ->with('formDisabled', true);
+            ->with('mode', 'create');
     }
 
     //protected $appends = ['roles', 'abilities', 'roles_string'];
@@ -53,9 +52,8 @@ class Users extends Controller
 
         return view('admin.users.form')
             ->with('assignableRoles', \Auth::user()->assignable_roles)
-            ->with('mode', 'edit')
-            ->with('user', $user->append('roles'))
-            ->with('formDisabled', true);
+            ->with('mode', 'show')
+            ->with('user', $user->append('roles'));
     }
 
     public function normalizeUserInfoFromRequest(UserStoreRequest $request)
