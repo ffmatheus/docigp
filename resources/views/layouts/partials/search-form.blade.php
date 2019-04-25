@@ -15,7 +15,7 @@
 
             <div class="col-xs-8 d-flex justify-content-end">
                 <div class="input-group">
-                    <input class="form-control" name="pesquisa" placeholder="Pesquisar" value="{{$_GET['pesquisa'] ?? '' }}">
+                    <input class="form-control" name="pesquisa" placeholder="Pesquisar" value="{{request('pesquisa') ?? '' }}">
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2" onClick="javascript:document.getElementById('searchForm').submit();">
                             <i class="fa fa-search"></i>

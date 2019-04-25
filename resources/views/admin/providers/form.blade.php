@@ -70,9 +70,8 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
             @include('partials.save-button')
         </form>
-    </div>
     </div>
 @endsection

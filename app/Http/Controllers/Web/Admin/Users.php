@@ -99,15 +99,14 @@ class Users extends Controller
      */
     public function index()
     {
-        $p = Input::get('pesquisa');
-        if(isset($p)) {
+        $p = request('pesquisa');
+        if (isset($p)) {
             return view('admin.users.index')->with(
                 'users',
-                $this->usersRepository
-                    ->searchFromRequest($p)
-                   // ->appends('roles_string')
+                $this->usersRepository->searchFromRequest($p)
+                // ->appends('roles_string')
             );
-        }else{
+        } else {
             return view('admin.users.index')->with(
                 'users',
                 $this->usersRepository
