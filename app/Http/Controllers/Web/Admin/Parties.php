@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
-use App\Data\Repositories\Providers as ProvidersRepository;
-use App\Http\Requests\ProviderUpdate as ProviderUpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
