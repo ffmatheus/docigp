@@ -54,10 +54,7 @@ class Parties extends Controller
      */
     public function update(PartyRequest $request, $id)
     {
-        app(PartiesRepository::class)->update(
-            $id,
-            $request->all()
-        );
+        app(PartiesRepository::class)->update($id, $request->all());
 
         return redirect()->route('parties.index');
     }

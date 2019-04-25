@@ -7,3 +7,5 @@ require('./support/broadcast')
 require('./pages/boostrap')
 
 require('./apps/providers.js')
+require('./apps/parties.js')
+require('./apps/legislatures.js')
