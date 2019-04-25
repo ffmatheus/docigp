@@ -47,10 +47,7 @@ class Providers extends Controller
      */
     public function update(ProviderUpdateRequest $request, $id)
     {
-        $provider = app(ProvidersRepository::class)->update(
-            $id,
-            $request->all()
-        );
+        app(ProvidersRepository::class)->update($id, $request->all());
 
         return redirect()->route('providers.index');
     }
