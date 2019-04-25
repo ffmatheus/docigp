@@ -38,7 +38,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="email">E-mail ALERJ</label>
-                                    <input class="form-control" @if($mode == 'edit') disabled @endIf name="email" id="email" value="{{$user->email}}" />
+                                    <input class="form-control" @if($mode == 'edit') readonly="readonly" @endIf name="email" id="email" value="{{$user->email}}" />
                                 </div>
                             </div>
 
