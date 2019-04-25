@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Data\Repositories\Providers as ProvidersRepository;
+use App\Http\Requests\ProviderUpdate as ProviderUpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -45,5 +47,20 @@ class Parties extends Controller
         return view('admin.parties.form')->with([
             'party' => app(PartiesRepository::class)->new(),
         ]);
+    }
+
+    /**
+     * @param PartyRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(PartyRequest $request, $id)
+    {
+        app(PartiesRepository::class)->update(
+            $id,
+            $request->all()
+        );
+
+        return redirect()->route('parties.index');
     }
 }
