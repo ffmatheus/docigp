@@ -49,7 +49,7 @@ class Entry extends Model
 
     protected $selectColumnsRaw = [
         '(select count(*) from entry_documents ed where ed.entry_id = entries.id) as documents_count',
-        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null) > 0 as has_pendency',
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null :published-at-filter:) > 0 as has_pendency',
     ];
 
     protected $filterableColumns = [
@@ -68,8 +68,6 @@ class Entry extends Model
 
     protected $updatingTransport = false;
 
-    protected static $eventsEnabled = true;
-
     public static function boot()
     {
         parent::boot();
@@ -77,19 +75,19 @@ class Entry extends Model
         static::addGlobalScope(new Published());
 
         static::updated(function (Entry $model) {
-            if (static::$eventsEnabled) {
+            if (static::$modelEventsEnabled) {
                 $model->updateTransport();
             }
         });
 
         static::created(function (Entry $model) {
-            if (static::$eventsEnabled) {
+            if (static::$modelEventsEnabled) {
                 $model->updateTransport();
             }
         });
 
         static::deleted(function (Entry $model) {
-            if (static::$eventsEnabled) {
+            if (static::$modelEventsEnabled) {
                 $model->updateTransport();
             }
         });
@@ -131,16 +129,6 @@ class Entry extends Model
         $this->congressmanBudget->updateTransportEntries();
 
         $this->updatingTransport = false;
-    }
-
-    public static function disableEvents()
-    {
-        static::$eventsEnabled = false;
-    }
-
-    public static function enableEvents()
-    {
-        static::$eventsEnabled = true;
     }
 
     public static function disableGlobalScopes()

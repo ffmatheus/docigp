@@ -14,4 +14,6 @@ class CostCenter extends Model
         'created_by_id',
         'updated_by_id',
     ];
+
+    protected $orderBy = ['code' => 'asc'];
 }

@@ -21,7 +21,6 @@ class CreateFilesTables extends Migration
             $table->text('hash');
             $table->text('drive');
             $table->text('path');
-            $table->text('public_url');
             $table->text('mime_type');
 
             $table

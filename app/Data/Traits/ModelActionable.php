@@ -24,7 +24,6 @@ trait ModelActionable
 
     public function analyse()
     {
-        info($this);
         $this->update([
             'analysed_at' => now(),
             'analysed_by_id' => auth()->user()->id,

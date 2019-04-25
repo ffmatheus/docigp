@@ -13,7 +13,6 @@ class EntryType extends Request
     {
         return [
             'name' => 'required',
-            'document_number_required' => 'required',
         ];
     }
 }

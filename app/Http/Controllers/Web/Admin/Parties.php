@@ -26,15 +26,26 @@ class Parties extends Controller
 
     public function show($id)
     {
-        return view('admin.parties.show')
-            ->with('formDisabled', true)
-            ->with(['party' => $this->repository->findById($id)]);
+        return view('admin.parties.form')->with([
+            'party' => $this->repository->findById($id),
+            'mode' => 'show',
+        ]);
     }
 
     public function store(PartyRequest $request)
     {
         $this->repository->createFromRequest($request);
 
-        return redirect()->route('admin.legislatures.index');
+        return redirect()
+            ->route('parties.index')
+            ->with($this->getSuccessMessage('Partido Gravado com Sucesso'));
+    }
+
+    public function create()
+    {
+        return view('admin.parties.form')->with([
+            'party' => app(PartiesRepository::class)->new(),
+            'mode' => 'create',
+        ]);
     }
 }

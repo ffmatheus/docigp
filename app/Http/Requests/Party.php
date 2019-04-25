@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class Provider extends Request
+class Party extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,9 +12,8 @@ class Provider extends Request
     public function rules()
     {
         return [
-            'cpf_cnpj' => 'required', //cpf_cnpj //TODO adicionar o plugin.
+            'code' => 'required',
             'name' => 'required',
-            'type' => 'required',
         ];
     }
 }

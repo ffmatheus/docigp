@@ -7,5 +7,7 @@ Route::group(['prefix' => '/costCenters'], function () {
 
     Route::get('/{id}', 'CostCenters@show')->name('costCenters.show');
 
+    Route::post('/{id}', 'CostCenters@update')->name('costCenters.update');
+
     Route::get('/', 'CostCenters@index')->name('costCenters.index');
 });

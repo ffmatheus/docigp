@@ -203,5 +203,11 @@ return [
         'year' => 'ano',
         'email' => 'e-mail',
         'remember' => 'lembrar-se de mim',
+        //cost centers
+        'code' => 'código',
+        'parent_code' => 'código superior',
+        'frequency' => 'frequência',
+        'limit' => 'limite',
+        'can_accumulate' => 'acumulável',
     ],
 ];

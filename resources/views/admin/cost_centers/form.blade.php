@@ -15,11 +15,6 @@
                         @endif
                     </h4>
                 </div>
-
-                <div class="col-xs-4 col-md-2 text-right">
-                    @include('partials.save-button')
-                    @include('partials.edit-button', ['model' => $costCenter])
-                </div>
             </div>
         </div>
 
@@ -31,62 +26,67 @@
                     {{ $errors->first('name') }}
                 </div>
             @endif
+
             @if ($errors->has('code'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('code') }}
                 </div>
             @endif
+
             @if ($errors->has('parent_code'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('parent_code') }}
                 </div>
             @endif
+
             @if ($errors->has('frequency'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('frequency') }}
                 </div>
             @endif
+
             @if ($errors->has('limit'))
                 <div class="alert alert-danger" role="alert">
                     {{ $errors->first('limit') }}
                 </div>
             @endif
 
-
-
-            <form name="formulario" id="formulario" action="{{ route('costCenters.store') }}" method="POST">
+            <form name="formulario" id="formulario" @if($mode == 'edit') action="{{ route('costCenters.update', ['id' => $costCenter->id]) }}" @else action="{{ route('costCenters.store')}}" @endIf method="POST">
                 {{ csrf_field() }}
 
                 <input type="hidden" name="id" value="{{$costCenter->id}}" >
 
                 <div class="row">
-                    <div class="form-group col-md-6">
-                        <div class="col-md-12">
-                            <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input class="form-control" name="name" id="name" value="{{$costCenter->name}}"/>
+                        </div>
 
-                                <label for="name">Nome</label>
-                                <input type="text" name="name" id="name" value="{{$costCenter->name}}"/>
+                        <div class="form-group">
+                            <label for="code">Código</label>
+                            <input class="form-control" name="code" id="code" value="{{$costCenter->code}}"/>
+                        </div>
 
-                                <label for="code">Sigla (Código)</label>
-                                <select name="code" id="code">
-                                    <option value="">Selecione</option>
-                                </select>
+                        <div class="form-group">
+                            <label for="parent_code">Código Superior</label>
+                            <input class="form-control" name="parent_code" id="parent_code" value="{{$costCenter->parent_code}}"/>
+                        </div>
 
-                                <label for="parent_code">Sigla Superior(Código)</label>
-                                <select name="parent_code" id="parent_code">
-                                    <option value="">Selecione</option>
-                                </select>
+                        <div class="form-group">
+                            <label for="frequency">Frequência</label>
+                            <input class="form-control" name="frequency" id="frequency" value="{{$costCenter->frequency}}"/>
+                        </div>
 
-                                <label for="frequency">Frequência</label>
-                                <input type="text" name="frequency" id="frequency" value="{{$costCenter->frequency}}"/>
+                        <div class="form-group">
+                            <label for="limit">Limite</label>
+                            <input class="form-control" name="limit" id="limit" value="{{$costCenter->limit}}"/>
+                        </div>
 
-                                <label for="limit">Limite</label>
-                                <input type="text" name="limit" id="limit" value="{{$costCenter->limit}}"/>
-
-                                <label for="can_accumulate">Acumulável</label>
-                                <input type="checkbox" name="can_accumulate" id="can_accumulate" value="{{$costCenter->can_accumulate}}"/>
-
-                            </div>
+                        <div class="form-group">
+                            <label for="can_accumulate">Acumulável</label>
+                            <input class="form-control" type="hidden" name="can_accumulate" value="false">
+                            <input class="form-control" type="checkbox" name="can_accumulate" id="can_accumulate" {{$costCenter->can_accumulate ? 'checked="checked"' : ''}}/>
                         </div>
                     </div>
                 </div>

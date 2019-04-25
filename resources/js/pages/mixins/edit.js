@@ -1,8 +1,7 @@
 export default {
     data() {
         return {
-            // mode: laravel.mode,
-            mode: '',
+            mode: mode,
         }
     },
 

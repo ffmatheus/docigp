@@ -74,36 +74,9 @@ class Users extends Repository
     /**
      * @return mixed
      */
-    public function all()
-    {
-        return User::orderBy('name')->get();
-    }
-
-    /**
-     * @return mixed
-     */
     public function notifiables()
     {
         return User::where('all_notifications', true)->get();
-    }
-
-    /**
-     * @param $user
-     * @param $permission
-     * @return bool
-     */
-    public function userHasPermission($user, $permission)
-    {
-        return in_array($permission, $user->permissions_array);
-    }
-
-    /**
-     * @param $user
-     * @return bool
-     */
-    public function userHasAnyPermission($user)
-    {
-        return count($user->permissions_array) > 0;
     }
 
     public function updatePerPage($user, $size)

@@ -55,7 +55,7 @@ class EntryStore extends Request
             $all['date'] = Carbon::createFromFormat('d/m/Y', $all['date']);
         }
 
-        if (isset($all['value'])) {
+        if (!isset($all['value']) && isset($all['value_abs'])) {
             $all['value'] = -$all['value_abs'];
         }
 

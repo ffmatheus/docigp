@@ -8,3 +8,4 @@ require('./pages/boostrap')
 
 
 require('./apps/providers.js')
+require('./apps/parties.js')

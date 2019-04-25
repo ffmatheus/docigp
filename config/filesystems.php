@@ -65,7 +65,15 @@ return [
 
         'documents' => [
             'driver' => 'local',
-            'root' => storage_path('documents'),
+
+            'sub_dir' => ($subDir = env(
+                'DOCUMENTS_FILESYSTEM_SUB_DIR',
+                'documents'
+            )),
+
+            'root' => storage_path("app/public/{$subDir}"),
+
+            'url_prefix' => env('APP_URL') . '/storage/' . $subDir . '/',
         ],
     ],
 ];

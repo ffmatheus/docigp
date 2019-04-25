@@ -1,5 +1,6 @@
 <script>
     window.laravel = @json($environment);
+    window.mode = @if (@isset($mode)) @json($mode) @endif;
 </script>
 
 @if (!app()->environment('production') || config('app.debug'))
