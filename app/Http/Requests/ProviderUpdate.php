@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Rules\ValidCPF;
 use App\Rules\ValidCNPJ;
 
-class ProviderUpdate extends ProviderStore
+class ProviderUpdate extends Request
 {
     /**
      * Get the validation rules that apply to the request.
