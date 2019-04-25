@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Data\Repositories\Providers as ProvidersRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EntryType as EntryTypeRequest;
 use App\Data\Repositories\EntryTypes as EntryTypesRepository;
+use App\Http\Requests\ProviderUpdate as ProviderUpdateRequest;
 
 class EntryTypes extends Controller
 {
@@ -22,12 +24,12 @@ class EntryTypes extends Controller
     {
         return view('admin.entry_types.form')->with([
             'entryType' => app(EntryTypesRepository::class)->new(),
+            'mode' => 'create',
         ]);
     }
 
     public function store(EntryTypeRequest $request)
     {
-        $request->merge(['created_by_id' => current_user()->id]);
         app(EntryTypesRepository::class)->create($request->all());
 
         return redirect()->route('entryTypes.index');
@@ -35,10 +37,21 @@ class EntryTypes extends Controller
 
     public function show($id)
     {
-        return view('admin.entry_types.form')
-            ->with('formDisabled', true)
-            ->with([
-                'entryType' => app(EntryTypesRepository::class)->findById($id),
-            ]);
+        return view('admin.entry_types.form')->with([
+            'entryType' => app(EntryTypesRepository::class)->findById($id),
+            'mode' => 'show',
+        ]);
+    }
+
+    /**
+     * @param EntryTypeRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(EntryTypeRequest $request, $id)
+    {
+        app(EntryTypesRepository::class)->update($id, $request->all());
+
+        return redirect()->route('entryTypes.index');
     }
 }
