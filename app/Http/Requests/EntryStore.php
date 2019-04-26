@@ -15,7 +15,7 @@ class EntryStore extends Request
      */
     public function authorize()
     {
-        return Gate::allows('entries:store');
+        return allows('entries:store');
     }
 
     private function getQueryValue(string $string)

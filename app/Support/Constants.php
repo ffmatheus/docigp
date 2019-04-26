@@ -16,4 +16,6 @@ class Constants
     const ENTRY_TYPE_CHECK_ID = 4;
     const ENTRY_TYPE_DEBIT_ID = 5;
     const ENTRY_TYPE_ACCOUNT_DEBIT_ID = 6;
+
+    const ROLE_CONGRESSMAN = 'congressman';
 }

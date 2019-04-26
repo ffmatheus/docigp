@@ -1,5 +1,7 @@
 <?php
 
+use App\Support\Constants;
+
 return [
     'grants' => [
         [
@@ -16,6 +18,8 @@ return [
                 'assign:verifier' => 'Atribuir perfil de Verificador',
 
                 'congressman:show' => 'Deputados: ver',
+                'congressman:update' => 'Deputados: alterar',
+
                 'congressman-budgets:show' => 'Orçamento de Deputado: ver',
                 'congressman-budgets:store' => 'Orçamento de Deputado: criar',
                 'congressman-budgets:update' =>
@@ -57,11 +61,15 @@ return [
                 'providers:show' => 'Fornecedores: ver',
                 'providers:store' => 'Fornecedores: criar',
                 'providers:update' => 'Fornecedores: alterar',
+
+                'cost-centers:show' => 'Centros de custo: ver',
+                'cost-centers:store' => 'Centros de custo: criar',
+                'cost-centers:update' => 'Centros de custo: alterar',
             ],
         ],
 
         [
-            'group' => 'congressman',
+            'group' => Constants::ROLE_CONGRESSMAN,
 
             'abilities' => [
                 'assign:chief',

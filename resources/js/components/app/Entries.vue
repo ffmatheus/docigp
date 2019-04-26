@@ -210,11 +210,8 @@
                     </button>
 
                     <button
-                        :disabled="
-                            !can('entries:update') ||
-                                entry.analysed_at ||
-                                entry.verified_at
-                        "
+                        v-if="can('entries:update')"
+                        :disabled="entry.analysed_at || entry.verified_at"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="editEntry(entry)"
                         title="editar lançamento"
@@ -223,11 +220,8 @@
                     </button>
 
                     <button
-                        :disabled="
-                            !can('entries:delete') ||
-                                entry.analysed_at ||
-                                entry.verified_at
-                        "
+                        v-if="can('entries:delete')"
+                        :disabled="entry.analysed_at || entry.verified_at"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(entry)"
                         title="deletar lançamento"

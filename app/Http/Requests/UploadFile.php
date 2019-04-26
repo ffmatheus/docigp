@@ -14,7 +14,7 @@ class UploadFile extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('entry-documents:store');
+        return allows('entry-documents:store');
     }
 
     /**

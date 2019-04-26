@@ -280,6 +280,15 @@ function nin($needle, ...$haystack): bool
     return !in($needle, ...$haystack);
 }
 
+function allows($ability) {
+    if (!$can = \Illuminate\Support\Facades\Gate::allows($ability)) {
+//    if (!$can = auth()->user()->can($ability)) {
+        info(sprintf('User [%s, %s] is not permitted to do %s', auth()->user()->name, auth()->user()->email, $ability));
+    }
+
+    return $can;
+}
+
 function make_deep_path($nameHash, $length = 4)
 {
     $deepPath = '';
