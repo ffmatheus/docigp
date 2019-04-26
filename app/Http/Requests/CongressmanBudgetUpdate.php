@@ -11,9 +11,7 @@ class CongressmanBudgetUpdate extends Request
      */
     public function authorize()
     {
-        return true;
-
-        //return Gate::allows('congressmen:modify');
+        return allows('congressman-budgets:update');
     }
 
     /**

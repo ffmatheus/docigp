@@ -5,7 +5,10 @@ namespace App\Services\DataSync;
 use App\Data\Repositories\Parties;
 use App\Data\Repositories\Congressmen;
 use App\Data\Repositories\Departaments;
+use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\BouncerFacade as Bouncer;
+use Silber\Bouncer\Database\Ability as BouncerAbility;
+use Silber\Bouncer\Database\Role as BouncerRole;
 use PragmaRX\Coollection\Package\Coollection;
 use App\Services\HttpClient\Service as HttpClientService;
 
@@ -69,24 +72,45 @@ class Service
         $this->rolesAbilities();
     }
 
+    public function guessAbilityName($title, $ability)
+    {
+        // Se a $ability for numérico, não temos o title da ability.
+        // Temos o índice numérico no $ability e o nome da ability em $title
+        return is_numeric($ability) ? $title : $ability;
+    }
+
+    public function findOrCreateAbility($title, $ability)
+    {
+        $model = BouncerAbility::where(
+            'name',
+            $this->guessAbilityName($title, $ability)
+        )->first();
+
+        return $model ? [$model->title, $model->name] : [$title, $ability];
+    }
+
     public function rolesAbilities()
     {
         collect(config('roles.grants'))->each(function ($grant) {
             collect($grant['abilities'])->each(function ($title, $ability) use (
                 $grant
             ) {
-                Bouncer::ability()->updateOrCreate(
-                    [
-                        'name' => $ability,
-                    ],
-                    [
-                        'title' => $title,
-                    ]
+                list($title, $ability) = $this->findOrCreateAbility(
+                    $title,
+                    $ability
                 );
 
                 if (in($ability, 'everything', '*')) {
                     Bouncer::allow($grant['group'])->everything();
                 } else {
+                    Bouncer::ability()->updateOrCreate(
+                        [
+                            'name' => $ability,
+                        ],
+                        [
+                            'title' => $title,
+                        ]
+                    );
                     Bouncer::allow($grant['group'])->to($ability);
                 }
             });

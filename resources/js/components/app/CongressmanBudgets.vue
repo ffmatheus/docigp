@@ -128,7 +128,7 @@
                                 congressmanBudget.analysed_at
                         "
                         class="btn btn-sm btn-micro btn-warning"
-                        title="Cancelar marcação de 'em analisado'"
+                        title="Cancelar marcação de 'analisado'"
                         @click="unanalyse(congressmanBudget)"
                     >
                         <i class="fa fa-ban"></i> analisado
@@ -273,7 +273,7 @@ export default {
         },
 
         analyse(congressmanBudget) {
-            confirm('Este orçamento mensal está "EM CONFORMIDADE"?', this).then(
+            confirm('Este orçamento mensal foi ANALISADO?', this).then(
                 value => {
                     value &&
                         this.$store.dispatch(
@@ -286,7 +286,7 @@ export default {
 
         unanalyse(congressmanBudget) {
             confirm(
-                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
+                'Deseja remover o status "ANALISADO" deste lançamento?',
                 this,
             ).then(value => {
                 value &&

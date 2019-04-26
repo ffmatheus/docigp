@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 class CostCenterStore extends Request
 {
+    public function authorize()
+    {
+        return allows('cost-centers:store');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
