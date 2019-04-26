@@ -310,9 +310,11 @@ function make_deep_path($nameHash, $length = 4)
     return $deepPath;
 }
 
-function formMode($mode)
+function formMode($mode = null)
 {
-    session()->flash(Constants::SESSION_FORM_MODE, $mode);
+    return $mode
+        ? session()->flash(Constants::SESSION_FORM_MODE, $mode)
+        : session(Constants::SESSION_FORM_MODE);
 }
 
 class Timer
