@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CostCenterStore as CostCenterRequest;
 use App\Data\Repositories\CostCenters as CostCentersRepository;
 use App\Http\Requests\CostCenterUpdate as CostCenterUpdateRequest;
+use App\Support\Constants;
 
 class CostCenters extends Controller
 {
@@ -19,7 +20,7 @@ class CostCenters extends Controller
 
     public function create()
     {
-        formMode('create');
+        formMode(Constants::FORM_MODE_CREATE);
 
         return view('admin.cost_centers.form')->with([
             'costCenter' => app(CostCentersRepository::class)->new(),
