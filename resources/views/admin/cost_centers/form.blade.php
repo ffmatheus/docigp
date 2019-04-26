@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card card-default" id="vue-cost_centers">
-        <form name="formulario" id="formulario" @if($mode == 'show') action="{{ route('costCenters.update', ['id' => $costCenter->id]) }}" @else action="{{ route('costCenters.store')}}" @endIf method="POST">
+        <form name="formulario" id="formulario" @if(session('form_mode') == 'show') action="{{ route('costCenters.update', ['id' => $costCenter->id]) }}" @else action="{{ route('costCenters.store')}}" @endIf method="POST">
             {{ csrf_field() }}
             <input name="id" type="hidden" value="{{$costCenter->id}}" id="id" >
 

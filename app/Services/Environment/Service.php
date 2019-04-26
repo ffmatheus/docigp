@@ -2,6 +2,7 @@
 
 namespace App\Services\Environment;
 
+use App\Support\Constants;
 use PragmaRX\Version\Package\Facade as Version;
 
 class Service
@@ -16,6 +17,10 @@ class Service
                     : config('app.client_key'),
                 'id' => auth()->user() ? auth()->user()->email : csrf_token(),
                 'version' => Version::format('compact'),
+            ],
+
+            'form' => [
+                'mode' => session(Constants::SESSION_FORM_MODE, 'show'),
             ],
 
             'token' => csrf_token(),

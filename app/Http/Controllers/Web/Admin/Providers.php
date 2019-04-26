@@ -19,9 +19,10 @@ class Providers extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.providers.form')->with([
             'provider' => app(ProvidersRepository::class)->new(),
-            'mode' => 'create',
         ]);
     }
 

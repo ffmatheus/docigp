@@ -2,7 +2,7 @@
     <button
         type="button"
         v-on:click.prevent="editButton()"
-        class="btn btn-danger"
+        class="btn btn-primary ml-1"
         id="vue-editButton"
         :disabled="isEditing || isCreating"
     >

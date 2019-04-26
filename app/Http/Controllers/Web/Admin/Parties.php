@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Party as PartyRequest;
 use App\Data\Repositories\Parties as PartiesRepository;
 
@@ -26,9 +25,9 @@ class Parties extends Controller
 
     public function show($id)
     {
-        return view('admin.parties.form')
-            ->with('formDisabled', true)
-            ->with(['party' => $this->repository->findById($id)]);
+        return view('admin.parties.form')->with([
+            'party' => $this->repository->findById($id),
+        ]);
     }
 
     public function store(PartyRequest $request)
@@ -42,6 +41,8 @@ class Parties extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.parties.form')->with([
             'party' => app(PartiesRepository::class)->new(),
         ]);

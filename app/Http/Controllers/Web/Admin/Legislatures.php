@@ -21,9 +21,10 @@ class Legislatures extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.legislatures.form')->with([
             'legislature' => app(LegislaturesRepository::class)->new(),
-            'mode' => 'create',
         ]);
     }
 

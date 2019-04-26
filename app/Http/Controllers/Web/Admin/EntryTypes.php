@@ -22,9 +22,10 @@ class EntryTypes extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.entry_types.form')->with([
             'entryType' => app(EntryTypesRepository::class)->new(),
-            'mode' => 'create',
         ]);
     }
 
@@ -39,7 +40,6 @@ class EntryTypes extends Controller
     {
         return view('admin.entry_types.form')->with([
             'entryType' => app(EntryTypesRepository::class)->findById($id),
-            'mode' => 'show',
         ]);
     }
 

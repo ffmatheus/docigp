@@ -1,7 +1,7 @@
-<button type="submit" class="btn btn-danger" @include('partials.disabled',['model'=>$model])>
-    <i class="far fa-save"></i> Gravar
+<button id="cancelButton" class="btn btn-success ml-1" v-on:click.prevent="cancel()"  :disabled="!(isEditing || isCreating)">
+    <i class="fas fa-ban"></i> Cancelar
 </button>
 
-<button id="cancelButton" class="btn btn-danger" v-on:click.prevent="cancel()"  :disabled="!(isEditing || isCreating)">
-    <i class="fas fa-ban"></i> Cancelar
+<button type="submit" class="btn btn-outline-danger ml-1" @include('partials.disabled',['model'=>$model])>
+    <i class="fa fa-save"></i> Gravar
 </button>

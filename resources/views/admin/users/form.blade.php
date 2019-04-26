@@ -28,7 +28,7 @@
                     </div>
                 @endif
 
-                <form name="formUsers" id="formUsers" @if($mode == 'show') action="{{ route('users.update', ['id' => $user->id]) }}" @else action="{{ route('users.store')}}" @endIf method="POST">
+                <form name="formUsers" id="formUsers" @if(session('form_mode') == 'show') action="{{ route('users.update', ['id' => $user->id]) }}" @else action="{{ route('users.store')}}" @endIf method="POST">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="id" value="{{$user->id}}"/>
