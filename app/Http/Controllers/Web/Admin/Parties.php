@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Support\Constants;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Party as PartyRequest;
@@ -41,7 +42,7 @@ class Parties extends Controller
 
     public function create()
     {
-        formMode('create');
+        formMode(Constants::FORM_MODE_CREATE);
 
         return view('admin.parties.form')->with([
             'party' => app(PartiesRepository::class)->new(),

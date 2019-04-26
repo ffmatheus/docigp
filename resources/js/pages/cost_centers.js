@@ -1,7 +1,7 @@
 import { mapState } from 'vuex'
+import editMixin from './mixins/edit'
 
-const appName = 'vue-parties'
-import editMixin from '../pages/mixins/edit'
+const appName = 'vue-cost_centers'
 
 if (jQuery('#' + appName).length > 0) {
     new Vue({

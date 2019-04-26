@@ -314,7 +314,7 @@ function formMode($mode = null)
 {
     return $mode
         ? session()->flash(Constants::SESSION_FORM_MODE, $mode)
-        : session(Constants::SESSION_FORM_MODE);
+        : session(Constants::SESSION_FORM_MODE, Constants::FORM_MODE_SHOW);
 }
 
 class Timer

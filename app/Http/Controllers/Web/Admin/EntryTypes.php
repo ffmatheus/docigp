@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EntryType as EntryTypeRequest;
 use App\Data\Repositories\EntryTypes as EntryTypesRepository;
 use App\Http\Requests\ProviderUpdate as ProviderUpdateRequest;
+use App\Support\Constants;
 
 class EntryTypes extends Controller
 {
@@ -22,7 +23,7 @@ class EntryTypes extends Controller
 
     public function create()
     {
-        formMode('create');
+        formMode(Constants::FORM_MODE_CREATE);
 
         return view('admin.entry_types.form')->with([
             'entryType' => app(EntryTypesRepository::class)->new(),

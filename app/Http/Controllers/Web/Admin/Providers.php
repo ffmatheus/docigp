@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
+use App\Support\Constants;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Providers as ProvidersRepository;
 use App\Http\Requests\ProviderStore as ProviderStoreRequest;
@@ -19,7 +20,7 @@ class Providers extends Controller
 
     public function create()
     {
-        formMode('create');
+        formMode(Constants::FORM_MODE_CREATE);
 
         return view('admin.providers.form')->with([
             'provider' => app(ProvidersRepository::class)->new(),
