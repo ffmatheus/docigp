@@ -7,5 +7,7 @@ Route::group(['prefix' => '/parties'], function () {
 
     Route::get('/{id}', 'Parties@show')->name('parties.show');
 
+    Route::post('/{id}', 'Parties@update')->name('parties.update');
+
     Route::post('/', 'Parties@store')->name('parties.store');
 });

@@ -34,14 +34,10 @@ class CostCenters extends Controller
 
     public function show($id)
     {
-        return view('admin.cost_centers.form')
-            ->with('formDisabled', true)
-            ->with([
-                'costCenter' => app(CostCentersRepository::class)->findById(
-                    $id
-                ),
-                'mode' => 'edit',
-            ]);
+        return view('admin.cost_centers.form')->with([
+            'costCenter' => app(CostCentersRepository::class)->findById($id),
+            'mode' => 'show',
+        ]);
     }
 
     /**
@@ -51,10 +47,7 @@ class CostCenters extends Controller
      */
     public function update(CostCenterUpdateRequest $request, $id)
     {
-        $costCenter = app(CostCentersRepository::class)->update(
-            $id,
-            $request->all()
-        );
+        app(CostCentersRepository::class)->update($id, $request->all());
 
         return redirect()->route('costCenters.index');
     }
