@@ -22,7 +22,7 @@ class Request extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('must-be-god');
+        return allows('must-be-god');
     }
 
     /**

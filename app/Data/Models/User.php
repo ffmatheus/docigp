@@ -5,6 +5,7 @@ namespace App\Data\Models;
 use App\Data\Traits\Filterable;
 use App\Data\Traits\Eventable;
 use App\Events\UserCreated;
+use App\Support\Constants;
 use function foo\func;
 use OwenIt\Auditing\Auditable;
 use App\Data\Traits\Selectable;
@@ -132,7 +133,7 @@ class User extends Authenticatable implements AuditableContract
     public function getAssignableRolesAttribute()
     {
         return collect(BouncerRole::all())->filter(function ($item, $key) {
-            return $this->can('assign:' . $item['name']) && $item['name'] != 'congressman';
+            return $this->can('assign:' . $item['name']) && $item['name'] != Constants::ROLE_CONGRESSMAN;
         });
     }
 

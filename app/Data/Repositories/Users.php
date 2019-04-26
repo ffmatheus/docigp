@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\User;
+use App\Support\Constants;
 use Illuminate\Support\Facades\Hash;
 
 class Users extends Repository
@@ -95,6 +96,8 @@ class Users extends Repository
         $this->model['congressman_id'] = $congressman_id;
 
         $this->model->save();
+
+        $this->model->assign(Constants::ROLE_CONGRESSMAN);
 
         return $this->model;
     }
