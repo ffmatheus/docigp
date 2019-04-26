@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Gate;
+
 class EntryDocumentStore extends Request
 {
     /**
@@ -11,7 +13,7 @@ class EntryDocumentStore extends Request
      */
     public function authorize()
     {
-        return true; // Gate::allows('entries:store');
+        return Gate::allows('entry-documents:store');
     }
 
     /**
