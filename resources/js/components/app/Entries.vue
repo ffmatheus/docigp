@@ -37,7 +37,7 @@
 
         <template slot="buttons">
             <button
-                v-if="can('entries:create')"
+                v-if="can('entries:store')"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createEntry()"
                 title="Nova despesa"
