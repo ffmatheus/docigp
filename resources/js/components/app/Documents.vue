@@ -14,7 +14,7 @@
     >
         <template slot="buttons">
             <button
-                v-if="can('entry-documents:create')"
+                v-if="can('entry-documents:store')"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createDocument()"
                 title="Novo documento"

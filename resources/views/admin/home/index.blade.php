@@ -12,30 +12,52 @@
                     </div>
                 @endif
 
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entries.index') }}">
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entries.index') }}">
                     Prestação de Contas
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('parties.index') }}">
+
+                @can('parties:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('parties.index') }}">
                     Partidos
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('legislatures.index') }}">
+                @endCan
+
+                @can('legislatures:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('legislatures.index') }}">
                     Legislaturas
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('congressmen.index') }}">
+                @endCan
+
+                @can('congressmen:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('congressmen.index') }}">
                     Deputados
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('users.index') }}">
+                @endCan
+
+                @can('users:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('users.index') }}">
                     Usuários
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('providers.index') }}">
+                @endCan
+
+                @can('providers:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('providers.index') }}">
                     Fornecedores / Favorecidos
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('costCenters.index') }}">
+                @endCan
+
+                @can('costCenters:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('costCenters.index') }}">
                     Centro de Custo
                 </a>
-                <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entryTypes.index') }}">
+                @endCan
+
+                @can('entryTypes:show')
+                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entryTypes.index') }}">
                     Tipos de Lançamentos
                 </a>
+                @endCan
+
             </div>
         </div>
     </div>

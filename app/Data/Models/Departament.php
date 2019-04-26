@@ -4,7 +4,7 @@ namespace App\Data\Models;
 
 class Departament extends Model
 {
-    protected $fillable = ['name', 'initials', 'congressman_id'];
+    protected $fillable = ['name', 'initials'];
 
     public function congressman()
     {

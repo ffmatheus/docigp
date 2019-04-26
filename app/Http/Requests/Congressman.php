@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 class Congressman extends Request
 {
+    public function authorize()
+    {
+        return allows('congressman:update');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
