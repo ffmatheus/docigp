@@ -1,24 +1,20 @@
 export default {
     data() {
         return {
-            mode: mode,
+            mode: Store.state.environment.form.mode,
         }
     },
 
     methods: {
         editButton() {
-            console.log('editando')
             this.mode = 'edit'
         },
 
         cancel() {
-            console.log('cancelando')
             location.reload()
         },
 
         submitForm(action, formId) {
-            console.log('submitForm')
-
             let form = document.getElementById(formId)
 
             form.action = action
@@ -31,9 +27,11 @@ export default {
         isShowing() {
             return this.mode === 'show'
         },
+
         isEditing() {
             return this.mode === 'edit'
         },
+
         isCreating() {
             return this.mode === 'create'
         },

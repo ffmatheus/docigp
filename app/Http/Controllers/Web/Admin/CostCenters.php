@@ -19,9 +19,10 @@ class CostCenters extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.cost_centers.form')->with([
             'costCenter' => app(CostCentersRepository::class)->new(),
-            'mode' => 'create',
         ]);
     }
 
@@ -36,7 +37,6 @@ class CostCenters extends Controller
     {
         return view('admin.cost_centers.form')->with([
             'costCenter' => app(CostCentersRepository::class)->findById($id),
-            'mode' => 'show',
         ]);
     }
 

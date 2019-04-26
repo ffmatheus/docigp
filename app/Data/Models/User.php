@@ -133,7 +133,8 @@ class User extends Authenticatable implements AuditableContract
     public function getAssignableRolesAttribute()
     {
         return collect(BouncerRole::all())->filter(function ($item, $key) {
-            return $this->can('assign:' . $item['name']) && $item['name'] != Constants::ROLE_CONGRESSMAN;
+            return $this->can('assign:' . $item['name']) &&
+                $item['name'] != Constants::ROLE_CONGRESSMAN;
         });
     }
 

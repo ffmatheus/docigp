@@ -18,4 +18,6 @@ class Constants
     const ENTRY_TYPE_ACCOUNT_DEBIT_ID = 6;
 
     const ROLE_CONGRESSMAN = 'congressman';
+
+    const SESSION_FORM_MODE = 'flash_form_mode';
 }

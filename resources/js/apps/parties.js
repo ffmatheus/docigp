@@ -1,31 +1,18 @@
+import { mapState } from 'vuex'
+
 const appName = 'vue-parties'
 import editMixin from '../pages/mixins/edit'
-//import helpersMixin from '../pages/mixins/helpers'
 
-if (jQuery("#" + appName).length > 0) {
+if (jQuery('#' + appName).length > 0) {
     new Vue({
-        el: '#'+appName,
+        el: '#' + appName,
 
-        //mixins: [editMixin, helpersMixin],
         mixins: [editMixin],
 
-        data: {
-        },
-
         computed: {
-            mask: function () {
-            },
+            ...mapState({
+                environment: state => window.Store.state.environment,
+            }),
         },
-
-        methods: {
-            refresh() {
-            }
-        },
-
-        beforeMount() {
-        },
-
-        mounted() {
-        }
     })
 }
