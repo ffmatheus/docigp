@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\User;
 use App\Support\Constants;
+use App\Data\Repositories\Congressmen as CongressmenRepository;
 use Illuminate\Support\Facades\Hash;
 
 class Users extends Repository
@@ -92,8 +93,12 @@ class Users extends Repository
     public function associateCongressmanWithUser($congressman_id, $request)
     {
         $this->model = $this->findUserByEmail($request['email']);
+        $congressman = app(CongressmenRepository::class)->findById(
+            $congressman_id
+        );
 
         $this->model['congressman_id'] = $congressman_id;
+        $this->model['departament_id'] = $congressman->departament->id;
 
         $this->model->save();
 
