@@ -20,7 +20,10 @@ class Service
             ],
 
             'form' => [
-                'mode' => session(Constants::SESSION_FORM_MODE, 'show'),
+                'mode' => session(
+                    Constants::SESSION_FORM_MODE,
+                    Constants::FORM_MODE_SHOW
+                ),
             ],
 
             'token' => csrf_token(),

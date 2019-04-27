@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProviderStore as ProviderStoreRequest;
 use App\Http\Requests\ProviderUpdate as ProviderUpdateRequest;
 use App\Data\Repositories\Providers as ProvidersRepository;
+use App\Support\Constants;
 
 class Providers extends Controller
 {
@@ -19,7 +20,7 @@ class Providers extends Controller
 
     public function create()
     {
-        formMode('create');
+        formMode(Constants::FORM_MODE_CREATE);
 
         return view('admin.providers.form')->with([
             'provider' => app(ProvidersRepository::class)->new(),

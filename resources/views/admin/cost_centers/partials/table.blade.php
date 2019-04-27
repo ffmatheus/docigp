@@ -42,7 +42,9 @@
             </td>
             <td>
                 @if ($costCenter->can_accumulate)
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <label class="badge badge-success"> Sim </label>
+                @else
+                    <label class="badge badge-danger"> Não </label>
                 @endif
             </td>
         </tr>

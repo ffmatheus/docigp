@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\legislature as LegislatureRequest;
 use App\Data\Repositories\Legislatures as LegislaturesRepository;
 use App\Data\Repositories\CongressmanLegislatures as CongressmanLegislaturesRepository;
+use App\Support\Constants;
 
 class Legislatures extends Controller
 {
@@ -21,7 +22,7 @@ class Legislatures extends Controller
 
     public function create()
     {
-        formMode('create');
+        formMode(Constants::FORM_MODE_CREATE);
 
         return view('admin.legislatures.form')->with([
             'legislature' => app(LegislaturesRepository::class)->new(),
@@ -41,7 +42,6 @@ class Legislatures extends Controller
                 'legislature' => app(LegislaturesRepository::class)->findById(
                     $id
                 ),
-                'mode' => 'show',
             ])
             ->with([
                 'congressmanLegislatures' => app(
