@@ -61,8 +61,7 @@ Artisan::command('docigp:role:retract {role} {email}', function (
 
 Artisan::command('docigp:user:create {email} {name}', function (
     $email,
-    $name,
-    $password
+    $name
 ) {
     $user = app(Users::class)->firstOrCreate(
         ['email' => $email],
