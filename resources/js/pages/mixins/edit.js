@@ -1,14 +1,13 @@
 export default {
     data() {
         return {
-            // mode: laravel.mode,
+            mode: Store.state.environment.form.mode,
         }
     },
 
     methods: {
         editButton() {
             this.mode = 'edit'
-            console.log('editando')
         },
 
         cancel() {
@@ -16,43 +15,11 @@ export default {
         },
 
         submitForm(action, formId) {
-            console.log('submitForm')
-
             let form = document.getElementById(formId)
 
             form.action = action
 
             form.submit()
-        },
-
-        confirmQuestion() {
-            console.log('confirmQuestion')
-
-            return swal({
-                title: 'Você tem certeza?',
-                icon: 'warning',
-                buttons: true,
-                dangerMode: true,
-            })
-        },
-
-        confirm(action) {
-            console.log('confirm')
-            this.confirmQuestion().then(confirmed => {
-                if (confirmed) {
-                    window.location = action
-                }
-            })
-        },
-
-        confirmForPost(action, formId) {
-            console.log('confirmForPost')
-
-            this.confirmQuestion().then(confirmed => {
-                if (confirmed) {
-                    this.submitForm(action, formId)
-                }
-            })
         },
     },
 
@@ -60,9 +27,11 @@ export default {
         isShowing() {
             return this.mode === 'show'
         },
+
         isEditing() {
             return this.mode === 'edit'
         },
+
         isCreating() {
             return this.mode === 'create'
         },

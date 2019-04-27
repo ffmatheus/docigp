@@ -7,5 +7,7 @@ Route::group(['prefix' => '/entryTypes'], function () {
 
     Route::get('/{id}', 'EntryTypes@show')->name('entryTypes.show');
 
+    Route::post('/{id}', 'EntryTypes@update')->name('entryTypes.update');
+
     Route::get('/', 'EntryTypes@index')->name('entryTypes.index');
 });

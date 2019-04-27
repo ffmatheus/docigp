@@ -31,27 +31,48 @@
                             <a class="dropdown-item" href="{{ route('entries.index') }}">
                                 Prestação de Contas
                             </a>
-                            <a class="dropdown-item" href="{{ route('parties.index') }}">
-                                Partidos
-                            </a>
-                            <a class="dropdown-item" href="{{ route('legislatures.index') }}">
-                                Legislaturas
-                            </a>
-                            <a class="dropdown-item" href="{{ route('congressmen.index') }}">
-                                Deputados
-                            </a>
-                            <a class="dropdown-item" href="{{ route('users.index') }}">
-                                Usuários
-                            </a>
-                            <a class="dropdown-item" href="{{ route('providers.index') }}">
-                                Fornecedores / Favorecidos
-                            </a>
-                            <a class="dropdown-item" href="{{ route('costCenters.index') }}">
-                                Centro de Custo
-                            </a>
-                            <a class="dropdown-item" href="{{ route('entryTypes.index') }}">
-                                Tipos de Lançamentos
-                            </a>
+                            @can('parties:show')
+                                <a class="dropdown-item" href="{{ route('parties.index') }}">
+                                    Partidos
+                                </a>
+                            @endCan
+
+                            @can('legislatures:show')
+                                <a class="dropdown-item" href="{{ route('legislatures.index') }}">
+                                    Legislaturas
+                                </a>
+                            @endCan
+
+                            @can('congressmen:show')
+                                <a class="dropdown-item" href="{{ route('congressmen.index') }}">
+                                    Deputados
+                                </a>
+                            @endCan
+
+                            @can('users:show')
+                                <a class="dropdown-item" href="{{ route('users.index') }}">
+                                    Usuários
+                                </a>
+                            @endCan
+
+                            @can('providers:show')
+                                <a class="dropdown-item" href="{{ route('providers.index') }}">
+                                    Fornecedores / Favorecidos
+                                </a>
+                            @endCan
+
+                            @can('costCenters:show')
+                                <a class="dropdown-item" href="{{ route('costCenters.index') }}">
+                                    Centro de Custo
+                                </a>
+                            @endCan
+
+                            @can('entryTypes:show')
+                                <a class="dropdown-item" href="{{ route('entryTypes.index') }}">
+                                    Tipos de Lançamentos
+                                </a>
+                            @endCan
+
                         </div>
                     </li>
 

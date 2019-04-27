@@ -21,6 +21,8 @@ class Legislatures extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.legislatures.form')->with([
             'legislature' => app(LegislaturesRepository::class)->new(),
         ]);
@@ -28,7 +30,6 @@ class Legislatures extends Controller
 
     public function store(LegislatureRequest $request)
     {
-        $request->merge(['created_by_id' => current_user()->id]);
         app(LegislaturesRepository::class)->create($request->all());
         return redirect()->route('legislatures.index');
     }
@@ -36,16 +37,27 @@ class Legislatures extends Controller
     public function show($id)
     {
         return view('admin.legislatures.form')
-            ->with('formDisabled', true)
             ->with([
                 'legislature' => app(LegislaturesRepository::class)->findById(
                     $id
                 ),
+                'mode' => 'show',
             ])
             ->with([
                 'congressmanLegislatures' => app(
                     CongressmanLegislaturesRepository::class
                 )->filterByLegislatureId($id),
             ]);
+    }
+
+    /**
+     * @param LegislatureRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(LegislatureRequest $request, $id)
+    {
+        app(LegislaturesRepository::class)->update($id, $request->all());
+        return redirect()->route('legislatures.index');
     }
 }

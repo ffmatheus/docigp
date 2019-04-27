@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card card-default">
-        <form name="formulario" id="formulario" @if($mode == 'edit') action="{{ route('providers.update', ['id' => $provider->id]) }}" @else action="{{ route('providers.store')}}" @endIf method="POST">
+    <div class="card card-default" id="vue-providers">
+        <form name="formulario" id="formulario" @if(formMode() == 'show') action="{{ route('providers.update', ['id' => $provider->id]) }}" @else action="{{ route('providers.store')}}" @endIf method="POST">
             {{ csrf_field() }}
+            <input name="id" type="hidden" value="{{$provider->id}}" id="id" >
 
             <div class="card-header">
                 <div class="row">
@@ -20,8 +21,8 @@
                     </div>
 
                     <div class="col-sm-4 align-self-center d-flex justify-content-end">
-                        @include('partials.save-button')
-                        @include('partials.edit-button', ['model' => $provider])
+                        @include('partials.edit-button', ['model'=>$provider])
+                        @include('partials.save-button', ['model'=>$provider])
                     </div>
                 </div>
             </div>
@@ -44,19 +45,17 @@
                     </div>
                 @endif
 
-                <input type="hidden" name="id" value="{{$provider->id}}" >
-
                 <div class="row">
                     <div class="form-group col-md-6">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="cpf_cnpj">CPF / CNPJ</label>
-                                <input class="form-control" name="cpf_cnpj" id="cpf_cnpj" value="{{$provider->cpf_cnpj}}"/>
+                                <input class="form-control" name="cpf_cnpj" id="cpf_cnpj" value="{{$provider->cpf_cnpj}}" @include('partials.disabled', ['model'=>$provider])/>
                             </div>
 
                             <div class="form-group">
                                 <label for="type">Tipo Pessoa</label>
-                                <select class="custom-select" name="type" id="type">
+                                <select class="custom-select" name="type" id="type"  @include('partials.disabled', ['model'=>$provider])>
                                     <option value="">Selecione</option>
                                     <option value="PF" {{$provider->type == 'PF' ? 'selected=selected' : ''}}>Pessoa Física</option>
                                     <option value="PJ" {{$provider->type == 'PJ' ? 'selected=selected' : ''}}>Pessoa Jurídica</option>
@@ -65,14 +64,12 @@
 
                             <div class="form-group">
                                 <label for="name">Nome</label>
-                                <input class="form-control" name="name" id="name" value="{{$provider->name}}"/>
+                                <input class="form-control" name="name" id="name" value="{{$provider->name}}"  @include('partials.disabled', ['model'=>$provider])/>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                @include('partials.save-button')
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 @endsection

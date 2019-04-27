@@ -26,9 +26,9 @@ class Parties extends Controller
 
     public function show($id)
     {
-        return view('admin.parties.form')
-            ->with('formDisabled', true)
-            ->with(['party' => $this->repository->findById($id)]);
+        return view('admin.parties.form')->with([
+            'party' => $this->repository->findById($id),
+        ]);
     }
 
     public function store(PartyRequest $request)
@@ -42,8 +42,22 @@ class Parties extends Controller
 
     public function create()
     {
+        formMode('create');
+
         return view('admin.parties.form')->with([
             'party' => app(PartiesRepository::class)->new(),
         ]);
+    }
+
+    /**
+     * @param PartyRequest $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(PartyRequest $request, $id)
+    {
+        app(PartiesRepository::class)->update($id, $request->all());
+
+        return redirect()->route('parties.index');
     }
 }

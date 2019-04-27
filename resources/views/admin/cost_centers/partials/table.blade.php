@@ -41,7 +41,9 @@
                 {{ $costCenter->limit }}
             </td>
             <td>
-                {{ $costCenter->can_accumulate }}
+                @if ($costCenter->can_accumulate)
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                @endif
             </td>
         </tr>
     @empty

@@ -28,7 +28,7 @@
                     </div>
                 @endif
 
-                <form name="formUsers" id="formUsers" @if($mode == 'edit') action="{{ route('users.update', ['id' => $user->id]) }}" @else action="{{ route('users.store')}}" @endIf method="POST">
+                <form name="formUsers" id="formUsers" @if(formMode() == 'show') action="{{ route('users.update', ['id' => $user->id]) }}" @else action="{{ route('users.store')}}" @endIf method="POST">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="id" value="{{$user->id}}"/>
@@ -38,14 +38,14 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="email">E-mail ALERJ</label>
-                                    <input class="form-control" @if($mode == 'edit') disabled @endIf name="email" id="email" value="{{$user->email}}" />
+                                    <input class="form-control" name="email" id="email" value="{{$user->email}}" @include('partials.disabled', ['model'=>$user])/>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="name">Nome</label>
-                                    <input class="form-control" name="name" id="name" value="{{$user->name}}" />
+                                    <input class="form-control" name="name" id="name" value="{{$user->name}}" @include('partials.disabled', ['model'=>$user])/>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +84,8 @@
                             </select>
                         </div>
                     </div>
-
-                    @include('partials.save-button')
+                    @include('partials.edit-button', ['model'=>$user])
+                    @include('partials.save-button', ['model'=>$user])
                 </form>
             </div>
         </div>

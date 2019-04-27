@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\WithinBudgetDate;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class EntryStore extends Request
 {
@@ -14,7 +15,7 @@ class EntryStore extends Request
      */
     public function authorize()
     {
-        return true; // Gate::allows('entries:store');
+        return allows('entries:store');
     }
 
     private function getQueryValue(string $string)
