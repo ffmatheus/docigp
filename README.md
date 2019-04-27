@@ -82,7 +82,7 @@ a storage:link
  
 ```
 - Budget de Fevereiro e Março
-a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:sync:departaments; a docigp:sync:roles; a docigp:budget:generate 2019-02-01; a docigp:budget:generate 2019-03-01;                                a db:seed -vvv --force;
+a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:sync:departaments; a docigp:sync:roles; a docigp:budget:generate 2019-02-01; a docigp:budget:generate 2019-03-01;                                a db:seed -vvv --force; a docigp:budget:generate -vvv; 
 - Budget de Fevereiro, Março e Abril
 a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:sync:departaments; a docigp:sync:roles; a docigp:budget:generate 2019-02-01; a docigp:budget:generate 2019-03-01; a docigp:budget:generate -vvv; a db:seed -vvv --force;
 ```
