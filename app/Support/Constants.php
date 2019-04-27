@@ -20,4 +20,6 @@ class Constants
     const ROLE_CONGRESSMAN = 'congressman';
 
     const SESSION_FORM_MODE = 'flash_form_mode';
+    const FORM_MODE_CREATE = 'create';
+    const FORM_MODE_SHOW = 'show';
 }

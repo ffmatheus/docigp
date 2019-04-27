@@ -14,7 +14,7 @@
     <thead>
     <tr>
         <th>Nome</th>
-        <th>Número documento</th>
+        <th>Requer documento</th>
     </tr>
     </thead>
 
@@ -24,7 +24,11 @@
                 <a href="{{ route('entryTypes.show', ['id' => $entryType->id]) }}">{{ $entryType->name }}</a>
             </td>
             <td>
-                <input type="checkbox" disabled="disabled" {{ $entryType->document_number_required == 1 ? 'checked="checked"' : '' }}/>
+                @if ($entryType->document_number_required)
+                    <label class="badge badge-success"> Sim </label>
+                @else
+                    <label class="badge badge-danger"> Não </label>
+                @endif
             </td>
         </tr>
     @empty

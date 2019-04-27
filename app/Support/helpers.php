@@ -230,7 +230,7 @@ function capitalizeBrazilian($name)
 
 function permission_slug($string)
 {
-    $string = str_replace(':', $replace = 'xxxxxxxxxx', $string);
+    $string = str_replace(':', ($replace = 'xxxxxxxxxx'), $string);
 
     return str_replace($replace, ':', Str::slug($string));
 }
@@ -314,7 +314,7 @@ function formMode($mode = null)
 {
     return $mode
         ? session()->flash(Constants::SESSION_FORM_MODE, $mode)
-        : session(Constants::SESSION_FORM_MODE);
+        : session(Constants::SESSION_FORM_MODE, Constants::FORM_MODE_SHOW);
 }
 
 class Timer
