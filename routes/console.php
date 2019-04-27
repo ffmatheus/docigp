@@ -59,7 +59,7 @@ Artisan::command('docigp:role:retract {role} {email}', function (
     $this->info("{$user->name} is not '{$role}' anymore");
 })->describe('Remove role from user');
 
-Artisan::command('docigp:user:create {email} {name} {password}', function (
+Artisan::command('docigp:user:create {email} {name}', function (
     $email,
     $name,
     $password
@@ -69,8 +69,7 @@ Artisan::command('docigp:user:create {email} {name} {password}', function (
         [
             'name' => $name,
             'email' => $email,
-            'username' => $email,
-            'password' => Hash::make($password),
+            'username' => $email
         ]
     );
 
