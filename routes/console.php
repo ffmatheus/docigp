@@ -1,9 +1,10 @@
 <?php
 
-use App\Data\Repositories\Budgets;
 use App\Data\Repositories\Users;
+use App\Data\Repositories\Budgets;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Password;
 use App\Services\DataSync\Service as DataSyncService;
-use Illuminate\Support\Facades\Hash;
 
 Artisan::command('docigp:sync:congressmen', function () {
     $this->info('Synchronizing congressmen...');
@@ -59,7 +60,7 @@ Artisan::command('docigp:role:retract {role} {email}', function (
     $this->info("{$user->name} is not '{$role}' anymore");
 })->describe('Remove role from user');
 
-Artisan::command('docigp:user:create {email} {name}', function (
+Artisan::command('docigp:users:create {email} {name}', function (
     $email,
     $name
 ) {
@@ -68,9 +69,21 @@ Artisan::command('docigp:user:create {email} {name}', function (
         [
             'name' => $name,
             'email' => $email,
-            'username' => $email
+            'username' => $email,
         ]
     );
 
     $this->info("User {$user->email} created");
+})->describe('Create user');
+
+Artisan::command('docigp:users:reset-password {email}', function ($email) {
+    Password::sendResetLink(['email' => $email]);
+
+    $this->info("Password reset for {$email} was sent");
+})->describe('Create user');
+
+Artisan::command('queue:clear {name?}', function ($name = null) {
+    Redis::connection()->del($name = $name ?? 'default');
+
+    $this->info("Queue '{$name}' was cleared");
 })->describe('Create user');
