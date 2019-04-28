@@ -4,6 +4,10 @@ $color_orange: #DC572E;
 $color_green: #00A600;
 $color_blue: #2672EC;
 
+a:link {
+  text-decoration: none !important;
+}
+
 .tile {
   width: 100%;
   display: inline-block;

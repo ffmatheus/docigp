@@ -22,6 +22,10 @@
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                 @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Painel de Controle</a>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             Tabelas <span class="caret"></span>
@@ -31,6 +35,7 @@
                             <a class="dropdown-item" href="{{ route('entries.index') }}">
                                 Prestação de Contas
                             </a>
+
                             @can('parties:show')
                                 <a class="dropdown-item" href="{{ route('parties.index') }}">
                                     Partidos
