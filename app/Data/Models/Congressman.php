@@ -19,7 +19,7 @@ class Congressman extends Model
 
     protected $with = ['party', 'user'];
 
-    protected $filterableColumns = ['name'];
+    protected $filterableColumns = ['name', 'nickname'];
 
     protected $orderBy = ['name' => 'asc'];
 

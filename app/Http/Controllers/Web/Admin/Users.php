@@ -98,7 +98,8 @@ class Users extends Controller
         return view('admin.users.index')->with(
             'users',
             $this->usersRepository
-                ->allWithoutPagination()
+                ->disablePagination()
+                ->all()
                 ->appends('roles_string')
         );
     }

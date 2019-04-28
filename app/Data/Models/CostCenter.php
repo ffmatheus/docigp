@@ -16,4 +16,6 @@ class CostCenter extends Model
     ];
 
     protected $orderBy = ['code' => 'asc'];
+
+    protected $filterableColumns = ['name', 'code'];
 }

@@ -16,6 +16,8 @@ class Provider extends Model
 
     protected $orderBy = ['name' => 'asc'];
 
+    protected $filterableColumns = ['cpf_cnpj', 'name'];
+
     /**
      * Save the model to the database.
      *

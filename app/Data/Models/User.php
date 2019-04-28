@@ -6,7 +6,6 @@ use App\Data\Traits\Filterable;
 use App\Data\Traits\Eventable;
 use App\Events\UserCreated;
 use App\Support\Constants;
-use function foo\func;
 use OwenIt\Auditing\Auditable;
 use App\Data\Traits\Selectable;
 use Illuminate\Notifications\Notifiable;
@@ -58,6 +57,8 @@ class User extends Authenticatable implements AuditableContract
         'email_verified_at' => 'datetime',
     ];
 
+    protected $filterableColumns = ['name', 'email'];
+
     public static function boot()
     {
         parent::boot();
@@ -104,6 +105,7 @@ class User extends Authenticatable implements AuditableContract
                 $string .= $role . ', ';
             }
         }
+
         return $string;
     }
 
