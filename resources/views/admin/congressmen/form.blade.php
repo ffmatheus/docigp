@@ -34,11 +34,14 @@
                 {{ csrf_field() }}
 
                 <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
-                <div class="row">
-                    <div class="form-group col-md-6" >
-                        <img src="{{'http://'.trim($congressman->photo_url)}}">
+
+                @if($congressman->photo_url)
+                    <div class="row">
+                        <div class="form-group col-md-6" >
+                            <img src="{{ "//{$congressman->photo_url}" }}">
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="row">
                     <div class="form-group col-md-6" >
