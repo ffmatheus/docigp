@@ -100,8 +100,6 @@ abstract class Repository
      */
     protected function getPageSize($queryFilter)
     {
-        info([$this->paginate, 'SHOULD', 'should not']);
-
         return $this->paginate
             ? ($queryFilter->pagination && $queryFilter->pagination->perPage
                 ? $queryFilter->pagination->perPage
@@ -176,6 +174,13 @@ abstract class Repository
 
     protected function filterAllColumns($query, $text)
     {
+        info([
+            '--- fiklter',
+            $this->model()->getTable(),
+            $this->model()
+                ->getFilterableColumns()
+                ->toArray(),
+        ]);
         if (
             $this->model()
                 ->getFilterableColumns()
@@ -201,6 +206,10 @@ abstract class Repository
     protected function filterText($filter, $query)
     {
         if ($text = $filter['filter']['text']) {
+            $this->filterAllColumns($query, $text);
+        }
+
+        if ($text = $filter['search']) {
             $this->filterAllColumns($query, $text);
         }
 
@@ -275,6 +284,8 @@ abstract class Repository
     protected function getQueryFilter()
     {
         $queryFilter = json_decode(request()->get('query'), true);
+
+        $queryFilter['search'] = request()->get('search');
 
         $queryFilter['pagination'] = $queryFilter['pagination'] ?? [];
 

@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Users as UsersRepository;
-use App\Http\Requests\Request;
-use App\Http\Requests\UserUpdate as UserUpdateRequest;
 use App\Http\Requests\UserStore as UserStoreRequest;
-use Silber\Bouncer\Database\Role as BouncerRole;
+use App\Http\Requests\UserUpdate as UserUpdateRequest;
 use App\Services\Authentication\Service as AuthenticationService;
-use Illuminate\Support\Facades\Input;
 
 class Users extends Controller
 {
@@ -97,21 +94,13 @@ class Users extends Controller
      */
     public function index()
     {
-        $p = request('pesquisa');
-        if (isset($p)) {
-            return view('admin.users.index')->with(
-                'users',
-                $this->usersRepository->searchFromRequest($p)
-                // ->appends('roles_string')
-            );
-        } else {
-            return view('admin.users.index')->with(
-                'users',
-                $this->usersRepository
-                    ->allWithoutPagination()
-                    ->appends('roles_string')
-            );
-        }
+        return view('admin.users.index')->with(
+            'users',
+            $this->usersRepository
+                ->disablePagination()
+                ->all()
+                ->appends('roles_string')
+        );
     }
 
     /**

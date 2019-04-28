@@ -14,7 +14,9 @@ class CostCenters extends Controller
     {
         return view('admin.cost_centers.index')->with(
             'costCenters',
-            app(CostCentersRepository::class)->allWithoutPagination()
+            app(CostCentersRepository::class)
+                ->disablePagination()
+                ->all()
         );
     }
 

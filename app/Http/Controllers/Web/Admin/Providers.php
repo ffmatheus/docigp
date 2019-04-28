@@ -14,7 +14,9 @@ class Providers extends Controller
     {
         return view('admin.providers.index')->with(
             'providers',
-            app(ProvidersRepository::class)->allWithoutPagination()
+            app(ProvidersRepository::class)
+                ->disablePagination()
+                ->all()
         );
     }
 

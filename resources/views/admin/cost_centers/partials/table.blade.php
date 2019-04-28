@@ -13,35 +13,35 @@
 <table id="costCentersTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
     <tr>
-        <th>Nome</th>
-        <th>Code</th>
-        <th>Parent Code</th>
+        <th width="50%">Nome</th>
+        <th>Código</th>
+        <th>Filho de</th>
         <th>Frequência</th>
-        <th>Limite</th>
-        <th>Acumulável</th>
+        <th class="text-right">Limite</th>
+        <th class="text-center">Acumulável</th>
     </tr>
     </thead>
 
-    @forelse ($costCenters as $costCenter)
 
+    @forelse ($costCenters as $costCenter)
         <tr>
-            <td>
-                <a href="{{ route('costCenters.show', ['id' => $costCenter->id]) }}">{{ $costCenter->name }}</a>
+            <td width="60%">
+                <a href="{{ route('costCenters.show', ['id' => $costCenter['id']]) }}">{{ $costCenter['name'] }}</a>
             </td>
             <td>
-                {{ $costCenter->code }}
+                {{ $costCenter['code'] }}
             </td>
             <td>
-                {{ $costCenter->parent_code }}
+                {{ $costCenter['parent_code'] }}
             </td>
             <td>
-                {{ $costCenter->frequency }}
+                {{ $costCenter['frequency'] }}
             </td>
-            <td>
-                {{ $costCenter->limit }}
+            <td class="text-right">
+                {{ $costCenter['limit'] }}
             </td>
-            <td>
-                @if ($costCenter->can_accumulate)
+            <td class="text-center">
+                @if ($costCenter['can_accumulate'])
                     <label class="badge badge-success"> Sim </label>
                 @else
                     <label class="badge badge-danger"> Não </label>
