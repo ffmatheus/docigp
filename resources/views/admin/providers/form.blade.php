@@ -57,7 +57,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="cpf_cnpj">CPF / CNPJ</label>
-                                <input class="form-control" name="cpf_cnpj" id="cpf_cnpj" value="{{$provider->cpf_cnpj}}" @include('partials.disabled', ['model'=>$provider])/>
+                                <input
+                                    class="form-control"
+                                    name="cpf_cnpj"
+                                    id="cpf_cnpj"
+                                    v-mask="['###.###.###-##', '##.###.###/####-##']"
+                                    value="{{$provider->cpf_cnpj}}"
+                                    @include('partials.disabled', ['model'=>$provider])/
+                                >
                             </div>
 
                             <div class="form-group">
