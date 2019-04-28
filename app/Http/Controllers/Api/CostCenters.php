@@ -14,6 +14,9 @@ class CostCenters extends Controller
      */
     public function all()
     {
-        return app(CostCentersRepository::class)->allWithoutPagination();
+        return app(CostCentersRepository::class)
+            ->withoutControlTypes()
+            ->disablePagination()
+            ->all();
     }
 }
