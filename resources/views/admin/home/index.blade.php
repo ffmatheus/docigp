@@ -1,63 +1,104 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-md-10" id="vue-admin">
+    <div class="col-md-12" id="vue-admin">
         <div class="card">
             <div class="card-header">Painel de Controle</div>
 
             <div class="card-body">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
+                <div class="row">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        @include('partials.tile', [
+                            'route' => route('entries.index'),
+                            'title' => 'Prestação de contas',
+                            'color' => 'green',
+                            'icon' => 'fa fa-check-circle fa-5x'
+                        ])
                     </div>
-                @endif
 
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entries.index') }}">
-                    Prestação de Contas
-                </a>
+                    @can('parties:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('parties.index'),
+                                'title' => 'Partidos',
+                                'color' => 'orange',
+                                'icon' => 'fa fa-handshake fa-5x'
+                            ])
+                        </div>
+                    @endCan
 
-                @can('parties:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('parties.index') }}">
-                    Partidos
-                </a>
-                @endCan
+                    @can('legislatures:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('legislatures.index'),
+                                'title' => 'Legislaturas',
+                                'color' => 'purple',
+                                'icon' => 'fa fa-calendar fa-5x'
+                            ])
+                        </div>
+                    @endCan
 
-                @can('legislatures:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('legislatures.index') }}">
-                    Legislaturas
-                </a>
-                @endCan
+                    @can('congressmen:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('congressmen.index'),
+                                'title' => 'Deputados',
+                                'color' => 'red',
+                                'icon' => 'fa fa-landmark fa-5x'
+                            ])
+                        </div>
+                    @endCan
 
-                @can('congressmen:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('congressmen.index') }}">
-                    Deputados
-                </a>
-                @endCan
+                    @can('users:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('users.index'),
+                                'title' => 'Usuários',
+                                'color' => 'blue',
+                                'icon' => 'fa fa-users fa-5x'
+                            ])
+                        </div>
+                    @endCan
 
-                @can('users:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('users.index') }}">
-                    Usuários
-                </a>
-                @endCan
+                    @can('providers:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('providers.index'),
+                                'title' => 'Fornecedores / Favorecidos',
+                                'color' => 'green',
+                                'icon' => 'fa fa-store fa-5x'
+                            ])
+                        </div>
+                    @endCan
 
-                @can('providers:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('providers.index') }}">
-                    Fornecedores / Favorecidos
-                </a>
-                @endCan
+                    @can('costCenters:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('costCenters.index'),
+                                'title' => 'Centros de custo',
+                                'color' => 'purple',
+                                'icon' => 'fa fa-donate fa-5x'
+                            ])
+                        </div>
+                    @endCan
 
-                @can('costCenters:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('costCenters.index') }}">
-                    Centro de Custo
-                </a>
-                @endCan
-
-                @can('entryTypes:show')
-                    <a class="btn btn-primary btn-lg p-5 m-lg-5" href="{{ route('entryTypes.index') }}">
-                    Tipos de Lançamentos
-                </a>
-                @endCan
-
+                    @can('entryTypes:show')
+                        <div class="col-sm-12 col-md-6 col-lg-4">
+                            @include('partials.tile', [
+                                'route' => route('entryTypes.index'),
+                                'title' => 'Tipos de lançamento',
+                                'color' => 'red',
+                                'icon' => 'fa fa-clipboard fa-5x'
+                            ])
+                        </div>
+                    @endCan
+                </div>
             </div>
         </div>
     </div>
