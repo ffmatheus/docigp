@@ -23,7 +23,17 @@ abstract class Repository
 
     protected $data;
 
-    protected $shouldPaginate = true;
+    protected $paginate = true;
+
+    protected $customQueries;
+
+    protected function processCustomQueries($query)
+    {
+        $this->customQueries &&
+            $this->customQueries->each(function ($callable) use ($query) {
+                $callable($query);
+            });
+    }
 
     protected function buildJoins($query)
     {
@@ -90,7 +100,9 @@ abstract class Repository
      */
     protected function getPageSize($queryFilter)
     {
-        return $this->shouldPaginate
+        info([$this->paginate, 'SHOULD', 'should not']);
+
+        return $this->paginate
             ? ($queryFilter->pagination && $queryFilter->pagination->perPage
                 ? $queryFilter->pagination->perPage
                 : 10)
@@ -139,6 +151,8 @@ abstract class Repository
         $this->filterText($queryFilter, $query);
 
         $this->order($query);
+
+        $this->processCustomQueries($query);
 
         if (
             isset($queryFilter->toArray()['pagination']['current_page']) &&
@@ -341,10 +355,11 @@ abstract class Repository
     /**
      * @return mixed
      */
-    public function allWithoutPagination()
+    public function disablePagination()
     {
-        $this->shouldPaginate = false;
-        return $this->all();
+        $this->paginate = false;
+
+        return $this;
     }
 
     /**
@@ -614,5 +629,12 @@ abstract class Repository
     public function withGlobalScopesDisabled($callable)
     {
         return $callable();
+    }
+
+    public function addCustomQuery($query)
+    {
+        $this->customQueries = $this->customQueries ?? collect();
+
+        $this->customQueries->push($query);
     }
 }
