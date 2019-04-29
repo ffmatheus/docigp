@@ -28,7 +28,7 @@ class Congressmen extends Controller
 
     public function create()
     {
-        return view('admin.congressmen.form')->with([
+        return $this->view('admin.congressmen.form')->with([
             'congressman' => $this->congressmenrepository->new(),
             'parties' => $this->getComboBoxMenus(),
         ]);
@@ -43,7 +43,7 @@ class Congressmen extends Controller
 
     public function index(Request $request)
     {
-        return view('admin.congressmen.index')->with(
+        return $this->view('admin.congressmen.index')->with(
             'congressmen',
             $this->congressmenRepository->all()
         );
@@ -60,7 +60,7 @@ class Congressmen extends Controller
         )->isInCurrentLegislature($id);
 
         //TODO selecionar as roles possíveis
-        return view('admin.congressmen.form')
+        return $this->view('admin.congressmen.form')
             ->with('congressman', $congressman)
             ->with('congressmanLegislatures', $congressmanLegislatures)
             ->with('formDisabled', true)

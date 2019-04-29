@@ -13,7 +13,7 @@ class EntryTypes extends Controller
 {
     public function index()
     {
-        return view('admin.entry_types.index')->with(
+        return $this->view('admin.entry_types.index')->with(
             'entryTypes',
             app(EntryTypesRepository::class)
                 ->model()
@@ -25,7 +25,7 @@ class EntryTypes extends Controller
     {
         formMode(Constants::FORM_MODE_CREATE);
 
-        return view('admin.entry_types.form')->with([
+        return $this->view('admin.entry_types.form')->with([
             'entryType' => app(EntryTypesRepository::class)->new(),
         ]);
     }
@@ -39,7 +39,7 @@ class EntryTypes extends Controller
 
     public function show($id)
     {
-        return view('admin.entry_types.form')->with([
+        return $this->view('admin.entry_types.form')->with([
             'entryType' => app(EntryTypesRepository::class)->findById($id),
         ]);
     }

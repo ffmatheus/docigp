@@ -7,6 +7,6 @@ class Home extends Controller
 {
     public function index()
     {
-        return view('admin.home.index');
+        return $this->view('admin.home.index');
     }
 }

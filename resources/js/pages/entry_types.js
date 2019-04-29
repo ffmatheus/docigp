@@ -1,4 +1,3 @@
-
 import { mapState } from 'vuex'
 import editMixin from './mixins/edit'
 

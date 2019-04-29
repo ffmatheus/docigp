@@ -20,4 +20,9 @@ class Controller extends BaseController
     {
         return ['status' => $message];
     }
+
+    public function view($name)
+    {
+        return view($name)->with('search', request('search'));
+    }
 }

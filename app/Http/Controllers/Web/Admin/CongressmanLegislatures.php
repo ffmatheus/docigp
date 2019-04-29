@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Web\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\CongressmanLegislature as CongressmanLegislatureRequest;
-
+use App\Http\Controllers\Controller;
 use App\Data\Repositories\Congressmen as CongressmenRepository;
 use App\Data\Repositories\CongressmanLegislatures as CongressmanLegislaturesRepository;
 
