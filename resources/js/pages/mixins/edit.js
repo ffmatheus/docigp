@@ -14,14 +14,6 @@ export default {
             location.reload()
         },
 
-        cancel(url) {
-            if(Boolean(jQuery('#id').val())) { //Editing a register
-                location.reload()
-            } else { //Creating a register
-                window.location.replace(url)
-            }
-        },
-
         submitForm(action, formId) {
             let form = document.getElementById(formId)
 

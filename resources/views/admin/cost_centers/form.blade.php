@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            @include('partials.save-button', ['model'=>$costCenter])
+            @include('partials.save-button', ['model'=>$costCenter, 'url' => 'costCenters.index'])
         </form>
     </div>
 @endsection
