@@ -23,18 +23,21 @@
                             <i class="fa fa-search"></i>
                         </span>
                     </div>
+
+                    @if(isset($routeSearch))
+                        <div class="input-group-append">
+                            <span
+                                class="input-group-text"
+                                onClick="javascript:document.getElementById('searchForm').submit();"
+                            >
+                                <a href="{{ route($routeSearch) }}">
+                                    <i class="fas fa-eraser"></i> Limpar
+                                </a>
+                            </span>
+                        </div>
+                    @endif
                 </div>
             </div>
-
-            @if(isset($routeSearch))
-                <div class="col-xs-8 d-flex justify-content-end">
-                    <div class="input-group">
-                        <a href="{{ route($routeSearch) }}" class="btn btn-primary pull-right">
-                            <i class="fas fa-eraser"></i> Limpar
-                        </a>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 </form>
