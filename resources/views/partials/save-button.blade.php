@@ -1,7 +1,7 @@
 <button
     id="cancelButton"
     class="btn btn-success ml-1"
-    v-on:click.prevent="cancel()"
+    v-on:click.prevent="cancel('{{ route($url) }}')"
     :disabled="!(isEditing || isCreating)"
 >
     <i class="fas fa-ban"></i> Cancelar

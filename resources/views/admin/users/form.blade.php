@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     @include('partials.edit-button', ['model'=>$user])
-                    @include('partials.save-button', ['model'=>$user])
+                    @include('partials.save-button', ['model'=>$user, 'url' => 'users.index'])
                 </form>
             </div>
         </div>

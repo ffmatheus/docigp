@@ -22,7 +22,7 @@
 
                     <div class="col-sm-4 align-self-center d-flex justify-content-end">
                         @include('partials.edit-button', ['model'=>$costCenter])
-                        @include('partials.save-button', ['model'=>$costCenter])
+                        @include('partials.save-button', ['model'=>$costCenter, 'url' => 'costCenters.index'])
                     </div>
                 </div>
             </div>
