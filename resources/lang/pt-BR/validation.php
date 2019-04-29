@@ -209,5 +209,8 @@ return [
         'frequency' => 'frequência',
         'limit' => 'limite',
         'can_accumulate' => 'acumulável',
+        'year_start' => 'ano de início',
+        'year_end' => 'ano final',
+        'number' => 'número',
     ],
 ];

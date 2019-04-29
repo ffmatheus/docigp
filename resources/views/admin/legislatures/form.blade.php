@@ -50,17 +50,17 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="number">Número</label>
-                                <input class="form-control" name="number" id="number" value="{{ $legislature->number }}" @include('partials.disabled', ['model'=>$legislature])/>
+                                <input class="form-control" name="number" id="number" value="{{is_null(old('number')) ? $legislature->number : old('number')}}" @include('partials.disabled', ['model'=>$legislature])/>
                             </div>
 
                             <div class="form-group" >
                                 <label for="year_start">Ano de início</label>
-                                <input class="form-control" name="year_start" id="year_start" value="{{$legislature->year_start}}" @include('partials.disabled', ['model'=>$legislature])/>
+                                <input class="form-control" name="year_start" id="year_start" value="{{is_null(old('year_start')) ? $legislature->year_start : old('year_start')}}" @include('partials.disabled', ['model'=>$legislature])/>
                             </div>
 
                             <div class="form-group" >
                                 <label for="year_end">Ano final</label>
-                                <input class="form-control" name="year_end" id="year_end" value="{{$legislature->year_end}}" @include('partials.disabled', ['model'=>$legislature])/>
+                                <input class="form-control" name="year_end" id="year_end" value="{{is_null(old('year_end')) ? $legislature->year_end : old('year_end')}}" @include('partials.disabled', ['model'=>$legislature])/>
                             </div>
                         </div>
                     </div>
