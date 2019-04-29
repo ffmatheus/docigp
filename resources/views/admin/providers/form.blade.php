@@ -56,23 +56,23 @@
                                     name="cpf_cnpj"
                                     id="cpf_cnpj"
                                     v-mask="['###.###.###-##', '##.###.###/####-##']"
-                                    value="{{$provider->cpf_cnpj}}"
-                                    @include('partials.disabled', ['model'=>$provider])/
-                                >
+                                    value="{{is_null(old('cpf_cnpj')) ? $provider->cpf_cnpj : old('cpf_cnpj')}}"
+                                    @include('partials.disabled', ['model'=>$provider])
+                                />
                             </div>
 
                             <div class="form-group">
                                 <label for="type">Tipo Pessoa</label>
                                 <select class="custom-select" name="type" id="type"  @include('partials.disabled', ['model'=>$provider])>
                                     <option value="">Selecione</option>
-                                    <option value="PF" {{$provider->type == 'PF' ? 'selected=selected' : ''}}>Pessoa Física</option>
-                                    <option value="PJ" {{$provider->type == 'PJ' ? 'selected=selected' : ''}}>Pessoa Jurídica</option>
+                                    <option value="PF" {{(is_null(old('type')) ? $provider->type : old('type')) == 'PF' ? 'selected=selected' : ''}}>Pessoa Física</option>
+                                    <option value="PJ" {{(is_null(old('type')) ? $provider->type : old('type')) == 'PJ' ? 'selected=selected' : ''}}>Pessoa Jurídica</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Nome</label>
-                                <input class="form-control" name="name" id="name" value="{{$provider->name}}"  @include('partials.disabled', ['model'=>$provider])/>
+                                <input class="form-control" name="name" id="name" value="{{is_null(old('name')) ? $provider->name : old('name')}}"  @include('partials.disabled', ['model'=>$provider])/>
                             </div>
                         </div>
                     </div>
