@@ -14,7 +14,7 @@ class CongressmanTableSeeder extends Seeder
     public function run()
     {
         factory(Congressman::class)->create([
-            'name' => 'Manuel Francisco dos Santos'
+            'name' => 'Manuel Francisco dos Santos',
         ]);
 
         factory(CongressmanLegislature::class, 5)->create();
