@@ -59,33 +59,33 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="name">Nome</label>
-                        <input class="form-control" name="name" id="name" value="{{$costCenter->name}}" @include('partials.disabled', ['model'=>$costCenter])/>
+                        <input class="form-control" name="name" id="name" value="{{is_null(old('name')) ? $costCenter->name : old('name')}}" @include('partials.disabled', ['model'=>$costCenter])/>
                     </div>
 
                     <div class="form-group">
                         <label for="code">Código</label>
-                        <input class="form-control" name="code" id="code" value="{{$costCenter->code}}" @include('partials.disabled', ['model'=>$costCenter])/>
+                        <input class="form-control" name="code" id="code" value="{{is_null(old('code')) ? $costCenter->code : old('code')}}" @include('partials.disabled', ['model'=>$costCenter])/>
                     </div>
 
                     <div class="form-group">
                         <label for="parent_code">Código Superior</label>
-                        <input class="form-control" name="parent_code" id="parent_code" value="{{$costCenter->parent_code}}" @include('partials.disabled', ['model'=>$costCenter])/>
+                        <input class="form-control" name="parent_code" id="parent_code" value="{{is_null(old('parent_code')) ? $costCenter->parent_code : old('parent_code')}}" @include('partials.disabled', ['model'=>$costCenter])/>
                     </div>
 
                     <div class="form-group">
                         <label for="frequency">Frequência</label>
-                        <input class="form-control" name="frequency" id="frequency" value="{{$costCenter->frequency}}" @include('partials.disabled', ['model'=>$costCenter])/>
+                        <input class="form-control" name="frequency" id="frequency" value="{{is_null(old('frequency')) ? $costCenter->frequency : old('frequency')}}" @include('partials.disabled', ['model'=>$costCenter])/>
                     </div>
 
                     <div class="form-group">
                         <label for="limit">Limite</label>
-                        <input class="form-control" name="limit" id="limit" value="{{$costCenter->limit}}" @include('partials.disabled', ['model'=>$costCenter])/>
+                        <input class="form-control" name="limit" id="limit" value="{{is_null(old('limit')) ? $costCenter->limit : old('limit')}}" @include('partials.disabled', ['model'=>$costCenter])/>
                     </div>
 
                     <div class="form-group">
                         <label for="can_accumulate">Acumulável</label>
                         <input class="form-control" type="hidden" name="can_accumulate" value="false">
-                        <input class="form-control" type="checkbox" name="can_accumulate" id="can_accumulate" {{$costCenter->can_accumulate ? 'checked="checked"' : ''}} @include('partials.disabled', ['model'=>$costCenter])/>
+                        <input class="form-control" type="checkbox" name="can_accumulate" id="can_accumulate" {{(is_null(old('can_accumulate')) ? $costCenter->can_accumulate : old('can_accumulate')) ? 'checked="checked"' : ''}} @include('partials.disabled', ['model'=>$costCenter])/>
                     </div>
                 </div>
             </div>
