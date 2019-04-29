@@ -11,7 +11,11 @@ export default {
         },
 
         cancel() {
-            location.reload()
+            if(Boolean(jQuery('#id').val())) { //Editing a register
+                location.reload()
+            } else { //Creating a register
+                window.history.back();
+            }
         },
 
         submitForm(action, formId) {
