@@ -21,7 +21,7 @@
     @forelse ($entryTypes as $entryType)
         <tr>
             <td>
-                <a href="{{ route('entryTypes.show', ['id' => $entryType->id]) }}">{{ $entryType->name }}</a>
+                <a href="{{ route('entry-types.show', ['id' => $entryType->id]) }}">{{ $entryType->name }}</a>
             </td>
             <td>
                 @if ($entryType->document_number_required)

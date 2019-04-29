@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card card-default" id="vue-cost_centers">
-        <form name="formulario" id="formulario" @if(formMode() == 'show') action="{{ route('costCenters.update', ['id' => $costCenter->id]) }}" @else action="{{ route('costCenters.store')}}" @endIf method="POST">
+        <form name="formulario" id="formulario" @if(formMode() == 'show') action="{{ route('cost-centers.update', ['id' => $costCenter->id]) }}" @else action="{{ route('cost-centers.store')}}" @endIf method="POST">
             {{ csrf_field() }}
             <input name="id" type="hidden" value="{{$costCenter->id}}" id="id" >
 
@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-sm-8 align-self-center">
                         <h4 class="mb-0">
-                            <a href="{{ route('costCenters.index') }}">Centros de Custo</a>
+                            <a href="{{ route('cost-centers.index') }}">Centros de Custo</a>
 
                             @if(is_null($costCenter->id))
                                 > NOVA
@@ -22,7 +22,7 @@
 
                     <div class="col-sm-4 align-self-center d-flex justify-content-end">
                         @include('partials.edit-button', ['model'=>$costCenter])
-                        @include('partials.save-button', ['model'=>$costCenter, 'url' => 'costCenters.index'])
+                        @include('partials.save-button', ['model'=>$costCenter, 'backUrl' => 'cost-centers.index'])
                     </div>
                 </div>
             </div>

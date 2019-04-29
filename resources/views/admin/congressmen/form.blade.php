@@ -18,7 +18,7 @@
 
                 <div class="col-sm-4 align-self-center d-flex justify-content-end">
                     @include('partials.edit-button', ['model' => $congressman])
-                    @include('partials.save-button', ['model' => $congressman, 'url' => 'congressmen.index'])
+                    @include('partials.save-button', ['model' => $congressman, 'backUrl' => 'congressmen.index'])
                 </div>
             </div>
         </div>

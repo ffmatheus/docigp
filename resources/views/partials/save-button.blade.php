@@ -1,4 +1,4 @@
-<a href="{{route($url)}}"
+<a href="{{route($backUrl)}}"
     id="cancelButton"
     class="btn btn-success ml-1"
 >

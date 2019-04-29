@@ -23,7 +23,7 @@
 
                     <div class="col-sm-4 align-self-center d-flex justify-content-end">
                         @include('partials.edit-button', ['model'=>$provider])
-                        @include('partials.save-button', ['model'=>$provider, 'url' => 'providers.index'])
+                        @include('partials.save-button', ['model'=>$provider, 'backUrl' => 'providers.index'])
                     </div>
                 </div>
             </div>
