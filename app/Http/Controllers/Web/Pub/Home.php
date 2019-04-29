@@ -12,6 +12,6 @@ class Home extends Controller
 
     public function transparency()
     {
-        return view('public.home.index');
+        return $this->view('public.home.index');
     }
 }

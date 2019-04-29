@@ -12,7 +12,7 @@ class CostCenters extends Controller
 {
     public function index()
     {
-        return view('admin.cost_centers.index')->with(
+        return $this->view('admin.cost_centers.index')->with(
             'costCenters',
             app(CostCentersRepository::class)
                 ->disablePagination()
@@ -24,7 +24,7 @@ class CostCenters extends Controller
     {
         formMode(Constants::FORM_MODE_CREATE);
 
-        return view('admin.cost_centers.form')->with([
+        return $this->view('admin.cost_centers.form')->with([
             'costCenter' => app(CostCentersRepository::class)->new(),
         ]);
     }
@@ -38,7 +38,7 @@ class CostCenters extends Controller
 
     public function show($id)
     {
-        return view('admin.cost_centers.form')->with([
+        return $this->view('admin.cost_centers.form')->with([
             'costCenter' => app(CostCentersRepository::class)->findById($id),
         ]);
     }

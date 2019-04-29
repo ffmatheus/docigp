@@ -19,14 +19,14 @@ class Parties extends Controller
 
     public function index(PartiesRepository $repository, Request $request)
     {
-        return view('admin.parties.index')
+        return $this->view('admin.parties.index')
             ->with('search', $request->get('search'))
             ->with('parties', $repository->all());
     }
 
     public function show($id)
     {
-        return view('admin.parties.form')->with([
+        return $this->view('admin.parties.form')->with([
             'party' => $this->repository->findById($id),
         ]);
     }
@@ -44,7 +44,7 @@ class Parties extends Controller
     {
         formMode(Constants::FORM_MODE_CREATE);
 
-        return view('admin.parties.form')->with([
+        return $this->view('admin.parties.form')->with([
             'party' => app(PartiesRepository::class)->new(),
         ]);
     }

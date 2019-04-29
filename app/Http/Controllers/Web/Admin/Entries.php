@@ -8,6 +8,6 @@ class Entries extends Controller
 {
     public function index()
     {
-        return view('admin.entries.index');
+        return $this->view('admin.entries.index');
     }
 }

@@ -12,7 +12,7 @@ class Providers extends Controller
 {
     public function index()
     {
-        return view('admin.providers.index')->with(
+        return $this->view('admin.providers.index')->with(
             'providers',
             app(ProvidersRepository::class)
                 ->disablePagination()
@@ -24,7 +24,7 @@ class Providers extends Controller
     {
         formMode(Constants::FORM_MODE_CREATE);
 
-        return view('admin.providers.form')->with([
+        return $this->view('admin.providers.form')->with([
             'provider' => app(ProvidersRepository::class)->new(),
         ]);
     }
@@ -38,7 +38,7 @@ class Providers extends Controller
 
     public function show($id)
     {
-        return view('admin.providers.form')->with([
+        return $this->view('admin.providers.form')->with([
             'provider' => app(ProvidersRepository::class)->findById($id),
         ]);
     }

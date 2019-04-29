@@ -30,13 +30,11 @@ class Users extends Controller
      */
     public function create()
     {
-        return view('admin.users.form')
+        return $this->view('admin.users.form')
             ->with('assignableRoles', \Auth::user()->assignable_roles)
             ->with('user', $this->usersRepository->new())
             ->with('mode', 'create');
     }
-
-    //protected $appends = ['roles', 'abilities', 'roles_string'];
 
     /**
      * @param $id
@@ -47,7 +45,7 @@ class Users extends Controller
     {
         $user = app(UsersRepository::class)->findById($id);
 
-        return view('admin.users.form')
+        return $this->view('admin.users.form')
             ->with('assignableRoles', \Auth::user()->assignable_roles)
             ->with('mode', 'show')
             ->with('user', $user->append('roles'));
@@ -57,6 +55,7 @@ class Users extends Controller
     {
         //Get the user info from remote
         preg_match('/(.*?)@(.*)/', $request->get('email'), $output_array);
+
         if (isset($output_array[1])) {
             $userResponse = app(
                 AuthenticationService::class
@@ -94,7 +93,7 @@ class Users extends Controller
      */
     public function index()
     {
-        return view('admin.users.index')->with(
+        return $this->view('admin.users.index')->with(
             'users',
             $this->usersRepository
                 ->disablePagination()
