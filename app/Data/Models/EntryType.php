@@ -16,4 +16,6 @@ class EntryType extends Model
     ];
 
     protected $orderBy = ['name' => 'asc'];
+
+    protected $filterableColumns = ['name'];
 }

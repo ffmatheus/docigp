@@ -14,9 +14,7 @@ class Legislatures extends Controller
     {
         return $this->view('admin.legislatures.index')->with(
             'legislatures',
-            app(LegislaturesRepository::class)
-                ->model()
-                ->all()
+            app(LegislaturesRepository::class)->all()
         );
     }
 

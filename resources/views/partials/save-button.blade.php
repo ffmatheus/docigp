@@ -1,11 +1,9 @@
-<button
+<a href="{{route($backUrl)}}"
     id="cancelButton"
     class="btn btn-success ml-1"
-    v-on:click.prevent="cancel()"
-    :disabled="!(isEditing || isCreating)"
 >
     <i class="fas fa-ban"></i> Cancelar
-</button>
+</a>
 
 <button
     type="submit"

@@ -22,7 +22,7 @@
 
                     <div class="col-sm-4 align-self-center d-flex justify-content-end">
                         @include('partials.edit-button', ['model'=>$party])
-                        @include('partials.save-button', ['model'=>$party])
+                        @include('partials.save-button', ['model'=>$party, 'backUrl' => 'parties.index'])
                     </div>
                 </div>
             </div>
@@ -51,7 +51,6 @@
                         <input name="name" value="{{is_null(old('name')) ? $party->name : old('name')}}" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Nome" @include('partials.disabled', ['model'=>$party])>
                     </div>
                 </div>
-                @include('partials.save-button')
             </div>
         </form>
     </div>

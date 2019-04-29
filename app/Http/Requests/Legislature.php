@@ -12,9 +12,9 @@ class Legislature extends Request
     public function rules()
     {
         return [
-            'number' => 'required',
-            'year_start' => 'required',
-            'year_end' => 'required',
+            'number' => 'required|integer',
+            'year_start' => 'required|integer|digits:4',
+            'year_end' => 'required|integer|digits:4',
         ];
     }
 }

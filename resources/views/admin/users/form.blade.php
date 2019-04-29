@@ -16,8 +16,16 @@
                             @endif
                         </h4>
                     </div>
+
+                    <div class="col-sm-4 align-self-center d-flex justify-content-end">
+                        @include('partials.edit-button', ['model'=>$user])
+                        @include('partials.save-button', ['model'=>$user, 'backUrl' => 'users.index'])
+                    </div>
+
                 </div>
             </div>
+
+
 
             <div class="card-body">
                 @include('partials.alerts')
@@ -84,8 +92,6 @@
                             </select>
                         </div>
                     </div>
-                    @include('partials.edit-button', ['model'=>$user])
-                    @include('partials.save-button', ['model'=>$user])
                 </form>
             </div>
         </div>

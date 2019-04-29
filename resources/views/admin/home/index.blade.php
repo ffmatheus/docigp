@@ -77,10 +77,10 @@
                         </div>
                     @endCan
 
-                    @can('costCenters:show')
+                    @can('cost-centers:show')
                         <div class="col-sm-12 col-md-6 col-lg-4">
                             @include('partials.tile', [
-                                'route' => route('costCenters.index'),
+                                'route' => route('cost-centers.index'),
                                 'title' => 'Centros de custo',
                                 'color' => 'purple',
                                 'icon' => 'fa fa-donate fa-5x'
@@ -88,10 +88,10 @@
                         </div>
                     @endCan
 
-                    @can('entryTypes:show')
+                    @can('entry-types:show')
                         <div class="col-sm-12 col-md-6 col-lg-4">
                             @include('partials.tile', [
-                                'route' => route('entryTypes.index'),
+                                'route' => route('entry-types.index'),
                                 'title' => 'Tipos de lançamento',
                                 'color' => 'red',
                                 'icon' => 'fa fa-clipboard fa-5x'

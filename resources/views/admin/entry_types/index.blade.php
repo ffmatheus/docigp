@@ -12,8 +12,8 @@
                     @include(
                         'layouts.partials.search-form',
                         [
-                            'routeSearch' => 'entryTypes.index',
-                            'routeCreate' => 'entryTypes.create',
+                            'routeSearch' => 'entry-types.index',
+                            'routeCreate' => 'entry-types.create',
                         ]
                     )
                 </div>

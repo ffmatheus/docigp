@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card card-default" id="vue-entry_types">
-        <form name="formulario" id="formulario" @if(formMode() == 'show') action="{{ route('entryTypes.update', ['id' => $entryType->id]) }}" @else action="{{ route('entryTypes.store')}}" @endIf method="POST">
+        <form name="formulario" id="formulario" @if(formMode() == 'show') action="{{ route('entry-types.update', ['id' => $entryType->id]) }}" @else action="{{ route('entry-types.store')}}" @endIf method="POST">
             {{ csrf_field() }}
             <input name="id" type="hidden" value="{{ $entryType->id }}" id="id" >
 
@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-sm-8 align-self-center">
                         <h4 class="mb-0">
-                            <a href="{{ route('entryTypes.index') }}">Tipos de Lançamentos</a>
+                            <a href="{{ route('entry-types.index') }}">Tipos de Lançamentos</a>
 
                             @if(is_null($entryType->id))
                                 > NOVA
@@ -22,7 +22,7 @@
 
                     <div class="col-sm-4 align-self-center d-flex justify-content-end">
                         @include('partials.edit-button', ['model'=>$entryType])
-                        @include('partials.save-button', ['model'=>$entryType])
+                        @include('partials.save-button', ['model'=>$entryType, 'backUrl' => 'entry-types.index'])
                     </div>
                 </div>
             </div>
@@ -55,7 +55,6 @@
                         </div>
                     </div>
                 </div>
-                @include('partials.save-button', ['model'=>$entryType])
             </div>
         </form>
     </div>

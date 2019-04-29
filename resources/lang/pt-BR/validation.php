@@ -209,5 +209,10 @@ return [
         'frequency' => 'frequência',
         'limit' => 'limite',
         'can_accumulate' => 'acumulável',
+        'year_start' => 'ano de início',
+        'year_end' => 'ano final',
+        'number' => 'número',
+        'cpf_cnpj' => 'CPF/CNPJ',
+        'type' => 'Tipo pessoa (PJ ou PF)',
     ],
 ];

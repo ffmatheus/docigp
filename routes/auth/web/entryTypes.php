@@ -1,13 +1,13 @@
 <?php
 
-Route::group(['prefix' => '/entryTypes'], function () {
-    Route::get('/create', 'EntryTypes@create')->name('entryTypes.create');
+Route::group(['prefix' => '/entry-types'], function () {
+    Route::get('/create', 'EntryTypes@create')->name('entry-types.create');
 
-    Route::post('/', 'EntryTypes@store')->name('entryTypes.store');
+    Route::post('/', 'EntryTypes@store')->name('entry-types.store');
 
-    Route::get('/{id}', 'EntryTypes@show')->name('entryTypes.show');
+    Route::get('/{id}', 'EntryTypes@show')->name('entry-types.show');
 
-    Route::post('/{id}', 'EntryTypes@update')->name('entryTypes.update');
+    Route::post('/{id}', 'EntryTypes@update')->name('entry-types.update');
 
-    Route::get('/', 'EntryTypes@index')->name('entryTypes.index');
+    Route::get('/', 'EntryTypes@index')->name('entry-types.index');
 });

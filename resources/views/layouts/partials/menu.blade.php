@@ -66,14 +66,14 @@
                                 </a>
                             @endCan
 
-                            @can('costCenters:show')
-                                <a class="dropdown-item" href="{{ route('costCenters.index') }}">
+                            @can('cost-centers:show')
+                                <a class="dropdown-item" href="{{ route('cost-centers.index') }}">
                                     Centro de Custo
                                 </a>
                             @endCan
 
-                            @can('entryTypes:show')
-                                <a class="dropdown-item" href="{{ route('entryTypes.index') }}">
+                            @can('entry-types:show')
+                                <a class="dropdown-item" href="{{ route('entry-types.index') }}">
                                     Tipos de Lançamentos
                                 </a>
                             @endCan

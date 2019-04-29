@@ -26,7 +26,7 @@
     @forelse ($costCenters as $costCenter)
         <tr>
             <td width="60%">
-                <a href="{{ route('costCenters.show', ['id' => $costCenter['id']]) }}">{{ $costCenter['name'] }}</a>
+                <a href="{{ route('cost-centers.show', ['id' => $costCenter['id']]) }}">{{ $costCenter['name'] }}</a>
             </td>
             <td>
                 {{ $costCenter['code'] }}
