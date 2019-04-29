@@ -230,7 +230,7 @@ function capitalizeBrazilian($name)
 
 function permission_slug($string)
 {
-    $string = str_replace(':', ($replace = 'xxxxxxxxxx'), $string);
+    $string = str_replace(':', $replace = 'xxxxxxxxxx', $string);
 
     return str_replace($replace, ':', Str::slug($string));
 }
