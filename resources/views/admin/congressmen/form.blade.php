@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col-xs-4 col-md-2 text-right">
-                    {{--@include('partials.save-button')--}}
+                    @include('partials.save-button', ['model'=>$congressman, 'url' => 'congressmen.index'])
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
 
 
 
-                @include('partials.save-button')
+                @include('partials.save-button', ['model'=>$congressman, 'url' => 'congressmen.index'])
                 <br />
 
             </form>
