@@ -34,12 +34,12 @@
             <form name="formulario" id="formulario" action="{{ route('congressmen.associateWithUser') }}" method="POST">
                 {{ csrf_field() }}
 
-                <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
+                <input name="id" type='hidden' value="{{ $congressman->id }}" id="id" >
 
-                @if($congressman->photo_url)
+                @if ($congressman->photo_url_linkable)
                     <div class="row">
                         <div class="form-group col-md-6" >
-                            <img src="{{ "//{$congressman->photo_url}" }}">
+                            <img src="{{ $congressman->photo_url_linkable }}" width="250px">
                         </div>
                     </div>
                 @endif

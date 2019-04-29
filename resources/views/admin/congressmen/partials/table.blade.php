@@ -29,8 +29,10 @@
                 </td>
 
                 <td>
-                    @if (isset($congressman['thumbnail_url']))
-                        <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}"><img src="{{$congressman['thumbnail_url']}}" ></a>
+                    @if (isset($congressman['thumbnail_url_linkable']))
+                        <a href="{{ route('congressmen.show', ['id' => $congressman['id']]) }}">
+                            <img src="{{ $congressman['thumbnail_url_linkable'] }}" width="60px">
+                        </a>
                     @endif
                 </td>
 
