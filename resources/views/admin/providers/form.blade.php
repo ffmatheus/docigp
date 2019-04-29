@@ -5,7 +5,7 @@
         <form name="formulario" id="formulario" @if(formMode() == 'show') action="{{ route('providers.update', ['id' => $provider->id]) }}" @else action="{{ route('providers.store')}}" @endIf method="POST">
             {{ csrf_field() }}
 
-            <input name="id" type="hidden" value="{{$provider->id}}" id="id" >
+            <input name="id" type="hidden" value="{{$provider->id}}" id="id">
 
             <div class="card-header">
                 <div class="row">

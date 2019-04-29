@@ -12,7 +12,7 @@ class Legislatures extends Controller
 {
     public function index()
     {
-        return view('admin.legislatures.index')->with(
+        return $this->view('admin.legislatures.index')->with(
             'legislatures',
             app(LegislaturesRepository::class)->all()
         );
@@ -22,7 +22,7 @@ class Legislatures extends Controller
     {
         formMode(Constants::FORM_MODE_CREATE);
 
-        return view('admin.legislatures.form')->with([
+        return $this->view('admin.legislatures.form')->with([
             'legislature' => app(LegislaturesRepository::class)->new(),
         ]);
     }
@@ -35,7 +35,7 @@ class Legislatures extends Controller
 
     public function show($id)
     {
-        return view('admin.legislatures.form')
+        return $this->view('admin.legislatures.form')
             ->with([
                 'legislature' => app(LegislaturesRepository::class)->findById(
                     $id

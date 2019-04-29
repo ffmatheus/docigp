@@ -6,6 +6,7 @@ use App\Data\Models\User;
 use App\Support\Constants;
 use App\Data\Repositories\Congressmen as CongressmenRepository;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class Users extends Repository
 {
@@ -105,5 +106,40 @@ class Users extends Repository
         $this->model->assign(Constants::ROLE_CONGRESSMAN);
 
         return $this->model;
+    }
+
+    public function searchFromRequest($search = null)
+    {
+        $search = is_null($search)
+            ? collect()
+            : collect(explode(' ', $search))->map(function ($item) {
+                return strtolower($item);
+            });
+
+        $columns = collect([
+            'name' => 'string',
+            'email' => 'string',
+            'username' => 'string',
+        ]);
+
+        $query = $this->model::query();
+
+        $search->each(function ($item) use ($columns, $query) {
+            $columns->each(function ($type, $column) use ($query, $item) {
+                if ($type === 'string') {
+                    $query->orWhere(
+                        DB::raw("lower({$column})"),
+                        'like',
+                        '%' . $item . '%'
+                    );
+                } else {
+                    if ($this->isDate($item)) {
+                        $query->orWhere($column, '=', $item);
+                    }
+                }
+            });
+        });
+
+        return $this->makeResultForSelect($query->orderBy('name')->get());
     }
 }
