@@ -11,13 +11,4 @@ class EntryTypes extends Repository
      */
     protected $model = EntryType::class;
 
-    /**
-     * @return mixed
-     */
-    public function all()
-    {
-        $this->shouldPaginate = false;
-
-        return parent::all();
-    }
 }

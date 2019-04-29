@@ -16,7 +16,7 @@ class EntryTypes extends Controller
         return view('admin.entry_types.index')->with(
             'entryTypes',
             app(EntryTypesRepository::class)
-                ->model()
+                ->disablePagination()
                 ->all()
         );
     }
