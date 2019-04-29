@@ -4,7 +4,7 @@
     <div class="card card-default">
         <div class="card-header">
             <div class="row">
-                <div class="col-xs-8 col-md-10">
+                <div class="col-sm-8 align-self-center">
                     <h4 class="mb-0">
                         <a href="{{ route('congressmen.index') }}">Deputados</a>
 
@@ -16,8 +16,9 @@
                     </h4>
                 </div>
 
-                <div class="col-xs-4 col-md-2 text-right">
-                    @include('partials.save-button', ['model'=>$congressman, 'url' => 'congressmen.index'])
+                <div class="col-sm-4 align-self-center d-flex justify-content-end">
+                    @include('partials.edit-button', ['model' => $congressman])
+                    @include('partials.save-button', ['model' => $congressman, 'url' => 'congressmen.index'])
                 </div>
             </div>
         </div>
@@ -75,13 +76,8 @@
                     </div>
 
                 </div>
-
-
-
-                @include('partials.save-button', ['model'=>$congressman, 'url' => 'congressmen.index'])
-                <br />
-
             </form>
+
             <div class="row">
                 <div class="form-group col-md-6" >
 

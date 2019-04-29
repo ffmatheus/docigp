@@ -55,7 +55,6 @@
                         </div>
                     </div>
                 </div>
-                @include('partials.save-button', ['model'=>$entryType])
             </div>
         </form>
     </div>
