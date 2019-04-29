@@ -9,7 +9,13 @@
             /***/ function(module, __webpack_exports__, __webpack_require__) {
                 'use strict'
                 __webpack_require__.r(__webpack_exports__)
-                /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                /* harmony import */ var _mixins_crud__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+                    /*! ./mixins/crud */ './resources/js/views/mixins/crud.js',
+                )
+                /* harmony import */ var _mixins_permissions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+                    /*! ./mixins/permissions */ './resources/js/views/mixins/permissions.js',
+                )
+                /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
                     /*! vuex */ './node_modules/vuex/dist/vuex.esm.js',
                 )
                 function _objectSpread(target) {
@@ -71,11 +77,14 @@
                 //
                 //
                 //
-                // import crud from './mixins/crud'
-                // import permissions from './mixins/permissions'
 
                 /* harmony default export */ __webpack_exports__['default'] = {
-                    mixins: [crud, permissions],
+                    mixins: [
+                        _mixins_crud__WEBPACK_IMPORTED_MODULE_0__['default'],
+                        _mixins_permissions__WEBPACK_IMPORTED_MODULE_1__[
+                            'default'
+                        ],
+                    ],
                     data: function data() {
                         return {
                             service: {
@@ -86,14 +95,14 @@
                     },
                     methods: _objectSpread(
                         {},
-                        Object(vuex__WEBPACK_IMPORTED_MODULE_0__['mapActions'])(
+                        Object(vuex__WEBPACK_IMPORTED_MODULE_2__['mapActions'])(
                             'admin',
-                            ['clearForm', 'clearErrors'],
+                            ['clearForm'],
                         ),
                     ),
                     computed: _objectSpread(
                         {},
-                        Object(vuex__WEBPACK_IMPORTED_MODULE_0__['mapState'])({
+                        Object(vuex__WEBPACK_IMPORTED_MODULE_2__['mapState'])({
                             admin: function admin(state) {
                                 return state.admin.data.rows
                             },
