@@ -119,7 +119,7 @@ abstract class Repository
      */
     public function create($data)
     {
-        $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
+        $model = is_null($id = isset($data['id']) ? $data['id'] : null)
             ? new $this->model()
             : $this->newQuery()
                 ->where('id', $id)
@@ -205,11 +205,11 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if (($text = $filter['filter']['text'])) {
+        if ($text = $filter['filter']['text']) {
             $this->filterAllColumns($query, $text);
         }
 
-        if (($text = $filter['search'])) {
+        if ($text = $filter['search']) {
             $this->filterAllColumns($query, $text);
         }
 
@@ -630,7 +630,7 @@ abstract class Repository
      */
     protected function normalizeName(string $name)
     {
-        return filled(($name = trim($name))) ? $name : null;
+        return filled($name = trim($name)) ? $name : null;
     }
 
     /**
