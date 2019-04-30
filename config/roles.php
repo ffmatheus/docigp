@@ -114,7 +114,6 @@ return [
                 'congressman-budgets:store',
                 'congressman-budgets:update',
                 'congressman-budgets:publish',
-                'congressman-budgets:deposit',
                 'congressman-budgets:analyse',
                 'entries:show',
                 'entries:analyse',
