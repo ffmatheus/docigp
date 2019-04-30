@@ -6,7 +6,6 @@ use App\Data\Traits\Selectable;
 use Illuminate\Support\Facades\DB;
 use App\Data\Scopes\Published as PublishedScope;
 use App\Data\Scopes\Congressman as CongressmanScope;
-use Illuminate\Support\Facades\DB;
 
 class Congressman extends Model
 {
