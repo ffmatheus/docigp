@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Support\Constants;
 use Carbon\Carbon;
 use App\Data\Models\Entry;
 use Illuminate\Support\Str;
@@ -82,7 +83,7 @@ class Entries extends Repository
 
             $entry['name'] = ($forCongressman = in_array(
                 $entry['cost_center_id'],
-                ['1', '2', '3']
+                Constants::COST_CENTER_CONTROL_ID_ARRAY
             ))
                 ? $entry['to']
                 : $entry['provider_name'];
