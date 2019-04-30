@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="card-body">
                 @include('partials.alerts')
                 @if ($errors->has('email'))
@@ -35,10 +35,10 @@
                     </div>
                 @endif
 
-                @if($congressman->photo_url)
+                @if ($congressman->photo_url_linkable)
                     <div class="row">
                         <div class="form-group col-md-6" >
-                            <img src="{{ "//{$congressman->photo_url}" }}">
+                            <img src="{{ $congressman->photo_url_linkable }}" width="250px">
                         </div>
                     </div>
                 @endif

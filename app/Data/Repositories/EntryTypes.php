@@ -10,5 +10,4 @@ class EntryTypes extends Repository
      * @var string
      */
     protected $model = EntryType::class;
-
 }
