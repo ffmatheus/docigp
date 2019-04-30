@@ -26,8 +26,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button id="cancelContactButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="saveContactButton" type="submit" class="btn btn-success">
+                    <button id="cancelContactButton" type="button" class="btn btn-success ml-1" data-dismiss="modal">Cancelar</button>
+                    <button id="saveContactButton" type="submit" class="btn btn-outline-danger ml-1">
                         Gravar
                     </button>
                 </div>
