@@ -72,7 +72,7 @@
                 </td>
 
                 <td class="align-middle">
-                    {{ entry.to }}
+                    {{ entry.name }}
                     <span v-if="entry.cpf_cnpj">
                         <br />
                         <small class="text-primary">

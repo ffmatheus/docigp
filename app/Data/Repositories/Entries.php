@@ -110,6 +110,22 @@ class Entries extends Repository
     }
 
     /**
+     * @param $id
+     * @param $array
+     * @return mixed
+     */
+    public function update($id, $array = null)
+    {
+        $this->data['provider_id'] = $this->firstOrCreateProvider(
+            $this->data['provider_name'],
+            $this->data['provider_cpf_cnpj']
+        )->id;
+
+        $this->fillAndSave($array ?? $this->data, $this->findById($id));
+        return parent::update($id, $array);
+    }
+
+    /**
      * @param $callable
      * @return mixed
      */
