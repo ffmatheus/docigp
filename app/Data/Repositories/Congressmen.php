@@ -160,29 +160,9 @@ class Congressmen extends Repository
         return $this->makeResultForSelect($query->orderBy('name')->get());
     }
 
-    public function transform($data)
-    {
-        $this->addTransformationPlugin(function ($congressman) {
-            if ($congressman['thumbnail_url'] != '') {
-                $congressman['thumbnail_url'] =
-                    'http://' . trim($congressman['thumbnail_url']);
-            }
-
-            if ($congressman['photo_url'] != '') {
-                $congressman['photo_url'] =
-                    'http://' . trim($congressman['photo_url']);
-            }
-
-            return $congressman;
-        });
-
-        return parent::transform($data);
-    }
-
     public function associateWithUser($request)
     {
-        $userRepository = new Users();
-        return $userRepository->associateCongressmanWithUser(
+        return app(Users::class)->associateCongressmanWithUser(
             $request['id'],
             $request
         );
