@@ -17,18 +17,19 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <p>Data Fim</p>
-                            <input type="date" name="ended_at" >
+                            <p><label for="ended_at">Data Fim</label></p>
+                            <input type="date" name="ended_at" id="ended_at" />
                         </div>
-
-
                     </div>
+
                 </div>
 
                 <div class="modal-footer">
-                    <button id="cancelContactButton" type="button" class="btn btn-success ml-1" data-dismiss="modal">Cancelar</button>
+                    <button id="cancelContactButton" type="button" class="btn btn-success ml-1" data-dismiss="modal">
+                        <i class="fas fa-ban"></i> Cancelar
+                    </button>
                     <button id="saveContactButton" type="submit" class="btn btn-outline-danger ml-1">
-                        Gravar
+                        <i class="fa fa-save"></i> Gravar
                     </button>
                 </div>
             </form>
@@ -55,18 +56,18 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <p>Data de início</p>
-                            <input type="date" name="started_at" >
+                            <p><label for="started_at">Data de início</label></p>
+                            <input type="date" name="started_at" id="started_at">
                         </div>
-
-
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button id="cancelContactButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="saveContactButton" type="submit" class="btn btn-success">
-                        Gravar
+                    <button id="cancelContactButton" type="button" class="btn btn-success ml-1" data-dismiss="modal">
+                        <i class="fas fa-ban"></i> Cancelar
+                    </button>
+                    <button id="saveContactButton" type="submit" class="btn btn-outline-danger ml-1">
+                        <i class="fa fa-save"></i> Gravar
                     </button>
                 </div>
             </form>
