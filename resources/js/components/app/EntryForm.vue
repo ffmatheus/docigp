@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-model="show" :title="formTitle" @shown="onShow()">
+        <b-modal v-model="showModal" :title="formTitle" @shown="onShow()">
             <b-form>
                 <div class="row">
                     <div class="col-6">
