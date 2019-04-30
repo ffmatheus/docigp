@@ -9,7 +9,7 @@
                 </button>
             </div>
 
-            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman_legislatures.removeFromLegislature')}}" method="post">
+            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman-legislatures.remove-from-legislature')}}" method="post">
                 <div class="modal-body">
                     {{ csrf_field() }}
 
@@ -47,7 +47,7 @@
                 </button>
             </div>
 
-            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman_legislatures.includeInLegislature')}}" method="post">
+            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman-legislatures.include-in-legislature')}}" method="post">
                 <div class="modal-body">
                     {{ csrf_field() }}
 

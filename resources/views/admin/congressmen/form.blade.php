@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card card-default">
-        <form name="formulario" id="formulario" action="{{ route('congressmen.associateWithUser') }}" method="POST">
+        <form name="formulario" id="formulario" action="{{ route('congressmen.associate-with-user') }}" method="POST">
             {{ csrf_field() }}
             <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
 
