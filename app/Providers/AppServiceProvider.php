@@ -37,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        info(request()->all());
+        if (App::environment('local')) {
+            info(request()->all());
+        }
     }
 }
