@@ -122,9 +122,9 @@ class User extends Authenticatable implements AuditableContract
         );
     }
 
-    public function departament()
+    public function department()
     {
-        return $this->belongsTo(Departament::class);
+        return $this->belongsTo(Department::class);
     }
 
     public function congressman()

@@ -5,7 +5,7 @@ namespace App\Data\Repositories;
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanLegislature;
 use PragmaRX\Coollection\Package\Coollection;
-use App\Data\Repositories\Departaments as DepartamentsRepository;
+use App\Data\Repositories\Departments as DepartmentsRepository;
 
 class Congressmen extends Repository
 {
@@ -25,7 +25,7 @@ class Congressmen extends Repository
         ])->contains($congressman->name);
     }
 
-    private function createCongressmanFromRemote($congressman, $departamentId)
+    private function createCongressmanFromRemote($congressman, $departmentId)
     {
         return $this->firstOrCreate(
             [
@@ -42,7 +42,7 @@ class Congressmen extends Repository
 
                 'photo_url' => $congressman['Foto'],
 
-                'departament_id' => $departamentId,
+                'department_id' => $departmentId,
 
                 'thumbnail_url' => $congressman['FotoPequena'],
             ]
@@ -83,13 +83,13 @@ class Congressmen extends Repository
     {
         $this->withGlobalScopesDisabled(function () use ($data) {
             $data->each(function ($congressman) {
-                $departament = app(
-                    DepartamentsRepository::class
-                )->createDepartamentFromCongressman($congressman);
+                $department = app(
+                    DepartmentsRepository::class
+                )->createDepartmentFromCongressman($congressman);
 
                 $congressman = $this->createCongressmanFromRemote(
                     $congressman,
-                    $departament->id
+                    $department->id
                 );
 
                 if (

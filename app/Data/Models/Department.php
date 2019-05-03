@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class Departament extends Model
+class Department extends Model
 {
     protected $fillable = ['name', 'initials'];
 
@@ -13,7 +13,7 @@ class Departament extends Model
 
     public function users()
     {
-        $this->hasMany(Departament::class);
+        $this->hasMany(Department::class);
     }
 
     public function isCongressmanCabinet()

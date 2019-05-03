@@ -16,13 +16,11 @@ class Congressman extends Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (
-            static::$enabled &&
-            ($departamentId = get_current_departament_id())
-        ) {
+        db_listen();
+        if (static::$enabled && ($departmentId = get_current_department_id())) {
             $builder->where(
-                $model->getTable() . '.departament_id',
-                $departamentId
+                $model->getTable() . '.department_id',
+                $departmentId
             );
         }
     }

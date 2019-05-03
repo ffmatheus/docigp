@@ -88,7 +88,7 @@ class CreateCongressmanUserAndAssociate extends Migration
     public function up()
     {
         app(DataSyncService::class)->parties();
-        app(DataSyncService::class)->departaments();
+        app(DataSyncService::class)->departments();
         app(DataSyncService::class)->congressmen();
 
         collect(static::USERS)->each(function ($email, $name) {
@@ -112,7 +112,7 @@ class CreateCongressmanUserAndAssociate extends Migration
             if (!is_null($congressman)) {
                 $userCreated['congressman_id'] = $congressman->id;
 
-                $userCreated['departament_id'] = $congressman->departament->id;
+                $userCreated['department_id'] = $congressman->department->id;
 
                 $userCreated->save();
 

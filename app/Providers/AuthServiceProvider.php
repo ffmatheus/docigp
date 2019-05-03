@@ -30,11 +30,11 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('congressman:show', function ($user, $congressman) {
-            if (blank($user->departament)) {
+            if (blank($user->department)) {
                 return false;
             }
 
-            return $congressman->departament->id == $user->departament->id;
+            return $congressman->department->id == $user->department->id;
         });
     }
 }

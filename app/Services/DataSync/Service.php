@@ -4,7 +4,7 @@ namespace App\Services\DataSync;
 
 use App\Data\Repositories\Parties;
 use App\Data\Repositories\Congressmen;
-use App\Data\Repositories\Departaments;
+use App\Data\Repositories\Departments;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 use PragmaRX\Coollection\Package\Coollection;
 use Silber\Bouncer\Database\Ability as BouncerAbility;
@@ -47,10 +47,10 @@ class Service
         }
     }
 
-    public function departaments()
+    public function departments()
     {
         collect(config('departments.list'))->each(function ($department) {
-            app(Departaments::class)->firstOrCreate($department);
+            app(Departments::class)->firstOrCreate($department);
         });
     }
 

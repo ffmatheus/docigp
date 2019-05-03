@@ -15,7 +15,7 @@ class Congressman extends Model
         'party_id',
         'photo_url',
         'thumbnail_url',
-        'departament_id',
+        'department_id',
     ];
 
     protected $with = ['party', 'user'];
@@ -178,9 +178,9 @@ class Congressman extends Model
         return $this->belongsTo(Party::class);
     }
 
-    public function departament()
+    public function department()
     {
-        return $this->belongsTo(Departament::class);
+        return $this->belongsTo(Department::class);
     }
 
     public static function boot()

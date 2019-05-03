@@ -240,10 +240,10 @@ function to_reais($number)
     return 'R$ ' . number_format($number, 2, ',', '.');
 }
 
-function get_current_departament_id()
+function get_current_department_id()
 {
-    return auth()->user() && auth()->user()->departament
-        ? auth()->user()->departament->id
+    return auth()->user() && auth()->user()->department
+        ? auth()->user()->department->id
         : null;
 }
 

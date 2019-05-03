@@ -100,7 +100,7 @@ class Users extends Repository
         );
 
         $this->model['congressman_id'] = $congressman_id;
-        $this->model['departament_id'] = $congressman->departament->id ?? null;
+        $this->model['department_id'] = $congressman->department->id ?? null;
 
         $this->model->save();
 

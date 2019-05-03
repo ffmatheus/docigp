@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableDepartaments extends Migration
+class CreateTableDepartments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableDepartaments extends Migration
      */
     public function up()
     {
-        Schema::create('departaments', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('name');
@@ -35,14 +35,14 @@ class CreateTableDepartaments extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table
-                ->bigInteger('departament_id')
+                ->bigInteger('department_id')
                 ->unsigned()
                 ->nullable();
         });
 
         Schema::table('bouncer_roles', function (Blueprint $table) {
             $table
-                ->bigInteger('departament_id')
+                ->bigInteger('department_id')
                 ->unsigned()
                 ->nullable();
         });
@@ -55,14 +55,14 @@ class CreateTableDepartaments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departaments');
+        Schema::dropIfExists('departments');
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('departament_id');
+            $table->dropColumn('department_id');
         });
 
         Schema::table('bouncer_roles', function (Blueprint $table) {
-            $table->dropColumn('departament_id');
+            $table->dropColumn('department_id');
         });
     }
 }

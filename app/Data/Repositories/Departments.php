@@ -2,16 +2,16 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Departament as DepartamentModel;
+use App\Data\Models\Department as DepartmentModel;
 
-class Departaments extends Repository
+class Departments extends Repository
 {
     /**
      * @var string
      */
-    protected $model = DepartamentModel::class;
+    protected $model = DepartmentModel::class;
 
-    public function createDepartamentFromCongressman($congressman)
+    public function createDepartmentFromCongressman($congressman)
     {
         return $this->model::firstOrCreate([
             'name' => ($name = $this->normalizeName($congressman['Nome'])),
