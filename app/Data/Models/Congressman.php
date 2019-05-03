@@ -74,11 +74,13 @@ class Congressman extends Model
             )
             ->whereNotNull('congressman_legislatures.ended_at')
             ->whereNotExists(function ($query) {
-                $query->select(DB::raw(1))
+                $query
+                    ->select(DB::raw(1))
                     ->from('congressman_legislatures')
-                    ->whereRaw('congressman_legislatures.congressman_id = congressmen.id')
-                    ->whereNull('congressman_legislatures.ended_at')
-                ;
+                    ->whereRaw(
+                        'congressman_legislatures.congressman_id = congressmen.id'
+                    )
+                    ->whereNull('congressman_legislatures.ended_at');
             });
     }
 

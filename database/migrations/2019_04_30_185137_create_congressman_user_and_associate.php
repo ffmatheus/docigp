@@ -2,6 +2,7 @@
 
 use App\Data\Models\User;
 use App\Data\Repositories\Users;
+use App\Services\DataSync\Service as DataSyncService;
 use App\Support\Constants;
 use Illuminate\Database\Migrations\Migration;
 
@@ -86,6 +87,10 @@ class CreateCongressmanUserAndAssociate extends Migration
 
     public function up()
     {
+        app(DataSyncService::class)->parties();
+        app(DataSyncService::class)->departaments();
+        app(DataSyncService::class)->congressmen();
+
         collect(static::USERS)->each(function ($email, $name) {
             User::disableEvents();
 
