@@ -10,6 +10,17 @@ class Constants
     const COST_CENTER_TRANSPORT_DEBIT_ID = 2;
     const COST_CENTER_TRANSPORT_CREDIT_ID = 3;
 
+    const COST_CENTER_CONTROL_ID_ARRAY = [
+        Constants::COST_CENTER_CREDIT_ID,
+        Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
+        Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
+    ];
+
+    const COST_CENTER_CREDIT_ID_ARRAY = [
+        Constants::COST_CENTER_CREDIT_ID,
+        Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
+    ];
+
     const ENTRY_TYPE_ALERJ_DEPOSIT_ID = 1;
     const ENTRY_TYPE_TRANSPORT_ID = 2;
     const ENTRY_TYPE_TRANSFER_ID = 3;

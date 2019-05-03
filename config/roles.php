@@ -33,6 +33,8 @@ return [
                 'entries:update' => 'Lançamentos: alterar',
                 'entries:publish' => 'Lançamentos: publicar',
                 'entries:delete' => 'Lançamentos: deletar',
+                'entries:control-update' =>
+                    'Lançamentos: alterar lançamento de controle',
 
                 'entry-documents:show' => 'Documentos: ver',
                 'entry-documents:store' => 'Documentos: criar',
@@ -112,10 +114,12 @@ return [
                 'congressman-budgets:store',
                 'congressman-budgets:update',
                 'congressman-budgets:publish',
-                'congressman-budgets:deposit',
                 'congressman-budgets:analyse',
                 'entries:show',
                 'entries:analyse',
+                'entries:control-update',
+                'entries:update',
+                'entries:delete',
                 'entry-documents:show',
                 'entry-documents:analyse',
             ],

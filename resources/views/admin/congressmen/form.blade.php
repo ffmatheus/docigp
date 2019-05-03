@@ -2,39 +2,39 @@
 
 @section('content')
     <div class="card card-default">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-8 align-self-center">
-                    <h4 class="mb-0">
-                        <a href="{{ route('congressmen.index') }}">Deputados</a>
+        <form name="formulario" id="formulario" action="{{ route('congressmen.associate-with-user') }}" method="POST">
+            {{ csrf_field() }}
 
-                        @if(is_null($congressman->id))
-                            > NOVA
-                        @else
-                            > {{ $congressman->name }}
-                        @endif
-                    </h4>
-                </div>
+            <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
 
-                <div class="col-sm-4 align-self-center d-flex justify-content-end">
-                    @include('partials.edit-button', ['model' => $congressman])
-                    @include('partials.save-button', ['model' => $congressman, 'backUrl' => 'congressmen.index'])
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-8 align-self-center">
+                        <h4 class="mb-0">
+                            <a href="{{ route('congressmen.index') }}">Deputados</a>
+
+                            @if(is_null($congressman->id))
+                                > NOVA
+                            @else
+                                > {{ $congressman->name }}
+                            @endif
+                        </h4>
+                    </div>
+
+                    <div class="col-sm-4 align-self-center d-flex justify-content-end">
+                        @include('partials.edit-button', ['model' => $congressman])
+                        @include('partials.save-button', ['model' => $congressman, 'backUrl' => 'congressmen.index'])
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="card-body">
-            @include('partials.alerts')
-            @if ($errors->has('email'))
-                <div class="alert alert-danger" role="alert">
-                    {{ $errors->first('email') }}
-                </div>
-            @endif
-
-            <form name="formulario" id="formulario" action="{{ route('congressmen.associateWithUser') }}" method="POST">
-                {{ csrf_field() }}
-
-                <input name="id" type='hidden' value="{{ $congressman->id }}" id="id" >
+            
+            <div class="card-body">
+                @include('partials.alerts')
+                @if ($errors->has('email'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
 
                 @if ($congressman->photo_url_linkable)
                     <div class="row">
@@ -74,10 +74,11 @@
 
                         <input name="email" value="{{is_null(old('email')) ? is_null($congressman->user)?'':$congressman->user->email: old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email">
                     </div>
-
                 </div>
-            </form>
+            </div>
+        </form>
 
+        <div class="card-body">
             <div class="row">
                 <div class="form-group col-md-6" >
 

@@ -12,15 +12,16 @@ class CostCenters extends Repository
      */
     protected $model = CostCenter::class;
 
-    public function withoutControlTypes()
+    public function filterControlTypes()
     {
-        $this->addCustomQuery(function ($query) {
-            $query->whereNotIn('code', [
-                Constants::COST_CENTER_CREDIT_ID,
-                Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
-                Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
-            ]);
-        });
+        if (current_user() && !current_user()->can('entries:control-update')) {
+            $this->addCustomQuery(function ($query) {
+                $query->whereNotIn(
+                    'code',
+                    Constants::COST_CENTER_CONTROL_ID_ARRAY
+                );
+            });
+        }
 
         return $this;
     }

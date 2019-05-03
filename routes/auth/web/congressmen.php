@@ -6,7 +6,7 @@ Route::group(['prefix' => '/congressmen'], function () {
     Route::get('/create', 'Congressmen@create')->name('congressmen.create');
 
     Route::post('/', 'Congressmen@associateWithUser')->name(
-        'congressmen.associateWithUser'
+        'congressmen.associate-with-user'
     );
 
     Route::get('/{id}', 'Congressmen@show')->name('congressmen.show');

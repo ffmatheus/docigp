@@ -9,7 +9,7 @@
                 </button>
             </div>
 
-            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman_legislatures.removeFromLegislature')}}" method="post">
+            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman-legislatures.remove-from-legislature')}}" method="post">
                 <div class="modal-body">
                     {{ csrf_field() }}
 
@@ -17,18 +17,19 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <p>Data Fim</p>
-                            <input type="date" name="ended_at" >
+                            <p><label for="ended_at">Data Fim</label></p>
+                            <input type="date" name="ended_at" id="ended_at" />
                         </div>
-
-
                     </div>
+
                 </div>
 
                 <div class="modal-footer">
-                    <button id="cancelContactButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="saveContactButton" type="submit" class="btn btn-success">
-                        Gravar
+                    <button id="cancelContactButton" type="button" class="btn btn-success ml-1" data-dismiss="modal">
+                        <i class="fas fa-ban"></i> Cancelar
+                    </button>
+                    <button id="saveContactButton" type="submit" class="btn btn-outline-danger ml-1">
+                        <i class="fa fa-save"></i> Gravar
                     </button>
                 </div>
             </form>
@@ -47,7 +48,7 @@
                 </button>
             </div>
 
-            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman_legislatures.includeInLegislature')}}" method="post">
+            <form class="form" id="form_insertContact" name="form_insertContact" action="{{route('congressman-legislatures.include-in-legislature')}}" method="post">
                 <div class="modal-body">
                     {{ csrf_field() }}
 
@@ -55,18 +56,18 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <p>Data de início</p>
-                            <input type="date" name="started_at" >
+                            <p><label for="started_at">Data de início</label></p>
+                            <input type="date" name="started_at" id="started_at">
                         </div>
-
-
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button id="cancelContactButton" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="saveContactButton" type="submit" class="btn btn-success">
-                        Gravar
+                    <button id="cancelContactButton" type="button" class="btn btn-success ml-1" data-dismiss="modal">
+                        <i class="fas fa-ban"></i> Cancelar
+                    </button>
+                    <button id="saveContactButton" type="submit" class="btn btn-outline-danger ml-1">
+                        <i class="fa fa-save"></i> Gravar
                     </button>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal v-model="show" :title="formTitle" @shown="onShow()">
+        <b-modal v-model="showModal" :title="formTitle" @shown="onShow()">
             <b-form>
                 <div class="row">
                     <div class="col-6">
@@ -70,21 +70,23 @@
                 ></app-input>
 
                 <app-input
-                    v-if="form.fields.provider_name"
+                    v-if="!isCreating"
                     name="provider_name"
                     label="Nome da pessoa ou razão social"
                     v-model="form.fields.provider_name"
                     :form="form"
-                    :readonly="true"
+                    :required="true"
+                    :readonly="!newCpfCnpj"
                 ></app-input>
 
                 <app-input
-                    v-if="!form.fields.provider_name"
+                    v-if="isCreating"
                     name="to"
                     label="Nome da pessoa ou razão social"
                     v-model="form.fields.to"
                     :required="true"
                     :form="form"
+                    :readonly="!newCpfCnpj"
                 ></app-input>
 
                 <app-select
@@ -224,8 +226,16 @@ export default {
     },
 
     computed: {
+        newCpfCnpj() {
+            return !this.cpfCnpj.person
+        },
+
+        isCreating() {
+            return !this.form.fields.id
+        },
+
         formTitle() {
-            return (this.form.fields.id ? 'Editar' : 'Novo') + ' lançamento'
+            return (!this.isCreating ? 'Editar' : 'Novo') + ' lançamento'
         },
 
         showModal: {
@@ -247,15 +257,26 @@ export default {
                 return 'Número inválido'
             }
 
-            if (this.cpfCnpj.person && blank(this.form.fields.to)) {
-                this.$store.commit('entries/mutateSetFormField', {
-                    field: 'to',
-                    value: this.cpfCnpj.person.name,
-                })
+            if (!this.isCreating) {
+                //Editando
+                if (!this.newCpfCnpj) {
+                    this.$store.commit('entries/mutateSetFormField', {
+                        field: 'provider_name',
+                        value: this.cpfCnpj.person.name,
+                    })
+                }
+            } else {
+                //Criando
+                if (!this.newCpfCnpj && blank(this.form.fields.to)) {
+                    this.$store.commit('entries/mutateSetFormField', {
+                        field: 'to',
+                        value: this.cpfCnpj.person.name,
+                    })
+                }
             }
 
             return (
-                (this.cpfCnpj.person ? this.cpfCnpj.person.name + ' - ' : '') +
+                (!this.newCpfCnpj ? this.cpfCnpj.person.name + ' - ' : '') +
                 this.cpfCnpj.type.toLowerCase() +
                 ': ' +
                 this.cpfCnpj.formatted
