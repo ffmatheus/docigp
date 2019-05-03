@@ -94,12 +94,13 @@ class Users extends Repository
     public function associateCongressmanWithUser($congressman_id, $request)
     {
         $this->model = $this->findUserByEmail($request['email']);
+
         $congressman = app(CongressmenRepository::class)->findById(
             $congressman_id
         );
 
         $this->model['congressman_id'] = $congressman_id;
-        $this->model['departament_id'] = $congressman->departament->id;
+        $this->model['departament_id'] = $congressman->departament->id ?? null;
 
         $this->model->save();
 
