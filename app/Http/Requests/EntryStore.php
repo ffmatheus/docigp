@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\WithinBudgetDate;
+use App\Support\Constants;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 
@@ -56,7 +57,14 @@ class EntryStore extends Request
             $all['date'] = Carbon::createFromFormat('d/m/Y', $all['date']);
         }
 
-        if (!isset($all['value']) && isset($all['value_abs'])) {
+        if (
+            in_array(
+                $all['cost_center_id'],
+                Constants::COST_CENTER_CREDIT_ID_ARRAY
+            )
+        ) {
+            $all['value'] = $all['value_abs'];
+        } else {
             $all['value'] = -$all['value_abs'];
         }
 

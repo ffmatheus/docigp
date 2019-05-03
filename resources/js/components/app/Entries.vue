@@ -72,7 +72,7 @@
                 </td>
 
                 <td class="align-middle">
-                    {{ entry.to }}
+                    {{ entry.name }}
                     <span v-if="entry.cpf_cnpj">
                         <br />
                         <small class="text-primary">
@@ -96,7 +96,7 @@
                                 (entry.value > 0 ? 'success' : 'dark')
                         "
                     >
-                        {{ entry.value > 0 ? 'crédito' : 'débito' }}
+                        {{ isCreditEntry(entry) > 0 ? 'crédito' : 'débito' }}
                     </span>
                 </td>
 
@@ -268,6 +268,10 @@ export default {
             'clearForm',
             'clearErrors',
         ]),
+
+        isCreditEntry(entry) {
+            return entry.value > 0
+        },
 
         getTableColumns() {
             let columns = [

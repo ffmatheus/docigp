@@ -69,6 +69,8 @@ export function setCurrentPage(context, payload) {
 export function setPerPage(context, payload) {
     context.commit('mutateSetPerPage', payload)
 
+    context.state.data.links.pagination.current_page = 1
+
     context.dispatch('load')
 
     context.dispatch('updateUserPerPage', payload)
