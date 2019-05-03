@@ -1,13 +1,13 @@
 <?php
 
-Route::group(['prefix' => '/congressman_legislatures'], function () {
+Route::group(['prefix' => '/congressman-legislatures'], function () {
     Route::post(
         '/remove',
         'CongressmanLegislatures@removeFromLegislature'
-    )->name('congressman_legislatures.removeFromLegislature');
+    )->name('congressman-legislatures.remove-from-legislature');
 
     Route::post(
         '/include',
         'CongressmanLegislatures@includeInLegislature'
-    )->name('congressman_legislatures.includeInLegislature');
+    )->name('congressman-legislatures.include-in-legislature');
 });

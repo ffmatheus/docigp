@@ -3,6 +3,9 @@
 @section('content')
     <div class="container-fluid" id="vue-users">
         <form name="formUsers" id="formUsers" @if(formMode() == 'show') action="{{ route('users.update', ['id' => $user->id]) }}" @else action="{{ route('users.store')}}" @endIf method="POST">
+            {{ csrf_field() }}
+            <input name="id" type='hidden' value="{{$user->id}}" id="id" >
+
             <div class="card card-default">
                 <div class="card-header">
                     <div class="row">
@@ -34,10 +37,6 @@
                             {{ $errors->first('email') }}
                         </div>
                     @endif
-
-                    {{ csrf_field() }}
-
-                    <input type="hidden" name="id" value="{{$user->id}}"/>
 
                     <div class="row">
                         <div class="form-group col-md-4">
@@ -90,8 +89,8 @@
                             </select>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection

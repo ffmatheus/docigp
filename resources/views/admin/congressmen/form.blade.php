@@ -2,7 +2,11 @@
 
 @section('content')
     <div class="card card-default">
-        <form name="formulario" id="formulario" action="{{ route('congressmen.associateWithUser') }}" method="POST">
+        <form name="formulario" id="formulario" action="{{ route('congressmen.associate-with-user') }}" method="POST">
+            {{ csrf_field() }}
+
+            <input name="id" type='hidden' value="{{$congressman->id}}" id="id" >
+
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-8 align-self-center">
@@ -23,7 +27,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="card-body">
                 @include('partials.alerts')
                 @if ($errors->has('email'))
@@ -31,10 +35,6 @@
                         {{ $errors->first('email') }}
                     </div>
                 @endif
-
-                {{ csrf_field() }}
-
-                <input name="id" type='hidden' value="{{ $congressman->id }}" id="id" >
 
                 @if ($congressman->photo_url_linkable)
                     <div class="row">
@@ -74,10 +74,11 @@
 
                         <input name="email" value="{{is_null(old('email')) ? is_null($congressman->user)?'':$congressman->user->email: old('email')}}" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email">
                     </div>
-
                 </div>
-            </form>
+            </div>
+        </form>
 
+        <div class="card-body">
             <div class="row">
                 <div class="form-group col-md-6" >
 

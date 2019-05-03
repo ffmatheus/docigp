@@ -195,12 +195,14 @@ class Congressman extends Model
     public function getThumbnailUrlLinkableAttribute()
     {
         return filled($this->thumbnail_url)
-            ? '//' . trim($this->thumbnail_url)
+            ? 'http://' . trim($this->thumbnail_url)
             : null;
     }
 
     public function getPhotoUrlLinkableAttribute()
     {
-        return filled($this->photo_url) ? '//' . trim($this->photo_url) : null;
+        return filled($this->photo_url)
+            ? 'http://' . trim($this->photo_url)
+            : null;
     }
 }
