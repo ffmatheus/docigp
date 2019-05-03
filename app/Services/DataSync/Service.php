@@ -5,11 +5,9 @@ namespace App\Services\DataSync;
 use App\Data\Repositories\Parties;
 use App\Data\Repositories\Congressmen;
 use App\Data\Repositories\Departaments;
-use Illuminate\Support\Facades\DB;
 use Silber\Bouncer\BouncerFacade as Bouncer;
-use Silber\Bouncer\Database\Ability as BouncerAbility;
-use Silber\Bouncer\Database\Role as BouncerRole;
 use PragmaRX\Coollection\Package\Coollection;
+use Silber\Bouncer\Database\Ability as BouncerAbility;
 use App\Services\HttpClient\Service as HttpClientService;
 
 class Service

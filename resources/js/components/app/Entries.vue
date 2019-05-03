@@ -182,7 +182,7 @@
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(entry)"
-                        title="Cancelar marcação de 'em analisado'"
+                        title="Cancelar status de 'analisado'"
                     >
                         <i class="fa fa-ban"></i> analisado
                     </button>
@@ -360,16 +360,14 @@ export default {
         },
 
         analyse(entry) {
-            confirm('Este lançamento está "EM CONFORMIDADE"?', this).then(
-                value => {
-                    value && this.$store.dispatch('entries/analyse', entry)
-                },
-            )
+            confirm('Este lançamento foi ANALISADO?', this).then(value => {
+                value && this.$store.dispatch('entries/analyse', entry)
+            })
         },
 
         unanalyse(entry) {
             confirm(
-                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
+                'Deseja remover o status "ANALISADO" deste lançamento?',
                 this,
             ).then(value => {
                 value && this.$store.dispatch('entries/unanalyse', entry)

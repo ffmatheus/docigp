@@ -57,32 +57,15 @@ class CongressmanBudget extends Model
         });
     }
 
-    protected function fillValue(): void
+    private function createTransportEntry($balance, $date, $field)
     {
-        if ($this->percentageChanged()) {
-            $budget = app(Budgets::class)->findById($this->budget_id);
-
-            $this->value = ($budget->value * $this->percentage) / 100;
-        }
-    }
-
-    /**
-     * @param $balance
-     */
-    private function updateTransportEntry($balance): void
-    {
-        $date = $this->budget->date;
-
-        $field =
-            'transport_' . ($balance > 0 ? 'credit' : 'debit') . '_entry_id';
-
-        Entry::disableEvents();
-
         $this->{$field} = ($entry2 = Entry::updateOrCreate(
             [
                 'congressman_budget_id' => $this->id,
                 'cost_center_id' => app(CostCenters::class)->findByCode(
-                    $balance > 0 ? '3' : '2'
+                    $balance > 0
+                        ? Constants::COST_CENTER_TRANSPORT_CREDIT_ID
+                        : Constants::COST_CENTER_TRANSPORT_DEBIT_ID
                 )->id,
             ],
             [
@@ -101,6 +84,44 @@ class CongressmanBudget extends Model
         ))->id;
 
         $this->save();
+    }
+
+    /**
+     * @return mixed
+     */
+    private function deleteTransportEntries()
+    {
+        return Entry::where('congressman_budget_id', $this->id)
+            ->whereIn('cost_center_id', [
+                Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
+                Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
+            ])
+            ->delete();
+    }
+
+    protected function fillValue(): void
+    {
+        if ($this->percentageChanged()) {
+            $budget = app(Budgets::class)->findById($this->budget_id);
+
+            $this->value = ($budget->value * $this->percentage) / 100;
+        }
+    }
+
+    /**
+     * @param $balance
+     */
+    private function updateTransportEntry($balance)
+    {
+        Entry::disableEvents();
+
+        $balance == 0
+            ? $this->deleteTransportEntries()
+            : $this->createTransportEntry(
+                $balance,
+                $this->budget->date,
+                'transport_' . ($balance > 0 ? 'credit' : 'debit') . '_entry_id'
+            );
 
         Entry::enableEvents();
     }

@@ -85,7 +85,7 @@
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(document)"
-                        title="Cancelar marcação de 'em analisado'"
+                        title="Cancelar status de 'analisado'"
                     >
                         <i class="fa fa-ban"></i> analisado
                     </button>
@@ -203,17 +203,15 @@ export default {
         },
 
         analyse(document) {
-            confirm('Este documento está "EM CONFORMIDADE"?', this).then(
-                value => {
-                    value &&
-                        this.$store.dispatch('entryDocuments/analyse', document)
-                },
-            )
+            confirm('Este documento foi ANALISADO?', this).then(value => {
+                value &&
+                    this.$store.dispatch('entryDocuments/analyse', document)
+            })
         },
 
         unanalyse(document) {
             confirm(
-                'Deseja remover o status "EM CONFORMIDADE" deste lançamento?',
+                'Deseja remover o status "ANALISADO" deste lançamento?',
                 this,
             ).then(value => {
                 value &&

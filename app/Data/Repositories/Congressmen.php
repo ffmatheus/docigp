@@ -4,11 +4,8 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Congressman;
 use App\Data\Models\CongressmanLegislature;
-use App\Data\Models\User;
-use App\Data\Scopes\Published as PublishedScope;
 use PragmaRX\Coollection\Package\Coollection;
 use App\Data\Repositories\Departaments as DepartamentsRepository;
-use App\Data\Scopes\Congressman as CongressmanScope;
 
 class Congressmen extends Repository
 {
@@ -16,6 +13,17 @@ class Congressmen extends Repository
      * @var string
      */
     protected $model = Congressman::class;
+
+    private function canHaveMandate($congressman)
+    {
+        return !collect([
+            'Luis Martins',
+            'Chiquinho da Mangueira',
+            'Marcus Vinicius Neskau',
+            'André Correa',
+            'Marcos Abrahão',
+        ])->contains($congressman->name);
+    }
 
     private function createCongressmanFromRemote($congressman, $departamentId)
     {
@@ -84,7 +92,10 @@ class Congressmen extends Repository
                     $departament->id
                 );
 
-                if ($congressman->wasRecentlyCreated) {
+                if (
+                    $congressman->wasRecentlyCreated &&
+                    $this->canHaveMandate($congressman)
+                ) {
                     $legislature = CongressmanLegislature::firstOrCreate(
                         [
                             'congressman_id' => $congressman->id,

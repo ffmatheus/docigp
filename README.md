@@ -86,7 +86,7 @@ a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congress
 - Budget de Fevereiro, Março e Abril
 a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:sync:departaments; a docigp:sync:roles; a docigp:budget:generate 2019-02-01; a docigp:budget:generate 2019-03-01; a docigp:budget:generate -vvv; a db:seed -vvv --force;
 
-a migrate:fresh -vvv --force; a docigp:sync:parties -vvv; a docigp:sync:congressmen -vvv; a docigp:sync:departaments; docigp:budget:generate -vvv;
+a migrate:fresh -vvv --force; a docigp:sync:roles -vvv; a docigp:budget:generate 2019-04-01 -vvv; a docigp:budget:generate -vvv
 ```
 
 
