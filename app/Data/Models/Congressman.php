@@ -4,6 +4,7 @@ namespace App\Data\Models;
 
 use App\Data\Scopes\Published as PublishedScope;
 use App\Data\Scopes\Congressman as CongressmanScope;
+use Illuminate\Support\Facades\DB;
 
 class Congressman extends Model
 {
@@ -71,7 +72,14 @@ class Congressman extends Model
                 '=',
                 'congressmen.id'
             )
-            ->whereNotNull('congressman_legislatures.ended_at');
+            ->whereNotNull('congressman_legislatures.ended_at')
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('congressman_legislatures')
+                    ->whereRaw('congressman_legislatures.congressman_id = congressmen.id')
+                    ->whereNull('congressman_legislatures.ended_at')
+                ;
+            });
     }
 
     public function scopeWithPendency($query)
