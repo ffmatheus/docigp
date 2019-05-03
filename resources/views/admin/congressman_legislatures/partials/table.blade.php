@@ -39,11 +39,11 @@
                 </td>
 
                 <td>
-                    {{ $congressmanLegislature->started_at}}
+                    {{ $congressmanLegislature->started_at ? date('d/m/Y', strtotime($congressmanLegislature->started_at)) : ''}}
                 </td>
 
                 <td>
-                    {{ $congressmanLegislature->ended_at}}
+                    {{ $congressmanLegislature->ended_at ? date('d/m/Y', strtotime($congressmanLegislature->ended_at)) : ''}}
                 </td>
             </tr>
         @empty
