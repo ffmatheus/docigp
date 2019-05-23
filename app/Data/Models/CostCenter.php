@@ -18,4 +18,9 @@ class CostCenter extends Model
     protected $orderBy = ['code' => 'asc'];
 
     protected $filterableColumns = ['name', 'code'];
+
+    public function scopeNotRevoked($query)
+    {
+        return $query->whereNull('revoked_at');
+    }
 }
