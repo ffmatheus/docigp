@@ -26,15 +26,6 @@ class CostCenters extends Repository
         return $this;
     }
 
-    public function filterRevoked()
-    {
-        $this->addCustomQuery(function ($query) {
-            $query->notRevoked($query);
-        });
-
-        return $this;
-    }
-
     public function transform($data)
     {
         $this->addTransformationPlugin(function ($costCenter) {

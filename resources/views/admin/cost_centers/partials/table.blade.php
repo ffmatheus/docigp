@@ -19,7 +19,7 @@
         <th>Frequência</th>
         <th class="text-right">Limite</th>
         <th class="text-center">Acumulável</th>
-        <th class="text-center">Revogado</th>
+        <th class="text-center">Revogado em</th>
     </tr>
     </thead>
 

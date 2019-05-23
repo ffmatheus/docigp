@@ -16,7 +16,6 @@ class CostCenters extends Controller
     {
         return app(CostCentersRepository::class)
             ->filterControlTypes()
-            ->filterRevoked()
             ->disablePagination()
             ->all();
     }

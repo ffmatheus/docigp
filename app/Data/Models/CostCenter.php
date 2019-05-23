@@ -24,11 +24,6 @@ class CostCenter extends Model
 
     protected $filterableColumns = ['name', 'code'];
 
-    public function scopeNotRevoked($query)
-    {
-        return $query->whereNull('revoked_at');
-    }
-
     public function getFormattedRevokedAtAttribute()
     {
         return $this->revoked_at

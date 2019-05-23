@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\WithinBudgetDate;
+use App\Rules\NotRevokedCostCenter;
 use App\Support\Constants;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
@@ -41,7 +42,10 @@ class EntryStore extends Request
             'value_abs' => 'required',
             'object' => 'required',
             'to' => 'required',
-            'cost_center_id' => 'required',
+            'cost_center_id' => [
+                'required',
+                new NotRevokedCostCenter($this->get('date')),
+            ],
             'provider_cpf_cnpj' => 'required',
             'entry_type_id' => 'required',
         ];
