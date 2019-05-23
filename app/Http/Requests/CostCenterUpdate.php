@@ -19,8 +19,6 @@ class CostCenterUpdate extends CostCenterStore
                 Rule::unique('cost_centers')->ignore($this->get('id')),
             ],
             'name' => 'required',
-            'frequency' => 'required',
-            'limit' => 'required',
             'can_accumulate' => 'required',
         ];
     }

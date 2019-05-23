@@ -14,7 +14,7 @@ class AddRevokedAtColumnToCostCenters extends Migration
     public function up()
     {
         Schema::table('cost_centers', function (Blueprint $table) {
-            $table->timestamp('revoked_at')->nullable();
+            $table->date('revoked_at')->nullable();
         });
     }
 

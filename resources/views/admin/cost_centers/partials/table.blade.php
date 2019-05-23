@@ -19,6 +19,7 @@
         <th>Frequência</th>
         <th class="text-right">Limite</th>
         <th class="text-center">Acumulável</th>
+        <th class="text-center">Revogado</th>
     </tr>
     </thead>
 
@@ -46,6 +47,9 @@
                 @else
                     <label class="badge badge-danger"> Não </label>
                 @endif
+            </td>
+            <td class="text-center">
+                {{$costCenter['formatted_revoked_at']}}
             </td>
         </tr>
     @empty
