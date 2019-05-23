@@ -18,11 +18,11 @@ Artisan::command('docigp:sync:parties', function () {
     app(DataSyncService::class)->parties();
 })->describe('Sync congressmen data');
 
-Artisan::command('docigp:sync:departaments', function () {
-    $this->info('Creating departaments...');
+Artisan::command('docigp:sync:departments', function () {
+    $this->info('Creating departments...');
 
-    app(DataSyncService::class)->departaments();
-})->describe('Create departaments');
+    app(DataSyncService::class)->departments();
+})->describe('Create departments');
 
 Artisan::command('docigp:sync:roles', function () {
     $this->info('Creating roles and abilities...');
