@@ -70,6 +70,24 @@ class Service
         $this->rolesAbilities();
     }
 
+    protected function cleanNonAssignedAbilities($assignedAbilities, $roleName)
+    {
+        BouncerAbility::all()
+            ->whereNotIn('name', $assignedAbilities)
+            ->each(function ($item) use ($roleName) {
+                Bouncer::disallow($roleName)->to($item->name);
+            });
+    }
+
+    protected function normalizeAbilities($abilitiesArray)
+    {
+        foreach ($abilitiesArray as $key => $item) {
+            $newArray[] = $this->guessAbilityName($item, $key);
+        }
+
+        return $newArray;
+    }
+
     public function guessAbilityName($title, $ability)
     {
         // Se a $ability for numérico, não temos o title da ability.
@@ -112,6 +130,11 @@ class Service
                     Bouncer::allow($grant['group'])->to($ability);
                 }
             });
+
+            $this->cleanNonAssignedAbilities(
+                $this->normalizeAbilities($grant['abilities']),
+                $grant['group']
+            );
         });
     }
 }

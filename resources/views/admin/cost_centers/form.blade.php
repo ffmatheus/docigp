@@ -87,6 +87,18 @@
                             <input class="form-control" type="hidden" name="can_accumulate" value="false">
                             <input class="form-control" type="checkbox" name="can_accumulate" id="can_accumulate" {{(is_null(old('can_accumulate')) ? $costCenter->can_accumulate : old('can_accumulate')) ? 'checked="checked"' : ''}} @include('partials.disabled', ['model'=>$costCenter])/>
                         </div>
+
+                        <div class="form-group">
+                            <label for="revoked_at">Revogado em</label>
+                            <input
+                                    value="{{is_null(old('revoked_at')) ? $costCenter->revoked_at : old('revoked_at')}}"
+                                    type="date"
+                                    name="revoked_at"
+                                    class="form-control"
+                                    id="revoked_at"
+                                    @include('partials.disabled', ['model'=>$costCenter])
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
