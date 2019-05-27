@@ -86,6 +86,7 @@ return [
                 'congressman-budgets:store',
                 'congressman-budgets:update',
                 'congressman-budgets:percentage',
+                'congressman-budgets:deposit',
 
                 'entries:show',
                 'entries:verify',
@@ -130,7 +131,6 @@ return [
                 'congressman:show',
 
                 'congressman-budgets:show',
-                'congressman-budgets:deposit',
 
                 'entries:show',
 
