@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Congressman;
+use App\Data\Models\ChangeUnread;
 use App\Data\Models\CongressmanLegislature;
 use PragmaRX\Coollection\Package\Coollection;
 use App\Data\Repositories\Departments as DepartmentsRepository;
@@ -177,5 +178,14 @@ class Congressmen extends Repository
             $request['id'],
             $request
         );
+    }
+
+    public function markAsRead($id)
+    {
+        ChangeUnread::where('congressman_id', $id)
+            ->where('user_id', auth()->user()->id)
+            ->delete();
+
+        $this->fireEvents(Congressman::find($id), 'Updated');
     }
 }

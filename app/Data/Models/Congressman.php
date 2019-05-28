@@ -2,12 +2,17 @@
 
 namespace App\Data\Models;
 
+use App\Data\Traits\Selectable;
+use Illuminate\Support\Facades\DB;
 use App\Data\Scopes\Published as PublishedScope;
 use App\Data\Scopes\Congressman as CongressmanScope;
-use Illuminate\Support\Facades\DB;
 
 class Congressman extends Model
 {
+    use Selectable {
+        getSelectColumnsRaw as protected getSelectColumnsRawOverloaded;
+    }
+
     protected $fillable = [
         'remote_id',
         'name',
@@ -214,5 +219,27 @@ class Congressman extends Model
         return filled($this->photo_url)
             ? 'http://' . trim($this->photo_url)
             : null;
+    }
+
+    public function getSelectColumnsRaw()
+    {
+        $selectColumns = $this->getSelectColumnsRawOverloaded();
+
+        $selectColumns[] = $this->buildUnreadSelect();
+
+        return $selectColumns;
+    }
+
+    public function buildUnreadSelect()
+    {
+        $userId = auth()->user()->id;
+
+        return "(select
+                     count(*)
+                   from congressmen c2
+                       join changes_unread on c2.id = changes_unread.congressman_id
+                   where c2.id = congressmen.id
+                     and changes_unread.user_id = {$userId}
+                    ) > 0 as unread";
     }
 }

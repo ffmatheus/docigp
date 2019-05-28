@@ -4,6 +4,7 @@ namespace App\Data\Models;
 
 use App\Data\Scopes\Published;
 use App\Data\Repositories\Budgets;
+use App\Data\Traits\MarkAsUnread;
 use App\Data\Traits\ModelActionable;
 use App\Data\Repositories\CostCenters;
 use App\Data\Scopes\Congressman as CongressmanScope;
@@ -11,7 +12,7 @@ use App\Support\Constants;
 
 class CongressmanBudget extends Model
 {
-    use ModelActionable;
+    use ModelActionable, MarkAsUnread;
 
     /**
      * @var array
@@ -24,6 +25,8 @@ class CongressmanBudget extends Model
         'analysed_at',
         'published_by_id',
         'published_at',
+        'closed_by_id',
+        'closed_at',
     ];
 
     protected $with = ['budget'];
@@ -51,6 +54,10 @@ class CongressmanBudget extends Model
         parent::boot();
 
         static::addGlobalScope(new Published());
+
+        static::saved(function (Entry $model) {
+            $model->markAsUnread();
+        });
 
         static::created(function (CongressmanBudget $model) {
             $model->updateTransportEntries();

@@ -59,7 +59,7 @@
                 >
                     <app-active-badge
                         :value="document.published_at"
-                        :labels="['sim', 'não']"
+                        :labels="['documento privado', 'documento público']"
                     ></app-active-badge>
                 </td>
 
@@ -183,7 +183,7 @@ export default {
 
                 columns.push({
                     type: 'label',
-                    title: 'Publicado',
+                    title: 'Publicidade',
                     trClass: 'text-center',
                 })
             }

@@ -19,6 +19,7 @@ return [
 
                 'congressman:show' => 'Deputados: ver',
                 'congressman:update' => 'Deputados: alterar',
+                'congressman:see-unread' => 'Deputados: ver statis de não-lido',
 
                 'congressman-budgets:show' => 'Orçamento de Deputado: ver',
                 'congressman-budgets:store' => 'Orçamento de Deputado: criar',
@@ -111,6 +112,7 @@ return [
                 'assign:publisher',
                 'assign:viewer',
                 'congressman:show',
+                'congressman:see-unread',
                 'congressman-budgets:show',
                 'congressman-budgets:store',
                 'congressman-budgets:update',
@@ -122,6 +124,7 @@ return [
                 'entry-documents:analyse',
             ],
         ],
+
         [
             'group' => 'financial',
 

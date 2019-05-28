@@ -86,6 +86,14 @@ let actions = merge_objects(actionsMixin, {
             { root: true },
         )
     },
+
+    markAsRead(context) {
+        post(
+            '/api/v1/congressmen/' +
+                context.rootState.congressmen.selected.id +
+                '/mark-as-read',
+        )
+    },
 })
 
 let mutations = mutationsMixin

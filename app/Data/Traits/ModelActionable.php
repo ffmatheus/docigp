@@ -55,4 +55,20 @@ trait ModelActionable
             'published_by_id' => auth()->user()->id,
         ]);
     }
+
+    public function close()
+    {
+        $this->update([
+            'closed_at' => now(),
+            'closed_by_id' => auth()->user()->id,
+        ]);
+    }
+
+    public function reopen()
+    {
+        $this->update([
+            'closed_at' => null,
+            'closed_by_id' => auth()->user()->id,
+        ]);
+    }
 }

@@ -77,6 +77,22 @@
                     ),
                 }"
             >
+                <td
+                    v-if="can('congressman:see-unread')"
+                    class="align-middle text-center"
+                >
+                    <span class="text-danger">
+                        <i
+                            v-if="congressman.unread"
+                            class="fa fa-dot-circle"
+                        ></i>
+                    </span>
+
+                    <span class="text-gray-light">
+                        <i v-if="!congressman.unread" class="fa fa-circle"></i>
+                    </span>
+                </td>
+
                 <td class="align-middle">{{ congressman.name }}</td>
 
                 <td
@@ -124,7 +140,13 @@ export default {
         ...mapActions(service.name, ['selectCongressman']),
 
         getTableColumns() {
-            let columns = ['Nome do Parlamentar']
+            let columns = []
+
+            if (can('congressman:see-unread')) {
+                columns.push('')
+            }
+
+            columns.push('Nome do Parlamentar')
 
             if (can('congressman:show')) {
                 columns.push({

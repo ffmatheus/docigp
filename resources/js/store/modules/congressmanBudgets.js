@@ -42,7 +42,7 @@ let actions = merge_objects(actionsMixin, {
 
         context.dispatch('entries/load', payload, { root: true })
 
-        context.dispatch('congressmen/load', payload, { root: true })
+        context.dispatch('congressmen/markAsRead', payload, { root: true })
 
         context.dispatch('entries/setCurrentPage', 1, { root: true })
 
