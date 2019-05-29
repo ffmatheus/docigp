@@ -59,7 +59,7 @@
                 >
                     <app-active-badge
                         :value="document.published_at"
-                        :labels="['documento privado', 'documento público']"
+                        :labels="['documento público', 'documento privado']"
                     ></app-active-badge>
                 </td>
 
@@ -101,7 +101,7 @@
                         @click="publish(document)"
                         title="Marcar como 'publicável'"
                     >
-                        <i class="fa fa-check"></i> publicar
+                        <i class="fa fa-check"></i> tornar público
                     </button>
 
                     <button
@@ -114,7 +114,7 @@
                         @click="unpublish(document)"
                         title="Remover autorização de publicação"
                     >
-                        <i class="fa fa-ban"></i> despublicar
+                        <i class="fa fa-ban"></i> tornar privado
                     </button>
 
                     <a
