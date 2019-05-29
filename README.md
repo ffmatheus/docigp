@@ -39,7 +39,7 @@ php artisan storage:link
 - Executar os comandos em se:
 ```
 composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-php artisan migrate
+php artisan migrate --force
 php artisan docigp:sync:roles
 php artisan horizon:terminate
 ```
