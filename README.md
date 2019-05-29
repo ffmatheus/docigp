@@ -27,6 +27,10 @@
 - Banco de dados
     - Caso **não** haja backup: executar o comando `php artisan migrate` para **criar** a estrutura do banco de dados
     - Caso haja backup: restaurar o banco e executar o comando `php artisan migrate` para **atualizar** a estrutura do banco de dados
+- Linkar a pasta storage
+```
+php artisan storage:link
+```
 
 ### Atualizando a aplicação
 
@@ -37,7 +41,6 @@
 ```
 php artisan migrate
 php artisan docigp:sync:roles
-php artisan storage:link
 php artisan horizon:terminate
 ```
 
