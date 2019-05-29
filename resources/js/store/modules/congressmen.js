@@ -30,6 +30,7 @@ let state = merge_objects(
                     withoutMandate: false,
                     withPendency: false,
                     withoutPendency: false,
+                    unread: false,
                 },
 
                 selects: {

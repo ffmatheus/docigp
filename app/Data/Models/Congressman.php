@@ -103,6 +103,15 @@ class Congressman extends Model
         );
     }
 
+    public function scopeUnread($query)
+    {
+        if ($select = $this->buildUnreadQuery()) {
+            $query->whereRaw("($select) > 0");
+        }
+
+        return $query;
+    }
+
     /**
      * @return \App\Data\Models\CongressmanBudget|null
      */
@@ -234,16 +243,23 @@ class Congressman extends Model
 
     public function buildUnreadSelect()
     {
+        $query = $this->buildUnreadQuery();
+
+        return $query ? "($query) > 0 as unread" : '';
+    }
+
+    public function buildUnreadQuery()
+    {
         $userId = auth()->user()->id ?? false;
 
         return $userId
-            ? "(select
+            ? "select
                      count(*)
                    from congressmen c2
                        join changes_unread on c2.id = changes_unread.congressman_id
                    where c2.id = congressmen.id
                      and changes_unread.user_id = {$userId}
-                    ) > 0 as unread"
+                    "
             : '';
     }
 }

@@ -139,6 +139,10 @@ class Congressmen extends Repository
         if (isset($filter['withoutPendency'])) {
             $query->withoutPendency();
         }
+
+        if (isset($filter['unread'])) {
+            $query->unread();
+        }
     }
 
     public function searchFromRequest($search = null)

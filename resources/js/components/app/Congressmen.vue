@@ -58,6 +58,18 @@
                         inline="true"
                     ></app-input>
                 </div>
+
+                <div class="col">
+                    <app-input
+                        name="unread"
+                        label="não lidos"
+                        type="checkbox"
+                        v-model="unread"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
             </div>
         </template>
 
@@ -222,6 +234,22 @@ export default {
             set(filter) {
                 this.$store.commit('congressmen/mutateFilterCheckbox', {
                     field: 'withoutPendency',
+                    value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        unread: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .unread
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'unread',
                     value: filter,
                 })
 
