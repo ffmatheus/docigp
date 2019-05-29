@@ -38,6 +38,7 @@
 php artisan migrate
 php artisan docigp:sync:roles
 php artisan storage:link
+php artisan horizon:terminate
 ```
 
 #### Passos extras específicos desta aplicação
