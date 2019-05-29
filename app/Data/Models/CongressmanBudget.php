@@ -55,7 +55,7 @@ class CongressmanBudget extends Model
 
         static::addGlobalScope(new Published());
 
-        static::saved(function (Entry $model) {
+        static::saved(function (CongressmanBudget $model) {
             $model->markAsUnread();
         });
 

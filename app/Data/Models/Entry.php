@@ -3,12 +3,13 @@
 namespace App\Data\Models;
 
 use App\Data\Scopes\Published;
+use App\Data\Traits\MarkAsUnread;
 use App\Data\Traits\ModelActionable;
 use App\Data\Scopes\Published as PublishedScope;
 
 class Entry extends Model
 {
-    use ModelActionable;
+    use ModelActionable, MarkAsUnread;
 
     protected $table = 'entries';
 
@@ -74,16 +75,12 @@ class Entry extends Model
 
         static::addGlobalScope(new Published());
 
-        static::updated(function (Entry $model) {
+        static::saved(function (Entry $model) {
             if (static::$modelEventsEnabled) {
                 $model->updateTransport();
             }
-        });
 
-        static::created(function (Entry $model) {
-            if (static::$modelEventsEnabled) {
-                $model->updateTransport();
-            }
+            $model->markAsUnread();
         });
 
         static::deleted(function (Entry $model) {
@@ -139,5 +136,10 @@ class Entry extends Model
     public static function enableGlobalScopes()
     {
         PublishedScope::disable();
+    }
+
+    public function congressman()
+    {
+        return $this->congressmanBudget->congressman();
     }
 }

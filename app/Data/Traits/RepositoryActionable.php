@@ -14,6 +14,16 @@ trait RepositoryActionable
         $this->findById($modelId)->unpublish();
     }
 
+    public function close($modelId)
+    {
+        $this->findById($modelId)->close();
+    }
+
+    public function reopen($modelId)
+    {
+        $this->findById($modelId)->reopen();
+    }
+
     public function analyse($modelId)
     {
         $this->findById($modelId)->analyse();

@@ -65,6 +65,14 @@ let actions = merge_objects(actionsMixin, {
         })
     },
 
+    close(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/close')
+    },
+
+    reopen(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/reopen')
+    },
+
     analyse(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/analyse')
     },

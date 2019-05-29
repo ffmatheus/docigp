@@ -17,6 +17,10 @@ abstract class Model extends Eloquent implements AuditableContract
 
     protected $dates = ['created_at', 'updated_at'];
 
+    protected $controlCreatedBy = true;
+
+    protected $controlUpdatedBy = true;
+
     /**
      * Save the model to the database.
      *
@@ -40,11 +44,19 @@ abstract class Model extends Eloquent implements AuditableContract
         parent::boot();
 
         static::updating(function ($model) {
-            $model->updated_by_id = ($user = auth()->user()) ? $user->id : 1;
+            if ($model->controlUpdatedBy) {
+                $model->updated_by_id = ($user = auth()->user())
+                    ? $user->id
+                    : 1;
+            }
         });
 
         static::creating(function ($model) {
-            $model->created_by_id = ($user = auth()->user()) ? $user->id : 1;
+            if ($model->controlCreatedBy) {
+                $model->created_by_id = ($user = auth()->user())
+                    ? $user->id
+                    : 1;
+            }
         });
 
         static::deleted(function ($model) {

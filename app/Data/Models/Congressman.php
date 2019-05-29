@@ -225,21 +225,25 @@ class Congressman extends Model
     {
         $selectColumns = $this->getSelectColumnsRawOverloaded();
 
-        $selectColumns[] = $this->buildUnreadSelect();
+        if ($select = $this->buildUnreadSelect()) {
+            $selectColumns[] = $select;
+        }
 
         return $selectColumns;
     }
 
     public function buildUnreadSelect()
     {
-        $userId = auth()->user()->id;
+        $userId = auth()->user()->id ?? false;
 
-        return "(select
+        return $userId
+            ? "(select
                      count(*)
                    from congressmen c2
                        join changes_unread on c2.id = changes_unread.congressman_id
                    where c2.id = congressmen.id
                      and changes_unread.user_id = {$userId}
-                    ) > 0 as unread";
+                    ) > 0 as unread"
+            : '';
     }
 }

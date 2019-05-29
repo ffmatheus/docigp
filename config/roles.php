@@ -51,6 +51,9 @@ return [
                     'Orçamento de Deputado: depositar',
                 'congressman-budgets:analyse' =>
                     'Orçamento de Deputado: analisar',
+                'congressman-budgets:close' => 'Orçamento de Deputado: fechar',
+                'congressman-budgets:reopen' =>
+                    'Orçamento de Deputado: reabrir',
 
                 'entries:analyse' => 'Lançamentos: analisar',
 
@@ -88,6 +91,7 @@ return [
                 'congressman-budgets:update',
                 'congressman-budgets:percentage',
                 'congressman-budgets:deposit',
+                'congressman-budgets:close',
 
                 'entries:show',
                 'entries:verify',
@@ -118,6 +122,7 @@ return [
                 'congressman-budgets:update',
                 'congressman-budgets:publish',
                 'congressman-budgets:analyse',
+                'congressman-budgets:reopen',
                 'entries:show',
                 'entries:analyse',
                 'entry-documents:show',

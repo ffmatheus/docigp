@@ -15,6 +15,14 @@ Route::group(['prefix' => '/congressmen'], function () {
                 'congressmen.budgets.update'
             );
 
+            Route::post('/close', 'CongressmanBudgets@close')->name(
+                'congressmen.budgets.close'
+            );
+
+            Route::post('/reopen', 'CongressmanBudgets@reopen')->name(
+                'congressmen.budgets.reopen'
+            );
+
             Route::post('/analyse', 'CongressmanBudgets@analyse')->name(
                 'congressmen.budgets.analyse'
             );

@@ -59,6 +59,16 @@
                     class="align-middle text-center"
                 >
                     <app-active-badge
+                        :value="congressmanBudget.closed_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td
+                    v-if="can('congressman-budgets:show')"
+                    class="align-middle text-center"
+                >
+                    <app-active-badge
                         :value="congressmanBudget.analysed_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
@@ -111,8 +121,32 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:analyse') &&
+                            can('congressman-budgets:close') &&
                                 !congressmanBudget.has_pendency &&
+                                !congressmanBudget.closed_at
+                        "
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Fechar este orçamento para análise final"
+                        @click="close(congressmanBudget)"
+                    >
+                        <i class="fa fa-ban"></i> fechar
+                    </button>
+
+                    <button
+                        v-if="
+                            can('congressman-budgets:reopen') &&
+                                congressmanBudget.closed_at
+                        "
+                        class="btn btn-sm btn-micro btn-danger"
+                        title="Reabrir orçamento para alterações"
+                        @click="reopen(congressmanBudget)"
+                    >
+                        <i class="fa fa-check"></i> reabrir
+                    </button>
+
+                    <button
+                        v-if="
+                            can('congressman-budgets:analyse') &&
                                 !congressmanBudget.analysed_at
                         "
                         class="btn btn-sm btn-micro btn-warning"
@@ -137,6 +171,7 @@
                     <button
                         v-if="
                             can('congressman-budgets:publish') &&
+                                congressmanBudget.closed_at &&
                                 congressmanBudget.analysed_at &&
                                 !congressmanBudget.published_at
                         "
@@ -223,6 +258,12 @@ export default {
 
                 columns.push({
                     type: 'label',
+                    title: 'Fechado',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
                     title: 'Analisado',
                     trClass: 'text-center',
                 })
@@ -269,6 +310,32 @@ export default {
                 }
 
                 return this.changePercentage(congressmanBudget, value)
+            })
+        },
+
+        close(congressmanBudget) {
+            confirm(
+                'Deseja realmente FECHAR este orçamento mensal?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/close',
+                        congressmanBudget,
+                    )
+            })
+        },
+
+        reopen(congressmanBudget) {
+            confirm(
+                'Deseja realmente REABRIR este orçamento mensal?',
+                this,
+            ).then(value => {
+                value &&
+                    this.$store.dispatch(
+                        'congressmanBudgets/reopen',
+                        congressmanBudget,
+                    )
             })
         },
 

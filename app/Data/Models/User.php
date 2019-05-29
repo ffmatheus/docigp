@@ -160,4 +160,9 @@ class User extends Authenticatable implements AuditableContract
     {
         $this->notify(new UserWelcomeNotification());
     }
+
+    public function scopeNormal($query)
+    {
+        return $query->whereNull('congressman_id');
+    }
 }

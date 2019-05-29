@@ -61,6 +61,16 @@ class CongressmanBudgets extends Controller
         )->getAvailableCongressmanBudgets();
     }
 
+    public function close($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->close($congressmanBudgetId);
+    }
+
+    public function reopen($congressmanId, $congressmanBudgetId)
+    {
+        app(CongressmanBudgetsRepository::class)->reopen($congressmanBudgetId);
+    }
+
     public function analyse($congressmanId, $congressmanBudgetId)
     {
         app(CongressmanBudgetsRepository::class)->analyse($congressmanBudgetId);

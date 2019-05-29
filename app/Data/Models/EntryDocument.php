@@ -3,11 +3,12 @@
 namespace App\Data\Models;
 
 use App\Data\Scopes\Published;
+use App\Data\Traits\MarkAsUnread;
 use App\Data\Traits\ModelActionable;
 
 class EntryDocument extends Model
 {
-    use ModelActionable;
+    use ModelActionable, MarkAsUnread;
 
     protected $fillable = [
         'entry_id',
@@ -32,6 +33,10 @@ class EntryDocument extends Model
         parent::boot();
 
         static::addGlobalScope(new Published());
+
+        static::saved(function (EntryDocument $model) {
+            $model->markAsUnread();
+        });
     }
 
     public function attachedFile()
@@ -47,5 +52,10 @@ class EntryDocument extends Model
     public function getUrlAttribute()
     {
         return $this->attachedFile ? $this->attachedFile->file->url : null;
+    }
+
+    public function congressman()
+    {
+        return $this->entry->congressmanBudget->congressman();
     }
 }

@@ -143,91 +143,98 @@
                 </td>
 
                 <td class="align-middle text-right">
-                    <button
-                        v-if="can('entries:verify') && !entry.verified_at"
-                        class="btn btn-sm btn-micro btn-primary"
-                        @click="verify(entry)"
-                        title="Marcar como verificado"
-                    >
-                        <i class="fa fa-check"></i> verificar
-                    </button>
-
-                    <button
-                        v-if="can('entries:verify') && entry.verified_at"
-                        class="btn btn-sm btn-micro btn-warning"
-                        @click="unverify(entry)"
-                        title="Cancelar verificação"
-                    >
-                        <i class="fa fa-ban"></i> verificação
-                    </button>
-
-                    <button
+                    <div
                         v-if="
-                            can('entries:analyse') &&
-                                entry.verified_at &&
-                                !entry.analysed_at
+                            !congressmanBudgets.selected.closed_at ||
+                                can('congressman-budgets:reopen')
                         "
-                        class="btn btn-sm btn-micro btn-success"
-                        @click="analyse(entry)"
-                        title="Marcar como 'analisado'"
                     >
-                        <i class="fa fa-check"></i> analisado
-                    </button>
+                        <button
+                            v-if="can('entries:verify') && !entry.verified_at"
+                            class="btn btn-sm btn-micro btn-primary"
+                            @click="verify(entry)"
+                            title="Marcar como verificado"
+                        >
+                            <i class="fa fa-check"></i> verificar
+                        </button>
 
-                    <button
-                        v-if="
-                            can('entries:analyse') &&
-                                entry.verified_at &&
-                                entry.analysed_at
-                        "
-                        class="btn btn-sm btn-micro btn-danger"
-                        @click="unanalyse(entry)"
-                        title="Cancelar status de 'analisado'"
-                    >
-                        <i class="fa fa-ban"></i> analisado
-                    </button>
+                        <button
+                            v-if="can('entries:verify') && entry.verified_at"
+                            class="btn btn-sm btn-micro btn-warning"
+                            @click="unverify(entry)"
+                            title="Cancelar verificação"
+                        >
+                            <i class="fa fa-ban"></i> verificação
+                        </button>
 
-                    <button
-                        v-if="
-                            can('entries:publish') &&
-                                entry.analysed_at &&
-                                !entry.published_at
-                        "
-                        class="btn btn-sm btn-micro btn-danger"
-                        title="Publicar no Portal da Transparência"
-                        @click="publish(entry)"
-                    >
-                        <i class="fa fa-check"></i> publicar
-                    </button>
+                        <button
+                            v-if="
+                                can('entries:analyse') &&
+                                    entry.verified_at &&
+                                    !entry.analysed_at
+                            "
+                            class="btn btn-sm btn-micro btn-success"
+                            @click="analyse(entry)"
+                            title="Marcar como 'analisado'"
+                        >
+                            <i class="fa fa-check"></i> analisado
+                        </button>
 
-                    <button
-                        v-if="can('entries:publish') && entry.published_at"
-                        class="btn btn-sm btn-micro btn-danger"
-                        title="Remover do Portal da Transparência"
-                        @click="unpublish(entry)"
-                    >
-                        <i class="fa fa-ban"></i> despublicar
-                    </button>
+                        <button
+                            v-if="
+                                can('entries:analyse') &&
+                                    entry.verified_at &&
+                                    entry.analysed_at
+                            "
+                            class="btn btn-sm btn-micro btn-danger"
+                            @click="unanalyse(entry)"
+                            title="Cancelar status de 'analisado'"
+                        >
+                            <i class="fa fa-ban"></i> analisado
+                        </button>
 
-                    <button
-                        v-if="can('entries:update')"
-                        :disabled="entry.analysed_at || entry.verified_at"
-                        class="btn btn-sm btn-micro btn-primary"
-                        @click="editEntry(entry)"
-                        title="editar lançamento"
-                    >
-                        <i class="fa fa-edit"></i>
-                    </button>
+                        <button
+                            v-if="
+                                can('entries:publish') &&
+                                    entry.analysed_at &&
+                                    !entry.published_at
+                            "
+                            class="btn btn-sm btn-micro btn-danger"
+                            title="Publicar no Portal da Transparência"
+                            @click="publish(entry)"
+                        >
+                            <i class="fa fa-check"></i> publicar
+                        </button>
 
-                    <button
-                        v-if="can('entries:delete')"
-                        :disabled="entry.analysed_at || entry.verified_at"
-                        class="btn btn-sm btn-micro btn-danger"
-                        @click="trash(entry)"
-                        title="deletar lançamento"
-                    >
-                        <i class="fa fa-trash"></i>
-                    </button>
+                        <button
+                            v-if="can('entries:publish') && entry.published_at"
+                            class="btn btn-sm btn-micro btn-danger"
+                            title="Remover do Portal da Transparência"
+                            @click="unpublish(entry)"
+                        >
+                            <i class="fa fa-ban"></i> despublicar
+                        </button>
+
+                        <button
+                            v-if="can('entries:update')"
+                            :disabled="entry.analysed_at || entry.verified_at"
+                            class="btn btn-sm btn-micro btn-primary"
+                            @click="editEntry(entry)"
+                            title="editar lançamento"
+                        >
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <button
+                            v-if="can('entries:delete')"
+                            :disabled="entry.analysed_at || entry.verified_at"
+                            class="btn btn-sm btn-micro btn-danger"
+                            @click="trash(entry)"
+                            title="deletar lançamento"
+                        >
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         </app-table>
