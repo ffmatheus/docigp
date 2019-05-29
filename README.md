@@ -36,9 +36,9 @@ php artisan storage:link
 
 - Entrar na `<pasta-aonde-o-site-foi-instalado>`
 - Baixar as atualizações de código fonte usando Git (git pull ou git fetch + git merge, isso depende de como operador prefere trabalhar com Git)
-- Executar o comando `composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev` para instalar todas as dependências (atualizadas)
-- Executar os comandos:
+- Executar os comandos em se:
 ```
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 php artisan migrate
 php artisan docigp:sync:roles
 php artisan horizon:terminate
