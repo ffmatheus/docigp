@@ -80,7 +80,7 @@
                 >
                     <app-active-badge
                         :value="congressmanBudget.published_at"
-                        :labels="['sim', 'não']"
+                        :labels="['público', 'privado']"
                     ></app-active-badge>
                 </td>
 
@@ -90,17 +90,22 @@
                 >
                     <button
                         v-if="
-                            can('congressman-budgets:deposit') &&
-                                !congressmanBudget.has_deposit &&
-                                !congressmanBudget.analysed_at &&
-                                !congressmanBudget.published_at
+                            (can('congressman-budgets:buttons') ||
+                                can('congressman-budgets:deposit')) &&
+                                !congressmanBudget.has_deposit
+                        "
+                        :disabled="
+                            !can('congressman-budgets:deposit') ||
+                                congressmanBudget.analysed_at ||
+                                congressmanBudget.published_at
                         "
                         @click="deposit(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-success"
                         :title="
                             'Depositar ' +
-                                congressmanBudget.state_value_formatted +
-                                ' na conta de '
+                                congressmanBudget.value_formatted +
+                                ' na conta de ' +
+                                congressmen.selected.name
                         "
                     >
                         <i class="fa fa-dollar-sign"></i> depositar
@@ -108,10 +113,12 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:percentage') &&
-                                !congressmanBudget.analysed_at &&
-                                !congressmanBudget.has_deposit
+                            (can('congressman-budgets:buttons') ||
+                                can('congressman-budgets:percentage')) &&
+                                !congressmanBudget.has_deposit &&
+                                !congressmanBudget.analysed_at
                         "
+                        :disabled="!can('congressman-budgets:percentage')"
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"
                         title="Alterar percentual solicitado"
@@ -121,9 +128,13 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:close') &&
-                                !congressmanBudget.has_pendency &&
+                            (can('congressman-budgets:buttons') ||
+                                can('congressman-budgets:close')) &&
                                 !congressmanBudget.closed_at
+                        "
+                        :disabled="
+                            !can('congressman-budgets:percentage') ||
+                                congressmanBudget.has_pendency
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         title="Fechar este orçamento para análise final"
@@ -270,7 +281,7 @@ export default {
 
                 columns.push({
                     type: 'label',
-                    title: 'Publicado',
+                    title: 'Publicidade',
                     trClass: 'text-center',
                 })
 

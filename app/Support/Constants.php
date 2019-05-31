@@ -28,7 +28,10 @@ class Constants
     const ENTRY_TYPE_DEBIT_ID = 5;
     const ENTRY_TYPE_ACCOUNT_DEBIT_ID = 6;
 
+    const ROLE_ADMINISTRATOR = 'administrator';
+    const ROLE_FINANCIAL = 'financial';
     const ROLE_CONGRESSMAN = 'congressman';
+    const ROLE_ACI = 'aci';
 
     const SESSION_FORM_MODE = 'flash_form_mode';
     const FORM_MODE_CREATE = 'create';

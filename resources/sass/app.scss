@@ -61,4 +61,14 @@ th {
   vertical-align: middle;
 }
 
+.btn.disabled, .btn:disabled {
+  opacity: 0.35;
+}
 
+.modal-backdrop {
+  opacity: 0.6 !important;
+
+  // Fade for backdrop
+  &.fade { opacity: 0.6; }
+  &.show { opacity: 0.6; }
+}

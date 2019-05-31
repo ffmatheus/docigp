@@ -18,7 +18,7 @@
         "
         :is-selected="selected.id !== null"
     >
-        <template slot="widgets" v-if="can('entries:update')">
+        <template slot="widgets" v-if="can('entries:show')">
             <div class="mr-2">
                 <span
                     class="btn btn-sm m-2"
@@ -37,7 +37,8 @@
 
         <template slot="buttons">
             <button
-                v-if="can('entries:store')"
+                v-if="can('entries:buttons') || can('entries:store')"
+                :disabled="!can('entries:store')"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createEntry()"
                 title="Nova despesa"
@@ -138,7 +139,7 @@
                 <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
                         :value="entry.published_at"
-                        :labels="['sim', 'não']"
+                        :labels="['público', 'privado']"
                     ></app-active-badge>
                 </td>
 
@@ -150,7 +151,12 @@
                         "
                     >
                         <button
-                            v-if="can('entries:verify') && !entry.verified_at"
+                            v-if="
+                                (can('entries:buttons') ||
+                                    can('entries:verify')) &&
+                                    !entry.verified_at
+                            "
+                            :disabled="!can('entries:verify')"
                             class="btn btn-sm btn-micro btn-primary"
                             @click="verify(entry)"
                             title="Marcar como verificado"
@@ -159,7 +165,12 @@
                         </button>
 
                         <button
-                            v-if="can('entries:verify') && entry.verified_at"
+                            v-if="
+                                (can('entries:buttons') ||
+                                    can('entries:verify')) &&
+                                    entry.verified_at
+                            "
+                            :disabled="!can('entries:verify')"
                             class="btn btn-sm btn-micro btn-warning"
                             @click="unverify(entry)"
                             title="Cancelar verificação"
@@ -216,8 +227,14 @@
                         </button>
 
                         <button
-                            v-if="can('entries:update')"
-                            :disabled="entry.analysed_at || entry.verified_at"
+                            v-if="
+                                can('entries:buttons') || can('entries:update')
+                            "
+                            :disabled="
+                                !can('entries:update') ||
+                                    entry.analysed_at ||
+                                    entry.verified_at
+                            "
                             class="btn btn-sm btn-micro btn-primary"
                             @click="editEntry(entry)"
                             title="editar lançamento"
@@ -226,8 +243,14 @@
                         </button>
 
                         <button
-                            v-if="can('entries:delete')"
-                            :disabled="entry.analysed_at || entry.verified_at"
+                            v-if="
+                                can('entries:buttons') || can('entries:delete')
+                            "
+                            :disabled="
+                                !can('entries:delete') ||
+                                    entry.analysed_at ||
+                                    entry.verified_at
+                            "
                             class="btn btn-sm btn-micro btn-danger"
                             @click="trash(entry)"
                             title="deletar lançamento"
@@ -330,7 +353,7 @@ export default {
 
                 columns.push({
                     type: 'label',
-                    title: 'Publicado',
+                    title: 'Publicidade',
                     trClass: 'text-center',
                 })
             }

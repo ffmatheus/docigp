@@ -11,7 +11,7 @@ class PopulateUsers extends Migration
         'ovalenca@alerj.rj.gov.br' => 'Orlando Vinícios Valença',
         'bmasqui@alerj.rj.gov.br' => 'Bruno Masquio',
         'afdsilva@alerj.rj.gov.br' => 'Alexandre Ferreira',
-        'blainier@alerj.rj.gov.br' => 'Breno Laignier',
+        'blaignier@alerj.rj.gov.br' => 'Breno Laignier',
     ];
 
     /**

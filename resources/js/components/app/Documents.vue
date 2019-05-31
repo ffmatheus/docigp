@@ -14,7 +14,11 @@
     >
         <template slot="buttons">
             <button
-                v-if="can('entry-documents:store')"
+                v-if="
+                    can('entry-documents:buttons') ||
+                        can('entry-documents:store')
+                "
+                :disabled="!can('entry-documents:store')"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createDocument()"
                 title="Novo documento"
@@ -67,8 +71,7 @@
                     <button
                         v-if="
                             can('entry-documents:analyse') &&
-                                !document.analysed_at &&
-                                can('documents:update')
+                                !document.analysed_at
                         "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="analyse(document)"
@@ -80,8 +83,7 @@
                     <button
                         v-if="
                             can('entry-documents:analyse') &&
-                                document.analysed_at &&
-                                can('documents:update')
+                                document.analysed_at
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(document)"
@@ -92,11 +94,11 @@
 
                     <button
                         v-if="
-                            can('entry-documents:publish') &&
-                                document.analysed_at &&
-                                !document.published_at &&
-                                can('documents:update')
+                            (can('entry-documents:buttons') ||
+                                can('entry-documents:publish')) &&
+                                !document.published_at
                         "
+                        :disabled="!can('entry-documents:publish')"
                         class="btn btn-sm btn-micro btn-info"
                         @click="publish(document)"
                         title="Marcar como 'publicável'"
@@ -106,10 +108,11 @@
 
                     <button
                         v-if="
-                            can('entry-documents:publish') &&
-                                document.published_at &&
-                                can('documents:update')
+                            (can('entry-documents:buttons') ||
+                                can('entry-documents:publish')) &&
+                                document.published_at
                         "
+                        :disabled="!can('entry-documents:publish')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unpublish(document)"
                         title="Remover autorização de publicação"
@@ -127,11 +130,18 @@
                     </a>
 
                     <button
-                        v-if="can('entry-documents:publish')"
+                        v-if="
+                            can('entry-documents:buttons') ||
+                                can('entry-documents:delete')
+                        "
+                        :disabled="
+                            !can('entry-documents:delete') ||
+                                document.analysed_at ||
+                                document.published_at
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
                         title="Deletar documento"
-                        :disabled="document.analysed_at"
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -174,7 +184,7 @@ export default {
         getTableColumns() {
             let columns = ['Nome do arquivo']
 
-            if (can('documents:show')) {
+            if (can('entry-documents:show')) {
                 columns.push({
                     type: 'label',
                     title: 'Analisado',

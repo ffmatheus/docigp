@@ -5,7 +5,7 @@ use App\Support\Constants;
 return [
     'grants' => [
         [
-            'group' => 'administrator',
+            'group' => Constants::ROLE_ADMINISTRATOR,
 
             'abilities' => [
                 '*' => 'PODE FAZER TUDO',
@@ -17,10 +17,13 @@ return [
                 'assign:congressman' => 'Atribuir perfil de Deputado',
                 'assign:verifier' => 'Atribuir perfil de Verificador',
 
+                'congressman:buttons' => 'Deputados: mostra todos os botões',
                 'congressman:show' => 'Deputados: ver',
                 'congressman:update' => 'Deputados: alterar',
                 'congressman:see-unread' => 'Deputados: ver statis de não-lido',
 
+                'congressman-budgets:buttons' =>
+                    'Orçamento de Deputado: mostra todos os botões',
                 'congressman-budgets:show' => 'Orçamento de Deputado: ver',
                 'congressman-budgets:store' => 'Orçamento de Deputado: criar',
                 'congressman-budgets:update' =>
@@ -28,6 +31,7 @@ return [
                 'congressman-budgets:percentage' =>
                     'Orçamento de Deputado: percentual',
 
+                'entries:buttons' => 'Lançamentos: mostra todos os botões',
                 'entries:show' => 'Lançamentos: ver',
                 'entries:verify' => 'Lançamentos: verificar',
                 'entries:store' => 'Lançamentos: criar',
@@ -37,9 +41,14 @@ return [
                 'entries:control-update' =>
                     'Lançamentos: alterar lançamento de controle',
 
+                'entry-documents:buttons' =>
+                    'Documentos: mostra todos os botões',
                 'entry-documents:show' => 'Documentos: ver',
                 'entry-documents:store' => 'Documentos: criar',
                 'entry-documents:publish' => 'Documentos: publicar',
+                'entry-documents:analyse' => 'Documentos: analisar',
+                'entry-documents:delete' => 'Documentos: deletar',
+
                 'assign:assistant' => 'Atribuir perfil de Assistente',
                 'assign:employee' => 'Atribuir perfil de Funcionário',
                 'assign:publisher' => 'Atribuir perfil de Publicador',
@@ -57,8 +66,7 @@ return [
 
                 'entries:analyse' => 'Lançamentos: analisar',
 
-                'entry-documents:analyse' => 'Documentos: analisar',
-                'assign:financier' => 'Atribuir perfil de Financeiro',
+                'assign:financial' => 'Atribuir perfil de Financeiro',
 
                 'users:show' => 'Usuários: ver',
                 'users:store' => 'Usuários: criar',
@@ -87,8 +95,6 @@ return [
 
                 'congressman:show',
                 'congressman-budgets:show',
-                'congressman-budgets:store',
-                'congressman-budgets:update',
                 'congressman-budgets:percentage',
                 'congressman-budgets:deposit',
                 'congressman-budgets:close',
@@ -103,11 +109,12 @@ return [
                 'entry-documents:show',
                 'entry-documents:store',
                 'entry-documents:publish',
+                'entry-documents:delete',
             ],
         ],
 
         [
-            'group' => 'director',
+            'group' => Constants::ROLE_ACI,
 
             'abilities' => [
                 'assign:assistant',
@@ -115,26 +122,32 @@ return [
                 'assign:employee',
                 'assign:publisher',
                 'assign:viewer',
+
                 'congressman:show',
+                'congressman:buttons',
                 'congressman:see-unread',
+
+                'congressman-budgets:buttons',
                 'congressman-budgets:show',
-                'congressman-budgets:store',
-                'congressman-budgets:update',
-                'congressman-budgets:publish',
-                'congressman-budgets:analyse',
                 'congressman-budgets:reopen',
+                'congressman-budgets:analyse',
+                'congressman-budgets:publish',
+
+                'entries:buttons',
                 'entries:show',
                 'entries:analyse',
+
+                'entry-documents:buttons',
                 'entry-documents:show',
                 'entry-documents:analyse',
             ],
         ],
 
         [
-            'group' => 'financial',
+            'group' => Constants::ROLE_FINANCIAL,
 
             'abilities' => [
-                'assign:financier',
+                'assign:financial',
 
                 'congressman:show',
 
@@ -177,8 +190,8 @@ return [
             'name' => 'verifier',
         ],
         [
-            'title' => 'Diretor',
-            'name' => 'director',
+            'title' => 'ACI',
+            'name' => 'aci',
         ],
         [
             'title' => 'Assistente',
@@ -202,7 +215,7 @@ return [
         ],
         [
             'title' => 'Financeiro',
-            'name' => 'financier',
+            'name' => 'financial',
         ],
     ],
 ];
