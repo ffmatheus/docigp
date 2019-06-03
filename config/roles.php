@@ -40,6 +40,7 @@ return [
                 'entries:delete' => 'Lançamentos: deletar',
                 'entries:control-update' =>
                     'Lançamentos: alterar lançamento de controle',
+                'entries:analyse' => 'Lançamentos: analisar',
 
                 'entry-documents:buttons' =>
                     'Documentos: mostra todos os botões',
@@ -63,8 +64,6 @@ return [
                 'congressman-budgets:close' => 'Orçamento de Deputado: fechar',
                 'congressman-budgets:reopen' =>
                     'Orçamento de Deputado: reabrir',
-
-                'entries:analyse' => 'Lançamentos: analisar',
 
                 'assign:financial' => 'Atribuir perfil de Financeiro',
 

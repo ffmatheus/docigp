@@ -230,11 +230,7 @@
                             v-if="
                                 can('entries:buttons') || can('entries:update')
                             "
-                            :disabled="
-                                !can('entries:update') ||
-                                    entry.analysed_at ||
-                                    entry.verified_at
-                            "
+                            :disabled="entry.analysed_at || entry.verified_at"
                             class="btn btn-sm btn-micro btn-primary"
                             @click="editEntry(entry)"
                             title="editar lançamento"
