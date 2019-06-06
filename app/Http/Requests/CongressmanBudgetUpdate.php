@@ -11,7 +11,8 @@ class CongressmanBudgetUpdate extends Request
      */
     public function authorize()
     {
-        return allows('congressman-budgets:update');
+        return allows('congressman-budgets:update') ||
+            allows('congressman-budgets:percentage');
     }
 
     /**

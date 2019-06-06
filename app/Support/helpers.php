@@ -290,7 +290,7 @@ function allows($ability)
                 'User [%s, %s] is not permitted to do %s',
                 auth()->user()->name,
                 auth()->user()->email,
-                $ability
+                collect($ability)->implode(', ')
             )
         );
     }
