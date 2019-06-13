@@ -154,7 +154,8 @@
                             v-if="
                                 (can('entries:buttons') ||
                                     can('entries:verify')) &&
-                                    !entry.verified_at
+                                    !entry.verified_at &&
+                                    !entry.has_pendency
                             "
                             :disabled="!can('entries:verify')"
                             class="btn btn-sm btn-micro btn-primary"

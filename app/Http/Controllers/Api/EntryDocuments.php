@@ -63,6 +63,24 @@ class EntryDocuments extends Controller
         app(EntryDocumentsRepository::class)->unpublish($entryDocumentId);
     }
 
+    public function verify(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->verify($entryDocumentId);
+    }
+
+    public function unverify(
+        $congressmanId,
+        $congressmanBudgetId,
+        $entryId,
+        $entryDocumentId
+    ) {
+        app(EntryDocumentsRepository::class)->unverify($entryDocumentId);
+    }
+
     public function analyse(
         $congressmanId,
         $congressmanBudgetId,

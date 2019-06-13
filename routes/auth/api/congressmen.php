@@ -109,6 +109,20 @@ Route::group(['prefix' => '/congressmen'], function () {
                                 );
 
                                 Route::post(
+                                    '/verify',
+                                    'EntryDocuments@verify'
+                                )->name(
+                                    'congressmen.budgets.entries-documents.verify'
+                                );
+
+                                Route::post(
+                                    '/unverify',
+                                    'EntryDocuments@unverify'
+                                )->name(
+                                    'congressmen.budgets.entries-documents.unverify'
+                                );
+
+                                Route::post(
                                     '/analyse',
                                     'EntryDocuments@analyse'
                                 )->name(

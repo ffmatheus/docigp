@@ -34,7 +34,7 @@ class CongressmanBudget extends Model
     protected $selectColumns = ['congressman_budgets.*'];
 
     protected $selectColumnsRaw = [
-        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.analysed_at is null) > 0 as has_pendency',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.verified_at is null) > 0 as has_pendency',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.entry_type_id = ' .
             Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID .
             ') > 0 as has_deposit',

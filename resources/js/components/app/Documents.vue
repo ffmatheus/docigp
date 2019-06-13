@@ -52,6 +52,16 @@
                     class="align-middle text-center"
                 >
                     <app-active-badge
+                        :value="document.verified_at"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
+                <td
+                    v-if="can('entry-documents:show')"
+                    class="align-middle text-center"
+                >
+                    <app-active-badge
                         :value="document.analysed_at"
                         :labels="['sim', 'não']"
                     ></app-active-badge>
@@ -70,8 +80,37 @@
                 <td class="align-middle text-right">
                     <button
                         v-if="
+                            (can('entries-documents:buttons') ||
+                                can('entries-documents:verify')) &&
+                                !document.verified_at
+                        "
+                        :disabled="!can('entries-documents:verify')"
+                        class="btn btn-sm btn-micro btn-primary"
+                        @click="verify(document)"
+                        title="Marcar como verificado"
+                    >
+                        <i class="fa fa-check"></i> verificar
+                    </button>
+
+                    <button
+                        v-if="
+                            (can('entries-documents:buttons') ||
+                                can('entries-documents:verify')) &&
+                                document.verified_at
+                        "
+                        :disabled="!can('entries-documents:verify')"
+                        class="btn btn-sm btn-micro btn-warning"
+                        @click="unverify(document)"
+                        title="Cancelar verificação"
+                    >
+                        <i class="fa fa-ban"></i> verificação
+                    </button>
+
+                    <button
+                        v-if="
                             can('entry-documents:analyse') &&
-                                !document.analysed_at
+                                !document.analysed_at &&
+                                document.verified_at
                         "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="analyse(document)"
@@ -96,10 +135,11 @@
                         v-if="
                             (can('entry-documents:buttons') ||
                                 can('entry-documents:publish')) &&
-                                !document.published_at
+                                !document.published_at &&
+                                document.verified_at
                         "
                         :disabled="!can('entry-documents:publish')"
-                        class="btn btn-sm btn-micro btn-info"
+                        class="btn btn-sm btn-micro btn-danger"
                         @click="publish(document)"
                         title="Marcar como 'publicável'"
                     >
@@ -113,7 +153,7 @@
                                 document.published_at
                         "
                         :disabled="!can('entry-documents:publish')"
-                        class="btn btn-sm btn-micro btn-danger"
+                        class="btn btn-sm btn-micro btn-success"
                         @click="unpublish(document)"
                         title="Remover autorização de publicação"
                     >
@@ -187,6 +227,12 @@ export default {
             if (can('entry-documents:show')) {
                 columns.push({
                     type: 'label',
+                    title: 'Verificado',
+                    trClass: 'text-center',
+                })
+
+                columns.push({
+                    type: 'label',
                     title: 'Analisado',
                     trClass: 'text-center',
                 })
@@ -210,6 +256,24 @@ export default {
                         this.$store.dispatch('entryDocuments/delete', document)
                 },
             )
+        },
+
+        verify(entry) {
+            confirm(
+                'Confirma a marcação deste lançamento como "VERIFICADO"?',
+                this,
+            ).then(value => {
+                value && this.$store.dispatch('entryDocuments/verify', entry)
+            })
+        },
+
+        unverify(entry) {
+            confirm(
+                'O status de "VERIFICADO" será removido deste lançamento, confirma?',
+                this,
+            ).then(value => {
+                value && this.$store.dispatch('entryDocuments/unverify', entry)
+            })
         },
 
         analyse(document) {

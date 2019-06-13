@@ -38,6 +38,14 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('entryDocuments/select', payload, { root: true })
     },
 
+    verify(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/verify')
+    },
+
+    unverify(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/unverify')
+    },
+
     publish(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/publish')
     },

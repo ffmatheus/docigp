@@ -12,6 +12,8 @@ class EntryDocument extends Model
 
     protected $fillable = [
         'entry_id',
+        'verified_at',
+        'verified_by_id',
         'analysed_at',
         'analysed_by_id',
         'published_at',
