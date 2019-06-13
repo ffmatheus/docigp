@@ -47,6 +47,7 @@ return [
                 'entry-documents:show' => 'Documentos: ver',
                 'entry-documents:store' => 'Documentos: criar',
                 'entry-documents:publish' => 'Documentos: publicar',
+                'entry-documents:verify' => 'Documentos: verificar',
                 'entry-documents:analyse' => 'Documentos: analisar',
                 'entry-documents:delete' => 'Documentos: deletar',
 
@@ -109,6 +110,7 @@ return [
                 'entry-documents:store',
                 'entry-documents:publish',
                 'entry-documents:delete',
+                'entry-documents:verify',
             ],
         ],
 
