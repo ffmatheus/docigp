@@ -80,11 +80,11 @@
                 <td class="align-middle text-right">
                     <button
                         v-if="
-                            (can('entries-documents:buttons') ||
-                                can('entries-documents:verify')) &&
+                            (can('entry-documents:buttons') ||
+                                can('entry-documents:verify')) &&
                                 !document.verified_at
                         "
-                        :disabled="!can('entries-documents:verify')"
+                        :disabled="!can('entry-documents:verify')"
                         class="btn btn-sm btn-micro btn-primary"
                         @click="verify(document)"
                         title="Marcar como verificado"
@@ -94,11 +94,11 @@
 
                     <button
                         v-if="
-                            (can('entries-documents:buttons') ||
-                                can('entries-documents:verify')) &&
+                            (can('entry-documents:buttons') ||
+                                can('entry-documents:verify')) &&
                                 document.verified_at
                         "
-                        :disabled="!can('entries-documents:verify')"
+                        :disabled="!can('entry-documents:verify')"
                         class="btn btn-sm btn-micro btn-warning"
                         @click="unverify(document)"
                         title="Cancelar verificação"
