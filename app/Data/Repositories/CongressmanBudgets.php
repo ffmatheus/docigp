@@ -32,6 +32,36 @@ class CongressmanBudgets extends Repository
         );
     }
 
+    private function buildPendenciesArray($congressmanBudget)
+    {
+        $pendencies = [];
+
+        if (blank($congressmanBudget['analysed_at'])) {
+            $pendencies[] = 'analisar mês';
+        }
+
+        if ($congressmanBudget['missing_analysis']) {
+            $pendencies[] = 'analisar lançamentos';
+        }
+
+        if ((float) $congressmanBudget['percentage'] === 0.0) {
+            $pendencies[] = 'definir percentual';
+        }
+
+        if (
+            blank($congressmanBudget['sum_debit']) &&
+            filled($congressmanBudget['sum_credit'])
+        ) {
+            $pendencies[] = 'depositar';
+        }
+
+        if ($congressmanBudget['missing_verification']) {
+            $pendencies[] = 'verificar lançamentos';
+        }
+
+        return $pendencies;
+    }
+
     public function transform($data)
     {
         $this->addTransformationPlugin(function ($congressmanBudget) {
@@ -71,6 +101,10 @@ class CongressmanBudgets extends Repository
             $congressmanBudget['percentage_formatted'] =
                 $congressmanBudget['percentage'] . '%';
 
+            $congressmanBudget['pendencies'] = $this->buildPendenciesArray(
+                $congressmanBudget
+            );
+
             return $congressmanBudget;
         });
 
@@ -95,5 +129,16 @@ class CongressmanBudgets extends Repository
         Congressman::enableGlobalScopes();
 
         return $result;
+    }
+
+    public function updateAllEntriesFor($id)
+    {
+        CongressmanBudget::find($id)
+            ->congressman->congressmanBudgets()
+            ->orderBy('id', 'asc')
+            ->get()
+            ->each(function ($congressmanBudget) {
+                $congressmanBudget->updateTransportEntries();
+            });
     }
 }

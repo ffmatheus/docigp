@@ -174,13 +174,6 @@ abstract class Repository
 
     protected function filterAllColumns($query, $text)
     {
-        info([
-            '--- fiklter',
-            $this->model()->getTable(),
-            $this->model()
-                ->getFilterableColumns()
-                ->toArray(),
-        ]);
         if (
             $this->model()
                 ->getFilterableColumns()

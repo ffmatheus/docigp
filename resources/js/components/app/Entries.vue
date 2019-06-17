@@ -115,11 +115,26 @@
                     </span>
                 </td>
 
-                <td v-if="can('entries:show')" class="align-middle text-center">
-                    <app-active-badge
-                        :value="!entry.has_pendency"
-                        :labels="['não', 'sim']"
-                    ></app-active-badge>
+                <td
+                    v-if="can('congressman-budgets:show')"
+                    class="align-middle text-center"
+                >
+                    <app-badge
+                        v-if="entry.pendencies.length === 0"
+                        caption="não"
+                        color="#38c172,#FFFFFF"
+                        padding="1"
+                    ></app-badge>
+
+                    <app-badge
+                        v-if="entry.pendencies.length > 0"
+                        color="#e3342f,#FFFFFF"
+                        padding="1"
+                    >
+                        <span v-for="pendency in entry.pendencies">
+                            &bull; {{ pendency }}<br />
+                        </span>
+                    </app-badge>
                 </td>
 
                 <td v-if="can('entries:show')" class="align-middle text-center">

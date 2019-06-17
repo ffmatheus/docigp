@@ -92,10 +92,27 @@ class Entries extends Repository
                 ? null
                 : "{$entry['provider_type']}: {$entry['provider_cpf_cnpj']}";
 
+            $entry['pendencies'] = $this->buildPendenciesArray($entry);
+
             return $entry;
         });
 
         return parent::transform($data);
+    }
+
+    private function buildPendenciesArray($entry)
+    {
+        $pendencies = [];
+
+        if ($entry['missing_verification']) {
+            $pendencies[] = 'verificar documentos';
+        }
+
+        if ($entry['missing_analysis']) {
+            $pendencies[] = 'analisar documentos';
+        }
+
+        return $pendencies;
     }
 
     public function store()

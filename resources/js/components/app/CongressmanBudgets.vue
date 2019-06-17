@@ -48,10 +48,22 @@
                     v-if="can('congressman-budgets:show')"
                     class="align-middle text-center"
                 >
-                    <app-active-badge
-                        :value="!congressmanBudget.has_pendency"
-                        :labels="['não', 'sim']"
-                    ></app-active-badge>
+                    <app-badge
+                        v-if="congressmanBudget.pendencies.length === 0"
+                        caption="não"
+                        color="#38c172,#FFFFFF"
+                        padding="1"
+                    ></app-badge>
+
+                    <app-badge
+                        v-if="congressmanBudget.pendencies.length > 0"
+                        color="#e3342f,#FFFFFF"
+                        padding="1"
+                    >
+                        <span v-for="pendency in congressmanBudget.pendencies">
+                            &bull; {{ pendency }}<br />
+                        </span>
+                    </app-badge>
                 </td>
 
                 <td
@@ -92,7 +104,8 @@
                         v-if="
                             (can('congressman-budgets:buttons') ||
                                 can('congressman-budgets:deposit')) &&
-                                !congressmanBudget.has_deposit
+                                !congressmanBudget.has_deposit &&
+                                congressmanBudget.percentage > 0
                         "
                         :disabled="
                             !can('congressman-budgets:deposit') ||
@@ -115,8 +128,8 @@
                         v-if="
                             (can('congressman-budgets:buttons') ||
                                 can('congressman-budgets:percentage')) &&
-                                !congressmanBudget.has_deposit &&
-                                !congressmanBudget.analysed_at
+                                !congressmanBudget.analysed_at &&
+                                !congressmanBudget.closed_at
                         "
                         :disabled="!can('congressman-budgets:percentage')"
                         @click="editPercentage(congressmanBudget)"

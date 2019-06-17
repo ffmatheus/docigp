@@ -2,13 +2,14 @@
 
 namespace App\Data\Models;
 
+use App\Support\Constants;
 use App\Data\Scopes\Published;
-use App\Data\Repositories\Budgets;
 use App\Data\Traits\MarkAsUnread;
+use App\Data\Repositories\Budgets;
 use App\Data\Traits\ModelActionable;
 use App\Data\Repositories\CostCenters;
+use App\Data\Repositories\CongressmanBudgets;
 use App\Data\Scopes\Congressman as CongressmanScope;
-use App\Support\Constants;
 
 class CongressmanBudget extends Model
 {
@@ -29,12 +30,17 @@ class CongressmanBudget extends Model
         'closed_at',
     ];
 
-    protected $with = ['budget'];
+    protected $with = [
+        'budget',
+        'congressmanLegislature',
+        'congressmanLegislature.congressman',
+    ];
 
     protected $selectColumns = ['congressman_budgets.*'];
 
     protected $selectColumnsRaw = [
-        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.verified_at is null) > 0 as has_pendency',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.analysed_at is null) > 0 as missing_analysis',
+        '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.verified_at is null) > 0 as missing_verification',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id and e.entry_type_id = ' .
             Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID .
             ') > 0 as has_deposit',
@@ -106,13 +112,17 @@ class CongressmanBudget extends Model
             ->delete();
     }
 
-    protected function fillValue(): void
+    protected function fillValue(): bool
     {
         if ($this->percentageChanged()) {
             $budget = app(Budgets::class)->findById($this->budget_id);
 
             $this->value = ($budget->value * $this->percentage) / 100;
+
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -147,9 +157,17 @@ class CongressmanBudget extends Model
      */
     public function save(array $options = [])
     {
-        $this->fillValue();
+        $updated = $this->fillValue();
 
-        return parent::save();
+        $saved = parent::save();
+
+        if ($updated) {
+            $this->updateDepositEntry();
+
+            app(CongressmanBudgets::class)->updateAllEntriesFor($this->id);
+        }
+
+        return $saved;
     }
 
     public function entries()
@@ -210,6 +228,7 @@ class CongressmanBudget extends Model
     public function updateTransportEntries()
     {
         if ($next = $this->congressman->getNextBudgetRelativeTo($this)) {
+            info(['next', $next->toArray()]);
             $value = $this->getBalanceWithoutDebitTransport();
 
             $next->updateTransportEntry(
@@ -223,12 +242,25 @@ class CongressmanBudget extends Model
     public static function disableGlobalScopes()
     {
         Published::disable();
+
         CongressmanScope::disable();
     }
 
     public static function enableGlobalScopes()
     {
         Published::disable();
+
         CongressmanScope::enable();
+    }
+
+    public function updateDepositEntry()
+    {
+        $deposit = $this->entries
+            ->where('cost_center_id', Constants::COST_CENTER_CREDIT_ID)
+            ->first();
+
+        $deposit->value = $this->value;
+
+        $deposit->save();
     }
 }

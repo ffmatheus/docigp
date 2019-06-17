@@ -16,7 +16,6 @@ class Congressman extends Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        db_listen();
         if (static::$enabled && ($departmentId = get_current_department_id())) {
             $builder->where(
                 $model->getTable() . '.department_id',

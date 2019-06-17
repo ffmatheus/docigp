@@ -1,7 +1,7 @@
 <template>
     <span
         class="badge"
-        :class="' p-' + getPadding()"
+        :class="' p-' + getPadding() + ' m-' + getMargin()"
         :style="{
             'background-color': background,
             color: foreground,
@@ -14,6 +14,8 @@
             }"
         >
             {{ caption }}
+
+            <slot></slot>
         </span>
 
         <span v-if="complement">
@@ -39,6 +41,7 @@ export default {
         'complement',
         'uppercase',
         'padding',
+        'margin',
         'fontSize',
         'complementFontSize',
     ],
@@ -54,6 +57,10 @@ export default {
     },
 
     methods: {
+        getMargin() {
+            return this.margin ? this.margin : 1
+        },
+
         getPadding() {
             return this.padding ? this.padding : 2
         },
