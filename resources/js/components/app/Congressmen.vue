@@ -105,7 +105,21 @@
                     </span>
                 </td>
 
-                <td class="align-middle">{{ congressman.name }}</td>
+                <td class="align-middle">
+                    <div>
+                        {{ congressman.nickname }}
+                    </div>
+
+                    <div
+                        class="mb-2"
+                        style="line-height: 3px; "
+                        v-if="congressman.name !== congressman.nickname"
+                    >
+                        <small class="text-primary" style="font-size: 0.6em;"
+                            >({{ congressman.name }})</small
+                        >
+                    </div>
+                </td>
 
                 <td
                     v-if="can('congressman:show')"
