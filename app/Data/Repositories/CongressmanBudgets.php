@@ -36,14 +36,6 @@ class CongressmanBudgets extends Repository
     {
         $pendencies = [];
 
-        if (blank($congressmanBudget['analysed_at'])) {
-            $pendencies[] = 'analisar mês';
-        }
-
-        if ($congressmanBudget['missing_analysis']) {
-            $pendencies[] = 'analisar lançamentos';
-        }
-
         if ((float) $congressmanBudget['percentage'] === 0.0) {
             $pendencies[] = 'definir percentual';
         }
@@ -57,6 +49,14 @@ class CongressmanBudgets extends Repository
 
         if ($congressmanBudget['missing_verification']) {
             $pendencies[] = 'verificar lançamentos';
+        }
+
+        if ($congressmanBudget['missing_analysis']) {
+            $pendencies[] = 'analisar lançamentos';
+        }
+
+        if (blank($congressmanBudget['analysed_at'])) {
+            $pendencies[] = 'analisar mês';
         }
 
         return $pendencies;
