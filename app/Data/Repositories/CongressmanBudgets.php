@@ -49,8 +49,8 @@ class CongressmanBudgets extends Repository
         }
 
         if (
-            blank($congressmanBudget['sum_debit']) &&
-            filled($congressmanBudget['sum_credit'])
+            (float) $congressmanBudget['percentage'] !== 0.0 &&
+            (float) $congressmanBudget['sum_credit'] === 0.0
         ) {
             $pendencies[] = 'depositar';
         }
