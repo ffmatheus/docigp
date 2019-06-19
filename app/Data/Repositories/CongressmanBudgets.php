@@ -67,6 +67,10 @@ class CongressmanBudgets extends Repository
             $pendencies[] = 'saldo negativo';
         }
 
+        if (blank($congressmanBudget['published_at'])) {
+            $pendencies[] = 'publicar';
+        }
+
         return $pendencies;
     }
 

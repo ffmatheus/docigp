@@ -108,8 +108,20 @@ class Entries extends Repository
             $pendencies[] = 'verificar documentos';
         }
 
+        if (blank($entry['verified_at'])) {
+            $pendencies[] = 'verificar lançamento';
+        }
+
         if ($entry['missing_analysis']) {
             $pendencies[] = 'analisar documentos';
+        }
+
+        if (blank($entry['analysed_at'])) {
+            $pendencies[] = 'analisar lançamento';
+        }
+
+        if (blank($entry['published_at'])) {
+            $pendencies[] = 'publicar';
         }
 
         return $pendencies;
