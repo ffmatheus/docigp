@@ -163,10 +163,10 @@
                     <a
                         :href="document.url"
                         target="_blank"
-                        title="Ver imagem do documento"
+                        title="Visualizar documento"
                         class="btn btn-sm btn-micro btn-warning cursor-pointer"
                     >
-                        <i class="fa fa-file-image"></i>
+                        <i class="fa fa-eye"></i>
                     </a>
 
                     <button

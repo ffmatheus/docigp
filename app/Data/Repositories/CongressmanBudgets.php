@@ -32,7 +32,7 @@ class CongressmanBudgets extends Repository
         );
     }
 
-    private function buildPendenciesArray($congressmanBudget)
+    protected function buildPendenciesArray($congressmanBudget)
     {
         $pendencies = [];
 
@@ -57,6 +57,14 @@ class CongressmanBudgets extends Repository
 
         if (blank($congressmanBudget['analysed_at'])) {
             $pendencies[] = 'analisar mês';
+        }
+
+        if ((float) $congressmanBudget['balance'] > 0.0) {
+            $pendencies[] = 'saldo positivo';
+        }
+
+        if ((float) $congressmanBudget['balance'] < 0.0) {
+            $pendencies[] = 'saldo negativo';
         }
 
         return $pendencies;
