@@ -103,7 +103,6 @@ return [
                 'entries:verify',
                 'entries:store',
                 'entries:update',
-                'entries:publish',
                 'entries:delete',
 
                 'entry-documents:show',
@@ -137,6 +136,7 @@ return [
                 'entries:buttons',
                 'entries:show',
                 'entries:analyse',
+                'entries:publish',
 
                 'entry-documents:buttons',
                 'entry-documents:show',
