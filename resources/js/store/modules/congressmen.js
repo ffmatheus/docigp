@@ -89,11 +89,13 @@ let actions = merge_objects(actionsMixin, {
     },
 
     markAsRead(context) {
-        post(
-            '/api/v1/congressmen/' +
-                context.rootState.congressmen.selected.id +
-                '/mark-as-read',
-        )
+        if (!!Store.state.environment.user) {
+            post(
+                '/api/v1/congressmen/' +
+                    context.rootState.congressmen.selected.id +
+                    '/mark-as-read',
+            )
+        }
     },
 })
 
