@@ -138,6 +138,10 @@ return [
                 'entries:analyse',
                 'entries:publish',
 
+                'providers:show' => 'Fornecedores: ver',
+                'providers:store' => 'Fornecedores: criar',
+                'providers:update' => 'Fornecedores: alterar',
+
                 'entry-documents:buttons',
                 'entry-documents:show',
                 'entry-documents:analyse',
