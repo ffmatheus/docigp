@@ -72,3 +72,7 @@ th {
   &.fade { opacity: 0.6; }
   &.show { opacity: 0.6; }
 }
+
+.navbar, .navbar>.container, .navbar>.container-fluid {
+  display: block ;
+}
