@@ -186,10 +186,12 @@ class Congressmen extends Repository
 
     public function markAsRead($id)
     {
-        ChangeUnread::where('congressman_id', $id)
-            ->where('user_id', auth()->user()->id)
-            ->delete();
+        if (auth()->user()) {
+            ChangeUnread::where('congressman_id', $id)
+                ->where('user_id', auth()->user()->id)
+                ->delete();
 
-        $this->fireEvents(Congressman::find($id), 'Updated');
+            $this->fireEvents(Congressman::find($id), 'Updated');
+        }
     }
 }

@@ -3,6 +3,10 @@
 Route::group(['prefix' => '/congressmen'], function () {
     Route::get('/', 'Congressmen@all')->name('congressmen.all');
 
+    Route::post('/{id}/mark-as-read', 'Congressmen@markAsRead')->name(
+        'congressmen.mark-as-read'
+    );
+
     Route::group(['prefix' => '/{congressmanId}/budgets'], function () {
         Route::get('/', 'CongressmanBudgets@all')->name(
             'congressmen.budgets.all'
