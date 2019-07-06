@@ -10,7 +10,7 @@
         :is-selected="selected.id !== null"
     >
         <template slot="checkboxes">
-            <div v-if="can('congressman:show')" class="row">
+            <div class="row">
                 <!--                <div class="col">-->
                 <!--                    <app-input-->
                 <!--                        name="joined"-->
@@ -35,66 +35,64 @@
                 <!--                    ></app-input>-->
                 <!--                </div>-->
 
-                <div v-if="can('congressman:show')">
-                    <div class="col">
-                        <app-input
-                            name="withMandate"
-                            label="com mandato"
-                            type="checkbox"
-                            v-model="withMandate"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
-                    </div>
+                <div v-if="can('congressman:show')" class="col">
+                    <app-input
+                        name="withMandate"
+                        label="com mandato"
+                        type="checkbox"
+                        v-model="withMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
 
-                    <div class="col">
-                        <app-input
-                            name="withoutMandate"
-                            label="sem mandato"
-                            type="checkbox"
-                            v-model="withoutMandate"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
-                    </div>
+                <div v-if="can('congressman:show')" class="col">
+                    <app-input
+                        name="withoutMandate"
+                        label="sem mandato"
+                        type="checkbox"
+                        v-model="withoutMandate"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
 
-                    <div class="col">
-                        <app-input
-                            name="withPendency"
-                            label="com pendências"
-                            type="checkbox"
-                            v-model="withPendency"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
-                    </div>
+                <div v-if="can('congressman:show')" class="col">
+                    <app-input
+                        name="withPendency"
+                        label="com pendências"
+                        type="checkbox"
+                        v-model="withPendency"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
 
-                    <div class="col">
-                        <app-input
-                            name="withoutPendency"
-                            label="sem pendências"
-                            type="checkbox"
-                            v-model="withoutPendency"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
-                    </div>
+                <div v-if="can('congressman:show')" class="col">
+                    <app-input
+                        name="withoutPendency"
+                        label="sem pendências"
+                        type="checkbox"
+                        v-model="withoutPendency"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
+                </div>
 
-                    <div class="col">
-                        <app-input
-                            name="unread"
-                            label="não lidos"
-                            type="checkbox"
-                            v-model="unread"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
-                    </div>
+                <div v-if="can('congressman:show')" class="col">
+                    <app-input
+                        name="unread"
+                        label="não lidos"
+                        type="checkbox"
+                        v-model="unread"
+                        :required="true"
+                        :form="form"
+                        inline="true"
+                    ></app-input>
                 </div>
             </div>
         </template>
