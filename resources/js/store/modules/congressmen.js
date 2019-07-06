@@ -31,7 +31,7 @@ let state = merge_objects(
                     withPendency: false,
                     withoutPendency: false,
                     unread: false,
-                    joined: false,
+                    joined: true,
                     notJoined: false,
                 },
 

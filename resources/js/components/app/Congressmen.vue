@@ -10,30 +10,30 @@
         :is-selected="selected.id !== null"
     >
         <template slot="checkboxes">
-            <div class="row">
-                <div class="col">
-                    <app-input
-                        name="joined"
-                        label="os que aderiram"
-                        type="checkbox"
-                        v-model="joined"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
-                </div>
+            <div v-if="can('congressman:show')" class="row">
+                <!--                <div class="col">-->
+                <!--                    <app-input-->
+                <!--                        name="joined"-->
+                <!--                        label="os que aderiram"-->
+                <!--                        type="checkbox"-->
+                <!--                        v-model="joined"-->
+                <!--                        :required="true"-->
+                <!--                        :form="form"-->
+                <!--                        inline="true"-->
+                <!--                    ></app-input>-->
+                <!--                </div>-->
 
-                <div class="col">
-                    <app-input
-                        name="joined"
-                        label="os que NÃO aderiram"
-                        type="checkbox"
-                        v-model="notJoined"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
-                </div>
+                <!--                <div class="col">-->
+                <!--                    <app-input-->
+                <!--                        name="joined"-->
+                <!--                        label="os que NÃO aderiram"-->
+                <!--                        type="checkbox"-->
+                <!--                        v-model="notJoined"-->
+                <!--                        :required="true"-->
+                <!--                        :form="form"-->
+                <!--                        inline="true"-->
+                <!--                    ></app-input>-->
+                <!--                </div>-->
 
                 <div v-if="can('congressman:show')">
                     <div class="col">
