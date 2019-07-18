@@ -2,6 +2,8 @@
 
 namespace App\Data\Traits;
 
+use App\Data\Models\EntryDocument;
+
 trait ModelActionable
 {
     public function verify()
@@ -37,7 +39,9 @@ trait ModelActionable
             'analysed_by_id' => auth()->user()->id,
         ]);
 
-        $this->unpublish();
+        if (!$this instanceof EntryDocument) {
+            $this->unpublish();
+        }
     }
 
     public function publish()

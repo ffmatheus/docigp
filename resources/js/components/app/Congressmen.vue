@@ -9,9 +9,33 @@
         :collapsedLabel="selected.name"
         :is-selected="selected.id !== null"
     >
-        <template v-if="can('congressman:show')" slot="checkboxes">
+        <template slot="checkboxes">
             <div class="row">
-                <div class="col">
+                <!--                <div class="col">-->
+                <!--                    <app-input-->
+                <!--                        name="joined"-->
+                <!--                        label="os que aderiram"-->
+                <!--                        type="checkbox"-->
+                <!--                        v-model="joined"-->
+                <!--                        :required="true"-->
+                <!--                        :form="form"-->
+                <!--                        inline="true"-->
+                <!--                    ></app-input>-->
+                <!--                </div>-->
+
+                <!--                <div class="col">-->
+                <!--                    <app-input-->
+                <!--                        name="joined"-->
+                <!--                        label="os que NÃO aderiram"-->
+                <!--                        type="checkbox"-->
+                <!--                        v-model="notJoined"-->
+                <!--                        :required="true"-->
+                <!--                        :form="form"-->
+                <!--                        inline="true"-->
+                <!--                    ></app-input>-->
+                <!--                </div>-->
+
+                <div v-if="can('congressman:show')" class="col">
                     <app-input
                         name="withMandate"
                         label="com mandato"
@@ -23,7 +47,7 @@
                     ></app-input>
                 </div>
 
-                <div class="col">
+                <div v-if="can('congressman:show')" class="col">
                     <app-input
                         name="withoutMandate"
                         label="sem mandato"
@@ -35,7 +59,7 @@
                     ></app-input>
                 </div>
 
-                <div class="col">
+                <div v-if="can('congressman:show')" class="col">
                     <app-input
                         name="withPendency"
                         label="com pendências"
@@ -47,7 +71,7 @@
                     ></app-input>
                 </div>
 
-                <div class="col">
+                <div v-if="can('congressman:show')" class="col">
                     <app-input
                         name="withoutPendency"
                         label="sem pendências"
@@ -59,7 +83,7 @@
                     ></app-input>
                 </div>
 
-                <div class="col">
+                <div v-if="can('congressman:show')" class="col">
                     <app-input
                         name="unread"
                         label="não lidos"
@@ -121,6 +145,13 @@
                     </div>
                 </td>
 
+                <td class="align-midle text-center my-auto">
+                    <app-active-badge
+                        :value="congressman.is_published"
+                        :labels="['sim', 'não']"
+                    ></app-active-badge>
+                </td>
+
                 <td
                     v-if="can('congressman:show')"
                     class="align-middle text-center"
@@ -173,6 +204,12 @@ export default {
             }
 
             columns.push('Nome do Parlamentar')
+
+            columns.push({
+                type: 'label',
+                title: 'Aderiu?',
+                trClass: 'text-center',
+            })
 
             if (can('congressman:show')) {
                 columns.push({
@@ -265,6 +302,48 @@ export default {
                 this.$store.commit('congressmen/mutateFilterCheckbox', {
                     field: 'unread',
                     value: filter,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        joined: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .joined
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'joined',
+                    value: filter,
+                })
+
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'notJoined',
+                    value: false,
+                })
+
+                this.$store.dispatch('congressmen/load')
+            },
+        },
+
+        notJoined: {
+            get() {
+                return this.$store.state['congressmen'].data.filter.checkboxes
+                    .notJoined
+            },
+
+            set(filter) {
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'notJoined',
+                    value: filter,
+                })
+
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'joined',
+                    value: false,
                 })
 
                 this.$store.dispatch('congressmen/load')

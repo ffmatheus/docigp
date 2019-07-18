@@ -20,14 +20,14 @@ class Congressman extends Model
         'party_id',
         'photo_url',
         'thumbnail_url',
-        'department_id',
+        'department_id'
     ];
 
     protected $with = ['party', 'user'];
 
     protected $filterableColumns = ['name', 'nickname'];
 
-    protected $orderBy = ['name' => 'asc'];
+    protected $orderBy = ['nickname' => 'asc'];
 
     protected $selectColumns = ['congressmen.*'];
 
@@ -36,6 +36,7 @@ class Congressman extends Model
     protected $selectColumnsRaw = [
         '(select count(*) from congressman_legislatures cl where cl.congressman_id = congressmen.id and cl.ended_at is null) > 0 as has_mandate',
         '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id where cl.congressman_id = congressmen.id and cb.published_at is null) > 0 as has_pendency',
+        '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id join entries e on e.congressman_budget_id = cb.id where cl.congressman_id = congressmen.id and cb.published_at is not null and e.published_at is not null) > 0 as is_published'
     ];
 
     public function legislatures()
@@ -107,6 +108,24 @@ class Congressman extends Model
     {
         if ($select = $this->buildUnreadQuery()) {
             $query->whereRaw("($select) > 0");
+        }
+
+        return $query;
+    }
+
+    public function scopeJoined($query)
+    {
+        if ($select = $this->buildJoinedQuery()) {
+            $query->whereRaw("($select) > 0");
+        }
+
+        return $query;
+    }
+
+    public function scopeNotJoined($query)
+    {
+        if ($select = $this->buildJoinedQuery()) {
+            $query->whereRaw("($select) = 0");
         }
 
         return $query;
@@ -261,5 +280,18 @@ class Congressman extends Model
                      and changes_unread.user_id = {$userId}
                     "
             : '';
+    }
+
+    public function buildJoinedQuery()
+    {
+        return "select 
+                count(*) 
+               from congressman_budgets cb 
+               join congressman_legislatures cl on cb.congressman_legislature_id = cl.id 
+               join entries e on e.congressman_budget_id = cb.id 
+               where cl.congressman_id = congressmen.id 
+               and cb.published_at is not null 
+               and e.published_at is not null
+                    ";
     }
 }

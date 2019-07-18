@@ -22,7 +22,7 @@ class Congressmen extends Repository
             'Chiquinho da Mangueira',
             'Marcus Vinicius Neskau',
             'André Correa',
-            'Marcos Abrahão',
+            'Marcos Abrahão'
         ])->contains($congressman->name);
     }
 
@@ -30,7 +30,7 @@ class Congressmen extends Repository
     {
         return $this->firstOrCreate(
             [
-                'remote_id' => $congressman['ID'],
+                'remote_id' => $congressman['ID']
             ],
             [
                 'name' => ($name = $this->normalizeName($congressman['Nome'])),
@@ -45,7 +45,7 @@ class Congressmen extends Repository
 
                 'department_id' => $departmentId,
 
-                'thumbnail_url' => $congressman['FotoPequena'],
+                'thumbnail_url' => $congressman['FotoPequena']
             ]
         );
     }
@@ -102,7 +102,7 @@ class Congressmen extends Repository
                             'congressman_id' => $congressman->id,
                             'legislature_id' => app(
                                 Legislatures::class
-                            )->getCurrent()->id,
+                            )->getCurrent()->id
                         ],
                         ['started_at' => now()]
                     );
@@ -143,6 +143,20 @@ class Congressmen extends Repository
         if (isset($filter['unread'])) {
             $query->unread();
         }
+
+        // Vagner Victer mandou mostrar apenas os que aderiram
+        // Na visão do cidadão
+        if (!auth()->user()) {
+            $query->joined();
+        }
+
+        //        if (isset($filter['joined'])) {
+        //            $query->joined();
+        //        }
+        //
+        //        i$query->joined();f (isset($filter['notJoined'])) {
+        //            $query->notJoined();
+        //        }
     }
 
     public function searchFromRequest($search = null)
