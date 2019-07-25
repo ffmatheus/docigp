@@ -1,0 +1,125 @@
+
+// Custom Code
+
+
+
+// Styles
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+td:first-child, th:first-child {
+  padding-left: 15px !important;
+}
+
+td:last-child, th:last-child {
+  padding-right: 15px !important;
+}
+
+th {
+  background-color: #0a008a;
+  color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bg-filters {
+  background: $grey-lighter03;
+}
+
+.bg-primary {
+  background: $blue-lighter02;
+}
+
+.bg-cyan {
+  background-color: $cyan-light;
+}
+
+.form-check-input {
+  position: relative;
+  margin-left: 0 !important;
+}
+
+.fa-align-middle {
+  vertical-align: middle;
+}
+
+.btn.disabled, .btn:disabled {
+  opacity: 0.35;
+}
+
+.modal-backdrop {
+  opacity: 0.6 !important;
+
+  // Fade for backdrop
+  &.fade { opacity: 0.6; }
+  &.show { opacity: 0.6; }
+}
+
+
+// Breno´s Mods
+
+
+.long-name {
+  background: #92a345;
+  color: #ffffff;
+  padding: 3px;
+}
+
+
+.navbar, .navbar>.container, .navbar>.container-fluid {
+  display: block ;
+}
+
+.logo-alerj {
+  float:left;
+  max-width:200px;
+  margin-right:20px;
+
+}
+
+
+.logo-alerj:after {
+
+}
+
+h1, .h1 {
+  color: #212E52;
+}
+
+
+
+.navbar-light {
+  .navbar-nav {
+    .btn-primary {
+      color: rgba(256, 255, 255, 1);
+      font-weight: 600;
+
+      &:hover {
+        color: rgba(256, 255, 255, 0.8);
+      }
+
+      &:focus {
+        color: rgba(256, 255, 255, 0.8);
+      }
+
+
+    }
+  }
+}
+
+
+/*
+
+nav.navbar.navbar-expand-md.navbar-light.navbar-laravel {
+  padding-top: 0;
+}
+
+a.navbar-brand {
+  margin-top: 0px !important;
+  padding-top: 0 !important;
+}
+*/

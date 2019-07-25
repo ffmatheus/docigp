@@ -1,9 +1,21 @@
+<div class="container-fluid">
+    <div class="row long-name">
+        <div class="col-12">
+            {{ config('app.long_name') }}
+        </div>
+    </div>
+
+</div>
+
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-8">
                 <a class="navbar-brand" href="{{ url('/') }}" style="white-space: normal;">
-                    {{ config('app.long_name') }}
+
+                    <img src="/img/logo-alerj.png" class="img-fluid logo-alerj" alt="">
+
                 </a>
             </div>
 
@@ -21,9 +33,10 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Service Links -->
+
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link btn btn-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
                             <li class="nav-item">
