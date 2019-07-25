@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row long-name">
+    <div class="row long-name text-center">
         <div class="col-12">
             {{ config('app.long_name') }}
         </div>
@@ -12,9 +12,9 @@
 
         <div class="row">
             <div class="col-8">
-                <a class="navbar-brand" href="{{ url('/') }}" style="white-space: normal;">
+                <a class="navbar-brand d-flex" href="{{ url('/') }}" style="white-space: normal;">
 
-                    <img src="/img/logo-alerj.png" class="img-fluid logo-alerj" alt="">
+                    <img src="/img/logo-alerj.png" class="img-fluid logo-alerj " alt=""> <span class="docigp-name align-self-center"> {{ config('app.name') }} </span>
 
                 </a>
             </div>
