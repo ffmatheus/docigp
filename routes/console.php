@@ -97,11 +97,15 @@ Artisan::command('docigp:entries:update-transport', function () {
     Entry::disableGlobalScopes();
 
     CongressmanBudget::each(function (CongressmanBudget $budget) {
-        //        $budget->updateTransportEntries();
-        //        if ($budget->entries()->count() == 0) {
-        //            dump($budget);
-        //        }
-        if ($entry = $budget->entries()->first()) {
+        if (
+            $entry = $budget
+                ->entries()
+                ->orderBy('date', 'asc')
+                ->first()
+        ) {
+            if (is_at_least_verbose($this)) {
+                dump('Updating entry ' . $entry->id);
+            }
             $entry->save();
         }
     });
@@ -109,3 +113,46 @@ Artisan::command('docigp:entries:update-transport', function () {
     Entry::enableGlobalScopes();
     CongressmanBudget::enableGlobalScopes();
 })->describe('Update transport entries touching them');
+
+Artisan::command('docigp:entries:assert-transport', function () {
+    CongressmanBudget::disableGlobalScopes();
+    Entry::disableGlobalScopes();
+
+    CongressmanBudget::each(function (CongressmanBudget $budget) {
+        $balance = $budget->getBalance();
+        $lastMonth = app(Budgets::class)->getLastBudget()->date->month;
+
+        if (!in_array($budget->budget->date->month, [6, 12, $lastMonth])) {
+            if ($balance > 0) {
+                dump(
+                    'Transporte não está consistente em ' .
+                        $budget->id .
+                        ', que corresponde a ' .
+                        $budget->congressman->name .
+                        ' em ' .
+                        $budget->budget->date->month .
+                        '/' .
+                        $budget->budget->date->year .
+                        ' = ' .
+                        $balance
+                );
+            }
+        }
+
+        if (is_at_least_verbose($this)) {
+            dump(
+                'Saldo de ' .
+                    $budget->congressman->name .
+                    ' em ' .
+                    $budget->budget->date->month .
+                    '/' .
+                    $budget->budget->date->year .
+                    ' = ' .
+                    $balance
+            );
+        }
+    });
+
+    Entry::enableGlobalScopes();
+    CongressmanBudget::enableGlobalScopes();
+})->describe('Assert transport entries have correct value');

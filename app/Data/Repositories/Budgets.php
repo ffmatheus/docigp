@@ -141,4 +141,9 @@ class Budgets extends Repository
 
         return parent::transform($data);
     }
+
+    public function getLastBudget(): Budget
+    {
+        return $this->model::orderBy('date', 'desc')->first();
+    }
 }

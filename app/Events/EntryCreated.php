@@ -6,7 +6,8 @@ use Illuminate\Broadcasting\Channel;
 
 class EntryCreated extends Broadcastable
 {
-    public $entry;
+    public $entryId;
+    public $congressmanBudgetId;
 
     /**
      * Create a new entry instance.
@@ -15,7 +16,8 @@ class EntryCreated extends Broadcastable
      */
     public function __construct($entry)
     {
-        $this->entry = $entry;
+        $this->entryId = $entry->id;
+        $this->congressmanBudgetId = $entry->congressmanBudget->id;
     }
 
     /**
@@ -25,6 +27,6 @@ class EntryCreated extends Broadcastable
      */
     public function broadcastOn()
     {
-        return new Channel('entry.' . $this->entry->id);
+        return new Channel('entry.' . $this->entryId);
     }
 }
