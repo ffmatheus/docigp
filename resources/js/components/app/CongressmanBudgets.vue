@@ -60,9 +60,9 @@
                         color="#e3342f,#FFFFFF"
                         padding="1"
                     >
-                        <span v-for="pendency in congressmanBudget.pendencies">
+                        <div v-for="pendency in congressmanBudget.pendencies">
                             &bull; {{ pendency }}<br />
-                        </span>
+                        </div>
                     </app-badge>
                 </td>
 

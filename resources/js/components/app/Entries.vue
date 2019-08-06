@@ -131,9 +131,9 @@
                         color="#e3342f,#FFFFFF"
                         padding="1"
                     >
-                        <span v-for="pendency in entry.pendencies">
-                            &bull; {{ pendency }}<br />
-                        </span>
+                        <div v-for="pendency in entry.pendencies">
+                            &bull; {{ pendency }}
+                        </div>
                     </app-badge>
                 </td>
 
