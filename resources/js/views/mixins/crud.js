@@ -120,20 +120,22 @@ export default {
         },
 
         fillFormWhenEditing() {
-            const model =
-                this.mode === 'update'
-                    ? _.find(this.rows, model => {
-                          return model.id === this.$route.params.id
-                      })
-                    : this.form
-                    ? clone(this.emptyForm)
-                    : {}
+            if (this.mode === 'update' || this.mode === 'create') {
+                const model =
+                    this.mode === 'update'
+                        ? _.find(this.rows, model => {
+                              return model.id === this.$route.params.id
+                          })
+                        : this.form
+                        ? clone(this.emptyForm)
+                        : {}
 
-            this.mutateFormData(model)
+                this.mutateFormData(model)
 
-            this.mutateSetErrors({})
+                this.mutateSetErrors({})
 
-            this.fillAdditionalFormFields()
+                this.fillAdditionalFormFields()
+            }
         },
 
         fillAdditionalFormFields() {},

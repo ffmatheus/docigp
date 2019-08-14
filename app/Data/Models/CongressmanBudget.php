@@ -30,6 +30,8 @@ class CongressmanBudget extends Model
         'closed_at',
     ];
 
+    protected $appends = ['has_refund'];
+
     protected $with = [
         'budget',
         'congressmanLegislature',
@@ -263,5 +265,15 @@ class CongressmanBudget extends Model
             $deposit->value = $this->value;
             $deposit->save();
         }
+    }
+
+    public function getHasRefundAttribute()
+    {
+        $found = false;
+        $this->entries->each(function (Entry $entry) use (&$found) {
+            $found = $found || $entry->costCenter->code == 4;
+        });
+
+        return $found;
     }
 }

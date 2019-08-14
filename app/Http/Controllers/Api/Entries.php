@@ -59,6 +59,13 @@ class Entries extends Controller
         app(EntriesRepository::class)->delete($entryId);
     }
 
+    public function emptyRefundForm($congressmanId, $congressmanBudgetId)
+    {
+        return app(EntriesRepository::class)->emptyRefundForm(
+            $congressmanBudgetId
+        );
+    }
+
     /**
      * Store
      *
