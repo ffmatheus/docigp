@@ -259,8 +259,9 @@ class CongressmanBudget extends Model
             ->where('cost_center_id', Constants::COST_CENTER_CREDIT_ID)
             ->first();
 
-        $deposit->value = $this->value;
-
-        $deposit->save();
+        if ($deposit && $this->value) {
+            $deposit->value = $this->value;
+            $deposit->save();
+        }
     }
 }
