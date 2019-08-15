@@ -103,9 +103,10 @@ Artisan::command('docigp:entries:update-transport', function () {
                 ->orderBy('date', 'asc')
                 ->first()
         ) {
-            if (is_at_least_verbose($this)) {
-                dump('Updating entry ' . $entry->id);
-            }
+            $this->info(
+                sprintf('Updating: %s - %s', $entry->id, $entry->object)
+            );
+
             $entry->save();
         }
     });
