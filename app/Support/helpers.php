@@ -317,6 +317,12 @@ function formMode($mode = null)
         : session(Constants::SESSION_FORM_MODE, Constants::FORM_MODE_SHOW);
 }
 
+function is_at_least_verbose($command)
+{
+    return $command->getOutput()->getVerbosity() >=
+        \Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE;
+}
+
 class Timer
 {
     public static $starttime;

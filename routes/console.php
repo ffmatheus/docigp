@@ -2,6 +2,10 @@
 
 use App\Data\Repositories\Users;
 use App\Data\Repositories\Budgets;
+use App\Data\Repositories\CongressmanBudgets;
+use App\Data\Models\CongressmanBudget;
+use App\Data\Models\Entry;
+use App\Data\Scopes\Published;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Password;
 use App\Services\DataSync\Service as DataSyncService;
@@ -87,3 +91,25 @@ Artisan::command('queue:clear {name?}', function ($name = null) {
 
     $this->info("Queue '{$name}' was cleared");
 })->describe('Create user');
+
+Artisan::command('docigp:entries:update-transport', function () {
+    CongressmanBudget::disableGlobalScopes();
+    Entry::disableGlobalScopes();
+
+    CongressmanBudget::each(function (CongressmanBudget $budget) {
+        if (
+            $entry = $budget
+                ->entries()
+                ->orderBy('date', 'asc')
+                ->first()
+        ) {
+            if (is_at_least_verbose($this)) {
+                dump('Updating entry ' . $entry->id);
+            }
+            $entry->save();
+        }
+    });
+
+    Entry::enableGlobalScopes();
+    CongressmanBudget::enableGlobalScopes();
+})->describe('Update transport entries touching them');

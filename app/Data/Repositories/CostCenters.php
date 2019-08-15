@@ -18,12 +18,19 @@ class CostCenters extends Repository
             $this->addCustomQuery(function ($query) {
                 $query->whereNotIn(
                     'code',
-                    Constants::COST_CENTER_CONTROL_ID_ARRAY
+                    Constants::COST_CENTER_CONTROL_CODE_ARRAY
                 );
             });
         }
 
         return $this;
+    }
+
+    public function getControlIdsArray()
+    {
+        return array_merge(Constants::COST_CENTER_CONTROL_ID_ARRAY, [
+            $this->findByCode(4)->code,
+        ]);
     }
 
     public function transform($data)

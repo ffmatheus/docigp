@@ -1,9 +1,14 @@
 <?php
 
 use App\Data\Models\User;
+use App\Data\Repositories\Users as UsersRepository;
 use Illuminate\Support\Str;
 
 $factory->define(User::class, function () {
+    do {
+        $email = faker()->unique()->safeEmail;
+    } while (app(UsersRepository::class)->findByEmail($email));
+
     preg_match('/(.*?)@(.*)/', faker()->unique()->safeEmail, $output_array);
 
     return [

@@ -30,6 +30,8 @@ class CongressmanBudget extends Model
         'closed_at',
     ];
 
+    protected $appends = ['has_refund'];
+
     protected $with = [
         'budget',
         'congressmanLegislature',
@@ -259,8 +261,19 @@ class CongressmanBudget extends Model
             ->where('cost_center_id', Constants::COST_CENTER_CREDIT_ID)
             ->first();
 
-        $deposit->value = $this->value;
+        if ($deposit && $this->value) {
+            $deposit->value = $this->value;
+            $deposit->save();
+        }
+    }
 
-        $deposit->save();
+    public function getHasRefundAttribute()
+    {
+        $found = false;
+        $this->entries->each(function (Entry $entry) use (&$found) {
+            $found = $found || $entry->costCenter->code == 4;
+        });
+
+        return $found;
     }
 }
