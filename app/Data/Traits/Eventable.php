@@ -33,9 +33,11 @@ trait Eventable
     {
         $type = $this->inferEventType($model, $type);
 
-        $this->fireEventForModel($model, $type);
+        if (static::$modelEventsEnabled) {
+            $this->fireEventForModel($model, $type);
 
-        $this->fireEventForTable($model, 'Changed', true);
+            $this->fireEventForTable($model, 'Changed', true);
+        }
 
         if (method_exists($this, 'fireEventsForRelationships')) {
             $this->fireEventsForRelationships($model, $type);
