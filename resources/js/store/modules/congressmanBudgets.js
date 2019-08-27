@@ -104,6 +104,10 @@ let getters = merge_objects(gettersMixin, {
             state.selected.value_formatted
         )
     },
+
+    selectedClosedAt(state,getters){
+      return state.selected.closed_at
+    },
 })
 
 export default {
