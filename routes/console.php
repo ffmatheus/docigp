@@ -94,7 +94,9 @@ Artisan::command('queue:clear {name?}', function ($name = null) {
 
 Artisan::command('docigp:entries:update-transport', function () {
     CongressmanBudget::disableGlobalScopes();
+    CongressmanBudget::disableEvents();
     Entry::disableGlobalScopes();
+    Entry::disableEvents();
 
     CongressmanBudget::each(function (CongressmanBudget $budget) {
         if (
@@ -111,6 +113,8 @@ Artisan::command('docigp:entries:update-transport', function () {
         }
     });
 
+    Entry::enableEvents();
     Entry::enableGlobalScopes();
+    CongressmanBudget::enableEvents();
     CongressmanBudget::enableGlobalScopes();
 })->describe('Update transport entries touching them');
