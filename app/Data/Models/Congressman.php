@@ -59,14 +59,14 @@ class Congressman extends Model
 
     public function scopeActive($query)
     {
-        return $query
+        return $query->select(array_merge($this->selectColumns,['cgl.id as congressman_legislatures_id','cgl.ended_at']))
             ->join(
-                'congressman_legislatures',
-                'congressman_legislatures.congressman_id',
+                'congressman_legislatures as cgl',
+                'cgl.congressman_id',
                 '=',
                 'congressmen.id'
             )
-            ->whereNull('congressman_legislatures.ended_at');
+            ->whereNull('cgl.ended_at');
     }
 
     public function scopeNonActive($query)

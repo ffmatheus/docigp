@@ -47,18 +47,22 @@ class Budgets extends Repository
         });
     }
 
-    private function generateCongressmanBudgets($baseDate = null)
+    private function generateCongressmanBudgets($baseDate = null, $congressmanName = null)
     {
         Congressman::disableGlobalScopes();
 
-        Congressman::active()
-            ->get()
-            ->each(function ($congressman) use ($baseDate) {
-                $this->generateCongressmanBudget(
-                    $congressman,
-                    $current = $this->getCurrent($baseDate)
-                );
-            });
+        $query = Congressman::active();
+
+        if($congressmanName){
+            $query->where('name', $congressmanName);
+        }
+
+        $query->each(function ($congressman) use ($baseDate) {
+            $this->generateCongressmanBudget(
+                $congressman,
+                $current = $this->getCurrent($baseDate)
+            );
+        });
 
         Congressman::enableGlobalScopes();
     }
@@ -107,7 +111,7 @@ class Budgets extends Repository
             ->first();
     }
 
-    public function generate($baseDate = null)
+    public function generate($baseDate = null, $congressmanName = null)
     {
         if ($baseDate) {
             \Carbon\Carbon::setTestNow($baseDate);
@@ -115,7 +119,7 @@ class Budgets extends Repository
 
         $this->generateGlobalBudget();
 
-        $this->generateCongressmanBudgets($baseDate);
+        $this->generateCongressmanBudgets($baseDate, $congressmanName);
     }
 
     public function transform($data)

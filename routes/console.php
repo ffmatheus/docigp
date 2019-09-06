@@ -33,12 +33,13 @@ Artisan::command('docigp:sync:roles', function () {
     app(DataSyncService::class)->roles();
 })->describe('Create roles');
 
-Artisan::command('docigp:budget:generate {baseDate?}', function (
-    $baseDate = null
+Artisan::command('docigp:budget:generate {baseDate?} {congressmanName?}', function (
+    $baseDate = null,
+    $congressmanName = null
 ) {
     $this->info('Generating budgets...');
 
-    app(Budgets::class)->generate($baseDate);
+    app(Budgets::class)->generate($baseDate, $congressmanName);
 })->describe('Sync congressmen data');
 
 Artisan::command('docigp:role:assign {role} {email}', function ($role, $email) {
