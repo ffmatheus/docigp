@@ -21,7 +21,6 @@ class Constants
         Constants::COST_CENTER_CREDIT_ID,
         Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
         Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
-        Constants::COST_CENTER_REFUND_CODE,
     ];
 
     const COST_CENTER_CREDIT_ID_ARRAY = [
