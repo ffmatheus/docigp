@@ -100,26 +100,26 @@
                     v-if="can('congressman-budgets:show')"
                     class="align-middle text-right"
                 >
-                    <button
-                        v-if="
-                            can('congressman-budgets:refund') &&
-                                !congressmanBudget.has_refund
-                        "
-                        :disabled="
-                            !can('congressman-budgets:refund') ||
-                                congressmanBudget.analysed_at ||
-                                congressmanBudget.published_at
-                        "
-                        @click="createRefund(congressmanBudget)"
-                        class="btn btn-sm btn-micro btn-warning"
-                        :title="
-                            'Devolver saldo da conta de ' +
-                                congressmen.selected.name
-                        "
-                    >
-                        <i class="fa fa-dollar-sign"></i>
-                        Devolver
-                    </button>
+                    <!--                    <button-->
+                    <!--                        v-if="-->
+                    <!--                            can('congressman-budgets:refund') &&-->
+                    <!--                                !congressmanBudget.has_refund-->
+                    <!--                        "-->
+                    <!--                        :disabled="-->
+                    <!--                            !can('congressman-budgets:refund') ||-->
+                    <!--                                congressmanBudget.analysed_at ||-->
+                    <!--                                congressmanBudget.published_at-->
+                    <!--                        "-->
+                    <!--                        @click="createRefund(congressmanBudget)"-->
+                    <!--                        class="btn btn-sm btn-micro btn-warning"-->
+                    <!--                        :title="-->
+                    <!--                            'Devolver saldo da conta de ' +-->
+                    <!--                                congressmen.selected.name-->
+                    <!--                        "-->
+                    <!--                    >-->
+                    <!--                        <i class="fa fa-dollar-sign"></i>-->
+                    <!--                        Devolver-->
+                    <!--                    </button>-->
 
                     <button
                         v-if="
