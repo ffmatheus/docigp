@@ -1,5 +1,5 @@
 <template>
-    <span
+    <div
         class="badge"
         :class="' p-' + getPadding() + ' m-' + getMargin()"
         :style="{
@@ -7,7 +7,7 @@
             color: foreground,
         }"
     >
-        <span
+        <div
             :style="{
                 'text-transform': uppercase ? 'uppercase' : 'none',
                 'font-size': fontSize,
@@ -16,21 +16,19 @@
             {{ caption }}
 
             <slot></slot>
-        </span>
+        </div>
 
-        <span v-if="complement">
-            <span
+        <div v-if="complement">
+            <div
                 style="{'font-size': complementFontSize ? complementFontSize : '0.7em'}"
                 class="mt-2"
             >
-                <br />
-                <span v-for="part in breakString(complement)">
-                    <br />
+                <div v-for="part in breakString(complement)">
                     {{ part }}
-                </span>
-            </span>
-        </span>
-    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>

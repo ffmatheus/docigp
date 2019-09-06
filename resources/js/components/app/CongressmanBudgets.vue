@@ -60,9 +60,9 @@
                         color="#e3342f,#FFFFFF"
                         padding="1"
                     >
-                        <span v-for="pendency in congressmanBudget.pendencies">
+                        <div v-for="pendency in congressmanBudget.pendencies">
                             &bull; {{ pendency }}<br />
-                        </span>
+                        </div>
                     </app-badge>
                 </td>
 
@@ -100,6 +100,27 @@
                     v-if="can('congressman-budgets:show')"
                     class="align-middle text-right"
                 >
+                    <!--                    <button-->
+                    <!--                        v-if="-->
+                    <!--                            can('congressman-budgets:refund') &&-->
+                    <!--                                !congressmanBudget.has_refund-->
+                    <!--                        "-->
+                    <!--                        :disabled="-->
+                    <!--                            !can('congressman-budgets:refund') ||-->
+                    <!--                                congressmanBudget.analysed_at ||-->
+                    <!--                                congressmanBudget.published_at-->
+                    <!--                        "-->
+                    <!--                        @click="createRefund(congressmanBudget)"-->
+                    <!--                        class="btn btn-sm btn-micro btn-warning"-->
+                    <!--                        :title="-->
+                    <!--                            'Devolver saldo da conta de ' +-->
+                    <!--                                congressmen.selected.name-->
+                    <!--                        "-->
+                    <!--                    >-->
+                    <!--                        <i class="fa fa-dollar-sign"></i>-->
+                    <!--                        Devolver-->
+                    <!--                    </button>-->
+
                     <button
                         v-if="
                             (can('congressman-budgets:buttons') ||
@@ -220,6 +241,8 @@
                 </td>
             </tr>
         </app-table>
+
+        <app-entry-form :show.sync="showModal" :refund="true"></app-entry-form>
     </app-table-panel>
 </template>
 
@@ -241,6 +264,8 @@ export default {
     data() {
         return {
             service: service,
+
+            showModal: false,
         }
     },
 
@@ -428,6 +453,19 @@ export default {
                         congressmanBudget,
                     )
             })
+        },
+
+        createRefund(congressmanBudget) {
+            this.$store
+                .dispatch(
+                    'congressmanBudgets/selectCongressmanBudget',
+                    congressmanBudget,
+                )
+                .then(
+                    this.$store
+                        .dispatch('entries/fillFormForRefund')
+                        .then(() => (this.showModal = true)),
+                )
         },
     },
 

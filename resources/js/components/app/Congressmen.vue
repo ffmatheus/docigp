@@ -145,7 +145,7 @@
                     </div>
                 </td>
 
-                <td class="align-midle text-center my-auto">
+                <td class="align-middle text-center">
                     <app-active-badge
                         :value="congressman.is_published"
                         :labels="['sim', 'não']"

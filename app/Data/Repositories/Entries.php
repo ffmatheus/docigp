@@ -169,4 +169,38 @@ class Entries extends Repository
 
         return $result;
     }
+
+    public function emptyRefundForm($congressmanBudgetId)
+    {
+        $congressmanBudget = app(CongressmanBudgets::class)->findById(
+            $congressmanBudgetId
+        );
+
+        $date = $congressmanBudget->budget->date;
+
+        $date->day =
+            now()->month == $date->month
+                ? now()->day
+                : $date->endOfMonth()->day;
+
+        $provider = app(Providers::class)->getAlerj();
+
+        $form = [
+            'congressman_budget_id' => (int) $congressmanBudgetId,
+            'cost_center_id' => app(CostCenters::class)->findByCode(
+                Constants::COST_CENTER_REFUND_CODE
+            )->id,
+            'provider_cpf_cnpj' => $provider->cpf_cnpj,
+            'date' => $date->format('d/m/Y'),
+            'document_number' => null,
+            'entry_type_id' => app(EntryTypes::class)->getRefundEntryType()->id,
+            'object' => 'Devolução de verba orçamentária',
+            'provider_id' => $provider->id,
+            'provider_name' => $provider->name,
+            'value' => 0,
+            'value_abs' => 0,
+        ];
+
+        return $form;
+    }
 }

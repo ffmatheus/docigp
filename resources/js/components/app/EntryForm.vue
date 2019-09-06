@@ -8,7 +8,7 @@
                             name="date"
                             label="Data"
                             v-model="form.fields.date"
-                            :readonly="!can('entries:update')"
+                            :readonly="!can('entries:update') || isRefund()"
                             :required="true"
                             :form="form"
                             v-mask="'##/##/####'"
@@ -35,7 +35,7 @@
                             name="entry_type_id"
                             label="Meio"
                             v-model="form.fields.entry_type_id"
-                            :readonly="!can('entries:update')"
+                            :readonly="!can('entries:update') || isRefund()"
                             :required="true"
                             :form="form"
                             :options="getEntryTypeRows()"
@@ -57,7 +57,7 @@
                     name="object"
                     label="Objeto"
                     v-model="form.fields.object"
-                    :readonly="!can('entries:update')"
+                    :readonly="!can('entries:update') || isRefund()"
                     :required="true"
                     :form="form"
                 ></app-input>
@@ -66,7 +66,7 @@
                     name="provider_cpf_cnpj"
                     label="CPF / CNPJ"
                     v-model="form.fields.provider_cpf_cnpj"
-                    :readonly="!can('entries:update')"
+                    :readonly="!can('entries:update') || isRefund()"
                     :required="true"
                     :form="form"
                     v-mask="['###.###.###-##', '##.###.###/####-##']"
@@ -82,7 +82,9 @@
                     v-model="form.fields.provider_name"
                     :form="form"
                     :required="true"
-                    :readonly="!newCpfCnpj || !can('entries:update')"
+                    :readonly="
+                        !newCpfCnpj || !can('entries:update') || isRefund()
+                    "
                 ></app-input>
 
                 <app-input
@@ -92,14 +94,16 @@
                     v-model="form.fields.to"
                     :required="true"
                     :form="form"
-                    :readonly="!newCpfCnpj || !can('entries:update')"
+                    :readonly="
+                        !newCpfCnpj || !can('entries:update') || isRefund()
+                    "
                 ></app-input>
 
                 <app-select
                     name="cost_center_id"
                     label="Centro de custo"
                     v-model="form.fields.cost_center_id"
-                    :readonly="!can('entries:update')"
+                    :readonly="!can('entries:update') || isRefund()"
                     :required="true"
                     :form="form"
                     :options="getCostCenterRows()"
@@ -149,7 +153,7 @@ const __cpfCnpj = {
 export default {
     mixins: [crud, entries, permissions],
 
-    props: ['show'],
+    props: ['show', 'refund'],
 
     data() {
         return {
@@ -231,6 +235,10 @@ export default {
             this.busy = false
 
             this.checkCpfCnpjChecker(this.form.fields.provider_cpf_cnpj)
+        },
+
+        isRefund() {
+            return this.refund === true
         },
     },
 

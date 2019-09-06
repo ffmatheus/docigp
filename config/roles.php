@@ -60,6 +60,8 @@ return [
                     'Orçamento de Deputado: publicar',
                 'congressman-budgets:deposit' =>
                     'Orçamento de Deputado: depositar',
+                'congressman-budgets:refund' =>
+                    'Orçamento de Deputado: devolver',
                 'congressman-budgets:analyse' =>
                     'Orçamento de Deputado: analisar',
                 'congressman-budgets:close' => 'Orçamento de Deputado: fechar',
@@ -97,6 +99,7 @@ return [
                 'congressman-budgets:show',
                 'congressman-budgets:percentage',
                 'congressman-budgets:deposit',
+                'congressman-budgets:refund',
                 'congressman-budgets:close',
 
                 'entries:show',

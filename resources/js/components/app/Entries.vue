@@ -91,13 +91,8 @@
                 </td>
 
                 <td v-if="can('entries:show')" class="align-middle text-center">
-                    <span
-                        :class="
-                            'badge badge-' +
-                                (entry.value > 0 ? 'success' : 'dark')
-                        "
-                    >
-                        {{ isCreditEntry(entry) > 0 ? 'crédito' : 'débito' }}
+                    <span :class="getEntryType(entry).class">
+                        {{ getEntryType(entry).name }}
                     </span>
                 </td>
 
@@ -131,9 +126,9 @@
                         color="#e3342f,#FFFFFF"
                         padding="1"
                     >
-                        <span v-for="pendency in entry.pendencies">
-                            &bull; {{ pendency }}<br />
-                        </span>
+                        <div v-for="pendency in entry.pendencies">
+                            &bull; {{ pendency }}
+                        </div>
                     </app-badge>
                 </td>
 
@@ -311,8 +306,25 @@ export default {
             'clearErrors',
         ]),
 
-        isCreditEntry(entry) {
-            return entry.value > 0
+        getEntryType(entry) {
+            if (entry.cost_center_code == 4) {
+                return {
+                    name: 'devolução',
+                    class: 'badge badge-warning',
+                }
+            } else {
+                if (entry.value > 0) {
+                    return {
+                        name: 'crédito',
+                        class: 'badge badge-success',
+                    }
+                } else {
+                    return {
+                        name: 'débito',
+                        class: 'badge badge-dark',
+                    }
+                }
+            }
         },
 
         getTableColumns() {

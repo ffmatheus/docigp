@@ -9,8 +9,15 @@ class Constants
     const COST_CENTER_CREDIT_ID = 1;
     const COST_CENTER_TRANSPORT_DEBIT_ID = 2;
     const COST_CENTER_TRANSPORT_CREDIT_ID = 3;
+    const COST_CENTER_REFUND_CODE = 4;
 
     const COST_CENTER_CONTROL_ID_ARRAY = [
+        Constants::COST_CENTER_CREDIT_ID,
+        Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
+        Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
+    ];
+
+    const COST_CENTER_CONTROL_CODE_ARRAY = [
         Constants::COST_CENTER_CREDIT_ID,
         Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
         Constants::COST_CENTER_TRANSPORT_DEBIT_ID,

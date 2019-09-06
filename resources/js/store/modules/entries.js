@@ -8,6 +8,7 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = {
     id: null,
     date: null,
+    document_number: null,
     value: null,
     value_abs: null,
     object: null,
@@ -83,6 +84,14 @@ let actions = merge_objects(actionsMixin, {
 
     delete(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/delete')
+    },
+
+    fillFormForRefund(context) {
+        const url = buildApiUrl(context.state.service.uri, context.rootState)
+
+        get(url + '/empty-refund-form', {}).then(response => {
+            context.commit('mutateFormData', response.data)
+        })
     },
 })
 

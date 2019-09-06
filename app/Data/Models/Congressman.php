@@ -20,7 +20,7 @@ class Congressman extends Model
         'party_id',
         'photo_url',
         'thumbnail_url',
-        'department_id'
+        'department_id',
     ];
 
     protected $with = ['party', 'user'];
@@ -36,7 +36,7 @@ class Congressman extends Model
     protected $selectColumnsRaw = [
         '(select count(*) from congressman_legislatures cl where cl.congressman_id = congressmen.id and cl.ended_at is null) > 0 as has_mandate',
         '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id where cl.congressman_id = congressmen.id and cb.published_at is null) > 0 as has_pendency',
-        '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id join entries e on e.congressman_budget_id = cb.id where cl.congressman_id = congressmen.id and cb.published_at is not null and e.published_at is not null) > 0 as is_published'
+        '(select count(*) from congressman_budgets cb join congressman_legislatures cl on cb.congressman_legislature_id = cl.id join entries e on e.congressman_budget_id = cb.id where cl.congressman_id = congressmen.id and cb.published_at is not null and e.published_at is not null) > 0 as is_published',
     ];
 
     public function legislatures()
@@ -59,14 +59,14 @@ class Congressman extends Model
 
     public function scopeActive($query)
     {
-        return $query
+        return $query->select(array_merge($this->selectColumns,['cgl.id as congressman_legislatures_id','cgl.ended_at']))
             ->join(
-                'congressman_legislatures',
-                'congressman_legislatures.congressman_id',
+                'congressman_legislatures as cgl',
+                'cgl.congressman_id',
                 '=',
                 'congressmen.id'
             )
-            ->whereNull('congressman_legislatures.ended_at');
+            ->whereNull('cgl.ended_at');
     }
 
     public function scopeNonActive($query)

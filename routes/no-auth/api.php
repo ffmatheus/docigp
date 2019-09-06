@@ -6,4 +6,5 @@ Route::group(['prefix' => '/api/v1', 'namespace' => 'Api'], function () {
     require __DIR__ . '/api/costCenters.php';
     require __DIR__ . '/api/cpfCnpj.php';
     require __DIR__ . '/api/entryTypes.php';
+    require __DIR__ . '/api/users.php';
 });

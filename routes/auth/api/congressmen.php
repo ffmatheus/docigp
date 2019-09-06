@@ -49,6 +49,11 @@ Route::group(['prefix' => '/congressmen'], function () {
             function () {
                 Route::post('/', 'Entries@store')->name('congressmen.store');
 
+                Route::get(
+                    '/empty-refund-form',
+                    'Entries@emptyRefundForm'
+                )->name('congressmen.empty-refund-form');
+
                 Route::group(['prefix' => '/{entryId}'], function () {
                     Route::post('/', 'Entries@update')->name(
                         'congressmen.update'

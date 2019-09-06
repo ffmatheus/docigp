@@ -2,6 +2,10 @@
 
 use App\Data\Repositories\Users;
 use App\Data\Repositories\Budgets;
+use App\Data\Repositories\CongressmanBudgets;
+use App\Data\Models\CongressmanBudget;
+use App\Data\Models\Entry;
+use App\Data\Scopes\Published;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Password;
 use App\Services\DataSync\Service as DataSyncService;
@@ -29,12 +33,13 @@ Artisan::command('docigp:sync:roles', function () {
     app(DataSyncService::class)->roles();
 })->describe('Create roles');
 
-Artisan::command('docigp:budget:generate {baseDate?}', function (
-    $baseDate = null
+Artisan::command('docigp:budget:generate {baseDate?} {congressmanName?}', function (
+    $baseDate = null,
+    $congressmanName = null
 ) {
     $this->info('Generating budgets...');
 
-    app(Budgets::class)->generate($baseDate);
+    app(Budgets::class)->generate($baseDate, $congressmanName);
 })->describe('Sync congressmen data');
 
 Artisan::command('docigp:role:assign {role} {email}', function ($role, $email) {
@@ -87,3 +92,30 @@ Artisan::command('queue:clear {name?}', function ($name = null) {
 
     $this->info("Queue '{$name}' was cleared");
 })->describe('Create user');
+
+Artisan::command('docigp:entries:update-transport', function () {
+    CongressmanBudget::disableGlobalScopes();
+    CongressmanBudget::disableEvents();
+    Entry::disableGlobalScopes();
+    Entry::disableEvents();
+
+    CongressmanBudget::each(function (CongressmanBudget $budget) {
+        if (
+            $entry = $budget
+                ->entries()
+                ->orderBy('date', 'asc')
+                ->first()
+        ) {
+            $this->info(
+                sprintf('Updating: %s - %s', $entry->id, $entry->object)
+            );
+
+            $entry->save();
+        }
+    });
+
+    Entry::enableEvents();
+    Entry::enableGlobalScopes();
+    CongressmanBudget::enableEvents();
+    CongressmanBudget::enableGlobalScopes();
+})->describe('Update transport entries touching them');
