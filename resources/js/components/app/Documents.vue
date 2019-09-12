@@ -177,7 +177,8 @@
                         :disabled="
                             !can('entry-documents:delete') ||
                                 document.analysed_at ||
-                                document.published_at
+                                document.published_at ||
+                                congressmanBudgetsClosedAt
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
@@ -194,11 +195,12 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import crud from '../../views/mixins/crud'
 import entries from '../../views/mixins/entries'
 import permissions from '../../views/mixins/permissions'
 import entryDocuments from '../../views/mixins/entryDocuments'
+import congressmanBudgets from '../../views/mixins/congressmanBudgets'
 
 const service = {
     name: 'entryDocuments',
@@ -208,7 +210,7 @@ const service = {
 }
 
 export default {
-    mixins: [crud, entryDocuments, permissions, entries],
+    mixins: [crud, entryDocuments, permissions, entries, congressmanBudgets],
 
     data() {
         return {
@@ -216,6 +218,18 @@ export default {
 
             showModal: false,
         }
+    },
+
+    computed:{
+      ...mapGetters({
+          congressmanBudgetsClosedAt:'congressmanBudgets/selectedClosedAt'
+      }),
+
+          // return this.$store.dispatch('congressmanBudgets/changePercentage', {
+          //     congressmanBudget: congressmanBudget,
+          //     percentage: value
+          // });
+
     },
 
     methods: {
