@@ -57,28 +57,25 @@ class Congressman extends Model
         );
     }
 
+    protected function joinCongressmanLegislatures($query){
+        return $query->join(
+            DB::raw('(select cgltemp.id as cgl_id, cgltemp.ended_at, cgltemp.congressman_id from congressman_legislatures as cgltemp) as cgl'),
+            'cgl.congressman_id',
+            '=',
+            'congressmen.id'
+        );
+    }
+
     public function scopeActive($query)
     {
-        return $query->select(array_merge($this->selectColumns,['cgl.id as congressman_legislatures_id','cgl.ended_at']))
-            ->join(
-                'congressman_legislatures as cgl',
-                'cgl.congressman_id',
-                '=',
-                'congressmen.id'
-            )
+        return $this->joinCongressmanLegislatures($query)
             ->whereNull('cgl.ended_at');
     }
 
     public function scopeNonActive($query)
     {
-        return $query
-            ->join(
-                'congressman_legislatures',
-                'congressman_legislatures.congressman_id',
-                '=',
-                'congressmen.id'
-            )
-            ->whereNotNull('congressman_legislatures.ended_at')
+        return $this->joinCongressmanLegislatures($query)
+            ->whereNotNull('cgl.ended_at')
             ->whereNotExists(function ($query) {
                 $query
                     ->select(DB::raw(1))
