@@ -14,6 +14,10 @@ class EntryTypes extends Controller
      */
     public function all()
     {
-        return app(EntryTypesRepository::class)->all();
+        $repository = app(EntryTypesRepository::class);
+
+        $repository->disablePagination();
+
+        return $repository->all();
     }
 }
