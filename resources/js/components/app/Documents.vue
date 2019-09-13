@@ -220,16 +220,15 @@ export default {
         }
     },
 
-    computed:{
-      ...mapGetters({
-          congressmanBudgetsClosedAt:'congressmanBudgets/selectedClosedAt'
-      }),
+    computed: {
+        ...mapGetters({
+            congressmanBudgetsClosedAt: 'congressmanBudgets/selectedClosedAt',
+        }),
 
-          // return this.$store.dispatch('congressmanBudgets/changePercentage', {
-          //     congressmanBudget: congressmanBudget,
-          //     percentage: value
-          // });
-
+        // return this.$store.dispatch('congressmanBudgets/changePercentage', {
+        //     congressmanBudget: congressmanBudget,
+        //     percentage: value
+        // });
     },
 
     methods: {
