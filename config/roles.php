@@ -2,12 +2,25 @@
 
 use App\Support\Constants;
 
+/*
+Este arquivo guarda os perfis e as permissões. Quando executado o sync:roles, todas as permissões são apagadas e renovadas para as que têm neste arquivo.
+
+grants -> perfis e permissões
+    group -> nome do perfil
+    abilities -> todas as habilidades que o perfil tem
+
+    OBS: Quando o grant é administrador, ele possui todas as habilidades e, nesse caso, as possíveis habilidades são criadas a partir dessa lista.
+
+roles -> guarda todas os possíveis perfis
+*/
+
 return [
     'grants' => [
         [
             'group' => Constants::ROLE_ADMINISTRATOR,
 
             'abilities' => [
+                //Tem que conter todas as habilidades
                 '*' => 'PODE FAZER TUDO',
 
                 'assign:chief' => 'Atribuir perfil de Chefe',
@@ -80,8 +93,8 @@ return [
 
                 'cost-centers:show' => 'Centros de custo: ver',
                 'cost-centers:store' => 'Centros de custo: criar',
-                'cost-centers:update' => 'Centros de custo: alterar'
-            ]
+                'cost-centers:update' => 'Centros de custo: alterar',
+            ],
         ],
 
         [
@@ -112,8 +125,8 @@ return [
                 'entry-documents:store',
                 'entry-documents:publish',
                 'entry-documents:delete',
-                'entry-documents:verify'
-            ]
+                'entry-documents:verify',
+            ],
         ],
 
         [
@@ -151,8 +164,8 @@ return [
 
                 'cost-centers:show' => 'Centros de custo: ver',
                 'cost-centers:store' => 'Centros de custo: criar',
-                'cost-centers:update' => 'Centros de custo: alterar'
-            ]
+                'cost-centers:update' => 'Centros de custo: alterar',
+            ],
         ],
 
         [
@@ -167,67 +180,67 @@ return [
 
                 'entries:show',
 
-                'entry-documents:show'
-            ]
-        ]
+                'entry-documents:show',
+            ],
+        ],
     ],
 
     'roles' => [
         [
             'title' => 'Administrador',
-            'name' => 'administrator'
+            'name' => Constants::ROLE_ADMINISTRATOR,
         ],
         [
             'title' => 'Deputado',
-            'name' => 'congressman'
+            'name' => Constants::ROLE_CONGRESSMAN,
         ],
         [
             'title' => 'Chefe',
-            'name' => 'chief'
+            'name' => 'chief',
         ],
         [
             'title' => 'Gestor',
-            'name' => 'manager'
+            'name' => 'manager',
         ],
         [
             'title' => 'Assessor',
-            'name' => 'advisor'
+            'name' => 'advisor',
         ],
         [
             'title' => 'Operador',
-            'name' => 'operator'
+            'name' => 'operator',
         ],
         [
             'title' => 'Verificador',
-            'name' => 'verifier'
+            'name' => 'verifier',
         ],
         [
             'title' => 'ACI',
-            'name' => 'aci'
+            'name' => Constants::ROLE_ACI,
         ],
         [
             'title' => 'Assistente',
-            'name' => 'assistant'
+            'name' => 'assistant',
         ],
         [
             'title' => 'Gestor',
-            'name' => 'manager'
+            'name' => 'manager',
         ],
         [
             'title' => 'Funcionário',
-            'name' => 'employee'
+            'name' => 'employee',
         ],
         [
             'title' => 'Publicador',
-            'name' => 'publisher'
+            'name' => 'publisher',
         ],
         [
             'title' => 'Visualizador',
-            'name' => 'viewer'
+            'name' => 'viewer',
         ],
         [
             'title' => 'Financeiro',
-            'name' => 'financial'
-        ]
-    ]
+            'name' => 'financial',
+        ],
+    ],
 ];
