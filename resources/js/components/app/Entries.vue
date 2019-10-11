@@ -38,7 +38,7 @@
         <template slot="buttons">
             <button
                 v-if="can('entries:buttons') || can('entries:store')"
-                :disabled="!can('entries:store')"
+                :disabled="!can('entries:store') || congressmanBudgetsClosedAt"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createEntry()"
                 title="Nova despesa"
@@ -457,6 +457,7 @@ export default {
         ...mapGetters({
             congressmanBudgetsSummaryLabel:
                 'congressmanBudgets/currentSummaryLabel',
+            congressmanBudgetsClosedAt: 'congressmanBudgets/selectedClosedAt',
         }),
     },
 }

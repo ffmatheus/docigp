@@ -18,7 +18,9 @@
                     can('entry-documents:buttons') ||
                         can('entry-documents:store')
                 "
-                :disabled="!can('entry-documents:store')"
+                :disabled="
+                    !can('entry-documents:store') || congressmanBudgetsClosedAt
+                "
                 class="btn btn-primary btn-sm pull-right"
                 @click="createDocument()"
                 title="Novo documento"
