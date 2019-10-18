@@ -80,8 +80,8 @@ return [
 
                 'cost-centers:show' => 'Centros de custo: ver',
                 'cost-centers:store' => 'Centros de custo: criar',
-                'cost-centers:update' => 'Centros de custo: alterar',
-            ],
+                'cost-centers:update' => 'Centros de custo: alterar'
+            ]
         ],
 
         [
@@ -112,8 +112,8 @@ return [
                 'entry-documents:store',
                 'entry-documents:publish',
                 'entry-documents:delete',
-                'entry-documents:verify',
-            ],
+                'entry-documents:verify'
+            ]
         ],
 
         [
@@ -148,7 +148,11 @@ return [
                 'entry-documents:buttons',
                 'entry-documents:show',
                 'entry-documents:analyse',
-            ],
+
+                'cost-centers:show' => 'Centros de custo: ver',
+                'cost-centers:store' => 'Centros de custo: criar',
+                'cost-centers:update' => 'Centros de custo: alterar'
+            ]
         ],
 
         [
@@ -163,67 +167,67 @@ return [
 
                 'entries:show',
 
-                'entry-documents:show',
-            ],
-        ],
+                'entry-documents:show'
+            ]
+        ]
     ],
 
     'roles' => [
         [
             'title' => 'Administrador',
-            'name' => 'administrator',
+            'name' => 'administrator'
         ],
         [
             'title' => 'Deputado',
-            'name' => 'congressman',
+            'name' => 'congressman'
         ],
         [
             'title' => 'Chefe',
-            'name' => 'chief',
+            'name' => 'chief'
         ],
         [
             'title' => 'Gestor',
-            'name' => 'manager',
+            'name' => 'manager'
         ],
         [
             'title' => 'Assessor',
-            'name' => 'advisor',
+            'name' => 'advisor'
         ],
         [
             'title' => 'Operador',
-            'name' => 'operator',
+            'name' => 'operator'
         ],
         [
             'title' => 'Verificador',
-            'name' => 'verifier',
+            'name' => 'verifier'
         ],
         [
             'title' => 'ACI',
-            'name' => 'aci',
+            'name' => 'aci'
         ],
         [
             'title' => 'Assistente',
-            'name' => 'assistant',
+            'name' => 'assistant'
         ],
         [
             'title' => 'Gestor',
-            'name' => 'manager',
+            'name' => 'manager'
         ],
         [
             'title' => 'Funcionário',
-            'name' => 'employee',
+            'name' => 'employee'
         ],
         [
             'title' => 'Publicador',
-            'name' => 'publisher',
+            'name' => 'publisher'
         ],
         [
             'title' => 'Visualizador',
-            'name' => 'viewer',
+            'name' => 'viewer'
         ],
         [
             'title' => 'Financeiro',
-            'name' => 'financial',
-        ],
-    ],
+            'name' => 'financial'
+        ]
+    ]
 ];
