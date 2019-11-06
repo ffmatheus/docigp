@@ -104,14 +104,15 @@ class CongressmanBudget extends Model
     /**
      * @return mixed
      */
-    private function deleteTransportEntries()
+    private function makeEmptyTransport($costCenterId)
     {
         return Entry::where('congressman_budget_id', $this->id)
-            ->whereIn('cost_center_id', [
-                Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
-                Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
-            ])
-            ->delete();
+            ->where('cost_center_id', $costCenterId)
+            ->get()
+            ->each(function (Entry $entry) {
+                $entry->value = 0;
+                $entry->save();
+            });
     }
 
     protected function fillValue(): bool
@@ -130,12 +131,12 @@ class CongressmanBudget extends Model
     /**
      * @param $balance
      */
-    private function updateTransportEntry($balance)
+    private function updateTransportEntry($balance, $costCenterId)
     {
         Entry::disableEvents();
 
         $balance == 0
-            ? $this->deleteTransportEntries()
+            ? $this->makeEmptyTransport($costCenterId)
             : $this->createTransportEntry(
                 $balance,
                 $this->budget->date,
@@ -229,15 +230,25 @@ class CongressmanBudget extends Model
 
     public function updateTransportEntries()
     {
+        //$next é o mês seguinte ao atual
         if ($next = $this->congressman->getNextBudgetRelativeTo($this)) {
             info(['next', $next->toArray()]);
+
+            //Valor de todos os lançamentos do mês sem o transporte
             $value = $this->getBalanceWithoutDebitTransport();
 
+            //Aqui é criado o transporte de crédito para o próximo mês
             $next->updateTransportEntry(
-                $balance = abs($value = $value < 0 ? 0 : $value)
+                $balance = abs($value = $value < 0 ? 0 : $value),
+                Constants::COST_CENTER_TRANSPORT_CREDIT_ID
             );
 
-            $this->updateTransportEntry($balance * -1);
+            //$balance tem o valor que vai ser transportado para o próximo mês. Se for negativo, fica zero
+            //Aqui é criado o transporte de débito no mês atual
+            $this->updateTransportEntry(
+                $balance * -1,
+                Constants::COST_CENTER_TRANSPORT_DEBIT_ID
+            );
         }
     }
 
