@@ -88,6 +88,12 @@ let actions = merge_objects(actionsMixin, {
             { id: null },
             { root: true },
         )
+
+        context.commit(
+            'entryComments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
     },
 
     markAsRead(context) {

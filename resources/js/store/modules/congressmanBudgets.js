@@ -57,6 +57,12 @@ let actions = merge_objects(actionsMixin, {
             { id: null },
             { root: true },
         )
+
+        context.commit(
+            'entryComments/mutateSetSelected',
+            { id: null },
+            { root: true },
+        )
     },
 
     changePercentage(context, payload) {
@@ -105,8 +111,8 @@ let getters = merge_objects(gettersMixin, {
         )
     },
 
-    selectedClosedAt(state,getters){
-      return state.selected.closed_at
+    selectedClosedAt(state, getters) {
+        return state.selected.closed_at
     },
 })
 

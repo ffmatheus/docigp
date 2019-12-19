@@ -146,6 +146,21 @@ Route::group(['prefix' => '/congressmen'], function () {
                             }
                         );
                     });
+
+                    Route::group(['prefix' => '/comments'], function () {
+                        Route::post('/', 'EntryComments@store')->name(
+                            'congressmen.budgets.entries-comments.store'
+                        );
+
+                        Route::group(['prefix' => '/{commentId}'], function () {
+                            Route::post(
+                                '/delete',
+                                'EntryComments@delete'
+                            )->name(
+                                'congressmen.budgets.entries-comments.delete'
+                            );
+                        });
+                    });
                 });
             }
         );
