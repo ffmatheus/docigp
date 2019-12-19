@@ -25,6 +25,12 @@ Route::group(['prefix' => '/congressmen'], function () {
                             'congressmen.budgets.entries.documents.all'
                         );
                     });
+
+                    Route::group(['prefix' => '/comments'], function () {
+                        Route::get('/', 'EntryComments@all')->name(
+                            'congressmen.budgets.entries.comments.all'
+                        );
+                    });
                 });
             }
         );

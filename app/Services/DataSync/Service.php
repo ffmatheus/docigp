@@ -59,10 +59,10 @@ class Service
         collect(config('roles.roles'))->each(function ($role) {
             Bouncer::role()->updateOrCreate(
                 [
-                    'name' => $role['name'],
+                    'name' => $role['name']
                 ],
                 [
-                    'title' => $role['title'],
+                    'title' => $role['title']
                 ]
             );
         });
@@ -122,10 +122,10 @@ class Service
                 } else {
                     Bouncer::ability()->updateOrCreate(
                         [
-                            'name' => $ability,
+                            'name' => $ability
                         ],
                         [
-                            'title' => $title,
+                            'title' => $title
                         ]
                     );
                     Bouncer::allow($grant['group'])->to($ability);

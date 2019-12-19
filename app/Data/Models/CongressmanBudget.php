@@ -27,7 +27,7 @@ class CongressmanBudget extends Model
         'published_by_id',
         'published_at',
         'closed_by_id',
-        'closed_at',
+        'closed_at'
     ];
 
     protected $appends = ['has_refund'];
@@ -35,7 +35,7 @@ class CongressmanBudget extends Model
     protected $with = [
         'budget',
         'congressmanLegislature',
-        'congressmanLegislature.congressman',
+        'congressmanLegislature.congressman'
     ];
 
     protected $selectColumns = ['congressman_budgets.*'];
@@ -48,13 +48,13 @@ class CongressmanBudget extends Model
             ') > 0 as has_deposit',
         '(select count(*) from entries e where e.congressman_budget_id = congressman_budgets.id :published-at-filter:) as entries_count',
         '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value > 0) as sum_credit',
-        '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value < 0) as sum_debit',
+        '(select sum(value) from entries e where e.congressman_budget_id = congressman_budgets.id and value < 0) as sum_debit'
     ];
 
     protected $orderBy = ['budgets.date' => 'desc'];
 
     protected $joins = [
-        'budgets' => ['budgets.id', '=', 'congressman_budgets.budget_id'],
+        'budgets' => ['budgets.id', '=', 'congressman_budgets.budget_id']
     ];
 
     public static function boot()
@@ -81,7 +81,7 @@ class CongressmanBudget extends Model
                     $balance > 0
                         ? Constants::COST_CENTER_TRANSPORT_CREDIT_ID
                         : Constants::COST_CENTER_TRANSPORT_DEBIT_ID
-                )->id,
+                )->id
             ],
             [
                 'to' => $this->congressman->name,
@@ -94,7 +94,7 @@ class CongressmanBudget extends Model
                         : 'para o próximo período'),
                 'date' =>
                     $balance > 0 ? $date->startOfMonth() : $date->endOfMonth(),
-                'value' => $balance,
+                'value' => $balance
             ]
         ))->id;
 
@@ -195,7 +195,7 @@ class CongressmanBudget extends Model
         return $this->entries()
             ->selectRaw('sum(value) as balance')
             ->whereNotIn('cost_center_id', [
-                Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
+                Constants::COST_CENTER_TRANSPORT_DEBIT_ID
             ]) // débito
             ->first()->balance ?? 0;
     }
@@ -224,7 +224,7 @@ class CongressmanBudget extends Model
             'cost_center_id' => Constants::COST_CENTER_CREDIT_ID,
             'entry_type_id' => Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID,
             'date' => now(),
-            'value' => $this->value,
+            'value' => $this->value
         ]);
     }
 

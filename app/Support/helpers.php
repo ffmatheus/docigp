@@ -62,7 +62,16 @@ function is_administrator()
         return false;
     }
 
-    return $user->is_administrator;
+    return $user->isA(Constants::ROLE_ADMINISTRATOR);
+}
+
+function is_aci()
+{
+    if (!($user = Auth::user())) {
+        return false;
+    }
+
+    return $user->isA(Constants::ROLE_ACI);
 }
 
 function only_numbers($string)
@@ -101,7 +110,7 @@ function extract_info_from_mailgun_webhook($data)
         'message_id' => array_get(
             $data,
             'event-data.message.headers.message-id'
-        ),
+        )
     ];
 }
 
@@ -184,7 +193,7 @@ function unnacent($string)
         'þ' => 'b',
         'ÿ' => 'y',
         'Ŕ' => 'R',
-        'ŕ' => 'r',
+        'ŕ' => 'r'
     );
 
     return strtr($string, $table);

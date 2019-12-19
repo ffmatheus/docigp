@@ -33,7 +33,7 @@ class Entry extends Model
         'analysed_by_id',
         'published_by_id',
         'created_by_id',
-        'updated_by_id',
+        'updated_by_id'
     ];
 
     protected $dates = ['date', 'verified_at', 'analysed_at', 'published_at'];
@@ -45,19 +45,19 @@ class Entry extends Model
         'providers.name as provider_name',
         'providers.cpf_cnpj as provider_cpf_cnpj',
         'providers.type as provider_type',
-        'entry_types.name as entry_type_name',
+        'entry_types.name as entry_type_name'
     ];
 
     protected $selectColumnsRaw = [
         '(select count(*) from entry_documents ed where ed.entry_id = entries.id :published-at-filter:) as documents_count',
         '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.verified_at is null :published-at-filter:) > 0 as missing_verification',
-        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null :published-at-filter:) > 0 as missing_analysis',
+        '(select count(*) from entry_documents ed where ed.entry_id = entries.id and ed.analysed_at is null :published-at-filter:) > 0 as missing_analysis'
     ];
 
     protected $filterableColumns = [
         'entries.to',
         'entries.object',
-        'entries.value',
+        'entries.value'
     ];
 
     protected $orderBy = ['date' => 'desc'];
@@ -65,7 +65,7 @@ class Entry extends Model
     protected $joins = [
         'providers' => ['providers.id', '=', 'entries.provider_id', 'left'],
         'cost_centers' => ['cost_centers.id', '=', 'entries.cost_center_id'],
-        'entry_types' => ['entry_types.id', '=', 'entries.entry_type_id'],
+        'entry_types' => ['entry_types.id', '=', 'entries.entry_type_id']
     ];
 
     protected $updatingTransport = false;

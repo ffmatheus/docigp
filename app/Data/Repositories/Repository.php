@@ -411,13 +411,13 @@ abstract class Repository
                         'from' => ($from =
                             ($data->currentPage() - 1) * $data->perPage() + 1),
                         'to' => $from + count($data->items()) - 1,
-                        'pages' => $this->generatePages($data),
-                    ],
+                        'pages' => $this->generatePages($data)
+                    ]
                 ],
 
                 'filter' => $this->getQueryFilter()['filter'],
 
-                'rows' => $this->transform($data->items()),
+                'rows' => $this->transform($data->items())
             ];
     }
 
