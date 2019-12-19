@@ -36,7 +36,7 @@ class User extends Authenticatable implements AuditableContract
         'email',
         'password',
         'username',
-        'congressman_id',
+        'congressman_id'
     ];
 
     protected $orderBy = ['name' => 'asc'];
@@ -54,7 +54,7 @@ class User extends Authenticatable implements AuditableContract
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime'
     ];
 
     protected $filterableColumns = ['name', 'email'];

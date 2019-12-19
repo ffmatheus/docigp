@@ -21,6 +21,10 @@
         <div class="col-sm-12">
             <app-documents v-if="entries.selected.id"></app-documents>
         </div>
+
+        <div class="col-sm-12">
+            <app-comments v-if="entries.selected.id"></app-comments>
+        </div>
     </div>
 </template>
 

@@ -64,6 +64,10 @@ return [
                 'entry-documents:analyse' => 'Documentos: analisar',
                 'entry-documents:delete' => 'Documentos: deletar',
 
+                'entry-comments:store' => 'Comentários: criar',
+                'entry-comments:show' => 'Comentários: ver',
+                'entry-comments:delete' => 'Documentos: deletar',
+
                 'assign:assistant' => 'Atribuir perfil de Assistente',
                 'assign:employee' => 'Atribuir perfil de Funcionário',
                 'assign:publisher' => 'Atribuir perfil de Publicador',
@@ -93,8 +97,8 @@ return [
 
                 'cost-centers:show' => 'Centros de custo: ver',
                 'cost-centers:store' => 'Centros de custo: criar',
-                'cost-centers:update' => 'Centros de custo: alterar',
-            ],
+                'cost-centers:update' => 'Centros de custo: alterar'
+            ]
         ],
 
         [
@@ -126,7 +130,11 @@ return [
                 'entry-documents:publish',
                 'entry-documents:delete',
                 'entry-documents:verify',
-            ],
+
+                'entry-comments:store' => 'Comentários: criar',
+                'entry-comments:show' => 'Comentários: ver',
+                'entry-comments:delete' => 'Documentos: deletar'
+            ]
         ],
 
         [
@@ -162,10 +170,14 @@ return [
                 'entry-documents:show',
                 'entry-documents:analyse',
 
+                'entry-comments:store' => 'Comentários: criar',
+                'entry-comments:show' => 'Comentários: ver',
+                'entry-comments:delete' => 'Documentos: deletar',
+
                 'cost-centers:show' => 'Centros de custo: ver',
                 'cost-centers:store' => 'Centros de custo: criar',
-                'cost-centers:update' => 'Centros de custo: alterar',
-            ],
+                'cost-centers:update' => 'Centros de custo: alterar'
+            ]
         ],
 
         [
@@ -180,67 +192,67 @@ return [
 
                 'entries:show',
 
-                'entry-documents:show',
-            ],
-        ],
+                'entry-documents:show'
+            ]
+        ]
     ],
 
     'roles' => [
         [
             'title' => 'Administrador',
-            'name' => Constants::ROLE_ADMINISTRATOR,
+            'name' => Constants::ROLE_ADMINISTRATOR
         ],
         [
             'title' => 'Deputado',
-            'name' => Constants::ROLE_CONGRESSMAN,
+            'name' => Constants::ROLE_CONGRESSMAN
         ],
         [
             'title' => 'Chefe',
-            'name' => 'chief',
+            'name' => 'chief'
         ],
         [
             'title' => 'Gestor',
-            'name' => 'manager',
+            'name' => 'manager'
         ],
         [
             'title' => 'Assessor',
-            'name' => 'advisor',
+            'name' => 'advisor'
         ],
         [
             'title' => 'Operador',
-            'name' => 'operator',
+            'name' => 'operator'
         ],
         [
             'title' => 'Verificador',
-            'name' => 'verifier',
+            'name' => 'verifier'
         ],
         [
             'title' => 'ACI',
-            'name' => Constants::ROLE_ACI,
+            'name' => Constants::ROLE_ACI
         ],
         [
             'title' => 'Assistente',
-            'name' => 'assistant',
+            'name' => 'assistant'
         ],
         [
             'title' => 'Gestor',
-            'name' => 'manager',
+            'name' => 'manager'
         ],
         [
             'title' => 'Funcionário',
-            'name' => 'employee',
+            'name' => 'employee'
         ],
         [
             'title' => 'Publicador',
-            'name' => 'publisher',
+            'name' => 'publisher'
         ],
         [
             'title' => 'Visualizador',
-            'name' => 'viewer',
+            'name' => 'viewer'
         ],
         [
             'title' => 'Financeiro',
-            'name' => 'financial',
-        ],
-    ],
+            'name' => 'financial'
+        ]
+    ]
 ];

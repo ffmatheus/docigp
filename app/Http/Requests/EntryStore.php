@@ -39,7 +39,7 @@ class EntryStore extends Request
                 'bail',
                 'date',
                 'required',
-                new WithinBudgetDate($this->getQueryValue('budgets')),
+                new WithinBudgetDate($this->getQueryValue('budgets'))
             ],
             'value_abs' => 'required',
             'object' => 'required',
@@ -47,10 +47,10 @@ class EntryStore extends Request
             'cost_center_id' => [
                 'bail',
                 'required',
-                new NotRevokedCostCenter($this->get('date')),
+                new NotRevokedCostCenter($this->get('date'))
             ],
             'provider_cpf_cnpj' => 'required',
-            'entry_type_id' => 'required',
+            'entry_type_id' => 'required'
         ];
     }
 

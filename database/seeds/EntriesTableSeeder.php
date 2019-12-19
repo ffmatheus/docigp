@@ -11,7 +11,7 @@ use App\Data\Models\EntryDocument as EntryDocumentModel;
 class EntriesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     *
      *
      * @return void
      */
@@ -47,7 +47,7 @@ class EntriesTableSeeder extends Seeder
                 )),
                 'congressman_budget_id' => $congressmanBudget->id,
 
-                'entry_type_id' => Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID,
+                'entry_type_id' => Constants::ENTRY_TYPE_ALERJ_DEPOSIT_ID
             ]);
 
             $entry[0]->congressmanBudget->percentage =
@@ -65,7 +65,7 @@ class EntriesTableSeeder extends Seeder
 
                     'value' => -app(Faker::class)->randomFloat(2, 0.1, 1000),
 
-                    'congressman_budget_id' => $congressmanBudget->id,
+                    'congressman_budget_id' => $congressmanBudget->id
                 ]);
 
                 //                factory(EntryDocumentModel::class, rand(0, 8))->create([
