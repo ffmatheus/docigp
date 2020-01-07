@@ -1,5 +1,5 @@
 <?php
-
+use App\Support\Constants;
 use App\Data\Models\User;
 use App\Data\Repositories\Users as UsersRepository;
 use Illuminate\Support\Str;
@@ -20,4 +20,11 @@ $factory->define(User::class, function () {
             '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
+});
+$factory->defineAs(User::class, Constants::ROLE_ADMINISTRATOR, function ($faker) use (
+    $factory
+) {
+    $user = $factory->create(User::class);
+    $user->assign(Constants::ROLE_ADMINISTRATOR);
+    return $user->toArray();
 });

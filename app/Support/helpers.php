@@ -7,6 +7,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+function only_letters_and_space($string)
+{
+    return preg_replace('/([^a-zA-Z\s])/', '', $string);
+}
+
 function startTimer()
 {
     Timer::$starttime = microtime(true);
