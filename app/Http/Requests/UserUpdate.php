@@ -16,11 +16,12 @@ class UserUpdate extends Request
     {
         return [
             'id' => 'required',
+            'name' => ['required'],
             'email' => [
                 'email',
                 Rule::unique('users')->ignore($this->get('id')),
-                new AlerjEmail(),
-            ],
+                new AlerjEmail()
+            ]
         ];
     }
 
