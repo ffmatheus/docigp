@@ -26,7 +26,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 741 não foi encontrado");
         }
 
         //Carlos Macedo      | EXTRATO - MAIO 2.pdf
@@ -38,7 +38,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 743 não foi encontrado");
         }
 
         //Dr. Deodalto      | Extrato mês de JUNHO (DEODALTO).pdf
@@ -50,7 +50,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 3156 não foi encontrado");
         }
 
         //Dr. Deodalto      | extrato_2019-07-04_02_46_21.pdf
@@ -62,7 +62,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 966 não foi encontrado");
         }
 
         EntryDocument::enableMarking();
@@ -86,7 +86,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 741 não foi encontrado");
         }
 
         //Carlos Macedo      | EXTRATO - MAIO 2.pdf
@@ -97,7 +97,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 743 não foi encontrado");
         }
 
         //Dr. Deodalto      | Extrato mês de JUNHO (DEODALTO).pdf
@@ -108,7 +108,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 3156 não foi encontrado");
         }
 
         //Dr. Deodalto      | extrato_2019-07-04_02_46_21.pdf
@@ -119,7 +119,7 @@ class FixOtherAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 966 não foi encontrado");
         }
 
         EntryDocument::enableMarking();
