@@ -46,29 +46,39 @@ trait Eventable
 
     protected function fireEventForModel($model, $eventType)
     {
-        $reflect = new ReflectionClass($model);
-
-        $className = $reflect->getShortName();
-
-        $eventClass = "App\\Events\\{$className}{$eventType}";
+        $eventClass = $this->getModelEventClass($model, $eventType);
 
         if (class_exists($eventClass)) {
             event(
-                new $eventClass($eventType == 'Deleted' ? $model->id : $model)
+                new $eventClass(
+                    $eventType == 'Deleted' ? $model->id : $model->id
+                )
             );
         }
     }
 
-    protected function fireEventForTable($model, $eventType, $plural = false)
+    protected function getModelEventClass($model, $eventType)
+    {
+        $reflect = new ReflectionClass($model);
+
+        $className = $reflect->getShortName();
+
+        return "App\\Events\\{$className}{$eventType}";
+    }
+
+    protected function getTableEventClass($model, $eventType)
     {
         $tableName = Str::studly($model->getTable());
 
-        $tableName = $plural ? Str::plural($tableName) : $tableName;
+        return "App\\Events\\{$tableName}{$eventType}";
+    }
 
-        $eventClass = "App\\Events\\{$tableName}{$eventType}";
+    protected function fireEventForTable($model, $eventType, $plural = false)
+    {
+        $eventClass = $this->getTableEventClass($model, $eventType);
 
         if (class_exists($eventClass)) {
-            event(new $eventClass($model));
+            event(new $eventClass($model->id));
         }
     }
 

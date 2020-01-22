@@ -3,9 +3,12 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
+use App\Events\Traits\RateLimited;
 
 class EntryDeleted extends Broadcastable
 {
+    use RateLimited;
+
     public $entryId;
 
     /**
@@ -25,6 +28,7 @@ class EntryDeleted extends Broadcastable
      */
     public function broadcastOn()
     {
+        info(class_basename($this) . ' => entry.' . $this->entryId);
         return new Channel('entry.' . $this->entryId);
     }
 }

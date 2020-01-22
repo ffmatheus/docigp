@@ -3,19 +3,22 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
+use App\Events\Traits\RateLimited;
 
 class EntryDocumentCreated extends Broadcastable
 {
-    public $entry;
+    use RateLimited;
+
+    public $entryId;
 
     /**
      * Create a new entry instance.
      *
-     * @param $entry
+     * @param $entryId
      */
-    public function __construct($entry)
+    public function __construct($entryId)
     {
-        $this->entry = $entry;
+        $this->entryId = $entryId;
     }
 
     /**
@@ -25,6 +28,7 @@ class EntryDocumentCreated extends Broadcastable
      */
     public function broadcastOn()
     {
-        return new Channel('entry.' . $this->entry->id);
+        info(class_basename($this) . ' => entry.' . $this->entryId);
+        return new Channel('entry.' . $this->entryId);
     }
 }

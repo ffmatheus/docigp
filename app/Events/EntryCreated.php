@@ -3,9 +3,12 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
+use App\Events\Traits\RateLimited;
 
 class EntryCreated extends Broadcastable
 {
+    use RateLimited;
+
     public $entryId;
     public $congressmanBudgetId;
 
@@ -14,10 +17,9 @@ class EntryCreated extends Broadcastable
      *
      * @param $entry
      */
-    public function __construct($entry)
+    public function __construct($entryId)
     {
-        $this->entryId = $entry->id;
-        $this->congressmanBudgetId = $entry->congressmanBudget->id;
+        $this->entryId = $entryId;
     }
 
     /**
@@ -27,6 +29,7 @@ class EntryCreated extends Broadcastable
      */
     public function broadcastOn()
     {
+        info(class_basename($this) . ' => entry.' . $this->entryId);
         return new Channel('entry.' . $this->entryId);
     }
 }

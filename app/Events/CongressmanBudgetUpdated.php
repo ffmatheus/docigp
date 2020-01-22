@@ -3,19 +3,22 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
+use App\Events\Traits\RateLimited;
 
 class CongressmanBudgetUpdated extends Broadcastable
 {
-    protected $congressmanBudget;
+    use RateLimited;
+
+    protected $congressmanBudgetId;
 
     /**
      * Create a new congressmanBudget instance.
      *
      * @param $congressmanBudget
      */
-    public function __construct($congressmanBudget)
+    public function __construct($congressmanBudgetId)
     {
-        $this->congressmanBudget = $congressmanBudget;
+        $this->congressmanBudgetId = $congressmanBudgetId;
     }
 
     /**
@@ -25,6 +28,11 @@ class CongressmanBudgetUpdated extends Broadcastable
      */
     public function broadcastOn()
     {
-        return new Channel('congressmanBudget.' . $this->congressmanBudget->id);
+        info(
+            class_basename($this) .
+                ' => congressmanBudget.' .
+                $this->congressmanBudgetId
+        );
+        return new Channel('congressmanBudget.' . $this->congressmanBudgetId);
     }
 }

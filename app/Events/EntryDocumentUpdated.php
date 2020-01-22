@@ -3,9 +3,12 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
+use App\Events\Traits\RateLimited;
 
 class EntryDocumentUpdated extends Broadcastable
 {
+    use RateLimited;
+
     public $entry;
 
     /**
@@ -25,6 +28,7 @@ class EntryDocumentUpdated extends Broadcastable
      */
     public function broadcastOn()
     {
+        info(class_basename($this) . ' => entry.' . $this->entry);
         return new Channel('entry.' . $this->entry->id);
     }
 }
