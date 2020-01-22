@@ -22,7 +22,7 @@ class OnEntryUpdated extends Listener
                 $event->congressmanBudgetId
             )
         ) {
-            event(new CongressmanBudgetsChanged($congressmanBudget));
+            event(new CongressmanBudgetsChanged());
         }
     }
 }
