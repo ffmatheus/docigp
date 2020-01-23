@@ -49,12 +49,6 @@ let actions = merge_objects(actionsMixin, {
                 context.state.model.table + '.' + payload.id,
                 '.App\\Events\\' + 'EntriesChanged',
                 event => {
-                    console.log(event)
-
-                    console.log(
-                        'Received event and need to update entries table',
-                    )
-
                     context.dispatch('entries/load', payload, {
                         root: true,
                     })
@@ -64,10 +58,12 @@ let actions = merge_objects(actionsMixin, {
     },
 
     selectCongressmanBudget(context, payload) {
-        if (
-            !context.state.selected ||
-            context.state.selected.id != payload.id
-        ) {
+        const performLoad =
+            !context.state.selected || context.state.selected.id != payload.id
+
+        context.dispatch('congressmanBudgets/select', payload, { root: true })
+
+        if (performLoad) {
             context.dispatch('entries/setCurrentPage', 1, { root: true })
 
             context.commit(
@@ -90,8 +86,6 @@ let actions = merge_objects(actionsMixin, {
 
             context.dispatch('congressmen/markAsRead', payload, { root: true })
         }
-
-        context.dispatch('congressmanBudgets/select', payload, { root: true })
     },
 
     changePercentage(context, payload) {
