@@ -2,14 +2,11 @@
 
 namespace App\Events;
 
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-abstract class Event implements ShouldBroadcast
+abstract class Event
 {
-    use Dispatchable, InteractsWithSockets;
+    use Dispatchable;
 
     public function __call($method, $arguments)
     {

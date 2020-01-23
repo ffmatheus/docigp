@@ -36,7 +36,7 @@ trait Eventable
         if (static::$modelEventsEnabled) {
             $this->fireEventForModel($model, $type);
 
-            $this->fireEventForTable($model, 'Changed', true);
+            //$this->fireEventForTable($model, 'Changed', true);
         }
 
         if (method_exists($this, 'fireEventsForRelationships')) {

@@ -2,18 +2,18 @@
 
 namespace App\Listeners;
 
-use App\Events\EntryDocumentUpdated;
+use App\Events\EntryDocumentDeleted;
 use App\Events\EntryDocumentsChanged;
 
-class OnEntryDocumentUpdated extends Listener
+class OnEntryDocumentDeleted extends Listener
 {
     /**
      * Handle the event.
      *
-     * @param  EntryDocumentUpdated  $event
+     * @param  EntryDocumentDeleted  $event
      * @return void
      */
-    public function handle(EntryDocumentUpdated $event)
+    public function handle(EntryDocumentDeleted $event)
     {
         event(new EntryDocumentsChanged($event->entryDocumentId));
     }

@@ -349,6 +349,22 @@ export default {
                 this.$store.dispatch('congressmen/load')
             },
         },
+
+        onBoot() {
+            subscribePublicChannel(
+                'congressmen',
+                '.App\\Events\\' + 'CongressmenChanged',
+                event => {
+                    console.log(event)
+
+                    console.log(
+                        'Received event and need to update congressmen table',
+                    )
+
+                    this.$store.dispatch('congressmen/load')
+                },
+            )
+        },
     },
 }
 </script>

@@ -34,6 +34,10 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    subscribeToModelEvents(context, payload) {
+        //Doesn't listen to anything
+    },
+
     selectEntryDocument(context, payload) {
         context.dispatch('entryDocuments/select', payload, { root: true })
     },

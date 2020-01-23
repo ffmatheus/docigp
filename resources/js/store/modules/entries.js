@@ -42,28 +42,63 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    subscribeToModelEvents(context, payload) {
+        context.dispatch('leaveModelChannel', payload)
+
+        if (context.state.model) {
+            subscribePublicChannel(
+                'entries.' + payload.id,
+                '.App\\Events\\' + 'EntryDocumentsChanged',
+                event => {
+                    console.log(event)
+
+                    console.log(
+                        'Received event and need to update entry_documents table',
+                    )
+                    context.dispatch('entryDocuments/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            subscribePublicChannel(
+                'entries.' + payload.id,
+                '.App\\Events\\' + 'EntryCommentsChanged',
+                event => {
+                    console.log(event)
+
+                    console.log(
+                        'Received event and need to update entry_comments table',
+                    )
+
+                    context.dispatch('entryComments/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+        }
+    },
+
     selectEntry(context, payload) {
+        if (
+            !context.state.selected ||
+            context.state.selected.id != payload.id
+        ) {
+            context.dispatch('entryDocuments/setCurrentPage', 1, { root: true })
+            context.commit(
+                'entryDocuments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+            context.dispatch('entryComments/setCurrentPage', 1, { root: true })
+            context.commit(
+                'entryComments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+        }
+
         context.dispatch('entries/select', payload, { root: true })
-
-        context.dispatch('entryDocuments/load', payload, { root: true })
-
-        context.dispatch('entryComments/load', payload, { root: true })
-
-        context.dispatch('entryDocuments/setCurrentPage', 1, { root: true })
-
-        context.dispatch('entryComments/setCurrentPage', 1, { root: true })
-
-        context.commit(
-            'entryDocuments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
-        context.commit(
-            'entryComments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
 
         context.commit('mutateFormData', payload)
     },

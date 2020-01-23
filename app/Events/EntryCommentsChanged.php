@@ -2,25 +2,25 @@
 
 namespace App\Events;
 
-use App\Data\Models\EntryDocument;
+use App\Data\Models\EntryComment;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use App\Events\Traits\RateLimited;
 
-class EntryDocumentsChanged extends Broadcastable
+class EntryCommentsChanged extends Broadcastable
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, RateLimited;
 
-    public $entryDocumentId;
+    public $entryCommentId;
     public $entryId;
 
-    public function __construct($entryDocumentId)
+    public function __construct($entryCommentId)
     {
-        $this->entryDocumentId = $entryDocumentId;
+        $this->entryCommentId = $entryCommentId;
 
-        $this->entryId = EntryDocument::withoutGlobalScopes()->find(
-            $entryDocumentId
+        $this->entryId = EntryComment::withoutGlobalScopes()->find(
+            $entryCommentId
         )->entry_id;
     }
 

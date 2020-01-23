@@ -64,36 +64,70 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    subscribeToModelEvents(context, payload) {
+        context.dispatch('leaveModelChannel', payload)
+
+        context.dispatch('entries/leaveModelChannel', payload, {
+            root: true,
+        })
+
+        context.dispatch('congressmanBudgets/leaveModelChannel', payload, {
+            root: true,
+        })
+
+        if (context.state.model) {
+            subscribePublicChannel(
+                'congressmen.' + payload.id,
+                '.App\\Events\\' + 'CongressmanBudgetsChanged',
+                event => {
+                    console.log(event)
+
+                    console.log(
+                        'Received event and need to update congressmen_budgets table',
+                    )
+
+                    context.dispatch('congressmanBudgets/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+        }
+    },
+
     selectCongressman(context, payload) {
+        if (
+            !context.state.selected ||
+            context.state.selected.id != payload.id
+        ) {
+            context.dispatch('congressmanBudgets/setCurrentPage', 1, {
+                root: true,
+            })
+
+            context.commit(
+                'congressmanBudgets/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+
+            context.commit(
+                'entries/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+
+            context.commit(
+                'entryDocuments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+
+            context.commit(
+                'entryComments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+        }
         context.dispatch('congressmen/select', payload, { root: true })
-
-        context.dispatch('congressmanBudgets/load', payload, { root: true })
-
-        context.dispatch('congressmanBudgets/setCurrentPage', 1, { root: true })
-
-        context.commit(
-            'congressmanBudgets/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
-        context.commit(
-            'entries/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
-        context.commit(
-            'entryDocuments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
-        context.commit(
-            'entryComments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
     },
 
     markAsRead(context) {

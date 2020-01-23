@@ -33,6 +33,10 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    subscribeToModelEvents(context, payload) {
+        //Doesn't listen to anything
+    },
+
     selectEntryComment(context, payload) {
         context.dispatch('entryComments/select', payload, { root: true })
     },
