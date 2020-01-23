@@ -2,17 +2,29 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use App\Events\Traits\RateLimited;
 
 class CongressmenChanged extends Broadcastable
 {
+    use Dispatchable, InteractsWithSockets, SerializesModels, RateLimited;
+
+    public $congressmanId;
+
     /**
-     * Get the channels the congressman should broadcast on.
+     * Create a new congressmanBudget instance.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @param $congressmanBudget
      */
-    public function broadcastOn()
+    public function __construct($congressmanId)
     {
-        return new Channel('congressmen');
+        $this->congressmanId = $congressmanId;
+    }
+
+    public function broadcastChannelName()
+    {
+        return 'congressmen';
     }
 }

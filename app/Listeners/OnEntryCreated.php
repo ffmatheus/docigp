@@ -3,17 +3,17 @@
 namespace App\Listeners;
 
 use App\Events\EntriesChanged;
-use App\Events\EntryUpdated;
+use App\Events\EntryCreated;
 
-class OnEntryUpdated extends Listener
+class OnEntryCreated extends Listener
 {
     /**
      * Handle the event.
      *
-     * @param  EntryUpdated  $event
+     * @param  EntryCreated  $event
      * @return void
      */
-    public function handle(EntryUpdated $event)
+    public function handle(EntryCreated $event)
     {
         event(new EntriesChanged($event->entryId));
     }

@@ -126,12 +126,28 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Throttle
+    |--------------------------------------------------------------------------
+    |
+    | Defining the parameters for throttling events
+    |
+    */
+
+    'events' => [
+        'throttle' => [
+            'allow' => env('EVENTS_THROTTLE_ALLOW', 1),
+            'every' => env('EVENTS_THROTTLE_EVERY', 15)
+        ]
+    ],
+
     /**
      * Remote requests
      */
 
     'remote_request' => [
-        'timeout' => env('REMOTE_REQUEST_TIMEOUT', 20),
+        'timeout' => env('REMOTE_REQUEST_TIMEOUT', 20)
     ],
 
     /*
@@ -184,7 +200,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ViewComposerServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class
     ],
 
     /*
@@ -233,6 +249,6 @@ return [
         'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
-    ],
+        'View' => Illuminate\Support\Facades\View::class
+    ]
 ];

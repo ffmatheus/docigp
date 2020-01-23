@@ -2,29 +2,17 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
-
-class EntryDocumentCreated extends Broadcastable
+class EntryDocumentCreated extends Event
 {
-    public $entry;
+    public $entryDocumentId;
 
     /**
-     * Create a new entry instance.
+     * Create a new entry document instance.
      *
      * @param $entry
      */
-    public function __construct($entry)
+    public function __construct($entryDocumentId)
     {
-        $this->entry = $entry;
-    }
-
-    /**
-     * Get the channels the entry should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new Channel('entry.' . $this->entry->id);
+        $this->entryDocumentId = $entryDocumentId;
     }
 }

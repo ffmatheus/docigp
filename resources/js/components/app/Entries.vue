@@ -274,8 +274,8 @@
 </template>
 
 <script>
-import crud from '../../views/mixins/crud'
 import { mapActions, mapGetters } from 'vuex'
+import crud from '../../views/mixins/crud'
 import entries from '../../views/mixins/entries'
 import congressmen from '../../views/mixins/congressmen'
 import permissions from '../../views/mixins/permissions'

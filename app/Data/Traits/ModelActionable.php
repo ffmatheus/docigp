@@ -10,37 +10,39 @@ trait ModelActionable
     {
         $this->update([
             'verified_at' => now(),
-            'verified_by_id' => auth()->user()->id,
+            'verified_by_id' => auth()->user()->id
         ]);
     }
 
     public function unverify()
     {
-        $this->update([
-            'verified_at' => null,
-            'verified_by_id' => auth()->user()->id,
-        ]);
+        $this->verified_at = null;
+        $this->verified_by_id = auth()->user()->id;
 
-        $this->unanalyse();
+        $this->unanalyse(false);
+
+        $this->save();
     }
 
     public function analyse()
     {
         $this->update([
             'analysed_at' => now(),
-            'analysed_by_id' => auth()->user()->id,
+            'analysed_by_id' => auth()->user()->id
         ]);
     }
 
-    public function unanalyse()
+    public function unanalyse($save = true)
     {
-        $this->update([
-            'analysed_at' => null,
-            'analysed_by_id' => auth()->user()->id,
-        ]);
+        $this->analysed_at = null;
+        $this->analysed_by_id = auth()->user()->id;
 
         if (!$this instanceof EntryDocument) {
-            $this->unpublish();
+            $this->unpublish(false);
+        }
+
+        if ($save) {
+            $this->save();
         }
     }
 
@@ -48,23 +50,25 @@ trait ModelActionable
     {
         $this->update([
             'published_at' => now(),
-            'published_by_id' => auth()->user()->id,
+            'published_by_id' => auth()->user()->id
         ]);
     }
 
-    public function unpublish()
+    public function unpublish($save = true)
     {
-        $this->update([
-            'published_at' => null,
-            'published_by_id' => auth()->user()->id,
-        ]);
+        $this->published_at = null;
+        $this->published_by_id = auth()->user()->id;
+
+        if ($save) {
+            $this->save();
+        }
     }
 
     public function close()
     {
         $this->update([
             'closed_at' => now(),
-            'closed_by_id' => auth()->user()->id,
+            'closed_by_id' => auth()->user()->id
         ]);
     }
 
@@ -72,7 +76,7 @@ trait ModelActionable
     {
         $this->update([
             'closed_at' => null,
-            'closed_by_id' => auth()->user()->id,
+            'closed_by_id' => auth()->user()->id
         ]);
     }
 }

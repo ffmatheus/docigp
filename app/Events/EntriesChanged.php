@@ -2,22 +2,30 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+use App\Data\Models\Entry;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use App\Events\Traits\RateLimited;
 
-class EntriesChanged extends Event
+class EntriesChanged extends Broadcastable
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels, RateLimited;
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
+    public $congressmanBudgetId;
+    public $entryId;
+
+    public function __construct($entryId)
     {
-        return new Channel('entries');
+        $this->entryId = $entryId;
+
+        $this->congressmanBudgetId = Entry::withoutGlobalScopes()->find(
+            $entryId
+        )->congressman_budget_id;
+    }
+
+    public function broadcastChannelName()
+    {
+        return 'congressman_budgets.' . $this->congressmanBudgetId;
     }
 }

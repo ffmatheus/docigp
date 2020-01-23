@@ -272,15 +272,29 @@ window.downloadPDF = fileUrl => {
 }
 
 window.publicChannel = channel => {
-    return Echo.channel(channel)
+    return window.Echo.channel(channel)
 }
 
 window.privateChannel = channel => {
-    return Echo.private(channel)
+    return window.Echo.private(channel)
 }
 
-window.subscribePublicChannel = (model, className, callable) => {
-    publicChannel(model).listen(className, callable)
+window.subscribePublicChannel = (channelName, eventClassName, callable) => {
+    // console.log(
+    //     'Subscribing into ' +
+    //         channelName +
+    //         ' channel ' +
+    //         ' for event ' +
+    //         eventClassName,
+    // )
+
+    publicChannel(channelName).listen(eventClassName, callable)
+}
+
+window.leavePublicChannel = channelName => {
+    // console.log('Leaving ' + channelName + ' channel')
+
+    window.Echo.leave(channelName)
 }
 
 window.basename = str => {
