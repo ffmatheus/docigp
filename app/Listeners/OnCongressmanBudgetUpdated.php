@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\CongressmanBudgetUpdated;
 use App\Events\CongressmanBudgetsChanged;
+use App\Events\CongressmenChanged;
 
 class OnCongressmanBudgetUpdated extends Listener
 {
@@ -16,5 +17,6 @@ class OnCongressmanBudgetUpdated extends Listener
     public function handle(CongressmanBudgetUpdated $event)
     {
         event(new CongressmanBudgetsChanged($event->congressmanId));
+        event(new CongressmenChanged($event->congressmanId));
     }
 }
