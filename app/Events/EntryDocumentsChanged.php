@@ -12,16 +12,11 @@ class EntryDocumentsChanged extends Broadcastable
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, RateLimited;
 
-    public $entryDocumentId;
     public $entryId;
 
-    public function __construct($entryDocumentId)
+    public function __construct($entryId)
     {
-        $this->entryDocumentId = $entryDocumentId;
-
-        $this->entryId = EntryDocument::withoutGlobalScopes()->find(
-            $entryDocumentId
-        )->entry_id;
+        $this->entryId = $entryId;
     }
 
     public function broadcastChannelName()

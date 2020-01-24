@@ -5,14 +5,16 @@ namespace App\Events;
 class EntryCommentCreated extends Event
 {
     public $entryCommentId;
+    public $entryId;
 
     /**
      * Create a new entry Comment instance.
      *
-     * @param $entry
+     * @param $entryComment
      */
-    public function __construct($entryCommentId)
+    public function __construct($entryComment)
     {
-        $this->entryCommentId = $entryCommentId;
+        $this->entryCommentId = $entryComment->id;
+        $this->entryId = $entryComment->entry_id;
     }
 }

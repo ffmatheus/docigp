@@ -7,12 +7,12 @@ class CongressmanCreated extends Event
     public $congressmanId;
 
     /**
-     * Create a new entry Comment instance.
+     * Create a new congressman Comment instance.
      *
-     * @param $entry
+     * @param $congressman
      */
-    public function __construct($congressmanId)
+    public function __construct($congressman)
     {
-        $this->congressmanId = $congressmanId;
+        $this->congressmanId = $congressman->id;
     }
 }

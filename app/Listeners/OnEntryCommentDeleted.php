@@ -15,6 +15,6 @@ class OnEntryCommentDeleted extends Listener
      */
     public function handle(EntryCommentDeleted $event)
     {
-        event(new EntryCommentsChanged($event->entryCommentId));
+        event(new EntryCommentsChanged($event->entryId));
     }
 }

@@ -5,14 +5,18 @@ namespace App\Events;
 class EntryDocumentCreated extends Event
 {
     public $entryDocumentId;
+    public $entryId;
+    public $congressmanBudgetId;
 
     /**
      * Create a new entry document instance.
      *
-     * @param $entry
+     * @param $entryDocument
      */
-    public function __construct($entryDocumentId)
+    public function __construct($entryDocument)
     {
-        $this->entryDocumentId = $entryDocumentId;
+        $this->entryDocumentId = $entryDocument->id;
+        $this->entryId = $entryDocument->entry_id;
+        $this->congressmanBudgetId = $entryDocument->entry->congressman_budget_id;
     }
 }

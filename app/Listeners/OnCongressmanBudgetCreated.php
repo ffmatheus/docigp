@@ -15,6 +15,6 @@ class OnCongressmanBudgetCreated extends Listener
      */
     public function handle(CongressmanBudgetCreated $event)
     {
-        event(new CongressmanBudgetsChanged($event->congressmanBudgetId));
+        event(new CongressmanBudgetsChanged($event->congressmanId));
     }
 }

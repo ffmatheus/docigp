@@ -4,15 +4,15 @@ namespace App\Events;
 
 class CongressmanBudgetCreated extends Event
 {
-    public $congressmanBudgetId;
+    public $congressmanId;
 
     /**
-     * Create a new entry Comment instance.
+     * Create a new congressman budget instance.
      *
-     * @param $entry
+     * @param $congressmanBudget
      */
-    public function __construct($congressmanBudgetId)
+    public function __construct($congressmanBudget)
     {
-        $this->congressmanBudgetId = $congressmanBudgetId;
+        $this->congressmanId = $congressmanBudget->congressman->id;
     }
 }
