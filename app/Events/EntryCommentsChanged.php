@@ -12,16 +12,11 @@ class EntryCommentsChanged extends Broadcastable
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, RateLimited;
 
-    public $entryCommentId;
     public $entryId;
 
-    public function __construct($entryCommentId)
+    public function __construct($entryId)
     {
-        $this->entryCommentId = $entryCommentId;
-
-        $this->entryId = EntryComment::withoutGlobalScopes()->find(
-            $entryCommentId
-        )->entry_id;
+        $this->entryId = $entryId;
     }
 
     public function broadcastChannelName()

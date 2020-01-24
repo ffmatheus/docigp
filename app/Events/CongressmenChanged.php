@@ -16,7 +16,7 @@ class CongressmenChanged extends Broadcastable
     /**
      * Create a new congressmanBudget instance.
      *
-     * @param $congressmanBudget
+     * @param $congressmanId
      */
     public function __construct($congressmanId)
     {

@@ -12,21 +12,16 @@ class CongressmanBudgetsChanged extends Broadcastable
 {
     use Dispatchable, InteractsWithSockets, SerializesModels, RateLimited;
 
-    public $congressmanBudgetId;
     public $congressmanId;
 
     /**
      * Create a new congressmanBudget instance.
      *
-     * @param $congressmanBudget
+     * @param $congressmanId
      */
-    public function __construct($congressmanBudgetId)
+    public function __construct($congressmanId)
     {
-        $this->congressmanBudgetId = $congressmanBudgetId;
-
-        $this->congressmanId = CongressmanBudget::withoutGlobalScopes()->find(
-            $congressmanBudgetId
-        )->congressman->id;
+        $this->congressmanId = $congressmanId;
     }
 
     public function broadcastChannelName()
