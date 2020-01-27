@@ -355,11 +355,11 @@ export default {
                 'congressmen',
                 '.App\\Events\\' + 'CongressmenChanged',
                 event => {
-                    console.log(event)
-
-                    console.log(
-                        'Received event and need to update congressmen table',
-                    )
+                    // console.log(event)
+                    //
+                    // console.log(
+                    //     'Received event and need to update congressmen table',
+                    // )
 
                     this.$store.dispatch('congressmen/load')
                 },
