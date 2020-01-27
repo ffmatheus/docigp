@@ -127,11 +127,15 @@ let mutations = mutationsMixin
 
 let getters = merge_objects(gettersMixin, {
     currentSummaryLabel(state, getters) {
-        return (
-            format_year_date(state.selected) +
-            ' - ' +
-            state.selected.value_formatted
-        )
+        if (!!state.selected.id) {
+            return (
+                format_year_date(state.selected) +
+                ' - ' +
+                state.selected.value_formatted
+            )
+        } else {
+            return ''
+        }
     },
 
     selectedClosedAt(state, getters) {

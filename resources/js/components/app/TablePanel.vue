@@ -186,6 +186,9 @@ export default {
     computed: {
         collapsed: {
             get() {
+                if (!this.collapsedLabel) {
+                    this.unCollapsed = true
+                }
                 return !this.unCollapsed
             },
 
