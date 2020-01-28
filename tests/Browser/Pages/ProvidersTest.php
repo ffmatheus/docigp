@@ -6,7 +6,6 @@ use App\Data\Models\Provider;
 use App\Data\Models\User;
 use App\Data\Repositories\Providers;
 use App\Support\Constants;
-use Faker\Generator as Faker;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
