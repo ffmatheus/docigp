@@ -150,13 +150,13 @@ class Congressmen extends Repository
             $query->joined();
         }
 
-        //        if (isset($filter['joined'])) {
-        //            $query->joined();
-        //        }
-        //
-        //        i$query->joined();f (isset($filter['notJoined'])) {
-        //            $query->notJoined();
-        //        }
+        if (isset($filter['joined'])) {
+            $query->joined();
+        }
+
+        if (isset($filter['notJoined'])) {
+            $query->notJoined();
+        }
     }
 
     public function searchFromRequest($search = null)

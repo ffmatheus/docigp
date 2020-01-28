@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\EntriesChanged;
 use App\Events\EntryDocumentDeleted;
 use App\Events\EntryDocumentsChanged;
 
@@ -15,6 +16,7 @@ class OnEntryDocumentDeleted extends Listener
      */
     public function handle(EntryDocumentDeleted $event)
     {
-        event(new EntryDocumentsChanged($event->entryDocumentId));
+        event(new EntryDocumentsChanged($event->entryId));
+        event(new EntriesChanged($event->congressmanBudgetId));
     }
 }

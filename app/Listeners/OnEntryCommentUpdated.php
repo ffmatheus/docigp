@@ -15,6 +15,6 @@ class OnEntryCommentUpdated extends Listener
      */
     public function handle(EntryCommentUpdated $event)
     {
-        event(new EntryCommentsChanged($event->entryCommentId));
+        event(new EntryCommentsChanged($event->entryId));
     }
 }

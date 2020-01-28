@@ -80,12 +80,6 @@ let actions = merge_objects(actionsMixin, {
                 'congressmen.' + payload.id,
                 '.App\\Events\\' + 'CongressmanBudgetsChanged',
                 event => {
-                    console.log(event)
-
-                    console.log(
-                        'Received event and need to update congressmen_budgets table',
-                    )
-
                     context.dispatch('congressmanBudgets/load', payload, {
                         root: true,
                     })
@@ -95,10 +89,12 @@ let actions = merge_objects(actionsMixin, {
     },
 
     selectCongressman(context, payload) {
-        if (
-            !context.state.selected ||
-            context.state.selected.id != payload.id
-        ) {
+        const performLoad =
+            !context.state.selected || context.state.selected.id != payload.id
+
+        context.dispatch('congressmen/select', payload, { root: true })
+
+        if (performLoad) {
             context.dispatch('congressmanBudgets/setCurrentPage', 1, {
                 root: true,
             })
@@ -127,7 +123,6 @@ let actions = merge_objects(actionsMixin, {
                 { root: true },
             )
         }
-        context.dispatch('congressmen/select', payload, { root: true })
     },
 
     markAsRead(context) {

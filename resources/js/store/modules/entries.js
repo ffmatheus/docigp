@@ -50,11 +50,6 @@ let actions = merge_objects(actionsMixin, {
                 'entries.' + payload.id,
                 '.App\\Events\\' + 'EntryDocumentsChanged',
                 event => {
-                    console.log(event)
-
-                    console.log(
-                        'Received event and need to update entry_documents table',
-                    )
                     context.dispatch('entryDocuments/load', payload, {
                         root: true,
                     })
@@ -65,12 +60,6 @@ let actions = merge_objects(actionsMixin, {
                 'entries.' + payload.id,
                 '.App\\Events\\' + 'EntryCommentsChanged',
                 event => {
-                    console.log(event)
-
-                    console.log(
-                        'Received event and need to update entry_comments table',
-                    )
-
                     context.dispatch('entryComments/load', payload, {
                         root: true,
                     })
@@ -80,10 +69,13 @@ let actions = merge_objects(actionsMixin, {
     },
 
     selectEntry(context, payload) {
-        if (
-            !context.state.selected ||
-            context.state.selected.id != payload.id
-        ) {
+        const performLoad =
+            !context.state.selected || context.state.selected.id != payload.id
+
+        context.dispatch('entries/select', payload, { root: true })
+        context.commit('mutateFormData', payload)
+
+        if (performLoad) {
             context.dispatch('entryDocuments/setCurrentPage', 1, { root: true })
             context.commit(
                 'entryDocuments/mutateSetSelected',
@@ -97,10 +89,6 @@ let actions = merge_objects(actionsMixin, {
                 { root: true },
             )
         }
-
-        context.dispatch('entries/select', payload, { root: true })
-
-        context.commit('mutateFormData', payload)
     },
 
     verify(context, payload) {
@@ -141,7 +129,21 @@ let actions = merge_objects(actionsMixin, {
 })
 
 let mutations = mutationsMixin
-let getters = gettersMixin
+let getters = merge_objects(gettersMixin, {
+    currentSummaryLabel(state, getters) {
+        if (!!state.selected.id) {
+            return (
+                state.selected.date_formatted +
+                ' - ' +
+                state.selected.object +
+                ' - ' +
+                state.selected.value_formatted
+            )
+        } else {
+            return ''
+        }
+    },
+})
 
 export default {
     state,
