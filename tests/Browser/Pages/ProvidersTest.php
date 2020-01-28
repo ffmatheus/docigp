@@ -2,20 +2,17 @@
 
 namespace Tests\Browser\Pages;
 
+use App\Data\Models\Provider;
 use App\Data\Models\User;
 use App\Data\Repositories\Providers;
 use App\Support\Constants;
 use Faker\Generator as Faker;
-use Faker\Provider\pt_BR\Company;
-use Faker\Provider\pt_BR\Person;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class ProvidersTest extends DuskTestCase
 {
-    private static $nomeFornecedores;
-    private static $cpfFornecedores;
-    private static $cnpjFornecedores;
+    private static $providerRaw;
     private static $randomProviders;
     private static $administrator;
 
@@ -29,70 +26,33 @@ class ProvidersTest extends DuskTestCase
 
     public function init()
     {
-        static::$nomeFornecedores = only_letters_and_space(
-            app(Faker::class)->name
-        );
-        static::$cpfFornecedores = app(Person::class)->cpf(true);
-        static::$cnpjFornecedores = app(Company::class)->cnpj(true);
+        static::$providerRaw = factory(Provider::class)->raw();
         static::$randomProviders = app(Providers::class)
             ->randomElement()
             ->toArray();
     }
 
-    public function testInsertCPF()
+    public function testInsert()
     {
         $this->createAdministrator();
         $this->init();
-        $TipoPessoa = 'PF';
-        $nomeA = static::$nomeFornecedores;
-        $cpfA = static::$cpfFornecedores;
-        $administrator = static::$administrator;
+        $provider = static::$providerRaw;
 
+        $administrator = static::$administrator;
         $this->browse(function (Browser $browser) use (
-            $nomeA,
-            $cpfA,
-            $TipoPessoa,
-            $administrator
+            $administrator,
+            $provider
         ) {
             $browser
                 ->loginAs($administrator['id'])
                 ->visit('admin/providers#/')
                 ->assertSee('Novo')
                 ->press('#novo')
-                ->type('#name', $nomeA)
-                ->select('#type', $TipoPessoa)
-                ->type('#cpf_cnpj', $cpfA)
+                ->type('#name', $provider['name'])
+                ->select('#type', $provider['type'])
+                ->type('#cpf_cnpj', $provider['cpf_cnpj'])
                 ->press('Gravar')
-                ->assertSee($cpfA);
-        });
-    }
-
-    public function testInsertCNPJ()
-    {
-        $this->createAdministrator();
-        $this->init();
-        $TipoPessoa = 'PJ';
-        $nomeA = static::$nomeFornecedores;
-        $cnpjA = static::$cnpjFornecedores;
-        $administrator = static::$administrator;
-
-        $this->browse(function (Browser $browser) use (
-            $nomeA,
-            $cnpjA,
-            $TipoPessoa,
-            $administrator
-        ) {
-            $browser
-                ->loginAs($administrator['id'])
-                ->visit('admin/providers#/')
-                ->assertSee('Novo')
-                ->press('#novo')
-                ->type('#name', $nomeA)
-                ->select('#type', $TipoPessoa)
-                ->type('#cpf_cnpj', $cnpjA)
-                ->press('Gravar')
-                ->assertSee($nomeA)
-                ->assertSee($cnpjA);
+                ->assertSee($provider['cpf_cnpj']);
         });
     }
 
@@ -115,12 +75,12 @@ class ProvidersTest extends DuskTestCase
     public function testAlter()
     {
         $this->init();
-        $nomeA = static::$nomeFornecedores;
+        $provider = static::$providerRaw;
         $randomProviders1 = static::$randomProviders;
         $administrator = static::$administrator;
 
         $this->browse(function (Browser $browser) use (
-            $nomeA,
+            $provider,
             $randomProviders1,
             $administrator
         ) {
@@ -128,9 +88,9 @@ class ProvidersTest extends DuskTestCase
                 ->loginAs($administrator['id'])
                 ->visit('admin/entry-types/' . $randomProviders1['id'] . '#/')
                 ->click('#vue-editButton')
-                ->type('#name', '*' . $nomeA . '*')
+                ->type('#name', '*' . $provider['name'] . '*')
                 ->press('Gravar')
-                ->assertSee('*' . $nomeA . '*');
+                ->assertSee('*' . $provider['name'] . '*');
         });
     }
     public function testWrongSearch()
