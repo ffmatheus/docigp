@@ -71,7 +71,6 @@ class ProvidersTest extends DuskTestCase
                 ->assertSee('O campo nome é obrigatório.');
         });
     }
-
     public function testAlter()
     {
         $this->init();
