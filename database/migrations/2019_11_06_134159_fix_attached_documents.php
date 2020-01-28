@@ -25,7 +25,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 4099 não foi encontrado");
         }
         //Carlos Minc       | Extrato Mensal_Julho2019 (1).pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(3468)) {
@@ -35,7 +35,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 3468 não foi encontrado");
         }
         //Enfermeira Rejane | Extrato_6171-140673-29-10-2019.pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(7016)) {
@@ -45,7 +45,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 7016 não foi encontrado");
         }
         //Mônica Francisco  | Extrato_maio2019.pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(587)) {
@@ -55,7 +55,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 587 não foi encontrado");
         }
         //Márcio Gualberto  | Extrato Mensal_Junho2019.1.pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(3041)) {
@@ -65,7 +65,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 3041 não foi encontrado");
         }
 
         //Foram desvinculados antes de outubro
@@ -78,7 +78,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 2647 não foi encontrado");
         }
 
         //Alexandre Freitas | extrato_prestação contas AF. Junho 2019.pdf
@@ -89,7 +89,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 769 não foi encontrado");
         }
 
         //Bruno Dauaire     | extrato bancario maio.19.pdf
@@ -100,7 +100,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 1192 não foi encontrado");
         }
 
         //Renata Souza      | Extrato bancário Agosto 2019.pdf
@@ -111,7 +111,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 4103 não foi encontrado");
         }
 
         //Vandro Familia    | Extrato  Maio.pdf
@@ -122,7 +122,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 1277 não foi encontrado");
         }
 
         EntryDocument::enableMarking();
@@ -146,7 +146,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 4099 não foi encontrado");
         }
         //Carlos Minc       | Extrato Mensal_Julho2019 (1).pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(3468)) {
@@ -156,7 +156,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 3468 não foi encontrado");
         }
         //Enfermeira Rejane | Extrato_6171-140673-29-10-2019.pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(7016)) {
@@ -166,7 +166,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 7016 não foi encontrado");
         }
         //Mônica Francisco  | Extrato_maio2019.pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(587)) {
@@ -176,7 +176,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 587 não foi encontrado");
         }
         //Márcio Gualberto  | Extrato Mensal_Junho2019.1.pdf
         if ($entryDocument = EntryDocument::withoutGlobalScopes()->find(3041)) {
@@ -186,7 +186,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 3041 não foi encontrado");
         }
 
         //Foram desvinculados antes de outubro
@@ -199,7 +199,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 2647 não foi encontrado");
         }
 
         //Alexandre Freitas | extrato_prestação contas AF. Junho 2019.pdf
@@ -210,7 +210,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 769 não foi encontrado");
         }
 
         //Bruno Dauaire     | extrato bancario maio.19.pdf
@@ -221,7 +221,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 1192 não foi encontrado");
         }
 
         //Renata Souza      | Extrato bancário Agosto 2019.pdf
@@ -232,7 +232,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 4103 não foi encontrado");
         }
 
         //Vandro Familia    | Extrato  Maio.pdf
@@ -243,7 +243,7 @@ class FixAttachedDocuments extends Migration
                 "O documento {$entryDocument->id} foi desvinculado e vinculado ao lançamento {$entryDocument->entry_id}"
             );
         } else {
-            dump("O documento {$entryDocument->id} não foi encontrado");
+            dump("O documento 1277 não foi encontrado");
         }
 
         EntryDocument::enableMarking();

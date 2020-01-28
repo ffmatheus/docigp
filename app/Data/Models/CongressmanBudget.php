@@ -232,7 +232,7 @@ class CongressmanBudget extends Model
     {
         //$next é o mês seguinte ao atual
         if ($next = $this->congressman->getNextBudgetRelativeTo($this)) {
-            info(['next', $next->toArray()]);
+            //            info(['next', $next->toArray()]);
 
             //Valor de todos os lançamentos do mês sem o transporte
             $value = $this->getBalanceWithoutDebitTransport();

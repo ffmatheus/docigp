@@ -37,32 +37,55 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    subscribeToModelEvents(context, payload) {
+        context.dispatch('leaveModelChannel', payload)
+
+        context.dispatch('entries/leaveModelChannel', payload, {
+            root: true,
+        })
+
+        if (context.state.model) {
+            subscribePublicChannel(
+                context.state.model.table + '.' + payload.id,
+                '.App\\Events\\' + 'EntriesChanged',
+                event => {
+                    context.dispatch('entries/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+        }
+    },
+
     selectCongressmanBudget(context, payload) {
+        const performLoad =
+            !context.state.selected || context.state.selected.id != payload.id
+
         context.dispatch('congressmanBudgets/select', payload, { root: true })
 
-        context.dispatch('entries/load', payload, { root: true })
+        if (performLoad) {
+            context.dispatch('entries/setCurrentPage', 1, { root: true })
 
-        context.dispatch('congressmen/markAsRead', payload, { root: true })
+            context.commit(
+                'entries/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
 
-        context.dispatch('entries/setCurrentPage', 1, { root: true })
+            context.commit(
+                'entryDocuments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
 
-        context.commit(
-            'entries/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
+            context.commit(
+                'entryComments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
 
-        context.commit(
-            'entryDocuments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
-        context.commit(
-            'entryComments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
+            context.dispatch('congressmen/markAsRead', payload, { root: true })
+        }
     },
 
     changePercentage(context, payload) {
@@ -104,11 +127,15 @@ let mutations = mutationsMixin
 
 let getters = merge_objects(gettersMixin, {
     currentSummaryLabel(state, getters) {
-        return (
-            format_year_date(state.selected) +
-            ' - ' +
-            state.selected.value_formatted
-        )
+        if (!!state.selected.id) {
+            return (
+                format_year_date(state.selected) +
+                ' - ' +
+                state.selected.value_formatted
+            )
+        } else {
+            return ''
+        }
     },
 
     selectedClosedAt(state, getters) {

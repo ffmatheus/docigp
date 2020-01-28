@@ -42,30 +42,53 @@ let state = merge_objects(
 )
 
 let actions = merge_objects(actionsMixin, {
+    subscribeToModelEvents(context, payload) {
+        context.dispatch('leaveModelChannel', payload)
+
+        if (context.state.model) {
+            subscribePublicChannel(
+                'entries.' + payload.id,
+                '.App\\Events\\' + 'EntryDocumentsChanged',
+                event => {
+                    context.dispatch('entryDocuments/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            subscribePublicChannel(
+                'entries.' + payload.id,
+                '.App\\Events\\' + 'EntryCommentsChanged',
+                event => {
+                    context.dispatch('entryComments/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+        }
+    },
+
     selectEntry(context, payload) {
+        const performLoad =
+            !context.state.selected || context.state.selected.id != payload.id
+
         context.dispatch('entries/select', payload, { root: true })
-
-        context.dispatch('entryDocuments/load', payload, { root: true })
-
-        context.dispatch('entryComments/load', payload, { root: true })
-
-        context.dispatch('entryDocuments/setCurrentPage', 1, { root: true })
-
-        context.dispatch('entryComments/setCurrentPage', 1, { root: true })
-
-        context.commit(
-            'entryDocuments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
-        context.commit(
-            'entryComments/mutateSetSelected',
-            { id: null },
-            { root: true },
-        )
-
         context.commit('mutateFormData', payload)
+
+        if (performLoad) {
+            context.dispatch('entryDocuments/setCurrentPage', 1, { root: true })
+            context.commit(
+                'entryDocuments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+            context.dispatch('entryComments/setCurrentPage', 1, { root: true })
+            context.commit(
+                'entryComments/mutateSetSelected',
+                { id: null },
+                { root: true },
+            )
+        }
     },
 
     verify(context, payload) {
@@ -106,7 +129,21 @@ let actions = merge_objects(actionsMixin, {
 })
 
 let mutations = mutationsMixin
-let getters = gettersMixin
+let getters = merge_objects(gettersMixin, {
+    currentSummaryLabel(state, getters) {
+        if (!!state.selected.id) {
+            return (
+                state.selected.date_formatted +
+                ' - ' +
+                state.selected.object +
+                ' - ' +
+                state.selected.value_formatted
+            )
+        } else {
+            return ''
+        }
+    },
+})
 
 export default {
     state,

@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\EntriesChanged;
 use App\Events\EntryDocumentUpdated;
+use App\Events\EntryDocumentsChanged;
 
 class OnEntryDocumentUpdated extends Listener
 {
@@ -15,6 +16,7 @@ class OnEntryDocumentUpdated extends Listener
      */
     public function handle(EntryDocumentUpdated $event)
     {
-        event(new EntriesChanged());
+        event(new EntryDocumentsChanged($event->entryId));
+        event(new EntriesChanged($event->congressmanBudgetId));
     }
 }

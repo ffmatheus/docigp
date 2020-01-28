@@ -63,7 +63,7 @@ export function setCurrentPage(context, payload) {
 
     context.commit('mutateSetData', data)
 
-    loadDebounced(context)
+    context.dispatch('load')
 }
 
 export function setPerPage(context, payload) {
@@ -100,31 +100,11 @@ export function mutateFilterSelect(context, payload) {
     loadDebounced(context)
 }
 
-export function subscribeToModelEvents(context, payload) {
-    if (context.state.model) {
-        subscribePublicChannel(
-            context.state.model.name + '.' + payload.id,
-            '.App\\Events\\' + context.state.model.class.singular + 'Updated',
-            () => {
-                loadDebounced(context)
-            },
+export function leaveModelChannel(context, payload) {
+    if (context.state.selected.id) {
+        leavePublicChannel(
+            context.state.model.table + '.' + context.state.selected.id,
         )
-    }
-
-    context.dispatch('subscribeExtraChannels', payload)
-}
-
-export function subscribeToTableEvents(context) {
-    if (context.state.model) {
-        subscribePublicChannel(
-            context.state.model.table,
-            '.App\\Events\\' + context.state.model.class.plural + 'Changed',
-            () => {
-                loadDebounced(context)
-            },
-        )
-
-        context.dispatch('subscribeExtraChannels')
     }
 }
 

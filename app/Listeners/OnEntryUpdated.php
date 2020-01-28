@@ -2,10 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Data\Repositories\Entries;
-use App\Data\Repositories\CongressmanBudgets;
-use App\Events\EntryUpdated;
 use App\Events\CongressmanBudgetsChanged;
+use App\Events\EntriesChanged;
+use App\Events\EntryUpdated;
 
 class OnEntryUpdated extends Listener
 {
@@ -17,12 +16,7 @@ class OnEntryUpdated extends Listener
      */
     public function handle(EntryUpdated $event)
     {
-        if (
-            $congressmanBudget = app(CongressmanBudgets::class)->findById(
-                $event->congressmanBudgetId
-            )
-        ) {
-            event(new CongressmanBudgetsChanged($congressmanBudget));
-        }
+        event(new EntriesChanged($event->congressmanBudgetId));
+        event(new CongressmanBudgetsChanged($event->congressmanId));
     }
 }

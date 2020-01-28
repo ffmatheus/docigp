@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
             'permissions' => 'bouncer_permissions',
             'assigned_roles' => 'bouncer_assigned_roles',
             'roles' => 'bouncer_roles',
-            'abilities' => 'bouncer_abilities',
+            'abilities' => 'bouncer_abilities'
         ]);
     }
 
@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (App::environment('local')) {
+        if (App::environment('local') && config('app.debug')) {
             info(request()->all());
         }
     }
