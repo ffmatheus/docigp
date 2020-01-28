@@ -9,13 +9,7 @@
         :filter-text="filterText"
         @input-filter-text="filterText = $event.target.value"
         @set-per-page="perPage = $event"
-        :collapsedLabel="
-            selected.date_formatted +
-                ' - ' +
-                selected.object +
-                ' - ' +
-                selected.value_formatted
-        "
+        :collapsedLabel="currentSummaryLabel"
         :is-selected="selected.id !== null"
     >
         <template slot="widgets" v-if="can('entries:show')">
@@ -458,6 +452,7 @@ export default {
             congressmanBudgetsSummaryLabel:
                 'congressmanBudgets/currentSummaryLabel',
             congressmanBudgetsClosedAt: 'congressmanBudgets/selectedClosedAt',
+            currentSummaryLabel: 'entries/currentSummaryLabel',
         }),
     },
 }
