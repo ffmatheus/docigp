@@ -117,11 +117,17 @@ class CongressmanBudget extends Model
 
     protected function fillValue(): bool
     {
+
         if ($this->percentageChanged()) {
+
             $budget = app(Budgets::class)->findById($this->budget_id);
 
             $this->value = ($budget->value * $this->percentage) / 100;
 
+            if($budget->date->year >= config('app.year_round_change') && $budget->date->month >= config('app.month_round_change') ) {
+
+                $this->value = trunc_value_with_two_digits($this->value);
+            }
             return true;
         }
 
@@ -129,7 +135,7 @@ class CongressmanBudget extends Model
     }
 
     /**
-     * @param $balance
+     * @param $balance\
      */
     private function updateTransportEntry($balance, $costCenterId)
     {
@@ -160,6 +166,7 @@ class CongressmanBudget extends Model
      */
     public function save(array $options = [])
     {
+
         $updated = $this->fillValue();
 
         $saved = parent::save();
