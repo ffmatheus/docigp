@@ -254,6 +254,10 @@ function to_reais($number)
     return 'R$ ' . number_format($number, 2, ',', '.');
 }
 
+function trunc_value_with_two_digits($number){
+    return intval($number * 100)/100;
+}
+
 function get_current_department_id()
 {
     return auth()->user() && auth()->user()->department
