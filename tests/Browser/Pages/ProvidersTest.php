@@ -54,7 +54,6 @@ class ProvidersTest extends DuskTestCase
                 ->assertSee($provider['cpf_cnpj']);
         });
     }
-
     public function testValidation()
     {
         $administrator = static::$administrator;
