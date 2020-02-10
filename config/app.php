@@ -18,6 +18,10 @@ return [
 
     'long_name' => env('APP_NAME_LONG'),
 
+    'year_round_change' =>env('YEAR_ROUND_CHANGE'),
+
+    'month_round_change' =>env('MONTH_ROUND_CHANGE'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
