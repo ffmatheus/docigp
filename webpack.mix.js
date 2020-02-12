@@ -23,6 +23,6 @@ mix.webpackConfig({
     plugins: [new LiveReloadPlugin()],
 
     output: {
-        chunkFilename: 'js/chunks/chunk-[name].js',
+        chunkFilename: 'js/chunks/[chunkhash].js',
     },
 })
