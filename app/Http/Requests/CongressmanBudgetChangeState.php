@@ -2,13 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Data\Models\CongressmanBudget;
-use App\Http\Traits\WithRouteParams;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Traits\WithRouteParams;
+use App\Data\Models\CongressmanBudget;
 
-class CongressmanBudgetUpdate extends Request
+class CongressmanBudgetChangeState extends Request
 {
     use WithRouteParams;
+
+    public $action;
+    public $ableFunction;
 
     /**
      * @return bool
@@ -20,12 +23,12 @@ class CongressmanBudgetUpdate extends Request
         );
 
         return $congressmanBudget &&
+            $congressmanBudget->{$this->ableFunction}() &&
             Gate::allows(
                 'congressman-budgets:update:model',
                 $congressmanBudget
             ) &&
-            (allows('congressman-budgets:update') ||
-                allows('congressman-budgets:percentage'));
+            allows('congressman-budgets:' . $this->action);
     }
 
     /**
