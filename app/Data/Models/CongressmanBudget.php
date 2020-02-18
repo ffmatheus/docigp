@@ -106,6 +106,7 @@ class CongressmanBudget extends Model
      */
     private function makeEmptyTransport($costCenterId)
     {
+        //TODO: Criar o transporte independente de estar zerado
         return Entry::where('congressman_budget_id', $this->id)
             ->where('cost_center_id', $costCenterId)
             ->get()
@@ -233,6 +234,21 @@ class CongressmanBudget extends Model
             'date' => now(),
             'value' => $this->value
         ]);
+    }
+
+    public function isDepositable()
+    {
+        return !$this->has_deposit;
+    }
+
+    public function isClosable()
+    {
+        return blank($this->analysed_at);
+    }
+
+    public function isAnalysable()
+    {
+        return $this->closed_at && blank($this->published_at);
     }
 
     public function updateTransportEntries()

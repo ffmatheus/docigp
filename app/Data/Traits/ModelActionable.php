@@ -24,6 +24,11 @@ trait ModelActionable
         $this->save();
     }
 
+    public function isAnalysable()
+    {
+        return $this->verified_at && blank($this->published_at);
+    }
+
     public function analyse()
     {
         $this->update([
@@ -44,6 +49,11 @@ trait ModelActionable
         if ($save) {
             $this->save();
         }
+    }
+
+    public function isPublishable()
+    {
+        return $this->analysed_at;
     }
 
     public function publish()

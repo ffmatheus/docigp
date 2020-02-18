@@ -26,6 +26,11 @@
                     ),
                 }"
             >
+                <!--                State DEBUG-->
+                <!--                <td class="align-middle">-->
+                <!--                    {{ getCongressmanBudgetState(congressmanBudget).name }}-->
+                <!--                </td>-->
+
                 <td class="align-middle">{{ makeDate(congressmanBudget) }}</td>
 
                 <td class="align-middle text-right">
@@ -123,23 +128,18 @@
 
                     <button
                         v-if="
-                            (can('congressman-budgets:buttons') ||
-                                can('congressman-budgets:deposit')) &&
-                                !congressmanBudget.has_deposit &&
-                                congressmanBudget.percentage > 0
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .deposit.visible
                         "
                         :disabled="
-                            !can('congressman-budgets:deposit') ||
-                                congressmanBudget.analysed_at ||
-                                congressmanBudget.published_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .deposit.disabled
                         "
                         @click="deposit(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-success"
                         :title="
-                            'Depositar ' +
-                                congressmanBudget.value_formatted +
-                                ' na conta de ' +
-                                congressmen.selected.name
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .deposit.title
                         "
                     >
                         <i class="fa fa-dollar-sign"></i> depositar
@@ -147,31 +147,37 @@
 
                     <button
                         v-if="
-                            (can('congressman-budgets:buttons') ||
-                                can('congressman-budgets:percentage')) &&
-                                !congressmanBudget.analysed_at &&
-                                !congressmanBudget.closed_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .editPercentage.visible
                         "
-                        :disabled="!can('congressman-budgets:percentage')"
+                        :disabled="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .editPercentage.disabled
+                        "
                         @click="editPercentage(congressmanBudget)"
                         class="btn btn-sm btn-micro btn-primary"
-                        title="Alterar percentual solicitado"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .editPercentage.title
+                        "
                     >
                         <i class="fa fa-edit"></i> percentual
                     </button>
 
                     <button
                         v-if="
-                            (can('congressman-budgets:buttons') ||
-                                can('congressman-budgets:close')) &&
-                                !congressmanBudget.closed_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .close.visible
                         "
                         :disabled="
-                            !can('congressman-budgets:percentage') ||
-                                congressmanBudget.has_pendency
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .close.disabled
                         "
                         class="btn btn-sm btn-micro btn-danger"
-                        title="Fechar este orçamento para análise final"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .close.title
+                        "
                         @click="close(congressmanBudget)"
                     >
                         <i class="fa fa-ban"></i> fechar
@@ -179,11 +185,18 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:reopen') &&
-                                congressmanBudget.closed_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .reopen.visible
+                        "
+                        :disabled="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .reopen.disabled
                         "
                         class="btn btn-sm btn-micro btn-danger"
-                        title="Reabrir orçamento para alterações"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .reopen.title
+                        "
                         @click="reopen(congressmanBudget)"
                     >
                         <i class="fa fa-check"></i> reabrir
@@ -191,11 +204,18 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:analyse') &&
-                                !congressmanBudget.analysed_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .analyse.visible
+                        "
+                        :disabled="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .analyse.disabled
                         "
                         class="btn btn-sm btn-micro btn-warning"
-                        title="Marcar orçamento como 'analisado'"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .analyse.title
+                        "
                         @click="analyse(congressmanBudget)"
                     >
                         <i class="fa fa-check"></i> analisado
@@ -203,11 +223,18 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:analyse') &&
-                                congressmanBudget.analysed_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .unanalyse.visible
+                        "
+                        :disabled="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .unanalyse.disabled
                         "
                         class="btn btn-sm btn-micro btn-warning"
-                        title="Cancelar marcação de 'analisado'"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .unanalyse.title
+                        "
                         @click="unanalyse(congressmanBudget)"
                     >
                         <i class="fa fa-ban"></i> analisado
@@ -215,13 +242,18 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:publish') &&
-                                congressmanBudget.closed_at &&
-                                congressmanBudget.analysed_at &&
-                                !congressmanBudget.published_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .publish.visible
+                        "
+                        :disabled="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .publish.disabled
                         "
                         class="btn btn-sm btn-micro btn-danger"
-                        title="Publicar no Portal da Transparência"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .publish.title
+                        "
                         @click="publish(congressmanBudget)"
                     >
                         <i class="fa fa-check"></i> publicar
@@ -229,11 +261,18 @@
 
                     <button
                         v-if="
-                            can('congressman-budgets:publish') &&
-                                congressmanBudget.published_at
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .unpublish.visible
+                        "
+                        :disabled="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .unpublish.disabled
                         "
                         class="btn btn-sm btn-micro btn-danger"
-                        title="Remover do Portal da Transparência"
+                        :title="
+                            getCongressmanBudgetState(congressmanBudget).buttons
+                                .unpublish.title
+                        "
                         @click="unpublish(congressmanBudget)"
                     >
                         <i class="fa fa-ban"></i> despublicar
@@ -470,7 +509,11 @@ export default {
     },
 
     computed: {
-        ...mapGetters(service.name, ['currentSummaryLabel']),
+        ...mapGetters(service.name, [
+            'currentSummaryLabel',
+            'getCongressmanBudgetState',
+            'getSelectedState',
+        ]),
     },
 }
 </script>
