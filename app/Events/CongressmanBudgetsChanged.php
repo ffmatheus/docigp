@@ -20,13 +20,14 @@ class CongressmanBudgetsChanged extends Broadcastable
      *
      * @param $congressmanBudget
      */
-    public function __construct($congressmanBudgetId)
+    public function __construct($congressmanBudgetId, $congressmanId = null)
     {
         $this->congressmanBudgetId = $congressmanBudgetId;
 
-        $this->congressmanId = CongressmanBudget::withoutGlobalScopes()->find(
-            $congressmanBudgetId
-        )->congressman->id;
+        $this->congressmanId =
+            $congressmanId ??
+            CongressmanBudget::withoutGlobalScopes()->find($congressmanBudgetId)
+                ->congressman->id;
     }
 
     public function broadcastChannelName()

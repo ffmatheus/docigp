@@ -2,6 +2,8 @@
 
 namespace App\Listeners;
 
+use App\Events\CongressmanBudgetsChanged;
+use App\Events\CongressmenChanged;
 use App\Events\EntriesChanged;
 use App\Events\EntryUpdated;
 
@@ -16,5 +18,7 @@ class OnEntryUpdated extends Listener
     public function handle(EntryUpdated $event)
     {
         event(new EntriesChanged($event->entryId));
+        event(new CongressmanBudgetsChanged($event->congressmanId));
+        event(new CongressmenChanged());
     }
 }

@@ -2,9 +2,13 @@
 
 namespace App\Events;
 
+use App\Data\Models\Entry;
+
 class EntryCreated extends Event
 {
     public $entryId;
+    public $congressmanBudgetId;
+    public $congressmanId;
 
     /**
      * Create a new entry instance.
@@ -13,6 +17,9 @@ class EntryCreated extends Event
      */
     public function __construct($entryId)
     {
-        $this->entryId = $entryId;
+        $entry = Entry::withoutGlobalScopes()->find($entryId);
+        $this->entryId = $entry->id;
+        $this->congressmanBudgetId = $entry->congressmanBudget->id;
+        $this->congressmanId = $entry->congressmanBudget->congressman->id;
     }
 }

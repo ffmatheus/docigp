@@ -41,7 +41,7 @@
                 :disabled="!can('entries:store') || congressmanBudgetsClosedAt"
                 class="btn btn-primary btn-sm pull-right"
                 @click="createEntry()"
-                title="Nova despesa"
+                title="Novo lançamento"
             >
                 <i class="fa fa-plus"></i>
             </button>
@@ -60,6 +60,8 @@
                     'bg-primary-lighter text-white': isCurrent(entry, selected),
                 }"
             >
+                <td class="align-middle">{{ getEntryState(entry).name }}</td>
+
                 <td class="align-middle">{{ entry.date_formatted }}</td>
 
                 <td class="align-middle">
@@ -154,113 +156,107 @@
                 </td>
 
                 <td class="align-middle text-right">
-                    <div
-                        v-if="
-                            !congressmanBudgets.selected.closed_at ||
-                                can('congressman-budgets:reopen')
-                        "
-                    >
+                    <div>
                         <button
-                            v-if="
-                                (can('entries:buttons') ||
-                                    can('entries:verify')) &&
-                                    !entry.verified_at &&
-                                    !entry.has_pendency
+                            v-if="getEntryState(entry).buttons.verify.visible"
+                            :disabled="
+                                getEntryState(entry).buttons.verify.disabled
                             "
-                            :disabled="!can('entries:verify')"
                             class="btn btn-sm btn-micro btn-primary"
                             @click="verify(entry)"
-                            title="Marcar como verificado"
+                            :title="getEntryState(entry).buttons.verify.title"
                         >
                             <i class="fa fa-check"></i> verificar
                         </button>
 
                         <button
-                            v-if="
-                                (can('entries:buttons') ||
-                                    can('entries:verify')) &&
-                                    entry.verified_at
+                            v-if="getEntryState(entry).buttons.unverify.visible"
+                            :disabled="
+                                getEntryState(entry).buttons.unverify.disabled
                             "
-                            :disabled="!can('entries:verify')"
                             class="btn btn-sm btn-micro btn-warning"
                             @click="unverify(entry)"
-                            title="Cancelar verificação"
+                            :title="getEntryState(entry).buttons.unverify.title"
                         >
                             <i class="fa fa-ban"></i> verificação
                         </button>
 
                         <button
-                            v-if="
-                                can('entries:analyse') &&
-                                    entry.verified_at &&
-                                    !entry.analysed_at
+                            v-if="getEntryState(entry).buttons.analyse.visible"
+                            :disabled="
+                                getEntryState(entry).buttons.analyse.disabled
                             "
                             class="btn btn-sm btn-micro btn-success"
                             @click="analyse(entry)"
-                            title="Marcar como 'analisado'"
+                            :title="getEntryState(entry).buttons.analyse.title"
                         >
                             <i class="fa fa-check"></i> analisado
                         </button>
 
                         <button
                             v-if="
-                                can('entries:analyse') &&
-                                    entry.verified_at &&
-                                    entry.analysed_at
+                                getEntryState(entry).buttons.unanalyse.visible
+                            "
+                            :disabled="
+                                getEntryState(entry).buttons.unanalyse.disabled
                             "
                             class="btn btn-sm btn-micro btn-danger"
                             @click="unanalyse(entry)"
-                            title="Cancelar status de 'analisado'"
+                            :title="
+                                getEntryState(entry).buttons.unanalyse.title
+                            "
                         >
                             <i class="fa fa-ban"></i> analisado
                         </button>
 
                         <button
-                            v-if="
-                                can('entries:publish') &&
-                                    entry.analysed_at &&
-                                    !entry.published_at
+                            v-if="getEntryState(entry).buttons.publish.visible"
+                            :disabled="
+                                getEntryState(entry).buttons.publish.disabled
                             "
                             class="btn btn-sm btn-micro btn-danger"
-                            title="Publicar no Portal da Transparência"
+                            :title="getEntryState(entry).buttons.publish.title"
                             @click="publish(entry)"
                         >
                             <i class="fa fa-check"></i> publicar
                         </button>
 
                         <button
-                            v-if="can('entries:publish') && entry.published_at"
+                            v-if="
+                                getEntryState(entry).buttons.unpublish.visible
+                            "
+                            :disabled="
+                                getEntryState(entry).buttons.unpublish.disabled
+                            "
                             class="btn btn-sm btn-micro btn-danger"
-                            title="Remover do Portal da Transparência"
+                            :title="
+                                getEntryState(entry).buttons.unpublish.title
+                            "
                             @click="unpublish(entry)"
                         >
                             <i class="fa fa-ban"></i> despublicar
                         </button>
 
                         <button
-                            v-if="
-                                can('entries:buttons') || can('entries:update')
+                            v-if="getEntryState(entry).buttons.edit.visible"
+                            :disabled="
+                                getEntryState(entry).buttons.edit.disabled
                             "
-                            :disabled="entry.analysed_at || entry.verified_at"
                             class="btn btn-sm btn-micro btn-primary"
                             @click="editEntry(entry)"
-                            title="editar lançamento"
+                            :title="getEntryState(entry).buttons.edit.title"
                         >
                             <i class="fa fa-edit"></i>
                         </button>
 
                         <button
-                            v-if="
-                                can('entries:buttons') || can('entries:delete')
-                            "
+                            v-if="getEntryState(entry).buttons.delete.visible"
                             :disabled="
-                                !can('entries:delete') ||
-                                    entry.analysed_at ||
-                                    entry.verified_at
+                                getEntryState(entry).buttons.delete.disabled
                             "
                             class="btn btn-sm btn-micro btn-danger"
                             @click="trash(entry)"
-                            title="deletar lançamento"
+                            :title="getEntryState(entry).buttons.delete.title"
                         >
                             <i class="fa fa-trash"></i>
                         </button>
@@ -458,6 +454,9 @@ export default {
             congressmanBudgetsSummaryLabel:
                 'congressmanBudgets/currentSummaryLabel',
             congressmanBudgetsClosedAt: 'congressmanBudgets/selectedClosedAt',
+            getEntryState: 'entries/getEntryState',
+            selectedCongressmanBudgetState:
+                'congressmanBudgets/getSelectedState',
         }),
     },
 }

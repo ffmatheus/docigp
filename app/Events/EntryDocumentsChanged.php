@@ -15,13 +15,14 @@ class EntryDocumentsChanged extends Broadcastable
     public $entryDocumentId;
     public $entryId;
 
-    public function __construct($entryDocumentId)
+    public function __construct($entryDocumentId, $entryId = null)
     {
         $this->entryDocumentId = $entryDocumentId;
 
-        $this->entryId = EntryDocument::withoutGlobalScopes()->find(
-            $entryDocumentId
-        )->entry_id;
+        $this->entryId =
+            $entryId ??
+            EntryDocument::withoutGlobalScopes()->find($entryDocumentId)
+                ->entry_id;
     }
 
     public function broadcastChannelName()

@@ -15,13 +15,13 @@ class EntriesChanged extends Broadcastable
     public $congressmanBudgetId;
     public $entryId;
 
-    public function __construct($entryId)
+    public function __construct($entryId, $congressmanBudgetId = null)
     {
         $this->entryId = $entryId;
 
-        $this->congressmanBudgetId = Entry::withoutGlobalScopes()->find(
-            $entryId
-        )->congressman_budget_id;
+        $this->congressmanBudgetId =
+            $congressmanBudgetId ??
+            Entry::withoutGlobalScopes()->find($entryId)->congressman_budget_id;
     }
 
     public function broadcastChannelName()

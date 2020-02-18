@@ -50,9 +50,7 @@ trait Eventable
 
         if (class_exists($eventClass)) {
             event(
-                new $eventClass(
-                    $eventType == 'Deleted' ? $model->id : $model->id
-                )
+                new $eventClass($eventType == 'Deleted' ? $model : $model->id)
             );
         }
     }

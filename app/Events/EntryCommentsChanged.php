@@ -15,13 +15,14 @@ class EntryCommentsChanged extends Broadcastable
     public $entryCommentId;
     public $entryId;
 
-    public function __construct($entryCommentId)
+    public function __construct($entryCommentId, $entryId = null)
     {
         $this->entryCommentId = $entryCommentId;
 
-        $this->entryId = EntryComment::withoutGlobalScopes()->find(
-            $entryCommentId
-        )->entry_id;
+        $this->entryId =
+            $entryId ??
+            EntryComment::withoutGlobalScopes()->find($entryCommentId)
+                ->entry_id;
     }
 
     public function broadcastChannelName()

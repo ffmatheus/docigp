@@ -2,6 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Events\CongressmanBudgetsChanged;
+use App\Events\CongressmenChanged;
+use App\Events\EntriesChanged;
 use App\Events\EntryDocumentsChanged;
 use App\Events\EntryDocumentCreated;
 
@@ -16,5 +19,8 @@ class OnEntryDocumentCreated extends Listener
     public function handle(EntryDocumentCreated $event)
     {
         event(new EntryDocumentsChanged($event->entryDocumentId));
+        event(new EntriesChanged($event->entryId));
+        event(new CongressmanBudgetsChanged($event->congressmanBudgetId));
+        event(new CongressmenChanged());
     }
 }

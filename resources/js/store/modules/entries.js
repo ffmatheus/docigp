@@ -139,7 +139,7 @@ let actions = merge_objects(actionsMixin, {
     },
 })
 
-let mutations = merge_objects(mutationsMixin, {})
+let mutations = mutationsMixin
 
 let getters = merge_objects(gettersMixin, {
     getSelectedState: (state, getters) => {
