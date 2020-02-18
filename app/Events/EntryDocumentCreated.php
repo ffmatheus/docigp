@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Data\Models\CongressmanBudget;
+
 class EntryDocumentCreated extends Event
 {
     public $entryDocumentId;
@@ -17,6 +19,8 @@ class EntryDocumentCreated extends Event
     {
         $this->entryDocumentId = $entryDocument->id;
         $this->entryId = $entryDocument->entry_id;
-        $this->congressmanBudgetId = $entryDocument->entry->congressman_budget_id;
+        $entry = $entryDocument->entry;
+        $this->congressmanBudgetId = $entry->congressman_budget_id;
+        $this->congressmanId = CongressmanBudget::find($this->congressmanBudgetId)->congressman->id;
     }
 }

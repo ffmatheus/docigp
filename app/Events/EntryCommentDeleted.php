@@ -10,7 +10,6 @@ class EntryCommentDeleted extends Event
     public $entryCommentId;
     public $entryId;
     public $congressmanBudgetId;
-    public $congressmanId;
 
     /**
      * Create a new entry Comment instance.
@@ -19,13 +18,13 @@ class EntryCommentDeleted extends Event
      */
     public function __construct($entryComment)
     {
+        $entryComment = (object)$entryComment->toArray();
+
         $this->entryCommentId = $entryComment->id;
-        $this->entryId = $entryComment->entry_id;
-        $entry = Entry::withoutGlobalScopes()->find($this->entryId);
-        $congressmanBudget = CongressmanBudget::withoutGlobalScopes()->find(
-            $entry->congressman_budget_id
-        );
-        $this->congressmanBudgetId = $congressmanBudget->id;
-        $this->congressmanId = $congressmanBudget->congressman->id;
+
+        $entry = Entry::find($entryComment->entry_id);
+        $this->entryId = $entry->id;
+
+        $this->congressmanBudgetId = $entry->congressman_budget_id;
     }
 }

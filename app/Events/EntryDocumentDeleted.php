@@ -9,6 +9,7 @@ class EntryDocumentDeleted extends Event
     public $entryDocumentId;
     public $entryId;
     public $congressmanBudgetId;
+    public $congressmanId;
 
     /**
      * Create a new entry document instance.
@@ -25,5 +26,7 @@ class EntryDocumentDeleted extends Event
         $this->entryId = $entry->id;
 
         $this->congressmanBudgetId = $entry->congressman_budget_id;
+
+        $this->congressmanId = CongressmanBudget::find($this->congressmanBudgetId)->congressman->id;
     }
 }
