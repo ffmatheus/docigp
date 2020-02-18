@@ -95,10 +95,10 @@ let actions = merge_objects(actionsMixin, {
     },
 
     selectCongressman(context, payload) {
-        if (
-            !context.state.selected ||
-            context.state.selected.id != payload.id
-        ) {
+        // const performLoad = !context.state.selected || context.state.selected.id != payload.id
+        const performLoad = true
+
+        if (performLoad) {
             context.dispatch('congressmanBudgets/setCurrentPage', 1, {
                 root: true,
             })
