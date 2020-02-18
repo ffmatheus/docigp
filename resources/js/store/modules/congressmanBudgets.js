@@ -145,8 +145,7 @@ let getters = merge_objects(gettersMixin, {
     },
 
     getSelectedState: (state, getters) => {
-        return
-        getters.getCongressmanBudgetState(getters.getSelected)
+        return getters.getCongressmanBudgetState(getters.getSelected)
     },
 
     getCongressmanBudgetState: (
