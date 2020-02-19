@@ -184,9 +184,10 @@ let getters = merge_objects(gettersMixin, {
                     unverify: {
                         visible:
                             can('entries:buttons') || can('entries:verify'),
-                        disabled: true,
+                        disabled:
+                            !can('entries:verify') || congressmanBudgetClosedAt,
                         title: !congressmanBudgetClosedAt
-                            ? 'Não é possível cancelar a verificação pois o orçamento já está analisado e publicado'
+                            ? "Cancelar marcação de 'verificado'"
                             : closedTitle,
                     },
                     verify: {
@@ -199,9 +200,7 @@ let getters = merge_objects(gettersMixin, {
                     edit: {
                         visible:
                             can('entries:buttons') || can('entries:update'),
-                        disabled:
-                            congressmanBudgetClosedAt &&
-                            !can('entries:buttons'),
+                        disabled: !can('entries:buttons'),
                         title: can('entries:update')
                             ? !congressmanBudgetClosedAt
                                 ? 'Não é possível alterar o lançamento pois ele já está publicado'
@@ -249,9 +248,10 @@ let getters = merge_objects(gettersMixin, {
                     unverify: {
                         visible:
                             can('entries:buttons') || can('entries:verify'),
-                        disabled: true,
+                        disabled:
+                            !can('entries:verify') || congressmanBudgetClosedAt,
                         title: !congressmanBudgetClosedAt
-                            ? 'Não é possível cancelar a verificação pois o orçamento já está analisado'
+                            ? "Cancelar marcação de 'verificado'"
                             : closedTitle,
                     },
                     verify: {
@@ -264,9 +264,7 @@ let getters = merge_objects(gettersMixin, {
                     edit: {
                         visible:
                             can('entries:buttons') || can('entries:update'),
-                        disabled:
-                            congressmanBudgetClosedAt &&
-                            !can('entries:buttons'),
+                        disabled: !can('entries:buttons'),
                         title: can('entries:update')
                             ? !congressmanBudgetClosedAt
                                 ? 'Não é possível alterar o lançamento pois ele já está analisado'
@@ -314,7 +312,7 @@ let getters = merge_objects(gettersMixin, {
                         disabled:
                             !can('entries:verify') || congressmanBudgetClosedAt,
                         title: !congressmanBudgetClosedAt
-                            ? "'Cancelar marcação de 'verificado'"
+                            ? "Cancelar marcação de 'verificado'"
                             : closedTitle,
                     },
                     verify: {
@@ -327,9 +325,7 @@ let getters = merge_objects(gettersMixin, {
                     edit: {
                         visible:
                             can('entries:buttons') || can('entries:update'),
-                        disabled:
-                            congressmanBudgetClosedAt &&
-                            !can('entries:buttons'),
+                        disabled: !can('entries:buttons'),
                         title: can('entries:update')
                             ? !congressmanBudgetClosedAt
                                 ? 'Não é possível alterar o lançamento pois ele já está verificado'
@@ -389,9 +385,7 @@ let getters = merge_objects(gettersMixin, {
                     edit: {
                         visible:
                             can('entries:buttons') || can('entries:update'),
-                        disabled:
-                            congressmanBudgetClosedAt ||
-                            !can('entries:buttons'),
+                        disabled: false,
                         title: can('entries:update')
                             ? !congressmanBudgetClosedAt
                                 ? 'Editar lançamento'
@@ -401,7 +395,8 @@ let getters = merge_objects(gettersMixin, {
                     delete: {
                         visible:
                             can('entries:buttons') || can('entries:delete'),
-                        disabled: congressmanBudgetClosedAt,
+                        disabled:
+                            congressmanBudgetClosedAt || !can('entries:delete'),
                         title: !congressmanBudgetClosedAt
                             ? 'Apagar lançamento'
                             : closedTitle,
