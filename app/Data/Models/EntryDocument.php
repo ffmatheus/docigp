@@ -71,12 +71,14 @@ class EntryDocument extends Model
 
     public function isPublishable()
     {
+        //dd(blank($this->congressmanBudget->entry->closed_at));
+
         return blank($this->verified_at) &&
-            blank($this->congressmanBudget->entry->closed_at);
+            blank($this->entry->congressmanBudget->closed_at);
     }
 
     public function isVerifiable()
     {
-        return blank($this->congressmanBudget->entry->closed_at);
+        return blank($this->entry->congressmanBudget->closed_at);
     }
 }
