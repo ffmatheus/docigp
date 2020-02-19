@@ -54,13 +54,14 @@ class AuthServiceProvider extends ServiceProvider
             );
         });
 
-        Gate::define('entry_documents:update:model', function (
+        Gate::define('entry-documents:update:model', function (
             $user,
-            $congressmanBudget
+            $entryDocument
         ) {
-            return blank($user->department_id) ||
-                $congressmanBudget->congressman->department_id ==
-                    $user->department_id;
+            return Gate::allows(
+                'congressman-budgets:update:model',
+                $entryDocument->entry->congressmanBudget
+            );
         });
     }
 }

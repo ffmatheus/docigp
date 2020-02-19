@@ -63,4 +63,20 @@ class EntryDocument extends Model
     {
         return $this->entry->congressmanBudget->congressman();
     }
+
+    public function isAnalysable()
+    {
+        return !blank($this->verified_at);
+    }
+
+    public function isPublishable()
+    {
+        return blank($this->verified_at) &&
+            blank($this->congressmanBudget->entry->closed_at);
+    }
+
+    public function isVerifiable()
+    {
+        return blank($this->congressmanBudget->entry->closed_at);
+    }
 }

@@ -143,4 +143,9 @@ class Entry extends Model
     {
         return $this->congressmanBudget->congressman();
     }
+
+    public function isVerifiable()
+    {
+        return blank($this->congressmanBudget->closed_at);
+    }
 }

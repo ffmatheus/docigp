@@ -26,7 +26,8 @@ trait ModelActionable
 
     public function isAnalysable()
     {
-        return $this->verified_at && blank($this->published_at);
+        return (!blank($this->verified_at) || !blank($this->closed_at)) &&
+            blank($this->published_at);
     }
 
     public function analyse()
@@ -53,7 +54,8 @@ trait ModelActionable
 
     public function isPublishable()
     {
-        return $this->analysed_at;
+        return !blank($this->analysed_at) &&
+            (!blank($this->verified_at) || !blank($this->closed_at));
     }
 
     public function publish()
