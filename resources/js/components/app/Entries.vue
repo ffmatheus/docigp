@@ -54,7 +54,7 @@
                     'bg-primary-lighter text-white': isCurrent(entry, selected),
                 }"
             >
-                <td class="align-middle">{{ getEntryState(entry).name }}</td>
+                <!--                <td class="align-middle">{{ getEntryState(entry).name }}</td>-->
 
                 <td class="align-middle">{{ entry.date_formatted }}</td>
 
