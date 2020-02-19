@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Data\Models\CongressmanBudget;
 use App\Data\Models\Entry;
 
 class EntryDocumentDeleted extends Event
@@ -18,7 +19,7 @@ class EntryDocumentDeleted extends Event
      */
     public function __construct($entryDocument)
     {
-        $entryDocument = (object)$entryDocument->toArray();
+        $entryDocument = (object) $entryDocument->toArray();
 
         $this->entryDocumentId = $entryDocument->id;
 
@@ -27,6 +28,8 @@ class EntryDocumentDeleted extends Event
 
         $this->congressmanBudgetId = $entry->congressman_budget_id;
 
-        $this->congressmanId = CongressmanBudget::find($this->congressmanBudgetId)->congressman->id;
+        $this->congressmanId = CongressmanBudget::find(
+            $this->congressmanBudgetId
+        )->congressman->id;
     }
 }

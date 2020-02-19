@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Data\Models\CongressmanBudget;
 use App\Data\Models\Entry;
 
 class EntryCommentDeleted extends Event
@@ -18,7 +17,7 @@ class EntryCommentDeleted extends Event
      */
     public function __construct($entryComment)
     {
-        $entryComment = (object)$entryComment->toArray();
+        $entryComment = (object) $entryComment->toArray();
 
         $this->entryCommentId = $entryComment->id;
 
