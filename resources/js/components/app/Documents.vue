@@ -45,6 +45,10 @@
                     ),
                 }"
             >
+                <!--                <td class="align-middle">-->
+                <!--                    {{ getEntryDocumentState(document).name }}-->
+                <!--                </td>-->
+
                 <td class="align-middle">
                     {{ document.attached_file.original_name }}
                 </td>
@@ -82,82 +86,113 @@
                 <td class="align-middle text-right">
                     <button
                         v-if="
-                            (can('entry-documents:buttons') ||
-                                can('entry-documents:verify')) &&
-                                !document.verified_at
+                            getEntryDocumentState(document).buttons.verify
+                                .visible
                         "
-                        :disabled="!can('entry-documents:verify')"
+                        :disabled="
+                            getEntryDocumentState(document).buttons.verify
+                                .disabled
+                        "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="verify(document)"
-                        title="Marcar como verificado"
+                        :title="
+                            getEntryDocumentState(document).buttons.verify.title
+                        "
                     >
                         <i class="fa fa-check"></i> verificar
                     </button>
 
                     <button
                         v-if="
-                            (can('entry-documents:buttons') ||
-                                can('entry-documents:verify')) &&
-                                document.verified_at
+                            getEntryDocumentState(document).buttons.unverify
+                                .visible
                         "
-                        :disabled="!can('entry-documents:verify')"
+                        :disabled="
+                            getEntryDocumentState(document).buttons.unverify
+                                .disabled
+                        "
                         class="btn btn-sm btn-micro btn-warning"
                         @click="unverify(document)"
-                        title="Cancelar verificação"
+                        :title="
+                            getEntryDocumentState(document).buttons.unverify
+                                .title
+                        "
                     >
                         <i class="fa fa-ban"></i> verificação
                     </button>
 
                     <button
                         v-if="
-                            can('entry-documents:analyse') &&
-                                !document.analysed_at &&
-                                document.verified_at
+                            getEntryDocumentState(document).buttons.analyse
+                                .visible
+                        "
+                        :disabled="
+                            getEntryDocumentState(document).buttons.analyse
+                                .disabled
                         "
                         class="btn btn-sm btn-micro btn-primary"
                         @click="analyse(document)"
-                        title="Marcar orçamento como 'analisado'"
+                        :title="
+                            getEntryDocumentState(document).buttons.analyse
+                                .title
+                        "
                     >
                         <i class="fa fa-check"></i> analisado
                     </button>
 
                     <button
                         v-if="
-                            can('entry-documents:analyse') &&
-                                document.analysed_at
+                            getEntryDocumentState(document).buttons.unanalyse
+                                .visible
+                        "
+                        :disabled="
+                            getEntryDocumentState(document).buttons.unanalyse
+                                .disabled
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="unanalyse(document)"
-                        title="Cancelar status de 'analisado'"
+                        :title="
+                            getEntryDocumentState(document).buttons.unanalyse
+                                .title
+                        "
                     >
                         <i class="fa fa-ban"></i> analisado
                     </button>
 
                     <button
                         v-if="
-                            (can('entry-documents:buttons') ||
-                                can('entry-documents:publish')) &&
-                                !document.published_at &&
-                                document.verified_at
+                            getEntryDocumentState(document).buttons.publish
+                                .visible
                         "
-                        :disabled="!can('entry-documents:publish')"
+                        :disabled="
+                            getEntryDocumentState(document).buttons.publish
+                                .disabled
+                        "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="publish(document)"
-                        title="Marcar como 'publicável'"
+                        :title="
+                            getEntryDocumentState(document).buttons.publish
+                                .title
+                        "
                     >
                         <i class="fa fa-check"></i> tornar público
                     </button>
 
                     <button
                         v-if="
-                            (can('entry-documents:buttons') ||
-                                can('entry-documents:publish')) &&
-                                document.published_at
+                            getEntryDocumentState(document).buttons.unpublish
+                                .visible
                         "
-                        :disabled="!can('entry-documents:publish')"
+                        :disabled="
+                            getEntryDocumentState(document).buttons.unpublish
+                                .disabled
+                        "
                         class="btn btn-sm btn-micro btn-success"
                         @click="unpublish(document)"
-                        title="Remover autorização de publicação"
+                        :title="
+                            getEntryDocumentState(document).buttons.unpublish
+                                .title
+                        "
                     >
                         <i class="fa fa-ban"></i> tornar privado
                     </button>
@@ -173,18 +208,18 @@
 
                     <button
                         v-if="
-                            can('entry-documents:buttons') ||
-                                can('entry-documents:delete')
+                            getEntryDocumentState(document).buttons.delete
+                                .visible
                         "
                         :disabled="
-                            !can('entry-documents:delete') ||
-                                document.analysed_at ||
-                                document.published_at ||
-                                congressmanBudgetsClosedAt
+                            getEntryDocumentState(document).buttons.delete
+                                .disabled
                         "
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(document)"
-                        title="Deletar documento"
+                        :title="
+                            getEntryDocumentState(document).buttons.delete.title
+                        "
                     >
                         <i class="fa fa-trash"></i>
                     </button>
@@ -225,6 +260,7 @@ export default {
     computed: {
         ...mapGetters({
             congressmanBudgetsClosedAt: 'congressmanBudgets/selectedClosedAt',
+            getEntryDocumentState: 'entryDocuments/getEntryDocumentState',
         }),
 
         // return this.$store.dispatch('congressmanBudgets/changePercentage', {
