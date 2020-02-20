@@ -237,8 +237,7 @@ class CongressmanBudget extends Model
 
     public function isDepositable()
     {
-        return !$this->has_deposit &&
-            blank($this->congressmanBudget->closed_at);
+        return !$this->has_deposit && blank($this->closed_at);
     }
 
     public function isClosable()
