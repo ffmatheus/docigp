@@ -9,6 +9,7 @@ class EntryDocumentCreated extends Event
     public $entryDocumentId;
     public $entryId;
     public $congressmanBudgetId;
+    public $congressmanId;
 
     /**
      * Create a new entry document instance.
@@ -21,6 +22,8 @@ class EntryDocumentCreated extends Event
         $this->entryId = $entryDocument->entry_id;
         $entry = $entryDocument->entry;
         $this->congressmanBudgetId = $entry->congressman_budget_id;
-        $this->congressmanId = CongressmanBudget::find($this->congressmanBudgetId)->congressman->id;
+        $this->congressmanId = CongressmanBudget::find(
+            $this->congressmanBudgetId
+        )->congressman->id;
     }
 }
