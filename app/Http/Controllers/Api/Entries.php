@@ -83,7 +83,8 @@ class Entries extends Controller
     }
 
     public function delete(
-        EntryDelete $congressmanId,
+        EntryDelete $request,
+        $congressmanId,
         $congressmanBudgetId,
         $entryId
     ) {
