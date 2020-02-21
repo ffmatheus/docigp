@@ -15,7 +15,7 @@ class EntryDocumentDelete extends Request
      */
     public function authorize()
     {
-        $entry = Entry::find($this->all()['entryDocumentId']);
+        $entry = Entry::find($this->all()['documentId']);
 
         return $entry &&
             Gate::allows('entry-documents:update:model', $entry) &&
