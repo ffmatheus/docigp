@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Gate;
 use App\Http\Traits\WithRouteParams;
-use App\Data\Models\Entry;
+use App\Data\Models\EntryDocument;
 
 class EntryDocumentDelete extends Request
 {
@@ -15,10 +15,10 @@ class EntryDocumentDelete extends Request
      */
     public function authorize()
     {
-        $entry = Entry::find($this->all()['documentId']);
+        $entryDocument = EntryDocument::find($this->all()['documentId']);
 
-        return $entry &&
-            Gate::allows('entry-documents:update:model', $entry) &&
+        return $entryDocument &&
+            Gate::allows('entry-documents:update:model', $entryDocument) &&
             allows('entry-documents:delete');
     }
 
