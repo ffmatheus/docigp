@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CheckCpforCnpj;
 use App\Rules\WithinBudgetDate;
 use App\Rules\NotRevokedCostCenter;
 use App\Support\Constants;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
+use App\Services\CpfCnpj\CpfCnpj;
 
 class EntryStore extends Request
 {
@@ -34,6 +36,7 @@ class EntryStore extends Request
      */
     public function rules()
     {
+
         return [
             'date' => [
                 'bail',
@@ -49,7 +52,9 @@ class EntryStore extends Request
                 'required',
                 new NotRevokedCostCenter($this->get('date'))
             ],
-            'provider_cpf_cnpj' => 'required',
+            'provider_cpf_cnpj' => ['required',
+
+              new CheckCpforCnpj($this->get('provider_cpf_cnpj'))],
             'entry_type_id' => 'required'
         ];
     }
