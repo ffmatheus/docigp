@@ -8,7 +8,6 @@ use App\Rules\NotRevokedCostCenter;
 use App\Support\Constants;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
-use App\Services\CpfCnpj\CpfCnpj;
 
 class EntryStore extends Request
 {
@@ -53,7 +52,6 @@ class EntryStore extends Request
                 new NotRevokedCostCenter($this->get('date'))
             ],
             'provider_cpf_cnpj' => ['required',
-
               new CheckCpforCnpj($this->get('provider_cpf_cnpj'))],
             'entry_type_id' => 'required'
         ];
