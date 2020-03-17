@@ -114,7 +114,7 @@ export default {
             this.$swal({
                 title: 'Deseja realmente DELETAR este comentário?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryComments/delete', comment)
                 }

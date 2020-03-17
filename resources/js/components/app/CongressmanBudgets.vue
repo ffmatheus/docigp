@@ -386,9 +386,9 @@ export default {
                 input: 'text',
                 inputPlaceholder: 'Digite um percentual',
                 inputAttributes: {
-                    dusk: 'input-percentage'
+                    dusk: 'input-percentage',
                 },
-                inputValidator: (value) => {
+                inputValidator: value => {
                     if (
                         !is_number(value) ||
                         to_number(value) < 0 ||
@@ -396,9 +396,9 @@ export default {
                     ) {
                         return 'Você precisa digitar um número entre 0 e 100'
                     }
-                }
+                },
             }).then(value => {
-                if(value.value){
+                if (value.value) {
                     this.changePercentage(congressmanBudget, value.value)
                 }
             })
@@ -408,7 +408,7 @@ export default {
             this.$swal({
                 title: 'Deseja realmente FECHAR este orçamento mensal?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/close',
@@ -422,7 +422,7 @@ export default {
             this.$swal({
                 title: 'Deseja realmente REABRIR este orçamento mensal?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/reopen',
@@ -436,7 +436,7 @@ export default {
             this.$swal({
                 title: 'Este orçamento mensal foi ANALISADO?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/analyse',
@@ -450,7 +450,7 @@ export default {
             this.$swal({
                 title: 'Deseja remover o status "ANALISADO" deste lançamento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/unanalyse',
@@ -464,7 +464,7 @@ export default {
             this.$swal({
                 title: 'Confirma a PUBLICAÇÃO deste orçamento mensal?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/publish',
@@ -478,7 +478,7 @@ export default {
             this.$swal({
                 title: 'Confirma a DESPUBLICAÇÃO deste orçamento mensal?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/unpublish',
@@ -490,13 +490,14 @@ export default {
 
         deposit(congressmanBudget) {
             this.$swal({
-                title: 'Confirma o depósito de ' +
+                title:
+                    'Confirma o depósito de ' +
                     congressmanBudget.value_formatted +
                     ' na conta de ' +
                     this.congressmen.selected.name +
                     '?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch(
                         'congressmanBudgets/deposit',

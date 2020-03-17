@@ -381,7 +381,7 @@ export default {
             this.$swal({
                 title: 'Deseja realmente DELETAR este lançamento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/delete', entry)
                 }
@@ -390,9 +390,10 @@ export default {
 
         verify(entry) {
             this.$swal({
-                title: 'Confirma a marcação deste lançamento como "VERIFICADO"?',
+                title:
+                    'Confirma a marcação deste lançamento como "VERIFICADO"?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/verify', entry)
                 }
@@ -401,9 +402,10 @@ export default {
 
         unverify(entry) {
             this.$swal({
-                title: 'O status de "VERIFICADO" será removido deste lançamento, confirma?',
+                title:
+                    'O status de "VERIFICADO" será removido deste lançamento, confirma?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/unverify', entry)
                 }
@@ -414,7 +416,7 @@ export default {
             this.$swal({
                 title: 'Este lançamento foi ANALISADO?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/analyse', entry)
                 }
@@ -425,7 +427,7 @@ export default {
             this.$swal({
                 title: 'Deseja remover o status "ANALISADO" deste lançamento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/unanalyse', entry)
                 }
@@ -436,7 +438,7 @@ export default {
             this.$swal({
                 title: 'Publicar este lançamento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/publish', entry)
                 }
@@ -447,7 +449,7 @@ export default {
             this.$swal({
                 title: 'Despublicar este lançamento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entries/unpublish', entry)
                 }

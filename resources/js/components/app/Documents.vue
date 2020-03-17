@@ -304,7 +304,7 @@ export default {
             this.$swal({
                 title: 'Deseja realmente DELETAR este documento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryDocuments/delete', document)
                 }
@@ -313,9 +313,10 @@ export default {
 
         verify(entry) {
             this.$swal({
-                title: 'Confirma a marcação deste lançamento como "VERIFICADO"?',
+                title:
+                    'Confirma a marcação deste lançamento como "VERIFICADO"?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryDocuments/verify', entry)
                 }
@@ -324,9 +325,10 @@ export default {
 
         unverify(entry) {
             this.$swal({
-                title: 'O status de "VERIFICADO" será removido deste lançamento, confirma?',
+                title:
+                    'O status de "VERIFICADO" será removido deste lançamento, confirma?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryDocuments/unverify', entry)
                 }
@@ -337,7 +339,7 @@ export default {
             this.$swal({
                 title: 'Este documento foi ANALISADO?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryDocuments/analyse', document)
                 }
@@ -348,7 +350,7 @@ export default {
             this.$swal({
                 title: 'Deseja remover o status "ANALISADO" deste lançamento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryDocuments/unanalyse', document)
                 }
@@ -359,7 +361,7 @@ export default {
             this.$swal({
                 title: 'Confirma a PUBLICAÇÃO deste documento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
                     this.$store.dispatch('entryDocuments/publish', document)
                 }
@@ -370,12 +372,9 @@ export default {
             this.$swal({
                 title: 'Confirma a DESPUBLICAÇÃO deste documento?',
                 icon: 'warning',
-            }).then((result) => {
+            }).then(result => {
                 if (result.value) {
-                    this.$store.dispatch(
-                        'entryDocuments/unpublish',
-                        document,
-                    )
+                    this.$store.dispatch('entryDocuments/unpublish', document)
                 }
             })
         },
