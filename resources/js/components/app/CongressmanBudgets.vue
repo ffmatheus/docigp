@@ -380,24 +380,30 @@ export default {
         },
 
         editPercentage(congressmanBudget) {
-            return input('Novo percentual', this).then(value => {
-                if (!value) {
-                    return
+            this.$swal({
+                icon: 'warning',
+                title: 'Novo percentual',
+                input: 'text',
+                inputPlaceholder: 'Digite um percentual',
+                inputAttributes: {
+                    dusk: 'input-percentage'
+                },
+                confirmButtonText: 'confirmar',
+                showCancelButton: true,
+                cancelButtonText: 'cancelar',
+                inputValidator: (value) => {
+                    if (
+                        !is_number(value) ||
+                        to_number(value) < 0 ||
+                        to_number(value) > 100
+                    ) {
+                        return 'Você precisa digitar um número entre 0 e 100'
+                    }
                 }
-
-                if (
-                    !is_number(value) ||
-                    to_number(value) < 0 ||
-                    to_number(value) > 100
-                ) {
-                    return show_message(
-                        'Você precisa digitar um número entre 0 e 100',
-                        this,
-                        'error',
-                    )
+            }).then(value => {
+                if(value.value){
+                    this.changePercentage(congressmanBudget, value.value)
                 }
-
-                return this.changePercentage(congressmanBudget, value)
             })
         },
 
