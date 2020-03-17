@@ -56,6 +56,14 @@
                 <td class="align-middle text-right">
                     <button
                         :disabled="!can('entry-comments:delete')"
+                        class="btn btn-sm btn-micro btn-primary"
+                        @click="editComment(comment)"
+                        title="editar comentário"
+                    >
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button
+                        :disabled="!can('entry-comments:delete')"
                         class="btn btn-sm btn-micro btn-danger"
                         @click="trash(comment)"
                         title="Deletar Comentário"
@@ -117,6 +125,10 @@ export default {
                         this.$store.dispatch('entryComments/delete', comment)
                 },
             )
+        },
+
+        editComment(comment) {
+            this.showModal = true
         },
 
         createComment() {
