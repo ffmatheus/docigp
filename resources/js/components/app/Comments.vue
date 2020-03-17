@@ -111,12 +111,14 @@ export default {
         },
 
         trash(comment) {
-            confirm('Deseja realmente DELETAR este comentário?', this).then(
-                value => {
-                    value &&
-                        this.$store.dispatch('entryComments/delete', comment)
-                },
-            )
+            this.$swal({
+                title: 'Deseja realmente DELETAR este comentário?',
+                icon: 'warning',
+            }).then((result) => {
+                if (result.value) {
+                    this.$store.dispatch('entryComments/delete', comment)
+                }
+            })
         },
 
         createComment() {

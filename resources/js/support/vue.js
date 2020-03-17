@@ -20,6 +20,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 const options = {
     confirmButtonColor: '#D0D0D0',
     cancelButtonColor: '#38c172',
+    confirmButtonText: 'confirmar',
+    cancelButtonText: 'cancelar',
+    showCancelButton: true,
 };
 
 Vue.use(VueSweetalert2, options);
