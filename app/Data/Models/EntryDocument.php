@@ -47,6 +47,20 @@ class EntryDocument extends Model
         });
     }
 
+    public static function disableGlobalScopes()
+    {
+        Published::disable();
+        Analysed::disable();
+        Verified::disable();
+    }
+
+    public static function enableGlobalScopes()
+    {
+        Published::enable();
+        Analysed::enable();
+        Verified::enable();
+    }
+
     public function attachedFile()
     {
         return $this->morphOne(AttachedFile::class, 'fileable');
