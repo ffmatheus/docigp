@@ -4,6 +4,7 @@ namespace App\Data\Models;
 
 use App\Data\Scopes\Published;
 use App\Data\Scopes\Analysed;
+use App\Data\Scopes\Verified;
 use App\Data\Traits\MarkAsUnread;
 use App\Data\Traits\ModelActionable;
 
@@ -38,6 +39,8 @@ class EntryDocument extends Model
         static::addGlobalScope(new Published());
 
         static::addGlobalScope(new Analysed());
+
+        static::addGlobalScope(new Verified());
 
         static::saved(function (EntryDocument $model) {
             $model->markAsUnread();
