@@ -12,116 +12,47 @@
         <template slot="checkboxes">
             <div class="row">
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="joined"
-                        label="aderiu"
-                        type="checkbox"
-                        v-model="joined"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="joined" label="aderiu" type="checkbox" v-model="joined" :required="true" :form="form" inline="true"></app-input>
                 </div>
 
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="joined"
-                        label="não aderiu"
-                        type="checkbox"
-                        v-model="notJoined"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="notJoined" label="não aderiu" type="checkbox" v-model="notJoined" :required="true" :form="form" inline="true"></app-input>
                 </div>
 
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="withMandate"
-                        label="com mandato"
-                        type="checkbox"
-                        v-model="withMandate"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="withMandate" label="com mandato" type="checkbox" v-model="withMandate" :required="true" :form="form" inline="true"></app-input>
                 </div>
 
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="withoutMandate"
-                        label="sem mandato"
-                        type="checkbox"
-                        v-model="withoutMandate"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="withoutMandate" label="sem mandato" type="checkbox" v-model="withoutMandate" :required="true" :form="form" inline="true"></app-input>
                 </div>
 
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="withPendency"
-                        label="com pendências"
-                        type="checkbox"
-                        v-model="withPendency"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="withPendency" label="com pendências" type="checkbox" v-model="withPendency" :required="true" :form="form" inline="true"></app-input>
                 </div>
 
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="withoutPendency"
-                        label="sem pendências"
-                        type="checkbox"
-                        v-model="withoutPendency"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="withoutPendency" label="sem pendências" type="checkbox" v-model="withoutPendency" :required="true" :form="form" inline="true"></app-input>
                 </div>
 
                 <div v-if="can('congressman:show')" class="col">
-                    <app-input
-                        name="unread"
-                        label="não lidos"
-                        type="checkbox"
-                        v-model="unread"
-                        :required="true"
-                        :form="form"
-                        inline="true"
-                    ></app-input>
+                    <app-input name="unread" label="não lidos" type="checkbox" v-model="unread" :required="true" :form="form" inline="true"></app-input>
                 </div>
             </div>
         </template>
 
-        <app-table
-            :pagination="pagination"
-            @goto-page="gotoPage($event)"
-            :columns="getTableColumns()"
-        >
+        <app-table :pagination="pagination" @goto-page="gotoPage($event)" :columns="getTableColumns()">
             <tr
                 @click="selectCongressman(congressman)"
                 v-for="congressman in congressmen.data.rows"
                 :class="{
                     'cursor-pointer': true,
-                    'bg-primary-lighter text-white': isCurrent(
-                        congressman,
-                        selected,
-                    ),
+                    'bg-primary-lighter text-white': isCurrent(congressman, selected),
                 }"
             >
-                <td
-                    v-if="can('congressman:see-unread')"
-                    class="align-middle text-center"
-                >
+                <td v-if="can('congressman:see-unread')" class="align-middle text-center">
                     <span class="text-danger">
-                        <i
-                            v-if="congressman.unread"
-                            class="fa fa-dot-circle"
-                        ></i>
+                        <i v-if="congressman.unread" class="fa fa-dot-circle"></i>
                     </span>
 
                     <span class="text-gray-light">
@@ -134,42 +65,21 @@
                         {{ congressman.nickname }}
                     </div>
 
-                    <div
-                        class="mb-2"
-                        style="line-height: 3px; "
-                        v-if="congressman.name !== congressman.nickname"
-                    >
-                        <small class="text-primary" style="font-size: 0.6em;"
-                            >({{ congressman.name }})</small
-                        >
+                    <div class="mb-2" style="line-height: 3px; " v-if="congressman.name !== congressman.nickname">
+                        <small class="text-primary" style="font-size: 0.6em;">({{ congressman.name }})</small>
                     </div>
                 </td>
 
                 <td class="align-middle text-center">
-                    <app-active-badge
-                        :value="congressman.is_published"
-                        :labels="['sim', 'não']"
-                    ></app-active-badge>
+                    <app-active-badge :value="congressman.is_published" :labels="['sim', 'não']"></app-active-badge>
                 </td>
 
-                <td
-                    v-if="can('congressman:show')"
-                    class="align-middle text-center"
-                >
-                    <app-active-badge
-                        :value="!congressman.has_pendency"
-                        :labels="['não', 'sim']"
-                    ></app-active-badge>
+                <td v-if="can('congressman:show')" class="align-middle text-center">
+                    <app-active-badge :value="!congressman.has_pendency" :labels="['não', 'sim']"></app-active-badge>
                 </td>
 
-                <td
-                    v-if="can('congressman:show')"
-                    class="align-middle text-center"
-                >
-                    <app-active-badge
-                        :value="congressman.has_mandate"
-                        :labels="['com mandato', 'sem mandato ']"
-                    ></app-active-badge>
+                <td v-if="can('congressman:show')" class="align-middle text-center">
+                    <app-active-badge :value="congressman.has_mandate" :labels="['com mandato', 'sem mandato ']"></app-active-badge>
                 </td>
             </tr>
         </app-table>
@@ -232,8 +142,7 @@ export default {
     computed: {
         withMandate: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .withMandate
+                return this.$store.state['congressmen'].data.filter.checkboxes.withMandate
             },
 
             set(filter) {
@@ -246,8 +155,7 @@ export default {
 
         withoutMandate: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .withoutMandate
+                return this.$store.state['congressmen'].data.filter.checkboxes.withoutMandate
             },
 
             set(filter) {
@@ -262,8 +170,7 @@ export default {
 
         withPendency: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .withPendency
+                return this.$store.state['congressmen'].data.filter.checkboxes.withPendency
             },
 
             set(filter) {
@@ -278,8 +185,7 @@ export default {
 
         withoutPendency: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .withoutPendency
+                return this.$store.state['congressmen'].data.filter.checkboxes.withoutPendency
             },
 
             set(filter) {
@@ -294,8 +200,7 @@ export default {
 
         unread: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .unread
+                return this.$store.state['congressmen'].data.filter.checkboxes.unread
             },
 
             set(filter) {
@@ -310,8 +215,7 @@ export default {
 
         joined: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .joined
+                return this.$store.state['congressmen'].data.filter.checkboxes.joined
             },
 
             set(filter) {
@@ -331,8 +235,7 @@ export default {
 
         notJoined: {
             get() {
-                return this.$store.state['congressmen'].data.filter.checkboxes
-                    .notJoined
+                return this.$store.state['congressmen'].data.filter.checkboxes.notJoined
             },
 
             set(filter) {
@@ -351,19 +254,15 @@ export default {
         },
 
         onBoot() {
-            subscribePublicChannel(
-                'congressmen',
-                '.App\\Events\\' + 'CongressmenChanged',
-                event => {
-                    // console.log(event)
-                    //
-                    // console.log(
-                    //     'Received event and need to update congressmen table',
-                    // )
+            subscribePublicChannel('congressmen', '.App\\Events\\' + 'CongressmenChanged', event => {
+                // console.log(event)
+                //
+                // console.log(
+                //     'Received event and need to update congressmen table',
+                // )
 
-                    this.$store.dispatch('congressmen/load')
-                },
-            )
+                this.$store.dispatch('congressmen/load')
+            })
         },
     },
 }
