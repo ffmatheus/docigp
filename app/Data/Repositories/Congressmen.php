@@ -28,6 +28,13 @@ class Congressmen extends Repository
 
     private function createCongressmanFromRemote($congressman, $departmentId)
     {
+        if (is_null($this->findParty($congressman['SiglaPartido']))) {
+            dump(
+                'O partido ' .
+                    $congressman['SiglaPartido'] .
+                    ' não consta no banco de dados'
+            );
+        }
         return $this->firstOrCreate(
             [
                 'remote_id' => $congressman['ID']
