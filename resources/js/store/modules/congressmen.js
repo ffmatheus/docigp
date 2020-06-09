@@ -26,7 +26,7 @@ let state = merge_objects(
                 text: null,
 
                 checkboxes: {
-                    withMandate: true,
+                    withMandate: false,
                     withoutMandate: false,
                     withPendency: false,
                     withoutPendency: false,
