@@ -150,6 +150,13 @@ export default {
                     field: 'withMandate',
                     value: filter,
                 })
+
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withoutMandate',
+                    value: false,
+                })
+
+                this.$store.dispatch('congressmen/load')
             },
         },
 
@@ -162,6 +169,11 @@ export default {
                 this.$store.commit('congressmen/mutateFilterCheckbox', {
                     field: 'withoutMandate',
                     value: filter,
+                })
+
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withMandate',
+                    value: false,
                 })
 
                 this.$store.dispatch('congressmen/load')
@@ -179,6 +191,11 @@ export default {
                     value: filter,
                 })
 
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withoutPendency',
+                    value: false,
+                })
+
                 this.$store.dispatch('congressmen/load')
             },
         },
@@ -192,6 +209,11 @@ export default {
                 this.$store.commit('congressmen/mutateFilterCheckbox', {
                     field: 'withoutPendency',
                     value: filter,
+                })
+
+                this.$store.commit('congressmen/mutateFilterCheckbox', {
+                    field: 'withPendency',
+                    value: false,
                 })
 
                 this.$store.dispatch('congressmen/load')
