@@ -36,8 +36,8 @@ $factory->define(EntryModel::class, function () {
 
         'cost_center_id' => app(CostCenters::class)->randomElement([
             Constants::COST_CENTER_CREDIT_ID,
-            Constants::COST_CENTER_TRANSPORT_DEBIT_ID,
-            Constants::COST_CENTER_TRANSPORT_CREDIT_ID,
+            Constants::COST_CENTER_TRANSPORT_FROM_PREVIOUS_ID,
+            Constants::COST_CENTER_TRANSPORT_TO_NEXT_ID,
         ])->id,
 
         'congressman_budget_id' => app(

@@ -74,7 +74,7 @@ class CongressmanBudget extends Model
 
     private function createTransportEntry($balance, $date, $type)
     {
-        $isCredit = $type == 'credit';
+        $fromPrevious = $type == 'from_previous';
 
         $this->{'transport_' .
             $type .
@@ -82,9 +82,9 @@ class CongressmanBudget extends Model
             [
                 'congressman_budget_id' => $this->id,
                 'cost_center_id' => app(CostCenters::class)->findByCode(
-                    $isCredit
-                        ? Constants::COST_CENTER_TRANSPORT_CREDIT_ID
-                        : Constants::COST_CENTER_TRANSPORT_DEBIT_ID
+                    $fromPrevious
+                        ? Constants::COST_CENTER_TRANSPORT_TO_NEXT_ID
+                        : Constants::COST_CENTER_TRANSPORT_FROM_PREVIOUS_ID
                 )->id
             ],
             [
@@ -93,10 +93,10 @@ class CongressmanBudget extends Model
                 'entry_type_id' => Constants::ENTRY_TYPE_TRANSPORT_ID,
                 'object' =>
                     'Transporte de saldo ' .
-                    ($isCredit
+                    ($fromPrevious
                         ? 'do período anterior'
                         : 'para o próximo período'),
-                'date' => $isCredit
+                'date' => $fromPrevious
                     ? $date->startOfMonth()
                     : $date->endOfMonth(),
                 'value' => $balance
@@ -195,12 +195,12 @@ class CongressmanBudget extends Model
             ->first()->balance ?? 0;
     }
 
-    public function getBalanceWithoutDebitTransport()
+    public function getBalanceWithoutFromPreviousTransport()
     {
         return $this->entries()
             ->selectRaw('sum(value) as balance')
             ->whereNotIn('cost_center_id', [
-                Constants::COST_CENTER_TRANSPORT_DEBIT_ID
+                Constants::COST_CENTER_TRANSPORT_FROM_PREVIOUS_ID
             ]) // débito
             ->first()->balance ?? 0;
     }
@@ -253,17 +253,18 @@ class CongressmanBudget extends Model
         //$next é o mês seguinte ao atual
         if ($next = $this->congressman->getNextBudgetRelativeTo($this)) {
             //Valor de todos os lançamentos do mês sem o transporte
-            $value = $this->getBalanceWithoutDebitTransport();
+            $value = $this->getBalanceWithoutFromPreviousTransport();
 
             //Aqui é criado o transporte de crédito para o próximo mês
             $next->updateTransportEntry(
-                $balance = abs($value = $value < 0 ? 0 : $value),
-                'credit'
+                $value,
+                'from_previous'
+
             );
 
             //$balance tem o valor que vai ser transportado para o próximo mês. Se for negativo, fica zero
             //Aqui é criado o transporte de débito no mês atual
-            $this->updateTransportEntry($balance * -1, 'debit');
+            $this->updateTransportEntry($value * -1, 'to_next');
 
             $next->updateTransportEntries();
         }

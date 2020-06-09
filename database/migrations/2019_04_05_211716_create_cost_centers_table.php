@@ -18,14 +18,14 @@ class CreateCostCentersTable extends Migration
             ],
 
             '2' => [
-                'name' => 'Transporte de saldo acumulado (débito)',
+                'name' => 'Transporte de saldo acumulado para o próximo período',
                 'limit' => 0,
                 'frequency' => 'monthly',
                 'can_accumulate' => true,
             ],
 
             '3' => [
-                'name' => 'Transporte de saldo acumulado (crédito)',
+                'name' => 'Transporte de saldo acumulado do período anterior',
                 'limit' => 0,
                 'frequency' => 'monthly',
                 'can_accumulate' => true,
