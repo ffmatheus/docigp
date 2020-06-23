@@ -36,7 +36,8 @@ class User extends Authenticatable implements AuditableContract
         'email',
         'password',
         'username',
-        'congressman_id'
+        'congressman_id',
+        'last_login_at'
     ];
 
     protected $orderBy = ['name' => 'asc'];

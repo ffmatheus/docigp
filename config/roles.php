@@ -30,6 +30,8 @@ return [
                 'assign:congressman' => 'Atribuir perfil de Deputado',
                 'assign:verifier' => 'Atribuir perfil de Verificador',
 
+                'audit' => 'Fazer auditoria',
+
                 'congressman:buttons' => 'Deputados: mostra todos os botões',
                 'congressman:show' => 'Deputados: ver',
                 'congressman:update' => 'Deputados: alterar',
