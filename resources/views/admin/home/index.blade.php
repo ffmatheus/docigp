@@ -8,7 +8,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-    
+
             <div class="col-sm-12 col-md-6 col-lg-4">
                 @include('partials.tile', [
                 'route' => route('entries.index'),
@@ -17,7 +17,7 @@
                 'icon' => 'fa fa-check-circle fa-5x'
                 ])
             </div>
-    
+
             @can('parties:show')
                 <div class="col-sm-12 col-md-6 col-lg-4">
                     @include('partials.tile', [
@@ -28,7 +28,7 @@
                     ])
                 </div>
                 @endCan
-        
+
                 @can('legislatures:show')
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         @include('partials.tile', [
@@ -39,7 +39,7 @@
                         ])
                     </div>
                     @endCan
-            
+
                     @can('congressmen:show')
                         <div class="col-sm-12 col-md-6 col-lg-4">
                             @include('partials.tile', [
@@ -50,7 +50,7 @@
                             ])
                         </div>
                         @endCan
-                
+
                         @can('users:show')
                             <div class="col-sm-12 col-md-6 col-lg-4">
                                 @include('partials.tile', [
@@ -61,7 +61,7 @@
                                 ])
                             </div>
                             @endCan
-                    
+
                             @can('providers:show')
                                 <div class="col-sm-12 col-md-6 col-lg-4">
                                     @include('partials.tile', [
@@ -72,7 +72,7 @@
                                     ])
                                 </div>
                                 @endCan
-                        
+
                                 @can('cost-centers:show')
                                     <div class="col-sm-12 col-md-6 col-lg-4">
                                         @include('partials.tile', [
@@ -83,7 +83,7 @@
                                         ])
                                     </div>
                                     @endCan
-                            
+
                                     @can('entry-types:show')
                                         <div class="col-sm-12 col-md-6 col-lg-4">
                                             @include('partials.tile', [
@@ -94,18 +94,17 @@
                                             ])
                                         </div>
                                         @endCan
-                                
-                                        @can('audit')
-                                            <div class="col-sm-12 col-md-6 col-lg-4">
-                                                @include('partials.tile', [
-                                                'route' => route('audits.index'),
-                                                'title' => 'Auditorias',
-                                                'color' => 'blue',
-                                                'icon' => 'fas fa-user-tie fa-5x',
-                                                ])
-                                            </div>
-                                            @endCan
+
+{{--                                        @can('audit')--}}
+{{--                                            <div class="col-sm-12 col-md-6 col-lg-4">--}}
+{{--                                                @include('partials.tile', [--}}
+{{--                                                'route' => route('audits.index'),--}}
+{{--                                                'title' => 'Auditorias',--}}
+{{--                                                'color' => 'blue',--}}
+{{--                                                'icon' => 'fas fa-user-tie fa-5x',--}}
+{{--                                                ])--}}
+{{--                                            </div>--}}
+{{--                                            @endCan--}}
                                         </div>
                                     </div>
                                 @endsection
-                                
