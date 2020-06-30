@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Support\Constants;
 use App\Data\Models\CostCenter;
+use Cache;
 
 class CostCenters extends Repository
 {
@@ -29,7 +30,7 @@ class CostCenters extends Repository
     public function getControlIdsArray()
     {
         return array_merge(Constants::COST_CENTER_CONTROL_ID_ARRAY, [
-            $this->findByCode(4)->code,
+            $this->findByCode(4)->code
         ]);
     }
 
@@ -44,5 +45,20 @@ class CostCenters extends Repository
         });
 
         return parent::transform($data);
+    }
+
+    public function getTransportAndCreditIdsArray()
+    {
+        return Cache::remember(
+            'getTransportAndCreditIdsArray',
+            60,
+            function () {
+                return [
+                    $this->findByCode(1)->id,
+                    $this->findByCode(2)->id,
+                    $this->findByCode(3)->id
+                ];
+            }
+        );
     }
 }

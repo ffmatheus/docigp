@@ -155,12 +155,17 @@ let getters = merge_objects(gettersMixin, {
 
         const closedTitle = 'O orçamento mensal está fechado'
 
+        const entryIsTransportOrCredit = [1, 2, 3].includes(
+            parseInt(entry.cost_center_code),
+        )
+
         if (entry.published_at) {
             return {
                 name: 'Publicável',
                 buttons: {
                     unpublish: {
-                        visible: can('entries:publish'),
+                        visible:
+                            can('entries:publish') && !entryIsTransportOrCredit,
                         disabled: !can('entries:publish'),
                         title: 'Remover do Portal da Transparência',
                     },
@@ -229,7 +234,8 @@ let getters = merge_objects(gettersMixin, {
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
-                        visible: can('entries:publish'),
+                        visible:
+                            can('entries:publish') && !entryIsTransportOrCredit,
                         disabled: !can('entries:publish'),
                         title:
                             'Publicar o lançamento no Portal da Transparência',
@@ -289,7 +295,8 @@ let getters = merge_objects(gettersMixin, {
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
-                        visible: can('entries:publish'),
+                        visible:
+                            can('entries:publish') && !entryIsTransportOrCredit,
                         disabled: true,
                         title:
                             'Não é possível publicar o lançamento pois ele não está analisado',
@@ -350,7 +357,8 @@ let getters = merge_objects(gettersMixin, {
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
-                        visible: can('entries:publish'),
+                        visible:
+                            can('entries:publish') && !entryIsTransportOrCredit,
                         disabled: true,
                         title:
                             'Não é possível publicar o lançamento pois ele não está analisado',

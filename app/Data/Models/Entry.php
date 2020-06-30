@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\NotTransportOrCreditEntry as NotTransportOrCreditEntryScope;
 use App\Data\Scopes\Published;
 use App\Data\Traits\MarkAsUnread;
 use App\Data\Traits\ModelActionable;
@@ -76,6 +77,8 @@ class Entry extends Model
 
         static::addGlobalScope(new Published());
 
+        static::addGlobalScope(new NotTransportOrCreditEntryScope());
+
         static::saved(function (Entry $model) {
             if (static::$modelEventsEnabled) {
                 $model->updateTransport();
@@ -132,11 +135,13 @@ class Entry extends Model
     public static function disableGlobalScopes()
     {
         PublishedScope::disable();
+        NotTransportOrCreditEntryScope::disable();
     }
 
     public static function enableGlobalScopes()
     {
         PublishedScope::enable();
+        NotTransportOrCreditEntryScope::enable();
     }
 
     public function congressman()
