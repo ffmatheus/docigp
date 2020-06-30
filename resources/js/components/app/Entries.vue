@@ -297,10 +297,13 @@ export default {
         ]),
 
         getEntryType(entry) {
-            if(entry.cost_center_code == 2 || entry.cost_center_code == 3) {
+            if (entry.cost_center_code == 2 || entry.cost_center_code == 3) {
                 return {
                     name: 'transporte',
-                    class: 'badge badge-warning',
+                    class:
+                        entry.value >= 0
+                            ? 'badge badge-success'
+                            : 'badge badge-danger',
                 }
             } else if (entry.cost_center_code == 4) {
                 return {
