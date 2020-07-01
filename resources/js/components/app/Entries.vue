@@ -144,7 +144,9 @@
 
                 <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
-                        :value="entry.published_at"
+                        :value="
+                            entry.published_at && !entry.is_transport_or_credit
+                        "
                         :labels="['público', 'privado']"
                     ></app-active-badge>
                 </td>

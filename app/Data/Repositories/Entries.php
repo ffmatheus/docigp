@@ -120,7 +120,10 @@ class Entries extends Repository
             $pendencies[] = 'analisar lançamento';
         }
 
-        if (blank($entry['published_at'])) {
+        if (
+            blank($entry['published_at']) &&
+            !$entry['is_transport_or_credit']
+        ) {
             $pendencies[] = 'publicar';
         }
 
@@ -198,7 +201,7 @@ class Entries extends Repository
             'provider_id' => $provider->id,
             'provider_name' => $provider->name,
             'value' => 0,
-            'value_abs' => 0,
+            'value_abs' => 0
         ];
 
         return $form;

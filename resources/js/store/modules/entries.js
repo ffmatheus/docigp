@@ -149,19 +149,11 @@ let getters = merge_objects(gettersMixin, {
         return getters.getEntryState(getters.getSelected)
     },
 
-    getTransportOrCreditIds: (state, getters) => {
-        return [1, 2, 3]
-    },
-
     getEntryState: (state, getters, rootState, rootGetters) => entry => {
         const congressmanBudgetClosedAt =
             rootGetters['congressmanBudgets/selectedClosedAt']
 
         const closedTitle = 'O orçamento mensal está fechado'
-
-        const entryIsTransportOrCredit = getters.getTransportOrCreditIds.includes(
-            parseInt(entry.cost_center_code),
-        )
 
         if (entry.published_at) {
             return {
@@ -169,9 +161,11 @@ let getters = merge_objects(gettersMixin, {
                 buttons: {
                     unpublish: {
                         visible:
-                            can('entries:publish') && !entryIsTransportOrCredit,
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
                         disabled: !(
-                            can('entries:publish') && !entryIsTransportOrCredit
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit
                         ),
                         title: 'Remover do Portal da Transparência',
                     },
@@ -240,9 +234,11 @@ let getters = merge_objects(gettersMixin, {
                     },
                     publish: {
                         visible:
-                            can('entries:publish') && !entryIsTransportOrCredit,
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
                         disabled: !(
-                            can('entries:publish') && !entryIsTransportOrCredit
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit
                         ),
                         title:
                             'Publicar o lançamento no Portal da Transparência',
@@ -303,7 +299,8 @@ let getters = merge_objects(gettersMixin, {
                     },
                     publish: {
                         visible:
-                            can('entries:publish') && !entryIsTransportOrCredit,
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
                         disabled: true,
                         title:
                             'Não é possível publicar o lançamento pois ele não está analisado',
@@ -365,7 +362,8 @@ let getters = merge_objects(gettersMixin, {
                     },
                     publish: {
                         visible:
-                            can('entries:publish') && !entryIsTransportOrCredit,
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
                         disabled: true,
                         title:
                             'Não é possível publicar o lançamento pois ele não está analisado',
