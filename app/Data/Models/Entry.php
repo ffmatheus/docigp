@@ -153,4 +153,9 @@ class Entry extends Model
     {
         return blank($this->congressmanBudget->closed_at);
     }
+
+    public function isAnalysable()
+    {
+        return blank($this->analysed_at) ? !!$this->verified_at : true;
+    }
 }

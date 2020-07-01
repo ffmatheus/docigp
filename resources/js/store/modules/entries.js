@@ -149,13 +149,17 @@ let getters = merge_objects(gettersMixin, {
         return getters.getEntryState(getters.getSelected)
     },
 
+    getTransportOrCreditIds: (state, getters) => {
+        return [1, 2, 3]
+    },
+
     getEntryState: (state, getters, rootState, rootGetters) => entry => {
         const congressmanBudgetClosedAt =
             rootGetters['congressmanBudgets/selectedClosedAt']
 
         const closedTitle = 'O orçamento mensal está fechado'
 
-        const entryIsTransportOrCredit = [1, 2, 3].includes(
+        const entryIsTransportOrCredit = getters.getTransportOrCreditIds.includes(
             parseInt(entry.cost_center_code),
         )
 
@@ -166,7 +170,9 @@ let getters = merge_objects(gettersMixin, {
                     unpublish: {
                         visible:
                             can('entries:publish') && !entryIsTransportOrCredit,
-                        disabled: !can('entries:publish'),
+                        disabled: !(
+                            can('entries:publish') && !entryIsTransportOrCredit
+                        ),
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
@@ -177,9 +183,8 @@ let getters = merge_objects(gettersMixin, {
                     },
                     unanalyse: {
                         visible: can('entries:analyse'),
-                        disabled: true,
-                        title:
-                            "Não é possível cancelar marcação de 'analisado' pois o lançamento está publicado",
+                        disabled: !can('entries:analyse'),
+                        title: "Cancelar marcação de 'analisado'",
                     },
                     analyse: {
                         visible: false,
@@ -236,7 +241,9 @@ let getters = merge_objects(gettersMixin, {
                     publish: {
                         visible:
                             can('entries:publish') && !entryIsTransportOrCredit,
-                        disabled: !can('entries:publish'),
+                        disabled: !(
+                            can('entries:publish') && !entryIsTransportOrCredit
+                        ),
                         title:
                             'Publicar o lançamento no Portal da Transparência',
                     },
