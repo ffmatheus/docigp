@@ -144,7 +144,9 @@
 
                 <td v-if="can('entries:show')" class="align-middle text-center">
                     <app-active-badge
-                        :value="entry.published_at"
+                        :value="
+                            entry.published_at && !entry.is_transport_or_credit
+                        "
                         :labels="['público', 'privado']"
                     ></app-active-badge>
                 </td>
@@ -297,10 +299,13 @@ export default {
         ]),
 
         getEntryType(entry) {
-            if(entry.cost_center_code == 2 || entry.cost_center_code == 3) {
+            if (entry.cost_center_code == 2 || entry.cost_center_code == 3) {
                 return {
                     name: 'transporte',
-                    class: 'badge badge-warning',
+                    class:
+                        entry.value >= 0
+                            ? 'badge badge-success'
+                            : 'badge badge-danger',
                 }
             } else if (entry.cost_center_code == 4) {
                 return {

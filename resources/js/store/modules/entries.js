@@ -160,8 +160,13 @@ let getters = merge_objects(gettersMixin, {
                 name: 'Publicável',
                 buttons: {
                     unpublish: {
-                        visible: can('entries:publish'),
-                        disabled: !can('entries:publish'),
+                        visible:
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
+                        disabled: !(
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit
+                        ),
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
@@ -172,9 +177,8 @@ let getters = merge_objects(gettersMixin, {
                     },
                     unanalyse: {
                         visible: can('entries:analyse'),
-                        disabled: true,
-                        title:
-                            "Não é possível cancelar marcação de 'analisado' pois o lançamento está publicado",
+                        disabled: !can('entries:analyse'),
+                        title: "Cancelar marcação de 'analisado'",
                     },
                     analyse: {
                         visible: false,
@@ -229,8 +233,13 @@ let getters = merge_objects(gettersMixin, {
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
-                        visible: can('entries:publish'),
-                        disabled: !can('entries:publish'),
+                        visible:
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
+                        disabled: !(
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit
+                        ),
                         title:
                             'Publicar o lançamento no Portal da Transparência',
                     },
@@ -289,7 +298,9 @@ let getters = merge_objects(gettersMixin, {
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
-                        visible: can('entries:publish'),
+                        visible:
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
                         disabled: true,
                         title:
                             'Não é possível publicar o lançamento pois ele não está analisado',
@@ -350,7 +361,9 @@ let getters = merge_objects(gettersMixin, {
                         title: 'Remover do Portal da Transparência',
                     },
                     publish: {
-                        visible: can('entries:publish'),
+                        visible:
+                            can('entries:publish') &&
+                            !entry.is_transport_or_credit,
                         disabled: true,
                         title:
                             'Não é possível publicar o lançamento pois ele não está analisado',

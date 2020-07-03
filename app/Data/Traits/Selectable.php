@@ -2,6 +2,8 @@
 
 namespace App\Data\Traits;
 
+use App\Data\Repositories\CostCenters as CostCentersRepository;
+
 trait Selectable
 {
     public function getSelectColumns()
@@ -38,6 +40,21 @@ trait Selectable
         $select = str_replace(
             ':analysed-at-filter:',
             !auth()->user() ? 'and analysed_at is not null' : '',
+            $select
+        );
+
+        $select = str_replace(
+            ':not-transport-or-credit-filter:',
+            !auth()->user()
+                ? 'and cost_center_id not in (' .
+                    implode(
+                        ', ',
+                        app(
+                            CostCentersRepository::class
+                        )->getTransportAndCreditIdsArray()
+                    ) .
+                    ')'
+                : '',
             $select
         );
 

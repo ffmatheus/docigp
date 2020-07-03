@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Data\Repositories\CostCenters as CostCentersRepository;
+use App\Data\Scopes\NotTransportOrCreditEntry as NotTransportOrCreditEntryScope;
 use App\Data\Scopes\Published;
 use App\Data\Traits\MarkAsUnread;
 use App\Data\Traits\ModelActionable;
@@ -35,6 +37,8 @@ class Entry extends Model
         'created_by_id',
         'updated_by_id'
     ];
+
+    protected $appends = ['is_transport_or_credit'];
 
     protected $dates = ['date', 'verified_at', 'analysed_at', 'published_at'];
 
@@ -75,6 +79,8 @@ class Entry extends Model
         parent::boot();
 
         static::addGlobalScope(new Published());
+
+        static::addGlobalScope(new NotTransportOrCreditEntryScope());
 
         static::saved(function (Entry $model) {
             if (static::$modelEventsEnabled) {
@@ -132,11 +138,13 @@ class Entry extends Model
     public static function disableGlobalScopes()
     {
         PublishedScope::disable();
+        NotTransportOrCreditEntryScope::disable();
     }
 
     public static function enableGlobalScopes()
     {
         PublishedScope::enable();
+        NotTransportOrCreditEntryScope::enable();
     }
 
     public function congressman()
@@ -147,5 +155,18 @@ class Entry extends Model
     public function isVerifiable()
     {
         return blank($this->congressmanBudget->closed_at);
+    }
+
+    public function isAnalysable()
+    {
+        return blank($this->analysed_at) ? !!$this->verified_at : true;
+    }
+
+    public function getIsTransportOrCreditAttribute()
+    {
+        return in_array(
+            $this->cost_center_id,
+            app(CostCentersRepository::class)->getTransportAndCreditIdsArray()
+        );
     }
 }
