@@ -299,7 +299,15 @@ export default {
         ]),
 
         getEntryType(entry) {
-            if (entry.cost_center_code == 2 || entry.cost_center_code == 3) {
+            if (entry.cost_center_code == 2) {
+                return {
+                    name: 'transporte',
+                    class:
+                        entry.value > 0
+                            ? 'badge badge-danger'
+                            : 'badge badge-success',
+                }
+            } else if (entry.cost_center_code == 3) {
                 return {
                     name: 'transporte',
                     class:
