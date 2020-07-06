@@ -38,7 +38,7 @@ class Entry extends Model
         'updated_by_id'
     ];
 
-    protected $appends = ['is_transport_or_credit'];
+    protected $appends = ['is_transport_or_credit', 'comments_count'];
 
     protected $dates = ['date', 'verified_at', 'analysed_at', 'published_at'];
 
@@ -95,6 +95,16 @@ class Entry extends Model
                 $model->updateTransport();
             }
         });
+    }
+
+    public function getCommentsCountAttribute()
+    {
+        return $this->comments()->count();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(EntryComment::class);
     }
 
     public function documents()

@@ -82,6 +82,13 @@
                     {{ entry.documents_count }}
                 </td>
 
+                <td
+                    v-if="can('entry-comments:show')"
+                    class="align-middle text-right"
+                >
+                    {{ entry.comments_count }}
+                </td>
+
                 <td class="align-middle text-right">
                     {{ entry.value_formatted }}
                 </td>
@@ -299,7 +306,15 @@ export default {
         ]),
 
         getEntryType(entry) {
-            if (entry.cost_center_code == 2 || entry.cost_center_code == 3) {
+            if (entry.cost_center_code == 2) {
+                return {
+                    name: 'transporte',
+                    class:
+                        entry.value > 0
+                            ? 'badge badge-danger'
+                            : 'badge badge-success',
+                }
+            } else if (entry.cost_center_code == 3) {
                 return {
                     name: 'transporte',
                     class:
@@ -337,12 +352,21 @@ export default {
                     title: 'Documentos',
                     trClass: 'text-right',
                 },
-                {
-                    type: 'label',
-                    title: 'Valor',
-                    trClass: 'text-right',
-                },
             ]
+
+            if (can('entry-comments:show')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Comentários',
+                    trClass: 'text-right',
+                })
+            }
+
+            columns.push({
+                type: 'label',
+                title: 'Valor',
+                trClass: 'text-right',
+            })
 
             if (can('entries:show')) {
                 columns.push({
