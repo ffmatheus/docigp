@@ -82,6 +82,13 @@
                     {{ entry.documents_count }}
                 </td>
 
+                <td
+                    v-if="can('entry-comments:show')"
+                    class="align-middle text-right"
+                >
+                    {{ entry.comments_count }}
+                </td>
+
                 <td class="align-middle text-right">
                     {{ entry.value_formatted }}
                 </td>
@@ -345,12 +352,21 @@ export default {
                     title: 'Documentos',
                     trClass: 'text-right',
                 },
-                {
-                    type: 'label',
-                    title: 'Valor',
-                    trClass: 'text-right',
-                },
             ]
+
+            if (can('entry-comments:show')) {
+                columns.push({
+                    type: 'label',
+                    title: 'Comentários',
+                    trClass: 'text-right',
+                })
+            }
+
+            columns.push({
+                type: 'label',
+                title: 'Valor',
+                trClass: 'text-right',
+            })
 
             if (can('entries:show')) {
                 columns.push({
