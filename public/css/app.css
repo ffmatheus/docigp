@@ -20440,6 +20440,10 @@ a.navbar-brand {
   /*padding-right: 15px;*/
 }
 
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .navbar-light .navbar-nav .btn-primary {
   color: white;
   font-weight: 600;
@@ -20454,8 +20458,9 @@ a.navbar-brand {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.5);
+.navbar-collapse {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .navbar-nav {
@@ -20469,8 +20474,8 @@ a.navbar-brand {
   }
 }
 
-@media (min-width: 992px) {
-  .navbar-expand-lg .navbar-collapse {
+@media (min-width: 768px) {
+  .navbar-collapse {
     flex-grow: inherit;
   }
 }

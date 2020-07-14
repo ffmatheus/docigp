@@ -8,7 +8,7 @@
 </div>
 
 
-<nav class="navbar navbar-expand-lg navbar-light shadow bg-white">
+<nav class="navbar navbar-expand-md navbar-light shadow bg-white">
     <div class="container">
 
         <a class="py-1 navbar-brand" href="{{ url('/') }}" >
