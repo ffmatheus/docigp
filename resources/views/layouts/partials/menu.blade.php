@@ -7,7 +7,7 @@
 
 </div>
 <nav class="navbar navbar-expand-md navbar-light shadow bg-white">
-    <div class="container">
+    <div class="container-fluid">
 
         <a class="py-1 navbar-brand" href="{{ url('/') }}" >
             <img src="/img/logo-alerj-docigp.png" class="img-fluid logo-alerj " alt="">
