@@ -14,7 +14,7 @@
         "@fortawesome/fontawesome-free": "^5.13.0",
         "@toast-ui/vue-editor": "^1.0.4",
         "axios": "^0.19.2",
-        "bootstrap": "^4.5.0",
+        "bootstrap": "^4.4.1",
         "bootstrap-vue": "^2.13.0",
         "cheerio": "^1.0.0-rc.3",
         "clean-webpack-plugin": "^3.0.0",
