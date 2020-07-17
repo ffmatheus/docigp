@@ -25,7 +25,7 @@
 
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                 @else
                     <li class="nav-item">
