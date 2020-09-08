@@ -1,20 +1,20 @@
 <template>
-    <div>
+<!--    <div>-->
         <button
             :disabled="disabled"
             :class="classes"
             :title="title"
             @click="pressButton(model)"
         >
-            <clip-loader
+            <pulse-loader
                 v-if="loading"
                 color="white"
                 :loading="true"
-            ></clip-loader>
-            <i v-else :class="icon"></i>
-            {{ label }}
+            ></pulse-loader>
+            <i v-else :class="icon">
+            {{ label }} </i>
         </button>
-    </div>
+<!--    </div>-->
 </template>
 
 <script>

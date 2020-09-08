@@ -27,7 +27,7 @@ const options = {
 
 Vue.use(VueSweetalert2, options)
 
-Vue.component('clip-loader', require('vue-spinner/src/ClipLoader.vue').default)
+Vue.component('pulse-loader', require('vue-spinner/src/PulseLoader.vue').default)
 
 /**
  * Vue Bootstrap

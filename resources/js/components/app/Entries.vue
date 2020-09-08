@@ -182,33 +182,56 @@
                             <i class="fa fa-ban"></i> verificação
                         </button>
 
-                        <button
+                        <app-action-button
                             v-if="getEntryState(entry).buttons.analyse.visible"
                             :disabled="
                                 getEntryState(entry).buttons.analyse.disabled
                             "
-                            class="btn btn-sm btn-micro btn-success"
-                            @click="analyse(entry)"
+                            classes="btn btn-sm btn-micro btn-danger"
                             :title="getEntryState(entry).buttons.analyse.title"
+                            :model="entry"
+                            swal-title="Analisar este lançamento?"
+                            label="analisar"
+                            icon="fa fa-check"
+                            store="entries"
+                            method="analyse"
                         >
                             <i class="fa fa-check"></i> analisado
-                        </button>
+                        </app-action-button>
 
-                        <button
-                            v-if="
-                                getEntryState(entry).buttons.unanalyse.visible
-                            "
+
+
+                        <app-action-button
+                            v-if="getEntryState(entry).buttons.unanalyse.visible"
                             :disabled="
                                 getEntryState(entry).buttons.unanalyse.disabled
                             "
-                            class="btn btn-sm btn-micro btn-danger"
-                            @click="unanalyse(entry)"
-                            :title="
-                                getEntryState(entry).buttons.unanalyse.title
-                            "
+                            classes="btn btn-sm btn-micro btn-danger"
+                            :title="getEntryState(entry).buttons.unanalyse.title"
+                            :model="entry"
+                            swal-title="Publicar este lançamento?"
+                            label="desanalisar"
+                            icon="fa fa-check"
+                            store="entries"
+                            method="unanalyse"
                         >
-                            <i class="fa fa-ban"></i> analisado
-                        </button>
+                        </app-action-button>
+
+<!--                        <button-->
+<!--                            v-if="-->
+<!--                                getEntryState(entry).buttons.unanalyse.visible-->
+<!--                            "-->
+<!--                            :disabled="-->
+<!--                                getEntryState(entry).buttons.unanalyse.disabled-->
+<!--                            "-->
+<!--                            class="btn btn-sm btn-micro btn-danger"-->
+<!--                            @click="unanalyse(entry)"-->
+<!--                            :title="-->
+<!--                                getEntryState(entry).buttons.unanalyse.title-->
+<!--                            "-->
+<!--                        >-->
+<!--                            <i class="fa fa-ban"></i> analisado-->
+<!--                        </button>-->
 
                         <app-action-button
                             v-if="getEntryState(entry).buttons.publish.visible"
@@ -226,21 +249,37 @@
                         >
                         </app-action-button>
 
-                        <button
-                            v-if="
-                                getEntryState(entry).buttons.unpublish.visible
-                            "
+
+                        <app-action-button
+                            v-if="getEntryState(entry).buttons.unpublish.visible"
                             :disabled="
                                 getEntryState(entry).buttons.unpublish.disabled
                             "
-                            class="btn btn-sm btn-micro btn-danger"
-                            :title="
-                                getEntryState(entry).buttons.unpublish.title
-                            "
-                            @click="unpublish(entry)"
+                            classes="btn btn-sm btn-micro btn-danger"
+                            :title="getEntryState(entry).buttons.unpublish.title"
+                            :model="entry"
+                            swal-title="Despublicar este lançamento?"
+                            label="despublicar"
+                            icon="fa fa-check"
+                            store="entries"
+                            method="unpublish"
                         >
-                            <i class="fa fa-ban"></i> despublicar
-                        </button>
+                        </app-action-button>
+<!--                        <button-->
+<!--                            v-if="-->
+<!--                                getEntryState(entry).buttons.unpublish.visible-->
+<!--                            "-->
+<!--                            :disabled="-->
+<!--                                getEntryState(entry).buttons.unpublish.disabled-->
+<!--                            "-->
+<!--                            class="btn btn-sm btn-micro btn-danger"-->
+<!--                            :title="-->
+<!--                                getEntryState(entry).buttons.unpublish.title-->
+<!--                            "-->
+<!--                            @click="unpublish(entry)"-->
+<!--                        >-->
+<!--                            <i class="fa fa-ban"></i> despublicar-->
+<!--                        </button>-->
 
                         <button
                             v-if="getEntryState(entry).buttons.edit.visible"
@@ -254,17 +293,34 @@
                             <i class="fa fa-edit"></i>
                         </button>
 
-                        <button
+
+                        <app-action-button
                             v-if="getEntryState(entry).buttons.delete.visible"
                             :disabled="
                                 getEntryState(entry).buttons.delete.disabled
                             "
-                            class="btn btn-sm btn-micro btn-danger"
-                            @click="trash(entry)"
+                            classes="btn btn-sm btn-micro btn-danger"
                             :title="getEntryState(entry).buttons.delete.title"
+                            :model="entry"
+                            swal-title="Deletar este lançamento?"
+                            label="deletar"
+                            icon="fa fa-check"
+                            store="entries"
+                            method="delete"
                         >
-                            <i class="fa fa-trash"></i>
-                        </button>
+                        </app-action-button>
+
+<!--                        <button-->
+<!--                            v-if="getEntryState(entry).buttons.delete.visible"-->
+<!--                            :disabled="-->
+<!--                                getEntryState(entry).buttons.delete.disabled-->
+<!--                            "-->
+<!--                            class="btn btn-sm btn-micro btn-danger"-->
+<!--                            @click="trash(entry)"-->
+<!--                            :title="getEntryState(entry).buttons.delete.title"-->
+<!--                        >-->
+<!--                            <i class="fa fa-trash"></i>-->
+<!--                        </button>-->
                     </div>
                 </td>
             </tr>
@@ -448,38 +504,38 @@ export default {
             })
         },
 
-        analyse(entry) {
-            this.$swal({
-                title: 'Este lançamento foi ANALISADO?',
-                icon: 'warning',
-            }).then(result => {
-                if (result.value) {
-                    this.$store.dispatch('entries/analyse', entry)
-                }
-            })
-        },
+        // analyse(entry) {
+        //     this.$swal({
+        //         title: 'Este lançamento foi ANALISADO?',
+        //         icon: 'warning',
+        //     }).then(result => {
+        //         if (result.value) {
+        //             this.$store.dispatch('entries/analyse', entry)
+        //         }
+        //     })
+        // },
 
-        unanalyse(entry) {
-            this.$swal({
-                title: 'Deseja remover o status "ANALISADO" deste lançamento?',
-                icon: 'warning',
-            }).then(result => {
-                if (result.value) {
-                    this.$store.dispatch('entries/unanalyse', entry)
-                }
-            })
-        },
+        // unanalyse(entry) {
+        //     this.$swal({
+        //         title: 'Deseja remover o status "ANALISADO" deste lançamento?',
+        //         icon: 'warning',
+        //     }).then(result => {
+        //         if (result.value) {
+        //             this.$store.dispatch('entries/unanalyse', entry)
+        //         }
+        //     })
+        // },
 
-        unpublish(entry) {
-            this.$swal({
-                title: 'Despublicar este lançamento?',
-                icon: 'warning',
-            }).then(result => {
-                if (result.value) {
-                    this.$store.dispatch('entries/unpublish', entry)
-                }
-            })
-        },
+        // unpublish(entry) {
+        //     this.$swal({
+        //         title: 'Despublicar este lançamento?',
+        //         icon: 'warning',
+        //     }).then(result => {
+        //         if (result.value) {
+        //             this.$store.dispatch('entries/unpublish', entry)
+        //         }
+        //     })
+        // },
 
         createEntry() {
             if (filled(this.form.id)) {
